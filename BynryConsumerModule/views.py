@@ -46,4 +46,7 @@ def services(request):
 def vigilance_cases(request):
     print '---------hi---------'
     return render(request, 'vigilance_cases.html')
+    
+def payments(request):
+    return render(request, 'payments.html')
 
