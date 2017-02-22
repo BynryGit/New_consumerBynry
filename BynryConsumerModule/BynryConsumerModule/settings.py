@@ -102,6 +102,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (BASE_DIR +'/static/',)
+#STATIC_ROOT = BASE_DIR +'/static/'
 
 
 # Static files (CSS, JavaScript, Images)

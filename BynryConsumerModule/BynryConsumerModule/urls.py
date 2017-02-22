@@ -23,5 +23,6 @@ from django.views.generic import TemplateView
 urlpatterns = patterns('',       
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', 'views.dashboard',name='dashboard'),
+    url(r'^consumer-list/', 'views.consumer_list',name='consumer_list'),    
 
 )

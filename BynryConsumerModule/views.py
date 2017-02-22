@@ -28,7 +28,10 @@ from django.http import HttpResponseRedirect
 
 
 def dashboard(request):
-    print '---------hi---------'
     return render(request, 'dashboard.html')
+
+def consumer_list(request):
+    print '---------hi---------'
+    return render(request, 'consumer_list.html')    
 
 

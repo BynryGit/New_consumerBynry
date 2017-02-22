@@ -1,36 +1,51 @@
 <!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
+Version: 4.5.3
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
 <html lang="en">
-
-{% load staticfiles %}
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+	{% load staticfiles %}
     <head>
         <meta charset="utf-8" />
-        <title>Consumer Module | Dashboard</title>
+        <title>Metronic | Dashboard 2</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css' %}" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/global/plugins/jqvmap/jqvmap/jqvmap.css' %}" rel="stylesheet" type="text/css' %}" />
+        <link href="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/global/plugins/jqvmap/jqvmap/jqvmap.css' %}" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components" type="text/css' %}" />
-        <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css' %}" />
+        <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css' %}" />
-        <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css' %}" id="style_color" />
-        <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css' %}" />
+        <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
@@ -1840,7 +1855,7 @@
                                             </thead>
                                             <tr>
                                                 <td class="fit">
-                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar4' %}"> </td>
+                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar4.jpg' %}"> </td>
                                                 <td>
                                                     <a href="javascript:;" class="primary-link">Brain</a>
                                                 </td>
@@ -1853,7 +1868,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="fit">
-                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar5' %}"> </td>
+                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar5.jpg' %}"> </td>
                                                 <td>
                                                     <a href="javascript:;" class="primary-link">Nick</a>
                                                 </td>
@@ -1866,7 +1881,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="fit">
-                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar6' %}"> </td>
+                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar6.jpg' %}"> </td>
                                                 <td>
                                                     <a href="javascript:;" class="primary-link">Tim</a>
                                                 </td>
@@ -1879,7 +1894,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="fit">
-                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar7' %}"> </td>
+                                                    <img class="user-pic rounded" src="{% static 'assets/pages/media/users/avatar7.jpg' %}"> </td>
                                                 <td>
                                                     <a href="javascript:;" class="primary-link">Tom</a>
                                                 </td>
@@ -1917,7 +1932,7 @@
                                             <div class="item">
                                                 <div class="item-head">
                                                     <div class="item-details">
-                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar4' %}">
+                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar4.jpg' %}">
                                                         <a href="" class="item-name primary-link">Nick Larson</a>
                                                         <span class="item-label">3 hrs ago</span>
                                                     </div>
@@ -1929,7 +1944,7 @@
                                             <div class="item">
                                                 <div class="item-head">
                                                     <div class="item-details">
-                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar3' %}">
+                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar3.jpg' %}">
                                                         <a href="" class="item-name primary-link">Mark</a>
                                                         <span class="item-label">5 hrs ago</span>
                                                     </div>
@@ -1941,7 +1956,7 @@
                                             <div class="item">
                                                 <div class="item-head">
                                                     <div class="item-details">
-                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar6' %}">
+                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar6.jpg' %}">
                                                         <a href="" class="item-name primary-link">Nick Larson</a>
                                                         <span class="item-label">8 hrs ago</span>
                                                     </div>
@@ -1953,7 +1968,7 @@
                                             <div class="item">
                                                 <div class="item-head">
                                                     <div class="item-details">
-                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar7' %}">
+                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar7.jpg' %}">
                                                         <a href="" class="item-name primary-link">Nick Larson</a>
                                                         <span class="item-label">12 hrs ago</span>
                                                     </div>
@@ -1965,7 +1980,7 @@
                                             <div class="item">
                                                 <div class="item-head">
                                                     <div class="item-details">
-                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar9' %}">
+                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar9.jpg' %}">
                                                         <a href="" class="item-name primary-link">Richard Stone</a>
                                                         <span class="item-label">2 days ago</span>
                                                     </div>
@@ -1977,7 +1992,7 @@
                                             <div class="item">
                                                 <div class="item-head">
                                                     <div class="item-details">
-                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar8' %}">
+                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar8.jpg' %}">
                                                         <a href="" class="item-name primary-link">Dan</a>
                                                         <span class="item-label">3 days ago</span>
                                                     </div>
@@ -1989,7 +2004,7 @@
                                             <div class="item">
                                                 <div class="item-head">
                                                     <div class="item-details">
-                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar2' %}">
+                                                        <img class="item-pic rounded" src="{% static 'assets/pages/media/users/avatar2.jpg' %}">
                                                         <a href="" class="item-name primary-link">Larry</a>
                                                         <span class="item-label">4 hrs ago</span>
                                                     </div>
@@ -2764,14 +2779,14 @@
                                         <div class="media-status">
                                             <span class="badge badge-success">8</span>
                                         </div>
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar3' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar3.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Bob Nilson</h4>
                                             <div class="media-heading-sub"> Project Manager </div>
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar1' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar1.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Nick Larson</h4>
                                             <div class="media-heading-sub"> Art Director </div>
@@ -2781,14 +2796,14 @@
                                         <div class="media-status">
                                             <span class="badge badge-danger">3</span>
                                         </div>
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar4' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar4.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Deon Hubert</h4>
                                             <div class="media-heading-sub"> CTO </div>
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar2' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar2.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Ella Wong</h4>
                                             <div class="media-heading-sub"> CEO </div>
@@ -2801,7 +2816,7 @@
                                         <div class="media-status">
                                             <span class="badge badge-warning">2</span>
                                         </div>
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar6' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar6.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Lara Kunis</h4>
                                             <div class="media-heading-sub"> CEO, Loop Inc </div>
@@ -2812,7 +2827,7 @@
                                         <div class="media-status">
                                             <span class="label label-sm label-success">new</span>
                                         </div>
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar7' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar7.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Ernie Kyllonen</h4>
                                             <div class="media-heading-sub"> Project Manager,
@@ -2820,7 +2835,7 @@
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar8' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar8.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Lisa Stone</h4>
                                             <div class="media-heading-sub"> CTO, Keort Inc </div>
@@ -2831,14 +2846,14 @@
                                         <div class="media-status">
                                             <span class="badge badge-success">7</span>
                                         </div>
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar9' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar9.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Deon Portalatin</h4>
                                             <div class="media-heading-sub"> CFO, H&D LTD </div>
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar10' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar10.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Irina Savikova</h4>
                                             <div class="media-heading-sub"> CEO, Tizda Motors Inc </div>
@@ -2848,7 +2863,7 @@
                                         <div class="media-status">
                                             <span class="badge badge-danger">4</span>
                                         </div>
-                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar11' %}" alt="...">
+                                        <img class="media-object" src="{% static 'assets/layouts/layout/img/avatar11.jpg' %}" alt="...">
                                         <div class="media-body">
                                             <h4 class="media-heading">Maria Gomez</h4>
                                             <div class="media-heading-sub"> Manager, Infomatic Inc </div>
@@ -2865,7 +2880,7 @@
                                     </div>
                                     <div class="page-quick-sidebar-chat-user-messages">
                                         <div class="post out">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Bob Nilson</a>
@@ -2874,7 +2889,7 @@
                                             </div>
                                         </div>
                                         <div class="post in">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Ella Wong</a>
@@ -2883,7 +2898,7 @@
                                             </div>
                                         </div>
                                         <div class="post out">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Bob Nilson</a>
@@ -2892,7 +2907,7 @@
                                             </div>
                                         </div>
                                         <div class="post in">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Ella Wong</a>
@@ -2901,7 +2916,7 @@
                                             </div>
                                         </div>
                                         <div class="post out">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Bob Nilson</a>
@@ -2910,7 +2925,7 @@
                                             </div>
                                         </div>
                                         <div class="post in">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Ella Wong</a>
@@ -2919,7 +2934,7 @@
                                             </div>
                                         </div>
                                         <div class="post out">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Bob Nilson</a>
@@ -2928,7 +2943,7 @@
                                             </div>
                                         </div>
                                         <div class="post in">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar2.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Ella Wong</a>
@@ -2937,7 +2952,7 @@
                                             </div>
                                         </div>
                                         <div class="post out">
-                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3' %}" />
+                                            <img class="avatar" alt="" src="{% static 'assets/layouts/layout/img/avatar3.jpg' %}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Bob Nilson</a>
