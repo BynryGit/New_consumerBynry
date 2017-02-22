@@ -24,5 +24,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', 'views.dashboard',name='dashboard'),
     url(r'^consumer-list/', 'views.consumer_list',name='consumer_list'),    
-
+    url(r'^complaints/', 'views.complaints',name='complaints'),
+    url(r'^services/', 'views.services',name='services'),
+    url(r'^vigilance-cases/', 'views.vigilance_cases',name='vigilance_cases'),
 )
