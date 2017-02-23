@@ -27,4 +27,5 @@ urlpatterns = patterns('',
     url(r'^complaints/', 'views.complaints',name='complaints'),
     url(r'^services/', 'views.services',name='services'),
     url(r'^vigilance-cases/', 'views.vigilance_cases',name='vigilance_cases'),
+    url(r'^payments/', 'views.payments',name='payments'),
 )
