@@ -21,7 +21,7 @@ License: You must have a valid license purchased only from themeforest(the above
 {% load staticfiles %}
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | FixedHeader Extension</title>
+    <title>Vigilance Cases| Bynry</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
@@ -486,29 +486,27 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 </ul>
             </div>
-
             <br>
-
             <div class="col-md-12" style="background: #fff; margin-bottom: 20px; padding: 15px;">
-                <div class="col-md-9" style="border-right:1px solid;">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-4">
-                            <label class="control-label">Vigilance Type</label>
+                        <div class="col-md-3">
+                            <label class="control-label">Type</label>
                             <select class="form-control select2">
                                 <option>Select a Vigilance Type</option>
                                 <option>Vigilance Type 1</option>
                                 <option>Vigilance Type 2</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <label class="control-label">Vigilance Status</label>
+                        <div class="col-md-3">
+                            <label class="control-label">Status</label>
                             <select class="form-control select2">
-                                <option>Select a Vigilance Status</option>
-                                <option>Vigilance Status 1</option>
-                                <option>Vigilance Status 2</option>
+                                <option>Select a Case Status</option>
+                                <option>Case Status 1</option>
+                                <option>Case Status 2</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="control-label">Source</label>
                             <select class="form-control select2">
                                 <option>Select a Source</option>
@@ -516,10 +514,38 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <option>Source 2</option>
                             </select>
                         </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Zone</label>
+                            <select class="form-control select2">
+                                <option value="AK">Alaska</option>
+                                <option value="HI" disabled="disabled">Hawaii</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="MD">Maryland</option>
+                            </select>
+                        </div>
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <label class="control-label">Bill Cycle</label>
+                            <select class="form-control select2">
+                                <option value="AK">Alaska</option>
+                                <option value="CA">California</option>
+                                <option value="NV">Nevada</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Route</label>
+                            <select class="form-control select2">
+                                <option value="AK">Alaska</option>
+                                <option value="HI" disabled="disabled">Hawaii</option>
+                                <option value="CA">California</option>
+                                <option value="WA">Washington</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group"><label class="control-label ">Raised on Date</label>
                                 <div class="">
                                     <div class="input-group input-large date-picker input-daterange"
@@ -531,28 +557,30 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <input type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm "
+                                   style="margin-top: 27px;" value="Search">
                             <input type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm "
                                    style="margin-top: 27px;float:right;" value="Clear Filters">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                <div class="row" style="margin-top: 48px;text-align: center;">
-                    <div class="col-md-4" style="border-right: 1px solid black;">
-                        <h4 class="control-label">Total</h4>
-                        <h4 class="control-label">3000</h4>
-                    </div>
-                    <div class="col-md-4" >
-                        <h4 class="control-label">Open</h4>
-                        <h4 class="control-label" >200</h4>
-                    </div>
-                    <div class="col-md-4" style="border-left: 1px solid black;">
-                        <h4 class="control-label">Closed</h4>
-                        <h4 class="control-label" >2800</h4>
-                    </div>
-                </div>
-            </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="row" style="margin-top: 48px;text-align: center;">-->
+                        <!--<div class="col-md-4" style="border-right: 1px solid black;">-->
+                            <!--<h4 class="control-label">Total</h4>-->
+                            <!--<h4 class="control-label">3000</h4>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4" >-->
+                            <!--<h4 class="control-label">Open</h4>-->
+                            <!--<h4 class="control-label" >200</h4>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4" style="border-left: 1px solid black;">-->
+                            <!--<h4 class="control-label">Closed</h4>-->
+                            <!--<h4 class="control-label" >2800</h4>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
             <br>
             <div class="row">
@@ -563,6 +591,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="caption font-dark">
                                 <i class="icon-settings font-dark"></i>
                                 <span class="caption-subject bold uppercase">Vigilance Cases</span>
+                            </div>
+                            <div class="caption font-dark" style="margin-left:3%;">
+                                <h4 class="control-label">Total : 3000  |   Open : 200   |    Closed : 2800</h4>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -656,7 +687,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Vigilance Case Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:460px;" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:480px;" data-always-visible="1" data-rail-visible1="1">
+                    <h4><b>Case Details</b></h4>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
@@ -707,7 +739,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
 
 
-                    <h4 style="font-weight:500">Penalty</h4>
+                    <h4><b>Penalty</b></h4>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
@@ -728,7 +760,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                     </div>
-                    <h4 style="font-weight:500">Court Case Details</h4>
+                    <h4><b>Court Case Details</b></h4>
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group form-md-line-input has-info">
