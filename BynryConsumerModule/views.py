@@ -31,20 +31,19 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 def consumer_list(request):
-    print '---------hi---------'
     return render(request, 'consumer_list.html')    
 
+def consumer_details(request):
+    return render(request, 'consumer_details.html') 
+    
 def complaints(request):
-    print '---------hi---------'
     return render(request, 'complaints.html')
 
 def services(request):
-    print '---------hi---------'
     return render(request, 'services.html')
 
 #vigilance_cases
 def vigilance_cases(request):
-    print '---------hi---------'
     return render(request, 'vigilance_cases.html')
     
 def payments(request):
