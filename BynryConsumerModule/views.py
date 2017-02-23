@@ -35,7 +35,7 @@ def consumer_list(request):
 
 def consumer_details(request):
     return render(request, 'consumer_details.html') 
-    
+
 def complaints(request):
     return render(request, 'complaints.html')
 
@@ -46,6 +46,12 @@ def services(request):
 def vigilance_cases(request):
     return render(request, 'vigilance_cases.html')
     
+
+    
 def payments(request):
     return render(request, 'payments.html')
+
+
+
+
 
