@@ -605,22 +605,41 @@
                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                                    value="Add Consumer">
                                         </div>                                                        
-												    <div style="margin-left:5px;" class="btn-group pull-right"> 
-														  <button class="btn green btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown">Tools                
-														      <i class="fa fa-angle-down"></i>            
-														  </button>          
-														  <ul class="dropdown-menu pull-right">       
-														     <li>                             
-														        <a href="javascript:;"> Print </a>       
-														     </li>                                  
-														     <li>                           
-														        <a href="javascript:;"> Save as PDF </a>  
-														     </li>                       
-														     <li>      
-														       <a href="javascript:;"> Export to Excel </a>                          
-														     </li>                              
-														  </ul>                                     
-												   </div> 
+												    <div class="btn-group">
+		                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+		                                        <i class="fa fa-share"></i>
+		                                        <span class="hidden-xs"> Tools </span>
+		                                        <i class="fa fa-angle-down"></i>
+		                                    </a>
+		                                    <ul class="dropdown-menu pull-right" id="consumer_table_tools">
+		                                        <li>
+		                                            <a href="javascript:;" data-action="0" class="tool-action">
+		                                                <i class="icon-printer"></i> Print</a>
+		                                        </li>
+		                                        <li>
+		                                            <a href="javascript:;" data-action="1" class="tool-action">
+		                                                <i class="icon-check"></i> Copy</a>
+		                                        </li>
+		                                        <li>
+		                                            <a href="javascript:;" data-action="2" class="tool-action">
+		                                                <i class="icon-doc"></i> PDF</a>
+		                                        </li>
+		                                        <li>
+		                                            <a href="javascript:;" data-action="3" class="tool-action">
+		                                                <i class="icon-paper-clip"></i> Excel</a>
+		                                        </li>
+		                                        <li>
+		                                            <a href="javascript:;" data-action="4" class="tool-action">
+		                                                <i class="icon-cloud-upload"></i> CSV</a>
+		                                        </li>
+		                                        <li class="divider"> </li>
+		                                        <li>
+		                                            <a href="javascript:;" data-action="5" class="tool-action">
+		                                                <i class="icon-refresh"></i> Reload</a>
+		                                        </li>
+		                                        </li>
+		                                    </ul>
+		                                </div>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
@@ -1480,20 +1499,12 @@
 </body>
 <script type="text/javascript">
 
-     var initTable1 = function () {
+    var initTable1 = function () {
         var table = $('#consumer_list1');
-
-        var fixedHeaderOffset = 0;
-        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
-            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
-                fixedHeaderOffset = $('.page-header').outerHeight(true);
-            }
-        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
-            fixedHeaderOffset = $('.page-header').outerHeight(true);
-        }
 
         var oTable = table.dataTable({
 
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
             "language": {
                 "aria": {
                     "sortAscending": ": activate to sort column ascending",
@@ -1508,32 +1519,53 @@
                 "zeroRecords": "No matching records found"
             },
 
-            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
-            fixedHeader: {
-                header: true,
-                headerOffset: fixedHeaderOffset
-            },
+            // Or you can use remote translation file
+            //"language": {
+            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
+            //},
+
+            buttons: [
+                { extend: 'print', className: 'btn dark btn-outline' },
+                { extend: 'copy', className: 'btn red btn-outline' },
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+                { extend: 'csv', className: 'btn purple btn-outline ' },
+                { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
+            ],
+
+            // setup responsive extension: http://datatables.net/extensions/responsive/
+            responsive: true,
+
+            //"ordering": false, disable column ordering
+            //"paging": false, disable pagination
 
             "order": [
                 [0, 'asc']
             ],
-
-            //buttons: [
-            //    { extend: 'pdf', className: 'btn green btn-outline' },
-            //   { extend: 'excel', className: 'btn yellow btn-outline ' },
-            //],
 
             "lengthMenu": [
                 [5, 10, 15, 20, -1],
                 [5, 10, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 20,
+            "pageLength": 10,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-      });
-    }        
-initTable1();
+            //"dom": "<'row' <'col-md-12'>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
+            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+        });
+
+        // handle datatable custom tools
+        $('#consumer_table_tools > li > a.tool-action').on('click', function() {
+            var action = $(this).attr('data-action');
+            oTable.DataTable().button(action).trigger();
+        });
+    }
+
+    initTable1();
 
 </script>
 </html>
