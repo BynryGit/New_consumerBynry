@@ -23,46 +23,29 @@
           type="text/css"/>
     <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet"
           type="text/css"/>
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css' %}" rel="stylesheet"
           type="text/css"/>
     <link href="{% static 'assets/global/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.css' %}" rel="stylesheet"
           type="text/css"/>
-    <!--<link href="{% static 'assets/global/plugins/jqvmap/jqvmap/jqvmap.css' %}" rel="stylesheet" type="text/css"/>-->
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
           type="text/css"/>
     <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
-    <!-- END THEME GLOBAL STYLES -->
-    <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css"
           id="style_color"/>
     <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
-    <!-- END THEME LAYOUT STYLES -->
-
     <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
           rel="stylesheet" type="text/css"/>
-    <!-- END PAGE LEVEL PLUGINS -->
     <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
           type="text/css"/>
-
-
     <link rel="shortcut icon" href="favicon.ico"/>
 </head>
-<!-- END HEAD -->
-
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
-<!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
-    <!-- BEGIN HEADER INNER -->
     <div class="page-header-inner ">
-        <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="index.html">
                 <img src="{% static 'assets/layouts/layout/img/logo.png' %}" alt="logo" class="logo-default"/> </a>
@@ -84,32 +67,14 @@
                         <i class="icon-logout"></i>
                     </a>
                 </li>
-                <!-- END QUICK SIDEBAR TOGGLER -->
             </ul>
         </div>
-        <!-- END TOP NAVIGATION MENU -->
     </div>
-    <!-- END HEADER INNER -->
 </div>
-<!-- END HEADER -->
-<!-- BEGIN HEADER & CONTENT DIVIDER -->
 <div class="clearfix"></div>
-<!-- END HEADER & CONTENT DIVIDER -->
-<!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar-wrapper">
-        <!-- BEGIN SIDEBAR -->
-        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
         <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
             {% include 'side-panel.html' %}
         </div>
     </div>
@@ -143,7 +108,6 @@
                         <li>
                             <a href="#tab_1_3" data-toggle="tab"> Cash Payments </a>
                         </li>
-
                     </ul>
 						  <br>
                     <div class="portlet-title">
@@ -217,24 +181,19 @@
                                            value="Clear Filters">       
                                 </div>	                         	                        
                     		</div>
-                        
                         </div>
-
                     </div>
                 </div>
-           
             <div class="portlet light bordered">
                 <div class="portlet-body">
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
-
                             <div class="portlet light bordered">
                                 <div class="portlet-title">
                                     <div class="caption font-dark">                                        
                                         <span class="caption-subject bold uppercase">Online Payments : 
 													 	<label for="single" class="control-label">1000</label>                                        
                                         </span>
-                                        
                                         <!-- <div style="margin-left:829px;" class="btn-group pull-right">
                                               <button class="btn green btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown">Tools
                                                   <i class="fa fa-angle-down"></i>
@@ -335,18 +294,14 @@
                                     </table>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="tab-pane fade" id="tab_1_2">
                             <div class="portlet light bordered">
                                 <div class="portlet-title">
                                     <div class="caption font-dark">
-                                        
                                         <span class="caption-subject bold uppercase">Paytm Wallet : 
                                         	<label for="single" class="control-label">1000</label> 
                                         </span>
-                                        
                                         <!-- <div style="margin-left:855px;" class="btn-group pull-right">
                                               <button class="btn green btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown">Tools
                                                   <i class="fa fa-angle-down"></i>
@@ -363,7 +318,6 @@
                                                   </li>
                                               </ul>
                                           </div> -->
-                                        
                                     </div>
                                     <div class="tools"></div>
                                 </div>
@@ -562,28 +516,16 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="clearfix margin-bottom-20"></div>
-
-
                 </div>
             </div>
-
-
         </div>
-        <!-- END CONTENT BODY -->
     </div>
-    <!-- END CONTENT -->
-    <!-- BEGIN QUICK SIDEBAR -->
     <a href="javascript:;" class="page-quick-sidebar-toggler">
         <i class="icon-login"></i>
     </a>
-
-    <!-- END QUICK SIDEBAR -->
 </div>
-<!-- Counter Payment Modal Begin -->
-
 <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
