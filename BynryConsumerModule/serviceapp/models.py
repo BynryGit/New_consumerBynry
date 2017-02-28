@@ -1,6 +1,6 @@
 import django
 from django.db import models
-from adminapp.models import City, BillCycle, RouteDetail
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
 
 from consumerapp.models import ConsumerDetails
 
