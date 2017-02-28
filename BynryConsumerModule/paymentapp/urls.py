@@ -1,5 +1,3 @@
-_author__ = 'mayur sable'
-
 from paymentapp import views
 from django.conf.urls import include, url
 

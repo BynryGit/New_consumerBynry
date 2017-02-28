@@ -23,7 +23,6 @@ class ComplaintType (models.Model):
     created_by = models.CharField(max_length = 50)
     is_deleted = models.BooleanField(choices = IS_DELETED, default = False)
 
-
     def __unicode__(self):
         return unicode(self.complaint_type)
 
@@ -45,13 +44,11 @@ class ComplaintDetail(models.Model):
     complaint_date = models.DateTimeField(blank = True,null = True)
     resolve_date = models.DateField(blank = True,null = True)
     closure_remark = models.CharField(max_length = 500,blank = True, null = True)
-    #parent_consumer = models.ForeignKey(ConsumerDetails, blank = False, null = True)
     created_on = models.DateTimeField(default = django.utils.timezone.now)
     updated_on = models.DateTimeField(blank = True, null = True)
     updated_by = models.CharField(max_length = 50,blank = True,null = True)
     created_by = models.CharField(max_length = 50)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
-
 
     def __unicode__(self):
         return unicode(self.complaint_no)
