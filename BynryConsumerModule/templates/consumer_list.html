@@ -44,20 +44,13 @@
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
-    <!-- BEGIN HEADER INNER -->
     <div class="page-header-inner ">
-        <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="index.html">
                 <img src="{% static 'assets/layouts/layout/img/logo.png' %}" alt="logo" class="logo-default"/> </a>
-            <div class="menu-toggler sidebar-toggler" style="pointer-events: none;"></div>
+            <div class="menu-toggler sidebar-toggler"></div>
         </div>
-        <!-- END LOGO -->
-        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
-           data-target=".navbar-collapse"> </a>
-        <!-- END RESPONSIVE MENU TOGGLER -->
-        <!-- BEGIN TOP NAVIGATION MENU -->
+        
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-user">
@@ -65,21 +58,17 @@
                        data-close-others="true">
                         <img alt="" class="img-circle"
                              src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
-                        <span class="username username-hide-on-mobile"> shubham@bynry.com </span>
-                        <i class="fa fa-angle-down"></i>
+                        <span class="username username-hide-on-mobile"> swapnil@bynry.com </span>
+                    </a>                    
+                </li>                        
+                <li title="Log Out" class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-default">
-                        <li>
-                           <a href="/login">
-                                <i class="icon-key"></i> Log Out </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </div>
-        <!-- END TOP NAVIGATION MENU -->
     </div>
-    <!-- END HEADER INNER -->
 </div>
 <!-- END HEADER -->
 <!-- BEGIN HEADER & CONTENT DIVIDER -->
