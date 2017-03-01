@@ -19,7 +19,6 @@ ROLE_STATUS = (
 class ConsumerDetails(models.Model):
     name = models.CharField(max_length=200, blank=False, null=True)
     consumer_no = models.CharField(max_length=200, blank=False, null=True)
-    parent = models.ForeignKey('self', blank=True, null=True)
     email_id = models.CharField(max_length=50, blank=True, null=True)
     contact_no = models.CharField(max_length=50, blank=True, null=True)
 
@@ -54,7 +53,6 @@ class ConsumerDetails(models.Model):
     register_date = models.DateField(default=django.utils.timezone.now)
 
     is_new = models.BooleanField(default=False)
-    is_parent = models.BooleanField(choices=IS_DELETED, default=False)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
 

@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import patterns, include, url
 from BynryConsumerModule import settings
-
+from paymentapp import urls
 
 from django.views.generic import TemplateView
 urlpatterns = patterns('',       
@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^complaints/', 'views.complaints',name='complaints'),
     url(r'^services/', 'views.services',name='services'),
     url(r'^vigilance-cases/', 'views.vigilance_cases',name='vigilance_cases'),
-    url(r'^payments/', 'views.payments',name='payments'),
+    url(r'^paymentapp/', include(urls)),
+    #url(r'^payments/', 'views.payments',name='payments'),
     
 )
