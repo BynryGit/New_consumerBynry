@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf.urls import patterns, include, url
 from BynryConsumerModule import settings
 from paymentapp import urls
-from consumerapp import urls
+from consumerapp import consumer_urls
 from django.views.generic import TemplateView
 
 urlpatterns = patterns('',       
@@ -29,6 +29,6 @@ urlpatterns = patterns('',
     url(r'^services/', 'views.services',name='services'),
     url(r'^vigilance-cases/', 'views.vigilance_cases',name='vigilance_cases'),
     url(r'^paymentapp/', include(urls)),
-    url(r'^consumerapp/', include(urls)),
+    url(r'^consumerapp/', include(consumer_urls)),
     #url(r'^payments/', 'views.payments',name='payments'),    
 )
