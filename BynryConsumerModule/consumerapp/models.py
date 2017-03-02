@@ -11,7 +11,7 @@ IS_DELETED = (
     (False, False),
 )
 
-ROLE_STATUS = (
+CONNECTION_STATUS = (
     ('Active', 'Active'),
     ('Inactive', 'Inactive'),
 )
@@ -37,7 +37,7 @@ class ConsumerDetails(models.Model):
     meter_phase     = models.CharField(max_length=100, blank=True, null=True)
     meter_make      = models.CharField(max_length=100, blank=True, null=True)
     meter_type      = models.CharField(max_length=100, blank=True, null=True)
-    connection_status = models.CharField(max_length=100, blank=True, null=True)
+    connection_status = models.CharField(max_length=200, choices=CONNECTION_STATUS,default='Active')
     alternate_mobile=models.CharField(max_length=15,null=True,blank=True)
     alternate_email =models.CharField(max_length=100,null=True,blank=True)
     B_U             = models.CharField(max_length=20, blank=True, null=True)

@@ -3409,6 +3409,84 @@ def get_consumer_list_view_detail(request):
 
 
 #shubham
-
 def consumer_list(request):
     return render(request, 'consumer_list.html')
+
+def get_consumer_list(request):
+    print '......IN........'
+    try:
+        data = {}
+        final_list = []
+        try:
+            ConsumerDetails_list = ConsumerDetails.objects.all()
+            for consumer_obj in ConsumerDetails_list:
+                consumer_no   = consumer_obj.consumer_no
+                consumer_no1   = '<a href="/consumer-details/?consumer_no='+consumer_no+'">'+consumer_no+'</a>'
+                consumer_name = consumer_obj.name
+                contact_no    = consumer_obj.contact_no
+                email_id      = consumer_obj.email_id
+                servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_no).count()
+                complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_no).count()
+                connection_status = consumer_obj.connection_status
+
+                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer('+consumer_no+')"></i> </a>'  
+  
+                consumer_data = {
+                    'consumer_no': consumer_no1,
+                    'consumer_name': consumer_name,
+                    'contact_no': contact_no,
+                    'email_id': email_id,
+                    'servicerequest': servicerequest,
+                    'complaintrequest': complaintrequest,
+                    'connection_status': connection_status,
+                    'action':action
+                }
+                final_list.append(consumer_data)
+            data = {'success': 'true', 'data': final_list}
+        except Exception as e:
+            print "==============Exception===============================", e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print e
+    except Exception, e:
+        print 'Exception ', e
+    return HttpResponse(json.dumps(data), content_type='application/json')    
+
+def edit_consumer(request):
+    print '......IN......2..'
+    try:
+        data = {}
+        final_list = []
+        try:
+            consumer_obj = ConsumerDetails.objects.get(ConsumerDetails=request.GET.get('consumer_no'))
+            consumer_no   = consumer_obj.consumer_no
+            consumer_no1   = '<a href="/consumer-details/?consumer_no='+consumer_no+'">'+consumer_no+'</a>'
+            consumer_name = consumer_obj.name
+            contact_no    = consumer_obj.contact_no
+            email_id      = consumer_obj.email_id
+            servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_no).count()
+            complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_no).count()
+            connection_status = consumer_obj.connection_status
+
+            action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer('+consumer_no+')"></i> </a>'  
+
+            consumer_data = {
+                'consumer_no': consumer_no1,
+                'consumer_name': consumer_name,
+                'contact_no': contact_no,
+                'email_id': email_id,
+                'servicerequest': servicerequest,
+                'complaintrequest': complaintrequest,
+                'connection_status': connection_status,
+                'action':action
+            }
+            final_list.append(consumer_data)
+            data = {'success': 'true', 'data': final_list}
+        except Exception as e:
+            print "==============Exception===============================", e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print e
+    except Exception, e:
+        print 'Exception ', e
+    return HttpResponse(json.dumps(data), content_type='application/json')        

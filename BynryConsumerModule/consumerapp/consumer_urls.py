@@ -32,4 +32,8 @@ urlpatterns = [
 
 #SHUBHAM NEW
     url(r'^consumer-list/', views.consumer_list,name='consumer_list'),    
+    url(r'^get-consumer-list/', views.get_consumer_list,name='get_consumer_list'),    
+    url(r'^edit-consumer/', views.edit_consumer,name='edit_consumer'),    
+    
+
 ]

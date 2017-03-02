@@ -95,7 +95,7 @@
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
-                        <a href="index.html">Consumers</a>
+                        <a href="/consumerapp/consumer-list/">Consumers List</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
@@ -1354,7 +1354,11 @@
 </body>
 
 <script type="text/javascript">
-
+    $("#consumer_anchor").prepend('<span class="selected"></span>');
+    $("#consumer_menu").addClass("active open");
+    $("#consumer_span").addClass("open");
+    $("#consumer_list").addClass("active open");
+ 
 function change_div(var1) {
 if (var1 == '1') {
 	$("#edit_btn").css("display","none");
