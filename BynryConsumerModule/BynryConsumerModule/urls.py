@@ -18,17 +18,17 @@ from django.contrib import admin
 from django.conf.urls import patterns, include, url
 from BynryConsumerModule import settings
 from paymentapp import urls
-
+from consumerapp import urls
 from django.views.generic import TemplateView
+
 urlpatterns = patterns('',       
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', 'views.dashboard',name='dashboard'),
-    url(r'^consumer-list/', 'views.consumer_list',name='consumer_list'),
     url(r'^consumer-details/', 'views.consumer_details',name='consumer_details'),            
     url(r'^complaints/', 'views.complaints',name='complaints'),
     url(r'^services/', 'views.services',name='services'),
     url(r'^vigilance-cases/', 'views.vigilance_cases',name='vigilance_cases'),
     url(r'^paymentapp/', include(urls)),
-    #url(r'^payments/', 'views.payments',name='payments'),
-    
+    url(r'^consumerapp/', include(urls)),
+    #url(r'^payments/', 'views.payments',name='payments'),    
 )

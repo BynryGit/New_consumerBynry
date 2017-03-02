@@ -1,8 +1,6 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User
-from adminapp.models import UserProfile, UserPrivilege,UserRole
-
 
 def account_required(account, login_url=None, raise_exception=False):
     """

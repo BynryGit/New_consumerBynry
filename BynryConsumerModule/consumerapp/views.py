@@ -8,13 +8,9 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 import sys
 from django.http import HttpResponse
-from adminapp.models import State, City, Utility, UserProfile, UserPrivilege, UserRole, BillCycle, RouteDetail, Zone, \
-    BillCycle, RouteDetail, BillingUnit, ProcessingCycle
-from consumerapp.models import ConsumerDetails, PaymentDetail
+from consumerapp.models import ConsumerDetails
 from serviceapp.models import ServiceRequest, ServiceRequestType
 from complaintapp.models import ComplaintDetail, ComplaintType
-from feedbackapp.models import Feedback
-from mobileapiapp.models import AppUser
 from django.db.models import Q
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -3410,3 +3406,9 @@ def get_consumer_list_view_detail(request):
         print 'Exception|consumer.py|consumer_card_filter', e
         data = {'No list view found': 'error'}
     return HttpResponse(data)
+
+
+#shubham
+
+def consumer_list(request):
+    return render(request, 'consumer_list.html')
