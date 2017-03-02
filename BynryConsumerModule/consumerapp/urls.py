@@ -29,4 +29,7 @@ urlpatterns = [
     url(r'^get-complaint-id-modal/', views.get_complaint_id_modal),
     url(r'^consumer-service-request-export-to-excel/',views.consumer_service_request_export_to_excel,name='consumer-service-request-export-to-excel'),
     url(r'^consumer-complaint-request-export-to-excel/',views.consumer_complaint_raised_export_to_excel,name='consumer-complaint-request-export-to-excel'),
+
+#SHUBHAM NEW
+    url(r'^consumer-list/', views.consumer_list,name='consumer_list'),    
 ]
