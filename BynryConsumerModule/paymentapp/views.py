@@ -56,8 +56,9 @@ def online_payments(request):
                 consumer_name = i.consumer_id
                 payment_mode = 'Online Payment'
 
-                online_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
-                              'consumer_id':consumer_id,'consumer_name':consumer_name,'payment_mode':payment_mode}
+                online_data ={'payment_date':payment_date,'transaction_id':str(transaction_id),
+                              'bill_amount_paid':str(bill_amount_paid),'consumer_id':str(consumer_id),
+                              'consumer_name':str(consumer_name),'payment_mode':str(payment_mode)}
 
         online_payment_list.append(online_data)
 
