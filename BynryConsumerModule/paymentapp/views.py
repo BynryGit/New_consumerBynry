@@ -10,7 +10,7 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
-#from BynryConsumerModule.models import ConsumerDetails,PaymentDetail
+from paymentapp.models import PaymentDetail
 from django.views.decorators.csrf import csrf_exempt
 
 # Todo show list view for payment detail
@@ -25,17 +25,156 @@ from django.views.decorators.csrf import csrf_exempt
 #         data = {'message': 'Server Error'}
 #     return render(request, 'paymentapp/payment.html',data)
 
+# 'Online Payment', 'Online Payment'),
+#         ('Paytm Wallet', 'Paytm Wallet'),
+#         ('Cash Payment', 'Cash Payment'),
 
 def payments(request):
+    data={}
+    return render(request, 'payments.html',data)
+
+
+def online_payments(request):
     try:
+        online_payment_list=[]
+        online_data={}
+        data={}
+
         print "in payments-----------------"
+        payment_details = PaymentDetail.objects.all()
+        print '------------payments------',payment_details
+        for i in payment_details:
+            payment_mode = i.payment_mode
+            print '-------payment_mode------',payment_mode
+            if payment_mode == 'Online Payment':
+                print '----Online----'
+                payment_date = i.payment_date
+                print '--------payment_date-',payment_date
+                transaction_id = i.transaction_id
+                bill_amount_paid = i.bill_amount_paid
+                consumer_id = i.consumer_id
+                consumer_name = i.consumer_id
+                payment_mode = 'Online Payment'
+
+                online_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
+                              'consumer_id':consumer_id,'consumer_name':consumer_name,'payment_mode':payment_mode}
+
+        online_payment_list.append(online_data)
+
+        print '------online_payment_list------',online_payment_list
+        data = {'online_payment_list':online_payment_list}
+    except Exception, e:
+        print e
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-        data = {}
+def paytm_payments(request):
+    try:
+        online_payment_list=[]
+        payment_wallet_list=[]
+        cash_payment_list=[]
+        online_data={}
+        paytm_data={}
+        cash_data={}
+        print "in payments-----------------"
+        payment_details = PaymentDetail.objects.all()
+        print '------------payments------',payment_details
+        for i in payment_details:
+            payment_mode = i.payment_mode
+            print '-------payment_mode------',payment_mode
+            if payment_mode == 'Online Payment':
+                print '----Online----'
+                payment_date = i.payment_date
+                transaction_id = i.transaction_id
+                bill_amount_paid = i.bill_amount_paid
+                consumer_id = i.consumer_id
+                payment_mode = 'Online Payment'
+
+                online_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
+                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+
+                online_payment_list.append(online_data)
+            elif payment_mode == 'Paytm Wallet':
+                print '----Paytm----'
+                payment_date = i.payment_date
+                transaction_id = i.transaction_id
+                bill_amount_paid = i.bill_amount_paid
+                consumer_id = i.consumer_id
+                payment_mode = 'Online Payment'
+
+                paytm_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
+                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+                payment_wallet_list.append(paytm_data)
+            else:
+                print '----cash----'
+                payment_date = i.payment_date
+                transaction_id = i.transaction_id
+                bill_amount_paid = i.bill_amount_paid
+                consumer_id = i.consumer_id
+                payment_mode = 'Online Payment'
+
+                cash_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
+                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+                cash_payment_list.append(cash_data)
+        print '------online_payment_list------',online_payment_list
+        data = {'online_payment_list':online_payment_list,'payment_wallet_list':payment_wallet_list,'cash_payment_list':cash_payment_list}
     except Exception, e:
         print e
     return render(request, 'payments.html',data)
 
+def cash_payments(request):
+    try:
+        online_payment_list=[]
+        payment_wallet_list=[]
+        cash_payment_list=[]
+        online_data={}
+        paytm_data={}
+        cash_data={}
+        print "in payments-----------------"
+        payment_details = PaymentDetail.objects.all()
+        print '------------payments------',payment_details
+        for i in payment_details:
+            payment_mode = i.payment_mode
+            print '-------payment_mode------',payment_mode
+            if payment_mode == 'Online Payment':
+                print '----Online----'
+                payment_date = i.payment_date
+                transaction_id = i.transaction_id
+                bill_amount_paid = i.bill_amount_paid
+                consumer_id = i.consumer_id
+                payment_mode = 'Online Payment'
+
+                online_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
+                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+
+                online_payment_list.append(online_data)
+            elif payment_mode == 'Paytm Wallet':
+                print '----Paytm----'
+                payment_date = i.payment_date
+                transaction_id = i.transaction_id
+                bill_amount_paid = i.bill_amount_paid
+                consumer_id = i.consumer_id
+                payment_mode = 'Online Payment'
+
+                paytm_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
+                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+                payment_wallet_list.append(paytm_data)
+            else:
+                print '----cash----'
+                payment_date = i.payment_date
+                transaction_id = i.transaction_id
+                bill_amount_paid = i.bill_amount_paid
+                consumer_id = i.consumer_id
+                payment_mode = 'Online Payment'
+
+                cash_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
+                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+                cash_payment_list.append(cash_data)
+        print '------online_payment_list------',online_payment_list
+        data = {'online_payment_list':online_payment_list,'payment_wallet_list':payment_wallet_list,'cash_payment_list':cash_payment_list}
+    except Exception, e:
+        print e
+    return render(request, 'payments.html',data)
 
 # @login_required(login_url='/')
 # def list_payment_deatail(request):

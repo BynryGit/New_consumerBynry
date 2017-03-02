@@ -9,8 +9,9 @@ from consumerapp.models import ConsumerDetails
 
 class PaymentDetail(models.Model):
     PAYMENT_MODE = (
-        ('Paid By Cash', 'Paid By Cash'),
-        ('Paid By Card', 'Paid By Card'),
+        ('Online Payment', 'Online Payment'),
+        ('Paytm Wallet', 'Paytm Wallet'),
+        ('Cash Payment', 'Cash Payment'),
     )
 
     PAYMENT_BY=(
@@ -43,4 +44,4 @@ class PaymentDetail(models.Model):
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
 
     def __unicode__(self):
-     return unicode(self.payment_by)
+     return unicode(self.consumer_id)
