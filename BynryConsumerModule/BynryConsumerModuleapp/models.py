@@ -77,6 +77,18 @@ class City(models.Model):
     def __unicode__(self):
         return unicode(self.city)
 
+class Pincode(models.Model):
+    pincode = models.CharField(max_length=500, default=None)
+    city = models.ForeignKey(City, blank=True, null=True)
+    created_by = models.CharField(max_length=50, blank=False, null=False)
+    updated_by = models.CharField(max_length=50, blank=True, null=True)
+    created_on = models.DateTimeField(default=django.utils.timezone.now)
+    updated_on = models.DateTimeField(blank=True, null=True)
+    is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
+
+    def __unicode__(self):
+        return unicode(self.pincode)        
+
 
 class Utility(models.Model):
     utility = models.CharField(max_length=100, blank=False, null=False)

@@ -3,7 +3,7 @@ from django.db import models
 from decimal import Decimal
 from datetime import date
 
-from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
 
 
 IS_DELETED = (
@@ -15,6 +15,11 @@ CONNECTION_STATUS = (
     ('Active', 'Active'),
     ('Inactive', 'Inactive'),
 )
+METER_CATEGORY = (
+    ('HT', 'HT'),
+    ('LT', 'LT'),
+)
+
 
 class ConsumerDetails(models.Model):
     name            = models.CharField(max_length=200, blank=False, null=True)
@@ -24,13 +29,19 @@ class ConsumerDetails(models.Model):
     address_line_1  = models.CharField(max_length=500, blank=True, null=True)
     address_line_2  = models.CharField(max_length=500, blank=True, null=True)
     address_line_3  = models.CharField(max_length=500, blank=True, null=True)
-    pin_code        = models.CharField(max_length=10, blank=True, null=True)
     city            = models.ForeignKey(City, blank=False, null=True)
+    pin_code        = models.ForeignKey(Pincode, blank=False, null=True)
+    zone            = models.ForeignKey(Zone, blank=False, null=True)
     bill_cycle      = models.ForeignKey(BillCycle, blank=True, null=True)
     route      = models.ForeignKey(RouteDetail, blank=True, null=True)
     feeder_code     = models.CharField(max_length=20, blank=True, null=True)
     feeder_name     = models.CharField(max_length=255, blank=True, null=True)
     meter_no        = models.CharField(max_length=30, blank=True, null=True)
+    aadhar_no       = models.CharField(max_length=30, blank=True, null=True)
+    sanction_load   = models.CharField(max_length=30, blank=True, null=True)
+    meter_category  = models.CharField(max_length=200, choices=METER_CATEGORY,default='HT')
+    consumer_age    = models.CharField(max_length=5, blank=True, null=True)
+    Utility         = models.ForeignKey(Utility, blank=False, null=True)
     dtc             = models.CharField(max_length=30, blank=True, null=False)
     dtc_dec         = models.CharField(max_length=255, blank=True, null=True)
     pole_no         = models.CharField(max_length=30, blank=True, null=True)
@@ -41,8 +52,6 @@ class ConsumerDetails(models.Model):
     connection_status = models.CharField(max_length=200, choices=CONNECTION_STATUS,default='Active')
     alternate_mobile=models.CharField(max_length=15,null=True,blank=True)
     alternate_email =models.CharField(max_length=100,null=True,blank=True)
-    B_U             = models.CharField(max_length=20, blank=True, null=True)
-    P_C             = models.CharField(max_length=20, blank=True, null=True)
     nearest_pole_no = models.CharField(max_length=200, blank=True, null=True)
     nearest_consumer_no = models.CharField(max_length=200, blank=True, null=True)
     register_date   = models.DateField(default=django.utils.timezone.now)
