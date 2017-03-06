@@ -289,38 +289,32 @@
                         <div class="scroller" style="height:420px" data-always-visible="1" data-rail-visible1="1">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4><b>Shubham Shirsode (1254568)</b></h4>
+                                    <h4><b id="edit_name"> </b></b></h4>
                                 </div>
                               
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
+                                        <input type="text" class="form-control" id="edit_utility">
                                         <label for="form_control_1">Utility</label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
+                                        <input type="text" class="form-control" id="edit_contact">
                                         <label for="form_control_1">Contact No.</label>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Age</label>
-                                    </div>
-                                </div>
+                                </div>                     
                                 </div>
                                 <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
+                                        <input type="text" class="form-control" id="edit_email">
                                         <label for="form_control_1">Email Id</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
+                                        <input type="text" class="form-control" id="edit_aadhar">
                                         <label for="form_control_1">Aadhar No.</label>
                                     </div>
                                 </div>                               			                                               
@@ -328,13 +322,13 @@
                                 <div class="row">
 				                        <div class="col-md-12">
 				                            <div class="form-group form-md-line-input has-success ">
-				                                <textarea class="form-control" id="consumer_address" >Flat no-201, Primrose, right bhusari colony, oppo. borse hospital, kothrud, pune - 411038.</textarea>
+				                                <textarea class="form-control" id="edit_address" ></textarea>
 				                                <label >Address</label>
 				                            </div>
 				                        </div>
 				                        <div class="col-md-4"  style="margin-top: 4px;">
 					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
+					                          <select id="edit_city" class="form-control input-sm select2-multiple">
 				                                    <option value="HI">Pune</option>
 				                                    <option value="CT">Nagpur</option>
 				                             </select>
@@ -343,7 +337,7 @@
 				                    		</div>
 				                    		<div class="col-md-4"  style="margin-top: 4px;">
 					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
+					                          <select id="edit_pincode" class="form-control input-sm select2-multiple">
 				                                    <option value="HI">111</option>
 				                                    <option value="CT">222</option>
 				                             </select>
@@ -352,7 +346,7 @@
 				                    		</div>
 				                    		<div class="col-md-4"  style="margin-top: 4px;">
 					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
+					                          <select id="edit_zone" class="form-control input-sm select2-multiple">
 				                                    <option value="HI">abc</option>
 				                                    <option value="CT">xyz</option>
 				                             </select>
@@ -367,19 +361,19 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
+                                        <input type="text" class="form-control" id="edit_meter_no">
                                         <label for="form_control_1">Meter No.</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
+                                        <input type="text" class="form-control" id="edit_category">
                                         <label for="form_control_1">Category</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
+                                        <input type="text" class="form-control" id="edit_sanction_load">
                                         <label for="form_control_1">Saction Load</label>
                                     </div>
                                 </div>
@@ -392,7 +386,7 @@
                         </div>
                      </div>
                 </div>                    
-            </div>
+        </div>
         <div id="adduser_model" class="modal fade" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -593,7 +587,8 @@
       
             console.log(response);
                 if (response.success == 'true') {
-
+						alert(response.data.name)
+						$('#consumer_name').append(response.data.name)
                   $("#edituser_model").modal('show');
                 }
                 if (response.success == 'false') {

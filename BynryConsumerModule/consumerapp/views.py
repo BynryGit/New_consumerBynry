@@ -25,6 +25,9 @@ from django.shortcuts import render
 from collections import OrderedDict
 from django.contrib.sites.shortcuts import get_current_site
 
+#SHUBHAM
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
+
 Months = {
     1: 'JAN', 2: 'FEB', 3: 'MAR', 4: 'APR',
     5: 'MAY', 6: 'JUN', 7: 'JUL', 8: 'AUG',
@@ -3410,10 +3413,31 @@ Months = {
 
 #shubham
 def consumer_list(request):
-    return render(request, 'consumer_list.html')
+    try:
+
+        data = {'city_list': get_city(request)}
+        print '.....datsaa',data
+    except Exception, e:
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|views.py|complaint', e
+        print e
+    return render(request, 'consumer_list.html',data)
+
+def get_city(request):
+    city_list = []
+    try:
+        city_objs = City.objects.filter(is_deleted=False)
+        for city in city_objs:
+            city_list.append({'city': city.city})
+        data = city_list
+        return data
+
+    except Exception, ke:
+        print ke
+        data = {'city_list': 'none', 'message': 'No city available'}
+        return data
 
 def get_consumer_list(request):
-    print '......IN........'
     try:
         data = {}
         final_list = []
@@ -3429,8 +3453,8 @@ def get_consumer_list(request):
                 complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_no).count()
                 connection_status = consumer_obj.connection_status
 
-                #action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer('+consumer_no+')"></i> </a>'  
-                action = '<a href="#edituser_model" data-toggle="modal"> <i class="fa fa-pencil" aria-hidden="true" ></i> </a>'  
+                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer('+consumer_no+')"></i> </a>'  
+                #action = '<a href="#edituser_model" data-toggle="modal"> <i class="fa fa-pencil" aria-hidden="true" ></i> </a>'  
   
                 consumer_data = {
                     'consumer_no': consumer_no1,
@@ -3454,35 +3478,44 @@ def get_consumer_list(request):
     return HttpResponse(json.dumps(data), content_type='application/json')    
 
 def edit_consumer(request):
-    print '......IN......2..'
     try:
         data = {}
         final_list = []
         try:
-            consumer_obj = ConsumerDetails.objects.get(ConsumerDetails=request.GET.get('consumer_no'))
-            consumer_no   = consumer_obj.consumer_no
-            consumer_no1   = '<a href="/consumer-details/?consumer_no='+consumer_no+'">'+consumer_no+'</a>'
-            consumer_name = consumer_obj.name
-            contact_no    = consumer_obj.contact_no
-            email_id      = consumer_obj.email_id
-            servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_no).count()
-            complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_no).count()
-            connection_status = consumer_obj.connection_status
-
-            action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer('+consumer_no+')"></i> </a>'  
-            
+            consumer_obj	= ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no'))
+            consumer_no   	= consumer_obj.consumer_no
+            name   			= consumer_obj.name
+            name 			= name +' ('+ consumer_no + ') '  
+            utility   		= consumer_obj.Utility.utility
+            contact_no   	= consumer_obj.contact_no
+            email_id   		= consumer_obj.email_id
+            aadhar_no   	= consumer_obj.aadhar_no
+            address_line_1  = consumer_obj.address_line_1
+            address_line_2  = consumer_obj.address_line_2
+            address_line_3  = consumer_obj.address_line_3
+            address 		= address_line_1 + ' ' + address_line_2 + ' ' + address_line_3
+            city   			= str(consumer_obj.city)
+            pin_code 		= str(consumer_obj.pin_code)
+            zone 			= str(consumer_obj.zone)
+            meter_no 		= consumer_obj.meter_no
+            meter_category 	= consumer_obj.meter_category
+            sanction_load 	= consumer_obj.sanction_load
+           
             consumer_data = {
-                'consumer_no': consumer_no1,
-                'consumer_name': consumer_name,
-                'contact_no': contact_no,
-                'email_id': email_id,
-                'servicerequest': servicerequest,
-                'complaintrequest': complaintrequest,
-                'connection_status': connection_status,
-                'action':action
+                'name'			: name,
+                'utility'		: utility,
+                'contact_no'	: contact_no,
+                'aadhar_no'		: aadhar_no,
+                'email_id'		: email_id,
+                'address'		: address,
+                'city'			: city,
+                'pin_code'		: pin_code,
+                'zone'			: zone,
+                'meter_no'		: meter_no,
+                'meter_category': meter_category,
+                'sanction_load'	: sanction_load
             }
-            final_list.append(consumer_data)
-            data = {'success': 'true', 'data': final_list}
+            data = {'success': 'true', 'data': consumer_data}
         except Exception as e:
             print "==============Exception===============================", e
             data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
