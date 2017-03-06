@@ -27,6 +27,7 @@ class ConsumerDetails(models.Model):
     pin_code        = models.CharField(max_length=10, blank=True, null=True)
     city            = models.ForeignKey(City, blank=False, null=True)
     bill_cycle      = models.ForeignKey(BillCycle, blank=True, null=True)
+    route      = models.ForeignKey(RouteDetail, blank=True, null=True)
     feeder_code     = models.CharField(max_length=20, blank=True, null=True)
     feeder_name     = models.CharField(max_length=255, blank=True, null=True)
     meter_no        = models.CharField(max_length=30, blank=True, null=True)
