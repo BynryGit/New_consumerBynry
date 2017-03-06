@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
 from paymentapp.models import PaymentDetail
+from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail
 from django.views.decorators.csrf import csrf_exempt
 
 # Todo show list view for payment detail
@@ -31,151 +32,158 @@ from django.views.decorators.csrf import csrf_exempt
 
 def payments(request):
     data={}
+    zone = Zone.objects.all()
+    billcycle = BillCycle.objects.all()
+    routeDetail = RouteDetail.objects.all()
+
+    data={'zone':zone,'billcycle':billcycle,'routeDetail':routeDetail}
+    print '--------data----',data
     return render(request, 'payments.html',data)
 
 
 def online_payments(request):
     try:
         online_payment_list=[]
-        online_data={}
-        data={}
+        #online_data={}
+        #data={}
 
-        print "in payments-----------------"
+        print "in payments--1---------------"
         payment_details = PaymentDetail.objects.all()
-        print '------------payments------',payment_details
+        print '------------payments---1---',payment_details
         for i in payment_details:
             payment_mode = i.payment_mode
-            print '-------payment_mode------',payment_mode
+            print '-------payment_mode--1----',payment_mode
             if payment_mode == 'Online Payment':
-                print '----Online----'
-                payment_date = i.payment_date
-                print '--------payment_date-',payment_date
+                print '----Online1----'
+                payment_date = i.payment_date.strftime("%d/%m/%Y")
+                print '--------payment_date-1',payment_date
                 transaction_id = i.transaction_id
                 bill_amount_paid = i.bill_amount_paid
                 consumer_id = i.consumer_id
-                consumer_name = i.consumer_id
+                consumer_name = consumer_id.name
                 payment_mode = 'Online Payment'
 
-                online_data ={'payment_date':payment_date,'transaction_id':str(transaction_id),
-                              'bill_amount_paid':str(bill_amount_paid),'consumer_id':str(consumer_id),
+                online_data ={'payment_date':str(payment_date),'bill_amount_paid':str(bill_amount_paid),
+                              'transaction_id':str(transaction_id),'consumer_id':str(consumer_id),
                               'consumer_name':str(consumer_name),'payment_mode':str(payment_mode)}
 
-        online_payment_list.append(online_data)
+                online_payment_list.append(online_data)
 
-        print '------online_payment_list------',online_payment_list
-        data = {'online_payment_list':online_payment_list}
+        print '------online_payment_list--1----',online_payment_list
+        data = {'data':online_payment_list}
     except Exception, e:
         print e
+    print 'data--------',data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def paytm_payments(request):
     try:
-        online_payment_list=[]
         payment_wallet_list=[]
-        cash_payment_list=[]
-        online_data={}
-        paytm_data={}
-        cash_data={}
-        print "in payments-----------------"
+        #paytm_data={}
+        #data={}
+        print "in payments-----2------------"
         payment_details = PaymentDetail.objects.all()
-        print '------------payments------',payment_details
+        print '------------payments--2----',payment_details
         for i in payment_details:
             payment_mode = i.payment_mode
-            print '-------payment_mode------',payment_mode
-            if payment_mode == 'Online Payment':
-                print '----Online----'
-                payment_date = i.payment_date
+            print '-------payment_mode--2----',payment_mode
+            if payment_mode == 'Paytm Wallet':
+                print '----Paytm-2---'
+                payment_date = i.payment_date.strftime("%d/%m/%Y")
+                print '--------payment_date2-',payment_date
                 transaction_id = i.transaction_id
                 bill_amount_paid = i.bill_amount_paid
                 consumer_id = i.consumer_id
-                payment_mode = 'Online Payment'
+                consumer_name = consumer_id.name
+                payment_mode = 'Paytm Payment'
 
-                online_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
-                              'consumer_id':consumer_id,'payment_mode':payment_mode}
-
-                online_payment_list.append(online_data)
-            elif payment_mode == 'Paytm Wallet':
-                print '----Paytm----'
-                payment_date = i.payment_date
-                transaction_id = i.transaction_id
-                bill_amount_paid = i.bill_amount_paid
-                consumer_id = i.consumer_id
-                payment_mode = 'Online Payment'
-
-                paytm_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
-                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+                paytm_data ={'payment_date':str(payment_date),'bill_amount_paid':str(bill_amount_paid),
+                              'transaction_id':str(transaction_id),'consumer_id':str(consumer_id),
+                              'consumer_name':str(consumer_name),'payment_mode':str(payment_mode)}
                 payment_wallet_list.append(paytm_data)
-            else:
-                print '----cash----'
-                payment_date = i.payment_date
-                transaction_id = i.transaction_id
-                bill_amount_paid = i.bill_amount_paid
-                consumer_id = i.consumer_id
-                payment_mode = 'Online Payment'
-
-                cash_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
-                              'consumer_id':consumer_id,'payment_mode':payment_mode}
-                cash_payment_list.append(cash_data)
-        print '------online_payment_list------',online_payment_list
-        data = {'online_payment_list':online_payment_list,'payment_wallet_list':payment_wallet_list,'cash_payment_list':cash_payment_list}
+        data = {'data':payment_wallet_list}
     except Exception, e:
         print e
-    return render(request, 'payments.html',data)
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 def cash_payments(request):
     try:
-        online_payment_list=[]
-        payment_wallet_list=[]
         cash_payment_list=[]
-        online_data={}
-        paytm_data={}
-        cash_data={}
-        print "in payments-----------------"
+        #data={}
+        #cash_data={}
+        print "in payments--------3---------"
         payment_details = PaymentDetail.objects.all()
-        print '------------payments------',payment_details
+        print '------------payments--3----',payment_details
         for i in payment_details:
             payment_mode = i.payment_mode
-            print '-------payment_mode------',payment_mode
-            if payment_mode == 'Online Payment':
-                print '----Online----'
-                payment_date = i.payment_date
+            print '-------payment_mode--3----',payment_mode
+            if payment_mode == 'Cash Payment':
+                print '----Paytm--3--'
+                payment_date = i.payment_date.strftime("%d/%m/%Y")
+                print '--------payment_date3-',payment_date
                 transaction_id = i.transaction_id
                 bill_amount_paid = i.bill_amount_paid
                 consumer_id = i.consumer_id
-                payment_mode = 'Online Payment'
+                consumer_name = consumer_id.name
+                payment_mode = 'Cash Payment'
 
-                online_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
-                              'consumer_id':consumer_id,'payment_mode':payment_mode}
-
-                online_payment_list.append(online_data)
-            elif payment_mode == 'Paytm Wallet':
-                print '----Paytm----'
-                payment_date = i.payment_date
-                transaction_id = i.transaction_id
-                bill_amount_paid = i.bill_amount_paid
-                consumer_id = i.consumer_id
-                payment_mode = 'Online Payment'
-
-                paytm_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
-                              'consumer_id':consumer_id,'payment_mode':payment_mode}
-                payment_wallet_list.append(paytm_data)
-            else:
-                print '----cash----'
-                payment_date = i.payment_date
-                transaction_id = i.transaction_id
-                bill_amount_paid = i.bill_amount_paid
-                consumer_id = i.consumer_id
-                payment_mode = 'Online Payment'
-
-                cash_data ={'payment_date':payment_date,'transaction_id':transaction_id,'bill_amount_paid':bill_amount_paid,
-                              'consumer_id':consumer_id,'payment_mode':payment_mode}
+                cash_data ={'payment_date':str(payment_date),'bill_amount_paid':str(bill_amount_paid),
+                              'transaction_id':str(transaction_id),'consumer_id':str(consumer_id),
+                              'consumer_name':str(consumer_name),'payment_mode':str(payment_mode)}
                 cash_payment_list.append(cash_data)
-        print '------online_payment_list------',online_payment_list
-        data = {'online_payment_list':online_payment_list,'payment_wallet_list':payment_wallet_list,'cash_payment_list':cash_payment_list}
+        data = {'data':cash_payment_list}
     except Exception, e:
         print e
-    return render(request, 'payments.html',data)
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def payments_get_consumer_details(request):
+    consumer_no = request.GET.get('consumer_no')
+    bill_month = request.GET.get('bill_month')
+    print '------consumer_no-----',consumer_no
+    print '------bill_month-----',bill_month
+
+    consumer_obj = PaymentDetail.objects.filter(consumer_id=consumer_no,bill_month=bill_month)
+
+    consumption = consumer_obj.consumption
+    current_month_reading = consumer_obj.current_month_reading
+    previous_month_reading = consumer_obj.previous_month_reading
+    current_amount = consumer_obj.current_amount
+    tariff_rate = consumer_obj.tariff_rate
+    net_amount = consumer_obj.net_amount
+    bill_amount_paid = consumer_obj.bill_amount_paid
+    amount_after_due_date = consumer_obj.amount_after_due_date
+    arriers = consumer_obj.arriers
+    payment_date = consumer_obj.payment_date.strftime("%d/%m/%Y")
+    due_date = consumer_obj.due_date.strftime("%d/%m/%Y")
+
+    data={'consumer_no':consumer_no,'bill_month':bill_month,'consumption':consumption,
+          'current_month_reading':current_month_reading,'previous_month_reading':previous_month_reading,
+          'current_amount':current_amount,'tariff_rate':tariff_rate,'net_amount':net_amount,
+          'bill_amount_paid':bill_amount_paid,'amount_after_due_date':amount_after_due_date,
+          'arriers':arriers,'payment_date':payment_date,'due_date':due_date
+          }
+    print '--------data----',data
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def payments_save_payment_details(request):
+    consumer_no = request.GET.get('consumer_no')
+    bill_month = request.GET.get('bill_month')
+
+    payment_mode = request.GET.get('payment_mode')
+    bill_amount_paid = request.GET.get('amount')
+    payment_date = request.GET.get('payment_date')
+
+    consumer_obj = PaymentDetail.objects.filter(consumer_id=consumer_no,bill_month=bill_month)
+
+    consumer_obj.payment_mode = payment_mode
+    consumer_obj.bill_amount_paid = bill_amount_paid
+    consumer_obj.payment_date = payment_date
+    consumer_obj.save()
+
+    data={'success':True}
+    print '--------data----',data
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 # @login_required(login_url='/')
 # def list_payment_deatail(request):

@@ -115,44 +115,29 @@
 	                        <div class="col-md-2">
 	                            <label for="select2-single-input-sm" class="control-label">Zone :</label>
 	                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
-	                                <optgroup label="Alaskan">
-	                                    <option value="AK">Alaska</option>
-	                                    <option value="HI" disabled="disabled">Hawaii</option>
-	                                </optgroup>
-	                                <optgroup label="Eastern Time Zone">
-	                                    <option value="CT">Connecticut</option>
-	                                    <option value="MD">Maryland</option>
-	                                </optgroup>
+	                                <option value="all">All</option>
+	                                {% for z in zone %}		                                		
+	                            	  		<option value="{{z}}">{{z}}</option>	
+	                                {% endfor %}	
 	                            </select>
 	                        </div>
 	                        <div class="col-md-2">
 	                            <label for="select2-single-input-sm" class="control-label">Bill Cycle :</label>
 	                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
-	                                <optgroup label="Alaskan">
-	                                    <option value="AK">Alaska</option>
-	                                    <option value="HI" disabled="disabled">Hawaii</option>
-	                                </optgroup>
-	                                <optgroup label="Pacific Time Zone">
-	                                    <option value="CA">California</option>
-	                                    <option value="NV">Nevada</option>
-	                                </optgroup>
-	                                <optgroup label="Mountain Time Zone">
-	                                    <option value="AZ">Arizona</option>
-	                                    <option value="WY">Wyoming</option>
-	                                </optgroup>
+	                            	  <option value="all">All</option>	
+	                            	  {% for b in billcycle %}		                            	  		
+	                            	  		<option value="{{b}}">{{b}}</option>	
+	                                {% endfor %}	
+	                                
 	                            </select>
 	                        </div>
 	                        <div class="col-md-2">
 	                            <label for="select2-single-input-sm" class="control-label">Route :</label>
 	                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
-	                                <optgroup label="Alaskan">
-	                                    <option value="AK">Alaska</option>
-	                                    <option value="HI" disabled="disabled">Hawaii</option>
-	                                </optgroup>
-	                                <optgroup label="Pacific Time Zone">
-	                                    <option value="CA">California</option>
-	                                    <option value="WA">Washington</option>
-	                                </optgroup>
+											   <option value="all">All</option>	 		                            	  
+	                            	  {% for r in routeDetail %}		                            	  		
+	                            	  		<option value="{{r}}">{{r}}</option>	
+	                                {% endfor %}
 	                            </select>
 	                        </div>  
 	                        <div class="col-md-2">
@@ -175,7 +160,7 @@
                                            style="margin-left: 163px;margin-top: 27px;"
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
                                            value="Search">
-                                    <input type="button" onclick="clear_filter();"
+                                    <input type="button" onclick="href:page.reload()"
                                            style="margin-left:5px;margin-top: 27px;"
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
                                            value="Clear Filters">       
@@ -194,22 +179,7 @@
                                         <span class="caption-subject bold uppercase">Online Payments : 
 													 	<label for="single" class="control-label">1000</label>                                        
                                         </span>
-                                        <!-- <div style="margin-left:829px;" class="btn-group pull-right">
-                                              <button class="btn green btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown">Tools
-                                                  <i class="fa fa-angle-down"></i>
-                                              </button>
-                                              <ul class="dropdown-menu pull-right">
-                                                  <li>
-                                                      <a href="javascript:;"> Print </a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="javascript:;"> Save as PDF </a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="javascript:;"> Export to Excel </a>
-                                                  </li>
-                                              </ul>
-                                          </div> -->
+                                        
                                     </div>
                                     <div class="tools"></div>
                                 </div>
@@ -222,68 +192,10 @@
                                             <th> Transaction ID</th>                                            
                                             <th> Consumer. No.</th>
                                             <th> Name</th>
-                                            <!-- <th> Payment Type</th> -->
                                             <th> Payment Mode</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>                                            
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Online</td>
-                                        </tr>
-                                        </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
@@ -295,22 +207,7 @@
                                         <span class="caption-subject bold uppercase">Paytm Wallet : 
                                         	<label for="single" class="control-label">1000</label> 
                                         </span>
-                                        <!-- <div style="margin-left:855px;" class="btn-group pull-right">
-                                              <button class="btn green btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown">Tools
-                                                  <i class="fa fa-angle-down"></i>
-                                              </button>
-                                              <ul class="dropdown-menu pull-right">
-                                                  <li>
-                                                      <a href="javascript:;"> Print </a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="javascript:;"> Save as PDF </a>
-                                                  </li>
-                                                  <li>
-                                                      <a href="javascript:;"> Export to Excel </a>
-                                                  </li>
-                                              </ul>
-                                          </div> -->
+                                        
                                     </div>
                                     <div class="tools"></div>
                                 </div>
@@ -323,75 +220,10 @@
                                             <th> Transaction ID</th>                                            
                                             <th> Consumer. No.</th>
                                             <th> Name</th>
-                                            <th> Payment Type</th>
                                             <th> Payment Mode</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
@@ -408,22 +240,7 @@
                                            style="margin-left:721px;"                                           
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
                                            value="Add Payment"> 
-                                         <!-- <div style="margin-left:5px;" class="btn-group pull-right">
-                                                    <button class="btn green btn-outline btn-circle btn-sm dropdown-toggle" data-toggle="dropdown">Tools
-                                                        <i class="fa fa-angle-down"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li>
-                                                            <a href="javascript:;"> Print </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"> Save as PDF </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;"> Export to Excel </a>
-                                                        </li>
-                                                    </ul>
-                                                </div> -->
+                                         
                                     </div>
                                     <!-- <div class="tools"></div> -->
                                 </div>
@@ -436,75 +253,10 @@
                                             <th> Transaction ID</th>                                            
                                             <th> Consumer. No.</th>
                                             <th> Name</th>
-                                            <th> Payment Type</th>
                                             <th> Payment Mode</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 15/02/2017</td>
-                                            <td> 500.0</td>
-                                            <td> 589654785</td>                                            
-                                            <td> 584</td>
-                                            <td> <a href="#consumer_details" data-toggle="modal"> Steve Smith </a></td>
-                                            <td> Bill</td>
-                                            <td> Online</td>
-                                        </tr>
-                                        </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
@@ -531,26 +283,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <p>
-                                <label>Enter Consumer No.</label>
-                                <input type="text" class="col-md-12 form-control"></p>
+                                <label>Enter Consumer No. *</label>
+                                <input type="text" id="consumer_no" class="col-md-12 form-control"></p>
                         </div>
                         <div class="col-md-6">
                             <p>
                             <div class="form-group">
-                                <label class="control-label">Select Bill Month</label>
-                                <select class="form-control ">
-                                    <option value="CA">January</option>
-                                    <option value="CA">February</option>
-                                    <option value="NV">March</option>
-                                    <option value="NV">April</option>
-                                    <option value="NV">May</option>
-                                    <option value="NV">June</option>
-                                    <option value="NV">July</option>
-                                    <option value="NV">August</option>
-                                    <option value="NV">September</option>
-                                    <option value="NV">October</option>
-                                    <option value="NV">November</option>
-                                    <option value="NV">December</option>
+                                <label class="control-label">Select Bill Month *</label>
+                                <select class="form-control " id="bill_month">
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
                                 </select>
                             </div>
                             </p>
@@ -566,91 +318,91 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="102548" id="form_control_1"
+                                <input type="text" class="form-control" readonly="" id="consumer_number"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Consumer No.</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="69857458" id="form_control_1"
+                                <input type="text" class="form-control" readonly=""  id="meter_number"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Meter No.</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="12" id="form_control_1"
+                                <input type="text" class="form-control" readonly=""  id="tariff_rate"
                                        placeholder="Consumer No.">
-                                <label for="form_control_1">Traffic Rate</label>
+                                <label for="form_control_1">Tariff Rate</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="902" id="form_control_1"
+                                <input type="text" class="form-control" readonly=""  id="current_reading"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Current Reading</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="850" id="form_control_1"
+                                <input type="text" class="form-control" readonly=""  id="prev_month_reading"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Prev. Month Reading</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="50" id="form_control_1"
+                                <input type="text" class="form-control" readonly=""  id="consumption"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Consumption</label>
                             </div>
                         </div> 
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="25/1/2017"
-                                       id="form_control_1" placeholder="Consumer No.">
+                                <input type="text" class="form-control" readonly="" 
+                                       id="prompt_date" placeholder="Consumer No.">
                                 <label for="form_control_1">Prompt Date</label>
                             </div>
                         </div>                       
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="10/1/2017"
-                                       id="form_control_1" placeholder="Consumer No.">
+                                <input type="text" class="form-control" readonly="" 
+                                       id="due_date" placeholder="Consumer No.">
                                 <label for="form_control_1">Due Date</label>
                             </div>
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="5.4" id="form_control_1"
+                                <input type="text" class="form-control" readonly="" id="arrears"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Arrears</label>
                             </div>
                         </div>    
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="690" id="form_control_1"
+                                <input type="text" class="form-control" readonly="" id="current_amt"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Current Amount</label>
                             </div>
                         </div>                                            
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="40" id="form_control_1"
+                                <input type="text" class="form-control" readonly="" id="prompt_amt"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Prompt Amount</label>
                             </div>
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="754" id="form_control_1"
+                                <input type="text" class="form-control" readonly="" id="net_amt"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Net Amount</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="794" id="form_control_1"
+                                <input type="text" class="form-control" readonly="" id="due_date_amt"
                                        placeholder="Consumer No.">
                                 <label for="form_control_1">Amount After Due Date</label>
                             </div>
@@ -688,7 +440,7 @@
             </div>
             <div class="modal-footer" id="counter_bill_footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline btn-circle">Close</button>
-                <button type="button" onclick="counter_submit();" class="btn green btn-outline btn-circle">Submit</button>
+                <button type="button" onclick="get_consumer_details();" class="btn green btn-outline btn-circle">Submit</button>
             </div>
             <div class="modal-footer" id="counter_form_footer" hidden="">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline btn-circle">Cancel</button>
@@ -814,6 +566,66 @@
         type="text/javascript"></script>
 <script src="{% static 'assets/pages/scripts/form-validation-md.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'payments/payments-custom.js' %}" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+	function get_consumer_details() {
+	alert('hi');
+	//document.getElementById("counter_form").removeAttribute("hidden");
+	//document.getElementById("counter_form_footer").removeAttribute("hidden");
+	//document.getElementById("counter_bill").setAttributeNode("hidden"); 
+	
+	consumer_number = $('#consumer_no').val(); 
+	bill_month = $('#bill_month').val(); 
+	alert(consumer_number) ;
+	alert(bill_month) ;
+	
+	if (consumer_number == '') {
+		return false;
+	}
+	else {			
+ 
+   $.ajax({
+       type	: "GET",
+       url : '/paymentapp/payments_get_consumer_details/',
+       data : {'consumer_no':consumer_number,'bill_month':bill_month},
+       cache: false,
+       processData: false,
+       contentType: false,
+       success: function (response) {			  
+     		  if(response.success=='true'){
+     		  
+				$("#meter_number").text(response.meter_number); 
+				$("#tariff_rate").text(response.tariff_rate); 
+				$("#current_reading").text(response.current_month_reading); 
+				$("#prev_month_reading").text(response.previous_month_reading); 
+				$("#consumption").text(response.consumption); 
+				$("#prompt_date").text(response.payment_date); 
+				$("#due_date").text(response.due_date); 
+				$("#arrears").text(response.arriers); 
+				$("#current_amt").text(response.current_amount); 
+				$("#net_amt").text(response.net_amt); 
+				$("#due_date_amt").text(response.amount_after_due_date); 	
+				
+				document.getElementById("counter_form").removeAttribute("hidden");
+				document.getElementById("counter_form_footer").removeAttribute("hidden");	  	
+     		  	
+     			$("#counter_bill").attr("hidden","hidden");           
+				$("#counter_bill_footer").attr("hidden","hidden");     
+     		  }
+       },
+       
+       error : function(response){
+       alert("_Error");
+       }
+   });	
+	
+	      }
+	
+	
+}
+
+</script>
 
 <!-- <script type="text/javascript">
 	function counter_submit() {
