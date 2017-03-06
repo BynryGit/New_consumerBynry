@@ -96,11 +96,11 @@
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
-                        <a href="#">Consumers</a>
+                        <span >Consumers</span>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">Consumers List</a>
+                        <span >Consumers List</span>
                     </li>                    
                 </ul>
             </div>
@@ -265,30 +265,7 @@
                                             <th> Status</th>
                                             <th style="text-align:center"> Actions</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td><a href="/consumer-details/"> 10012136 </a></td>
-                                            <td> Shubham S</td>
-                                            <td> 958855855</td>
-                                            <td> 958855855</td>
-                                            <td> ssssss</td>
-                                            <td> 4</td>
-                                            <td> X</td>
-                                            <td style="text-align:center"> <a href="#edituser_model" data-toggle="modal"> <i class="fa fa-pencil" aria-hidden="true"></i> </a> </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="/consumer-details/"> 15245875 </a></td>
-                                            <td> Swapnil K</td>
-                                            <td> 958855855</td>
-                                            <td> 5</td>
-                                            <td> C</td>
-                                            <td> 4</td>
-                                            <td> X</td>
-                                            <td style="text-align:center"> <a href="#edituser_model" data-toggle="modal"> <i class="fa fa-pencil" aria-hidden="true"></i> </a> </td>
-                                        </tr>
-
-                                        </tbody>
+                                        </thead>                                       
                                     </table>
                                 </div>
                             </div>
@@ -605,6 +582,32 @@
     $("#consumer_span").addClass("open");
     $("#consumer_list").addClass("active open");
     
+		function edit_consumer(var1) {
+			//$("#edituser_model").modal('show');
+        var  consumer_no = var1;
+        $.ajax({
+            type: 'GET',
+            url: '/consumerapp/edit-consumer/',
+            data: {'consumer_no': consumer_no},
+            success: function (response) {
+      
+            console.log(response);
+                if (response.success == 'true') {
+
+                  $("#edituser_model").modal('show');
+                }
+                if (response.success == 'false') {
+                    alert(response.message);
+                }
+            },
+
+            error: function (response) {
+            console.log(response);
+                alert('error');
+            },
+        });            
+		}       
+		
 	   var initTable1 = function () {
         var table = $('#consumer_list1');
 
@@ -643,6 +646,18 @@
                 [0, 'asc']
             ],
 
+            "ajax": "/consumerapp/get-consumer-list/",
+            "columns": [
+                {"data": "consumer_no","sClass": "text-center"},
+                {"data": "consumer_name","sClass": "text-center"},
+                {"data": "contact_no","sClass": "text-center"},
+                {"data": "email_id","sClass": "text-center"},
+                {"data": "servicerequest","sClass": "text-center"},
+                {"data": "complaintrequest","sClass": "text-center"},                                                        
+                {"data": "connection_status","sClass": "text-center"}  ,
+                {"data": "action","sClass": "text-center"}                                                       
+            ],                                                    
+                                                        
             buttons: [
                 { extend: 'pdf', className: 'btn green btn-outline' },
                 { extend: 'excel', className: 'btn yellow btn-outline ' },

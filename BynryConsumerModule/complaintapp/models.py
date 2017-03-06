@@ -12,7 +12,7 @@ IS_DELETED = (
     (False, False),
 )
 
-IMAGES_PATH = 'complaints/'
+IMAGES_PATH = 'static/media/complaints/'
 
 class ComplaintType (models.Model):
     complaint_type = models.CharField(max_length=500,blank = True, null = True)
@@ -35,12 +35,19 @@ class ComplaintDetail(models.Model):
         ('Open', 'Open'),
     )
 
+    COMPLAINT_SOURCE = (
+        ('Mobile', 'Mobile'),
+        ('Web', 'Web'),
+        ('CTI', 'CTI'),
+    )
+
     complaint_no = models.CharField(max_length=200, blank=False, null=True)
     complaint_type_id = models.ForeignKey(ComplaintType, blank = False, null = True)
     consumer_id = models.ForeignKey(ConsumerDetails, blank = False, null = True)
     remark = models.CharField(max_length = 200,blank = True, null = True)
     complaint_img=models.ImageField(upload_to=IMAGES_PATH,null=True,blank=True)
     complaint_status = models.CharField(max_length = 50, choices = COMPLAINT_STATUS)
+    complaint_source = models.CharField(max_length = 50, choices = COMPLAINT_SOURCE)
     complaint_date = models.DateTimeField(blank = True,null = True)
     resolve_date = models.DateField(blank = True,null = True)
     closure_remark = models.CharField(max_length = 500,blank = True, null = True)

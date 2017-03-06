@@ -30,6 +30,16 @@
           id="style_color"/>
     <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
+
+    <style>
+        th{
+            text-align:center;
+        }
+        td{
+            text-align:center;
+        }
+    </style>
+
 </head>
 <!-- END HEAD -->
 
@@ -116,34 +126,41 @@
                         <div class="col-md-3">
                             <label class="control-label">Type</label>
                             <select class="form-control select2">
-                                <option>Select a Complaint Type</option>
-                                <option>Complaint Type 1</option>
-                                <option>Complaint Type 2</option>
+                                <option value="">Select a Complaint Type</option>
+                                <option value="all">All</option>
+                                {% for type in complaintType%}
+                                    <option value="{{type.id}}">{{type.complaint_type}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Status</label>
                             <select class="form-control select2">
-                                <option>Select a Complaint Status</option>
-                                <option>Complaint Status 1</option>
-                                <option>Complaint Status 2</option>
+                                <option value="">Select a Complaint Status</option>
+                                <option value="all">All</option>
+                                <option value="WIP">WIP</option>
+                                <option value="Closed">Closed</option>
+                                <option value="Open">Open</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Source</label>
                             <select class="form-control select2">
-                                <option>Select a Source</option>
-                                <option>Source 1</option>
-                                <option>Source 2</option>
+                                <option value="">Select a Source</option>
+                                <option value="all">All</option>
+                                <option value="Mobile">Mobile</option>
+                                <option value="Web">Web</option>
+                                <option value="CTI">CTI</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Zone</label>
                             <select class="form-control select2">
-                                <option value="AK">Alaska</option>
-                                <option value="HI" disabled="disabled">Hawaii</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="MD">Maryland</option>
+                                <option value="">Select a Zone</option>
+                                <option value="all">All</option>
+                                {% for zone in zones%}
+                                    <option value="{{zone.id}}">{{zone.zone_name}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -152,20 +169,21 @@
                         <div class="col-md-3">
                             <label class="control-label">Bill Cycle</label>
                             <select class="form-control select2">
-                                <option value="AK">Alaska</option>
-                                <option value="CA">California</option>
-                                <option value="NV">Nevada</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="WY">Wyoming</option>
+                                <option value="">Select a Bill Cycle</option>
+                                <option value="all">All</option>
+                                {% for cycle in billCycle%}
+                                    <option value="{{cycle.id}}">{{cycle.bill_cycle_code}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Route</label>
                             <select class="form-control select2">
-                                <option value="AK">Alaska</option>
-                                <option value="HI" disabled="disabled">Hawaii</option>
-                                <option value="CA">California</option>
-                                <option value="WA">Washington</option>
+                                <option value="">Select a Route</option>
+                                <option value="all">All</option>
+                                {% for route in routes%}
+                                    <option value="{{route.id}}">{{route.route_code}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -188,22 +206,6 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="col-md-12">-->
-                    <!--<div class="row" style="margin-top: 48px;text-align: center;">-->
-                        <!--<div class="col-md-4" style="border-right: 1px solid black;">-->
-                            <!--<h4 class="control-label">Total</h4>-->
-                            <!--<h4 class="control-label">3000</h4>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4" >-->
-                            <!--<h4 class="control-label">Open</h4>-->
-                            <!--<h4 class="control-label" >200</h4>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4" style="border-left: 1px solid black;">-->
-                            <!--<h4 class="control-label">Closed</h4>-->
-                            <!--<h4 class="control-label" >2800</h4>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
             </div>
             <br>
             <div class="row">
@@ -215,8 +217,16 @@
                                 <i class="icon-settings font-dark"></i>
                                 <span class="caption-subject bold uppercase">Complaints</span>
                             </div>
-                            <div class="caption font-dark" style="margin-left:3%;">
-                                <h4 class="control-label">Total : 3000  |   Open : 200   |    Closed : 2800</h4>
+                            <div class="caption font-dark" style="margin-left:5%;">
+                                <div class="row">
+                                    <h3 class="page-title" style="margin-top: -4px; margin-bottom:0px"> {{total}}
+                                        <small>Total</small>
+                                        | {{open}}
+                                        <small>Open</small>
+                                        | {{closed}}
+                                        <small>Closed</small>
+                                    </h3>
+                                </div>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -234,61 +244,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012345</a></td>
-                                    <td> Complaints Type 1</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012344</a></td>
-                                    <td> Complaints Type 2</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012346</a></td>
-                                    <td> Complaints Type 1</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012347</a></td>
-                                    <td> Complaints Type 2</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012348</a></td>
-                                    <td> Complaints Type 1</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012349</a></td>
-                                    <td> Complaints Type 2</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-
                                 </tbody>
                             </table>
                         </div>
@@ -312,35 +267,35 @@
             <div class="modal-body">
                 <div class="scroller" style="height:400px;" data-always-visible="1" data-rail-visible1="1">
                     <div class="col-md-12">
-                        <h4><b>Vikas Kumawat (205143)</b></h4>
+                        <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group form-md-line-input has-info">
-                                    <input type="text" class="form-control" readonly="" value="5862001" id="complaint_id">
-                                    <label for="bill_cycle">Complaint Id</label>
+                                    <input type="text" class="form-control" readonly="" id="complaint_id">
+                                    <label for="complaint_id">Complaint Id</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group form-md-line-input has-info">
-                                    <input type="text" class="form-control" readonly="" value="253140" id="complaint_type">
-                                    <label for="route_code">Complaint Type</label>
+                                    <input type="text" class="form-control" readonly="" id="complaint_type">
+                                    <label for="complaint_type">Complaint Type</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group form-md-line-input has-info">
-                                    <input type="text" class="form-control" readonly="" value="Open" id="complaint_status">
-                                    <label for="consumer_name">Status</label>
+                                    <input type="text" class="form-control" readonly="" id="complaint_status">
+                                    <label for="complaint_status">Status</label>
                                 </div>
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-6" style="">
-                                <img src="{% static 'assets/placeholder.png' %}" style="width:100%">
+                                <img id="complaint_image" src="{% static 'assets/placeholder.png' %}" style="width:100%; max-height:244px">
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-info ">
-                                    <textarea class="form-control" readonly id="complaint_remark" rows="11">Meter display issue.</textarea>
+                                    <textarea class="form-control" id="complaint_remark" readonly rows="11"></textarea>
                                     <label >Complaint</label>
                                 </div>
                             </div>
@@ -367,13 +322,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="5862001" id="bill_cycle">
+                                <input type="text" class="form-control" readonly="" id="bill_cycle">
                                 <label for="bill_cycle">Bill Cycle Code</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="253140" id="route_code">
+                                <input type="text" class="form-control" readonly="" id="route_code">
                                 <label for="route_code">Route Code</label>
                             </div>
                         </div>
@@ -381,13 +336,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Pimpri Chinchwad D-zone" id="consumer_zone">
+                                <input type="text" class="form-control" readonly="" id="consumer_zone">
                                 <label for="consumer_zone">Zone</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Pune" id="consumer_city">
+                                <input type="text" class="form-control" readonly="" id="consumer_city">
                                 <label for="consumer_city">City</label>
                             </div>
                         </div>
@@ -395,13 +350,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="201123" id="consumer_no">
+                                <input type="text" class="form-control" readonly="" id="consumer_no">
                                 <label for="consumer_no">Consumer No</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Vikas Kumawat" id="consumer_name">
+                                <input type="text" class="form-control" readonly="" id="consumer_name">
                                 <label for="consumer_name">Consumer Name</label>
                             </div>
                         </div>
@@ -409,7 +364,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="consumer_address" >Flat no-201, Primrose, right bhusari colony, oppo. borse hospital, kothrud, pune - 411038.</textarea>
+                                <textarea class="form-control" readonly id="consumer_address" ></textarea>
                                 <label >Address</label>
                             </div>
                         </div>
@@ -504,11 +459,21 @@
                 "zeroRecords": "No matching records found"
             },
 
-            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
             fixedHeader: {
                 header: true,
                 headerOffset: fixedHeaderOffset
             },
+
+            "ajax": "/complaintapp/get-complaint-data/",
+            "columns": [
+                {"data": "complaint_no"},
+                {"data": "complaint_type"},
+                {"data": "raised_date"},
+                {"data": "consumer_no"},
+                {"data": "consumer_name"},
+                {"data": "complaint_source"},
+                {"data": "complaint_status"},
+            ],
 
             "order": [
                 [0, 'asc']
@@ -521,9 +486,8 @@
 
             "lengthMenu": [
                 [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
+                [5, 10, 15, 20, "All"]
             ],
-            // set the initial value
             "pageLength": 20,
 
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
@@ -531,6 +495,54 @@
     }
 
     initTable1();
+
+    function complaint_details(complaint_id){
+        $.ajax({
+            type : "GET",
+            url : '/complaintapp/get-complaint-details/',
+            data : {'complaint_id':complaint_id},
+            success: function (response) {
+                if(response.success =='true'){
+                    complaintDetail = response.complaintDetail;
+                    $("#complaint_id").val(complaintDetail.complaintID);
+                    $("#complaint_type").val(complaintDetail.complaintType);
+                    $("#complaint_status").val(complaintDetail.complaintStatus);
+                    $("#complaint_image").attr("src",complaintDetail.complaint_img);
+                    $("#complaint_remark").text(complaintDetail.consumerRemark);
+                    $("#cons_name").text(complaintDetail.complaintConsumerName);
+                    $("#cons_no").text(complaintDetail.complaintConsumerNo);
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+        $("#complaint_details").modal('show');
+    }
+
+    function consumer_details(consumer_id){
+        $.ajax({
+            type : "GET",
+            url : '/complaintapp/get-consumer-details/',
+            data : {'consumer_id':consumer_id},
+            success: function (response) {
+                if(response.success =='true'){
+                    consumerDetail = response.consumerDetail;
+                    $("#bill_cycle").val(consumerDetail.complaintID);
+                    $("#route_code").val(consumerDetail.complaintType);
+                    $("#consumer_zone").val(consumerDetail.complaintStatus);
+                    $("#consumer_city").val(consumerDetail.complaintID);
+                    $("#consumer_no").val(consumerDetail.complaintType);
+                    $("#consumer_name").val(consumerDetail.complaintStatus);
+                    $("#consumer_address").text(consumerDetail.consumerRemark);
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+        $("#consumer_details").modal('show');
+    }
 </script>
 
 </body>
