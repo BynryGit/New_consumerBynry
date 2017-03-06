@@ -314,7 +314,8 @@
                 <div class="scroller" style="height:470px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4><b>Bill Month : January 2017</b></h4>
+                            <h4><b>Bill Month : <span id="consumer_bill_month"></span> 2017</b></h4>
+                            <input type="hidden" class="form-control" id="consumer_bill_month1">
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
@@ -413,13 +414,15 @@
                         <div class="row">
                         <div class="col-md-12">
 	                        <div class="col-md-6">	                            
-	                            <div class="form-group form-md-line-input has-success" style="margin-top: -25px;">
+	                            <div class="form-group form-md-line-input has-info" style="margin-top: -25px;">
 	                                <label class="control-label" for="form_control_1">Payment Mode</label>	
-	                                <select class="form-control" name="delivery">
+	                                <input type="text" class="form-control" readonly="" id="payment_mode"
+                                       placeholder="Payment Mode" value="Cash">
+	                                <!-- <select class="form-control" name="delivery">
 	                                    <option value="">Select Payment Mode</option>
 	                                    <option value="2">Cash</option>
 	                                    <option value="3">Online Payment</option>
-	                                </select>
+	                                </select> -->
 	                            </div>
 	                        </div>
 	                        <div class="col-md-6">	                        
@@ -427,7 +430,7 @@
 												<label for="form_control_1">Enter Amount</label>                      	  								                                
 	                                <div class="input-group">
 	                                   <span class="input-group-addon">₹</span>
-	                                   <input type="text" class="form-control" placeholder="Enter amount">
+	                                   <input type="text" class="form-control" id="paid_amt" placeholder="Enter amount">
 	                                   <div class="form-control-focus"> </div>
 	                                   <span class="input-group-addon">.00</span>
 	                               </div>	                                
@@ -440,17 +443,17 @@
             </div>
             <div class="modal-footer" id="counter_bill_footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline btn-circle">Close</button>
-                <button type="button" onclick="get_consumer_details();" class="btn green btn-outline btn-circle">Submit</button>
+                <button type="button" onclick="get_payment_details();" class="btn green btn-outline btn-circle">Submit</button>
             </div>
             <div class="modal-footer" id="counter_form_footer" hidden="">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline btn-circle">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn green btn-outline btn-circle">Save</button>
+                <button type="button" data-dismiss="modal" onclick="save_payment_details()" class="btn green btn-outline btn-circle">Save</button>
             </div>
         </div>
     </div>
 </div>
 
-<div id="consumer_details" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="consumer_details_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -460,17 +463,17 @@
                 <div class="scroller" style="height:250px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                     		<div class="col-md-12">
-                            <h4><b>Vikas Kumawat (125845)</b></h4>
+                            <h4><b><span id="cName"></span> (<span id="cNo"></span>)</b></h4>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="5862001" id="bill_cycle">
+                                <input type="text" class="form-control" readonly=""  id="bill_cycle">
                                 <label for="bill_cycle">Bill Cycle Code</label>
                             </div>
                         </div>                        
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="253140" id="route_code">
+                                <input type="text" class="form-control" readonly="" id="route_code">
                                 <label for="route_code">Route Code</label>
                             </div>
                         </div>
@@ -478,13 +481,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Pimpri Chinchwad D-zone" id="consumer_zone">
+                                <input type="text" class="form-control" readonly=""  id="consumer_zone">
                                 <label for="consumer_zone">Zone</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Pune" id="consumer_city">
+                                <input type="text" class="form-control" readonly=""  id="consumer_city">
                                 <label for="consumer_city">City</label>
                             </div>
                         </div>
@@ -492,7 +495,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="consumer_address" >Flat no-201, Primrose, right bhusari colony, oppo. borse hospital, kothrud, pune - 411038.</textarea>
+                                <textarea class="form-control" readonly id="consumer_address" ></textarea>
                                 <label >Address</label>
                             </div>
                         </div>
@@ -569,16 +572,35 @@
 
 
 <script type="text/javascript">
-	function get_consumer_details() {
-	alert('hi');
-	//document.getElementById("counter_form").removeAttribute("hidden");
-	//document.getElementById("counter_form_footer").removeAttribute("hidden");
-	//document.getElementById("counter_bill").setAttributeNode("hidden"); 
-	
-	consumer_number = $('#consumer_no').val(); 
-	bill_month = $('#bill_month').val(); 
-	alert(consumer_number) ;
-	alert(bill_month) ;
+
+	function add_payment() {		   
+		 $("#responsive").modal('show');         
+
+	}
+
+	function save_payment_details() {
+		var paid_amount = $('#consumer_bill_month1').val();
+		alert(paid_amount);
+		$.ajax({
+       type	: "GET",
+       url : '/paymentapp/payments_save_payment_details/',
+       data : {'paid_amount':paid_amount,'consumer_no':$("#consumer_number").val(),'bill_month':$("#consumer_bill_month1").val()},       
+       success: function (response) {			  
+     		  if(response.success=='true'){
+												    
+     		  }
+       },
+       
+       error : function(response){
+       alert("_Error");
+       }
+   });
+		
+	}
+
+	function get_payment_details() {
+	var consumer_number = $('#consumer_no').val(); 
+	var bill_month = $('#bill_month').val(); 
 	
 	if (consumer_number == '') {
 		return false;
@@ -587,25 +609,25 @@
  
    $.ajax({
        type	: "GET",
-       url : '/paymentapp/payments_get_consumer_details/',
-       data : {'consumer_no':consumer_number,'bill_month':bill_month},
-       cache: false,
-       processData: false,
-       contentType: false,
+       url : '/paymentapp/payments_get_payment_details/',
+       data : {'consumer_no':consumer_number,'bill_month':bill_month},       
        success: function (response) {			  
      		  if(response.success=='true'){
-     		  
-				$("#meter_number").text(response.meter_number); 
-				$("#tariff_rate").text(response.tariff_rate); 
-				$("#current_reading").text(response.current_month_reading); 
-				$("#prev_month_reading").text(response.previous_month_reading); 
-				$("#consumption").text(response.consumption); 
-				$("#prompt_date").text(response.payment_date); 
-				$("#due_date").text(response.due_date); 
-				$("#arrears").text(response.arriers); 
-				$("#current_amt").text(response.current_amount); 
-				$("#net_amt").text(response.net_amt); 
-				$("#due_date_amt").text(response.amount_after_due_date); 	
+				$("#consumer_number").val(response.payment_data.consumer_no); 
+				$("#consumer_bill_month").text(response.payment_data.bill_month); 
+				$("#consumer_bill_month1").val(response.payment_data.bill_month); 
+				$("#meter_number").val(response.payment_data.meter_no); 
+				$("#tariff_rate").val(response.payment_data.tariff_rate); 
+				$("#current_reading").val(response.payment_data.current_month_reading); 
+				$("#prev_month_reading").val(response.payment_data.previous_month_reading); 
+				$("#consumption").val(response.payment_data.consumption); 
+				$("#prompt_date").val(response.payment_data.payment_date); 
+				$("#due_date").val(response.payment_data.due_date); 
+				$("#arrears").val(response.payment_data.arriers); 
+				$("#current_amt").val(response.payment_data.current_amount); 
+				$("#prompt_amt").val(response.payment_data.bill_amount_paid); 
+				$("#net_amt").val(response.payment_data.net_amount); 
+				$("#due_date_amt").val(response.payment_data.amount_after_due_date); 	
 				
 				document.getElementById("counter_form").removeAttribute("hidden");
 				document.getElementById("counter_form_footer").removeAttribute("hidden");	  	
@@ -619,12 +641,32 @@
        alert("_Error");
        }
    });	
-	
-	      }
-	
+	}
 	
 }
 
+ function consumer_details_modal(consumer_id){
+        $.ajax({
+            type : "GET",
+            url : '/paymentapp/payments_get_consumer_details/',
+            data : {'consumer_id':consumer_id},
+            success: function (response) {
+                if(response.success =='true'){
+                	 $("#bill_cycle").val(response.consumerData.billCycle); 
+			          $("#route_code").val(response.consumerData.consumerRoute); 
+			          $("#consumer_zone").val(response.consumerData.consumerZone); 
+			          $("#cNo").text(response.consumerData.consumerNo); 
+			          $("#cName").text(response.consumerData.consumerName); 
+			          $("#consumer_city").val(response.consumerData.consumerCity); 
+			          $("#consumer_address").text(response.consumerData.consumerAddress); 
+                 	$("#consumer_details_modal").modal('show');  
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });        
+    }
 </script>
 
 <!-- <script type="text/javascript">
