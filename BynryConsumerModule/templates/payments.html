@@ -114,7 +114,7 @@
                     		<div class="row">
 	                        <div class="col-md-2">
 	                            <label for="select2-single-input-sm" class="control-label">Zone :</label>
-	                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
+	                            <select id="filter_zone" class="form-control input-sm select2-multiple">
 	                                <option value="all">All</option>
 	                                {% for z in zone %}		                                		
 	                            	  		<option value="{{z}}">{{z}}</option>	
@@ -123,7 +123,7 @@
 	                        </div>
 	                        <div class="col-md-2">
 	                            <label for="select2-single-input-sm" class="control-label">Bill Cycle :</label>
-	                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
+	                            <select id="filter_bill" class="form-control input-sm select2-multiple">
 	                            	  <option value="all">All</option>	
 	                            	  {% for b in billcycle %}		                            	  		
 	                            	  		<option value="{{b}}">{{b}}</option>	
@@ -133,7 +133,7 @@
 	                        </div>
 	                        <div class="col-md-2">
 	                            <label for="select2-single-input-sm" class="control-label">Route :</label>
-	                            <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
+	                            <select id="filter_route" class="form-control input-sm select2-multiple">
 											   <option value="all">All</option>	 		                            	  
 	                            	  {% for r in routeDetail %}		                            	  		
 	                            	  		<option value="{{r}}">{{r}}</option>	
@@ -144,26 +144,24 @@
                                  <div class="form-group">
                                      <label class="control-label ">Payment Date Range</label>
                                      <div class="">
-                                         <div id="date_range"
-                                              class="input-group input-large date-picker input-daterange"
-                                              data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                                             <input type="text" class="form-control" placeholder="Start Date"
-                                                    name="from">
-                                             <span class="input-group-addon"> to </span>
-                                             <input type="text" class="form-control" placeholder="End Date"
-                                                    name="to"></div>
-                                     </div>
+                                         <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012"
+                                 				data-date-format="dd/mm/yyyy">
+				                                <input type="text" class="form-control" name="from" id="filter_from" placeholder="Start Date" readonly="">
+				                                <span class="input-group-addon"> to </span>
+				                                <input type="text" class="form-control" name="to" id="filter_to" placeholder="End Date" readonly="">
+				                             </div>
+			                            </div>
                                  </div>
                              </div>  
                              <div class="col-md-4">
-                                    <input type="button" onclick="clear_filter();"
+                                    <input type="button" onclick="search_consumer();"
                                            style="margin-left: 163px;margin-top: 27px;"
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
                                            value="Search">
-                                    <input type="button" onclick="href:page.reload()"
+                                    <input type="button" onclick="clear_filter();"
                                            style="margin-left:5px;margin-top: 27px;"
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
-                                           value="Clear Filters">       
+                                           value="Clear Filters">                                        
                                 </div>	                         	                        
                     		</div>
                         </div>
@@ -575,11 +573,233 @@
 
 	function add_payment() {		   
 		 $("#responsive").modal('show');         
-
 	}
+	
+	function search_consumer(){
+	    initTable1();    
+	    initTable2();    
+	    initTable3();    
+	}	
+	
+	 var initTable1 = function () {
+		   filter_zone 	 = $("#filter_zone").val();
+			filter_bill 	 = $("#filter_bill").val();
+			filter_route 	 = $("#filter_route").val();			
+			filter_from 	 = $("#filter_from").val();
+			filter_to 		 = $("#filter_to").val();		     
+        
+        var table = $('#sample_1');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+				"bDestroy" : true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            //setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+				
+            "order": [
+                [0, 'asc']
+            ],
+				"ajax": "/paymentapp/online_payments/?filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+                  "columns": [
+                {"data": "payment_date"},
+                {"data": "bill_amount_paid"}, 
+                {"data": "transaction_id"}, 
+                {"data" : "consumer_id"},      
+                {"data" : "consumer_name"},      
+                {"data" : "payment_mode"}                             
+		            ],				
+				
+            buttons: [
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+      });
+    }
+    
+     var initTable2 = function () {
+     
+     		filter_zone 	 = $("#filter_zone").val();
+			filter_bill 	 = $("#filter_bill").val();
+			filter_route 	 = $("#filter_route").val();			
+			filter_from 	 = $("#filter_from").val();
+			filter_to 		 = $("#filter_to").val();	
+			
+        var table = $('#sample_2');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+				"bDestroy" : true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+				"ajax": "/paymentapp/paytm_payments/?filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+                  "columns": [
+                {"data": "payment_date"},
+                {"data": "bill_amount_paid"}, 
+                {"data": "transaction_id"}, 
+                {"data" : "consumer_id"},      
+                {"data" : "consumer_name"},      
+                {"data" : "payment_mode"}                             
+		            ],
+		            
+            "order": [
+                [0, 'asc']
+            ],
+
+            buttons: [
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+      });
+    }
+
+    //Cash Counter Table initialization
+     var initTable3 = function () {
+     
+     	 	filter_zone 	 = $("#filter_zone").val();
+			filter_bill 	 = $("#filter_bill").val();
+			filter_route 	 = $("#filter_route").val();			
+			filter_from 	 = $("#filter_from").val();
+			filter_to 		 = $("#filter_to").val();	
+			
+        var table = $('#sample_3');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+				"bDestroy" : true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+				"ajax": "/paymentapp/cash_payments/?filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+                  "columns": [
+                {"data": "payment_date"},
+                {"data": "bill_amount_paid"}, 
+                {"data": "transaction_id"}, 
+                {"data" : "consumer_id"},      
+                {"data" : "consumer_name"},      
+                {"data" : "payment_mode"}                             
+		            ],
+            "order": [
+                [0, 'asc']
+            ],
+
+            buttons: [
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+      });
+    }
+	
+	function clear_filter(){
+ 	  		filter_zone 	 = $("#filter_zone").val('all').change();
+			filter_bill 	 = $("#filter_bill").val('all').change();
+			filter_route 	 = $("#filter_route").val('all').change();
+			filter_from 	 = $("#filter_from").val('');
+			filter_to 		 = $("#filter_to").val('');		  
+    }
 
 	function save_payment_details() {
-		var paid_amount = $('#consumer_bill_month1').val();
+		var paid_amount = $('#paid_amt').val();
 		$.ajax({
        type	: "GET",
        url : '/paymentapp/payments_save_payment_details/',
@@ -666,6 +886,10 @@
             }
         });        
     }
+    
+    initTable1();
+    initTable2();
+    initTable3();
 </script>
 
 <!-- <script type="text/javascript">

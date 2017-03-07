@@ -28,7 +28,7 @@ class ConsumerDetails(models.Model):
     contact_no      = models.CharField(max_length=50, blank=True, null=True)
     address_line_1  = models.CharField(max_length=500, blank=True, null=True)
     address_line_2  = models.CharField(max_length=500, blank=True, null=True)
-    address_line_3  = models.CharField(max_length=500, blank=True, null=True)
+    #address_line_3  = models.CharField(max_length=500, blank=True, null=True)
     city            = models.ForeignKey(City, blank=False, null=True)
     pin_code        = models.ForeignKey(Pincode, blank=False, null=True)
     zone            = models.ForeignKey(Zone, blank=False, null=True)
