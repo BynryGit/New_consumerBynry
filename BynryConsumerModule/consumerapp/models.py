@@ -12,8 +12,8 @@ IS_DELETED = (
 )
 
 CONNECTION_STATUS = (
-    ('Active', 'Active'),
-    ('Inactive', 'Inactive'),
+    ('Connected', 'Connected'),
+    ('Disconnected', 'Disconnected'),
 )
 METER_CATEGORY = (
     ('HT', 'HT'),
@@ -33,7 +33,7 @@ class ConsumerDetails(models.Model):
     pin_code        = models.ForeignKey(Pincode, blank=False, null=True)
     zone            = models.ForeignKey(Zone, blank=False, null=True)
     bill_cycle      = models.ForeignKey(BillCycle, blank=True, null=True)
-    route      = models.ForeignKey(RouteDetail, blank=True, null=True)
+    route           = models.ForeignKey(RouteDetail, blank=True, null=True)
     feeder_code     = models.CharField(max_length=20, blank=True, null=True)
     feeder_name     = models.CharField(max_length=255, blank=True, null=True)
     meter_no        = models.CharField(max_length=30, blank=True, null=True)
@@ -49,7 +49,7 @@ class ConsumerDetails(models.Model):
     meter_phase     = models.CharField(max_length=100, blank=True, null=True)
     meter_make      = models.CharField(max_length=100, blank=True, null=True)
     meter_type      = models.CharField(max_length=100, blank=True, null=True)
-    connection_status = models.CharField(max_length=200, choices=CONNECTION_STATUS,default='Active')
+    connection_status = models.CharField(max_length=200, choices=CONNECTION_STATUS,default='Connected')
     alternate_mobile=models.CharField(max_length=15,null=True,blank=True)
     alternate_email =models.CharField(max_length=100,null=True,blank=True)
     nearest_pole_no = models.CharField(max_length=200, blank=True, null=True)
