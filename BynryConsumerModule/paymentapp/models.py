@@ -43,6 +43,7 @@ class PaymentDetail(models.Model):
     due_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     arriers =models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     payment_date = models.DateField(blank=True, null=True)
+    prompt_date = models.DateField(blank=True, null=True)
     due_date =models.DateField(blank=True, null=True)
     payment_mode=models.CharField(max_length=200, choices=PAYMENT_MODE,blank=True, null=True)
     payment_by=models.CharField(max_length=200, choices=PAYMENT_BY,default='Register Consumer')

@@ -164,6 +164,7 @@ def payments_save_payment_details(request):
         consumer_obj.bill_amount_paid = request.GET.get('paid_amount')
         consumer_obj.payment_mode = 'Cash Payment'
         consumer_obj.bill_status = 'Paid'
+        consumer_obj.payment_date = datetime.now()
         consumer_obj.save()
 
         data={'success':True}

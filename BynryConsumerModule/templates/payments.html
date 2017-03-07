@@ -580,7 +580,6 @@
 
 	function save_payment_details() {
 		var paid_amount = $('#consumer_bill_month1').val();
-		alert(paid_amount);
 		$.ajax({
        type	: "GET",
        url : '/paymentapp/payments_save_payment_details/',
