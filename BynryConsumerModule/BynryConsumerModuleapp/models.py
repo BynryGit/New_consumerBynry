@@ -87,7 +87,7 @@ class Pincode(models.Model):
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
 
     def __unicode__(self):
-        return unicode(self.pincode)        
+        return unicode(self.pincode)
 
 
 class Utility(models.Model):

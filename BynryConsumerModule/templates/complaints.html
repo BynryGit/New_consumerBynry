@@ -38,6 +38,13 @@
         td{
             text-align:center;
         }
+        btn-sm{
+            width: 85px;
+        }
+        .help-block{
+            display:none;
+            color:red;
+        }
     </style>
 
 </head>
@@ -73,40 +80,16 @@
     </div>
 </div>
 <!-- END HEADER -->
-<!-- BEGIN HEADER & CONTENT DIVIDER -->
-<div class="clearfix"></div>
-<!-- END HEADER & CONTENT DIVIDER -->
-<!-- BEGIN CONTAINER -->
-<div class="page-container">
-    <!-- BEGIN SIDEBAR -->
-    <div class="page-sidebar-wrapper">
-        <!-- BEGIN SIDEBAR -->
-        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-        <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            {% include 'side-panel.html' %}
-            <!-- END SIDEBAR MENU -->
-            <!-- END SIDEBAR MENU -->
-        </div>
-        <!-- END SIDEBAR -->
-    </div>
-    <!-- END SIDEBAR -->
-    <!-- BEGIN CONTENT -->
-    <div class="page-content-wrapper">
-        <!-- BEGIN CONTENT BODY -->
-        <div class="page-content">
-            <!-- BEGIN PAGE HEADER-->
-            <!-- BEGIN THEME PANEL -->
 
-            <!-- END THEME PANEL -->
-            <!-- BEGIN PAGE BAR -->
+<div class="clearfix"></div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            {% include 'side-panel.html' %}
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content">
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
@@ -125,7 +108,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label class="control-label">Type</label>
-                            <select class="form-control select2">
+                            <select id="select_complaint_type" class="form-control select2">
                                 <option value="">Select a Complaint Type</option>
                                 <option value="all">All</option>
                                 {% for type in complaintType%}
@@ -135,7 +118,7 @@
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Status</label>
-                            <select class="form-control select2">
+                            <select id="select_complaint_status" class="form-control select2">
                                 <option value="">Select a Complaint Status</option>
                                 <option value="all">All</option>
                                 <option value="WIP">WIP</option>
@@ -145,7 +128,7 @@
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Source</label>
-                            <select class="form-control select2">
+                            <select id="select_complaint_source" class="form-control select2">
                                 <option value="">Select a Source</option>
                                 <option value="all">All</option>
                                 <option value="Mobile">Mobile</option>
@@ -155,7 +138,7 @@
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Zone</label>
-                            <select class="form-control select2">
+                            <select id="select_zone" class="form-control select2" onchange="get_bill_cycle()">
                                 <option value="">Select a Zone</option>
                                 <option value="all">All</option>
                                 {% for zone in zones%}
@@ -168,41 +151,46 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label class="control-label">Bill Cycle</label>
-                            <select class="form-control select2">
+                            <select id="select_bill_cycle" class="form-control select2" onchange="get_route()">
                                 <option value="">Select a Bill Cycle</option>
                                 <option value="all">All</option>
-                                {% for cycle in billCycle%}
-                                    <option value="{{cycle.id}}">{{cycle.bill_cycle_code}}</option>
-                                {% endfor %}
+                                <!--{% for cycle in billCycle%}-->
+                                    <!--<option value="{{cycle.id}}">{{cycle.bill_cycle_code}}</option>-->
+                                <!--{% endfor %}-->
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Route</label>
-                            <select class="form-control select2">
+                            <select id="select_route" class="form-control select2">
                                 <option value="">Select a Route</option>
                                 <option value="all">All</option>
-                                {% for route in routes%}
-                                    <option value="{{route.id}}">{{route.route_code}}</option>
-                                {% endfor %}
+                                <!--{% for route in routes%}-->
+                                    <!--<option value="{{route.id}}">{{route.route_code}}</option>-->
+                                <!--{% endfor %}-->
                             </select>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group"><label class="control-label ">Raised on Date</label>
                                 <div class="">
                                     <div class="input-group input-large date-picker input-daterange"
-                                         data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                                        <input type="text" class="form-control" placeholder="Start Date" name="from">
+                                         data-date="10/11/2012" data-date-format="dd/mm/yyyy">
+                                        <input readonly id="start_date" type="text" class="form-control" placeholder="Start Date" name="from">
                                         <span class="input-group-addon"> to </span>
-                                        <input type="text" class="form-control" placeholder="End Date" name="to">
+                                        <input readonly id="end_date" type="text" class="form-control" placeholder="End Date" name="to">
                                     </div>
                                 </div>
+                                <span class="help-block"> Please enter Raised on Date Range </span>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <input type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm "
-                                   style="margin-top: 27px;" value="Search">
-                            <input type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm "
-                                   style="margin-top: 27px;float:right;" value="Clear Filters">
+                        <div class="col-md-2" style="text-align:right;">
+                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                onclick="filter_complaints()" style="margin-top: 27px;">
+                                Filter
+                            </button>
+                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                onclick="clear_filter()" style="margin-top: 27px;">
+                                Clear
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -226,6 +214,41 @@
                                         | {{closed}}
                                         <small>Closed</small>
                                     </h3>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group btn-group-devided">
+                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                                            <i class="fa fa-refresh"></i> Reload
+                                        </button>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="complaint_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="4" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -257,6 +280,7 @@
     <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
+
 <!--  Models Start -->
 <div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -433,6 +457,14 @@
 
     var initTable1 = function () {
         var table = $('#complaint_table');
+        complaint_type = $("#select_complaint_type").val();
+        complaint_status = $("#select_complaint_status").val();
+        complaint_source = $("#select_complaint_source").val();
+        zone = $("#select_zone").val();
+        bill_cycle = $("#select_bill_cycle").val();
+        route = $("#select_route").val();
+        start_date = $("#start_date").val();
+        end_date = $("#end_date").val();
 
         var fixedHeaderOffset = 0;
         if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
@@ -444,7 +476,7 @@
         }
 
         var oTable = table.dataTable({
-
+            "bDestroy":true,
             "language": {
                 "aria": {
                     "sortAscending": ": activate to sort column ascending",
@@ -464,7 +496,7 @@
                 headerOffset: fixedHeaderOffset
             },
 
-            "ajax": "/complaintapp/get-complaint-data/",
+            "ajax": "/complaintapp/get-complaint-data/?complaint_type="+complaint_type+"&complaint_status="+complaint_status+"&complaint_source="+complaint_source+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
             "columns": [
                 {"data": "complaint_no"},
                 {"data": "complaint_type"},
@@ -480,8 +512,10 @@
             ],
 
             buttons: [
+                { extend: 'print', className: 'btn dark btn-outline' },
                 { extend: 'pdf', className: 'btn green btn-outline' },
                 { extend: 'excel', className: 'btn yellow btn-outline ' },
+                { extend: 'csv', className: 'btn purple btn-outline ' },
             ],
 
             "lengthMenu": [
@@ -490,8 +524,11 @@
             ],
             "pageLength": 20,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-      });
+        });
+        $('#complaint_table_tools > li > a.tool-action').on('click', function() {
+            var action = $(this).attr('data-action');
+            oTable.DataTable().button(action).trigger();
+        });
     }
 
     initTable1();
@@ -528,13 +565,13 @@
             success: function (response) {
                 if(response.success =='true'){
                     consumerDetail = response.consumerDetail;
-                    $("#bill_cycle").val(consumerDetail.complaintID);
-                    $("#route_code").val(consumerDetail.complaintType);
-                    $("#consumer_zone").val(consumerDetail.complaintStatus);
-                    $("#consumer_city").val(consumerDetail.complaintID);
-                    $("#consumer_no").val(consumerDetail.complaintType);
-                    $("#consumer_name").val(consumerDetail.complaintStatus);
-                    $("#consumer_address").text(consumerDetail.consumerRemark);
+                    $("#bill_cycle").val(consumerDetail.billCycle);
+                    $("#route_code").val(consumerDetail.consumerRoute);
+                    $("#consumer_zone").val(consumerDetail.consumerZone);
+                    $("#consumer_city").val(consumerDetail.consumerCity);
+                    $("#consumer_no").val(consumerDetail.consumerNo);
+                    $("#consumer_name").val(consumerDetail.consumerName);
+                    $("#consumer_address").text(consumerDetail.consumerAddress);
                 }
             },
             error : function(response){
@@ -543,6 +580,67 @@
         });
         $("#consumer_details").modal('show');
     }
+
+    function clear_filter(){
+        $('.select2').val("");
+        initTable1();
+    }
+
+    function filter_complaints(){
+        initTable1();
+    }
+
+    function get_bill_cycle(){
+        zone = $("#select_zone").val();
+        $("#select_bill_cycle").html('');
+        $("#select_bill_cycle").append('<option value="">Select a Bill Cycle</option>');
+        $("#select_bill_cycle").append('<option value="all">All</option>');
+        $("#select_route").html('');
+        $("#select_route").append('<option value="">Select a Route</option>');
+        $("#select_route").append('<option value="all">All</option>');
+        if(zone != ""){
+            $.ajax({
+                type : "GET",
+                url : '/complaintapp/get-bill-cycle/',
+                data : {'zone':zone},
+                success: function (response) {
+                    if(response.success =='true'){
+                        $.each(response.bill_cycle, function (index, item) {
+                            $("#select_bill_cycle").append('<option value="'+item.bill_cycle_id+'">'+item.bill_cycle+'</option>')
+                        });
+                    }
+                },
+                error : function(response){
+                    alert("_Error");
+                }
+            });
+        }
+    }
+
+    function get_route(){
+        bill_cycle = $("#select_bill_cycle").val();
+        $("#select_route").html('');
+        $("#select_route").append('<option value="">Select a Route</option>');
+        $("#select_route").append('<option value="all">All</option>');
+        if(bill_cycle != ""){
+            $.ajax({
+                type : "GET",
+                url : '/complaintapp/get-route/',
+                data : {'bill_cycle':bill_cycle},
+                success: function (response) {
+                    if(response.success =='true'){
+                        $.each(response.route_list, function (index, item) {
+                            $("#select_route").append('<option value="'+item.route_id+'">'+item.route+'</option>')
+                        });
+                    }
+                },
+                error : function(response){
+                    alert("_Error");
+                }
+            });
+        }
+    }
+
 </script>
 
 </body>
