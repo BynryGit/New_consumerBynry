@@ -507,6 +507,26 @@
     </div>
 </div>
 
+
+
+<div id="success_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Consumer Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:40px;" data-always-visible="1" data-rail-visible1="1">
+                     <label>Data Saved Successfully</label>           
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.           
@@ -805,8 +825,9 @@
        url : '/paymentapp/payments_save_payment_details/',
        data : {'paid_amount':paid_amount,'consumer_no':$("#consumer_number").val(),'bill_month':$("#consumer_bill_month1").val()},       
        success: function (response) {			  
-     		  if(response.success=='true'){
-												    
+     		  if(response.success=='True'){
+     		  	$('#success_modal').modal('show');
+				//alert('Payment Data Saved Successfully');								    
      		  }
        },
        

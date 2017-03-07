@@ -37,7 +37,6 @@ def payments(request):
           'billcycle':BillCycle.objects.all(),
           'routeDetail':RouteDetail.objects.all()
           }
-    print '--------data----',data
     return render(request, 'payments.html',data)
 
 def online_payments(request):
@@ -117,7 +116,6 @@ def paytm_payments(request):
                 filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 
-            print '---------payment_details_list-------',payment_details_list
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Paytm Wallet':
@@ -245,22 +243,14 @@ def payments_save_payment_details(request):
     print '-------paid_amount---',request.GET.get('consumer_no')
     try:
         consumer_obj = PaymentDetail.objects.filter(consumer_id__in=request.GET.get('consumer_no'),bill_month=request.GET.get('bill_month')).update(bill_amount_paid = request.GET.get('paid_amount'),payment_mode = 'Cash Payment',bill_status = 'Paid',payment_date = datetime.now())
-        print '--------------success save-------',consumer_obj
+        data={'success':'True'}
 
-        # consumer_obj.bill_amount_paid = request.GET.get('paid_amount')
-        # consumer_obj.payment_mode = 'Cash Payment'
-        # consumer_obj.bill_status = 'Paid'
-        # consumer_obj.payment_date = datetime.now()
-        # consumer_obj.save()
-
-        data={'success':True}
-        print '--------data----',data
-        return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|views.py|payments_save_payment_details', e
         print 'Exception', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
+    print '------------data--------',data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 # @login_required(login_url='/')
