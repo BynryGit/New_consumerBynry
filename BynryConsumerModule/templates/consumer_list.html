@@ -299,7 +299,7 @@
                               	
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility">
+                                        <input type="text" class="form-control" id="edit_utility" readonly="">
                                         <label for="form_control_1">Utility</label>
                                     </div>
                                 </div>
@@ -325,16 +325,21 @@
                                 </div>                               			                                               
                                 </div>
                                 <div class="row">
-				                        <div class="col-md-12">
+				                        <div class="col-md-6">
 				                            <div class="form-group form-md-line-input has-success ">
-				                                <textarea class="form-control" id="edit_address" ></textarea>
-				                                <label >Address</label>
+				                                <textarea class="form-control" id="edit_address1" ></textarea>
+				                                <label >Address Line 1</label>
+				                            </div>
+				                        </div>
+				                        <div class="col-md-6">
+				                            <div class="form-group form-md-line-input has-success ">
+				                                <textarea class="form-control" id="edit_address2" ></textarea>
+				                                <label >Address Line 2</label>
 				                            </div>
 				                        </div>
 				                        <div class="col-md-4"  style="margin-top: 4px;">
-					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="edit_city" class="form-control input-sm select2-multiple">
-				                                  <option value="all"> All</option>
+					                      <div class="form-group form-md-line-input has-success" >
+					                          <select id="edit_city" class="form-control input-sm select2-multiple" disabled>
 		                                        {% for city in city_list %}		
 		                                        <option value="{{ city.city_id }}"> {{ city.city }}</option>
 		                                        {% endfor %}
@@ -345,7 +350,6 @@
 				                    		<div class="col-md-4"  style="margin-top: 4px;">
 					                      <div class="form-group form-md-line-input has-success">
 					                          <select id="edit_pincode" class="form-control input-sm select2-multiple">
-				                                  <option value="all"> All</option>
 				                                  {% for pincode in pincode_list %}
 				                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
 				                                  {% endfor %}
@@ -356,7 +360,6 @@
 				                    		<div class="col-md-4"  style="margin-top: 4px;">
 					                      <div class="form-group form-md-line-input has-success">
 					                          <select id="edit_zone" class="form-control input-sm select2-multiple">
-				                                  <option value="all"> All</option>
 				                                  {% for zone in zone_list %}
 				                                   <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
 				                                  {% endfor %}
@@ -378,7 +381,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_category">
+                                        <input type="text" class="form-control" id="edit_category" readonly="">
                                         <label for="form_control_1">Category</label>
                                     </div>
                                 </div>
@@ -609,7 +612,8 @@
 						$('#edit_contact').val(response.data.contact_no)
 						$('#edit_email').val(response.data.email_id)
 						$('#edit_aadhar').val(response.data.aadhar_no)
-						$('#edit_address').val(response.data.address)
+						$('#edit_address1').val(response.data.address_line_1)
+						$('#edit_address2').val(response.data.address_line_2)
 						$('#edit_city').val(response.data.city_id).change();
 						$('#edit_pincode').val(response.data.pincode_id).change();
 						$('#edit_zone').val(response.data.zone_id).change();
@@ -638,16 +642,14 @@ $("#save-consumer").click(function(event)  {
 	   var formData= new FormData();
 
 		formData.append("consumer_no",$('#consumer_no').val());		
-		formData.append("edit_utility",$('#edit_utility').val());
 		formData.append("edit_contact",$('#edit_contact').val());    
 		formData.append("edit_email",$('#edit_email').val());    
 		formData.append("edit_aadhar",$('#edit_aadhar').val()); 
-		formData.append("edit_address",$('#edit_address').val()); 
-		formData.append("edit_city",$('#edit_city').val());    
-		formData.append("edit_aadhar",$('#edit_pincode').val()); 
+		formData.append("edit_address1",$('#edit_address1').val()); 
+		formData.append("edit_address2",$('#edit_address2').val()); 
+		formData.append("edit_pincode",$('#edit_pincode').val()); 
 		formData.append("edit_zone",$('#edit_zone').val()); 
 		formData.append("edit_meter_no",$('#edit_meter_no').val());    
-		formData.append("edit_category",$('#edit_category').val()); 
 		formData.append("edit_sanction_load",$('#edit_sanction_load').val()); 
 	
   			$.ajax({  				  
@@ -659,10 +661,12 @@ $("#save-consumer").click(function(event)  {
 		    		contentType: false,                       
               success: function (response) {   
 	              if(response.success=='true'){
-	           	  		$("#success_modal").modal('show');
+	           	  		$("#edituser_model").modal('hide');
+	           	  		location.reload();
 	              	}
 	      			if (response.success == "false") {
-							$("#error-modal").modal('show');                    
+							$("#edituser_model").modal('hide');     
+							location.reload()            
 	       			}							                        		                      		                       		
                },
                	beforeSend: function () {

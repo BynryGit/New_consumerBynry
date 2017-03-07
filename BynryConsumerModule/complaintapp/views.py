@@ -30,9 +30,9 @@ import pdb
 def complaint(request):
     try:
         total = ComplaintDetail.objects.filter(is_deleted=False).count()
-        #,consumer_id__city__city=request.user.userprofile.city.city
-        open = ComplaintDetail.objects.filter(complaint_status = 'Open', is_deleted=False).count()
-        closed = ComplaintDetail.objects.filter(complaint_status = 'Closed', is_deleted=False).count()
+        # ,consumer_id__city__city=request.user.userprofile.city.city
+        open = ComplaintDetail.objects.filter(complaint_status='Open', is_deleted=False).count()
+        closed = ComplaintDetail.objects.filter(complaint_status='Closed', is_deleted=False).count()
         complaintType = ComplaintType.objects.filter(is_deleted=False)
         zone = Zone.objects.filter(is_deleted=False)
         billCycle = BillCycle.objects.filter(is_deleted=False)
@@ -42,9 +42,9 @@ def complaint(request):
             'open': open,
             'closed': closed,
             'complaintType': complaintType,
-            'zones':zone,
-            'billCycle':billCycle,
-            'routes':routes,
+            'zones': zone,
+            'billCycle': billCycle,
+            'routes': routes,
         }
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
@@ -54,14 +54,33 @@ def complaint(request):
     return render(request, 'complaints.html', data)
 
 
-# def complaints(request):
-#     return render(request, 'complaints.html')
-
-# @login_required(login_url='/')
 def get_complaint_data(request):
     try:
         complaint_list = []
         complaint_obj = ComplaintDetail.objects.all()
+        if request.GET.get('complaint_type'):
+            if request.GET.get('complaint_type') == 'all':
+                complaintType = ComplaintType.objects.filter(is_deleted=False)
+            else:
+                complaintType = ComplaintType.objects.filter(is_deleted=False, id=request.GET.get('complaint_type'))
+            complaint_obj = complaint_obj.filter(complaint_type_id__in=complaintType)
+        if request.GET.get('complaint_status') and request.GET.get('complaint_status') != "all":
+            complaint_obj = complaint_obj.filter(complaint_status=request.GET.get('complaint_status'))
+        if request.GET.get('complaint_source') and request.GET.get('complaint_source') != "all":
+            complaint_obj = complaint_obj.filter(complaint_source=request.GET.get('complaint_source'))
+        if request.GET.get('zone') and request.GET.get('zone') != "all":
+            consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
+            complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+        if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
+            consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
+            complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+        if request.GET.get('route') and request.GET.get('route') != "all":
+            consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
+            complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+        if request.GET.get('start_date') and request.GET.get('end_date'):
+            start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
+            end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
+            complaint_obj = complaint_obj.filter(complaint_date__range=[start_date, end_date])
         for complaint in complaint_obj:
             complaint_data = {
                 'complaint_no': '<a onclick="complaint_details(' + str(
@@ -117,14 +136,21 @@ def get_consumer_details(request):
     print 'Complaint ID Column Detail---', request.GET
     try:
         consumerDetails = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+        consumer_address = consumerDetails.address_line_1
+        if consumerDetails.address_line_2:
+            consumer_address = consumer_address + ', ' + consumerDetails.address_line_2
+        if consumerDetails.address_line_3:
+            consumer_address = consumer_address + ', ' + consumerDetails.address_line_3
+        if consumerDetails.pin_code:
+            consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.'
         getConsumer = {
             'billCycle': consumerDetails.bill_cycle.bill_cycle_code,
             'consumerCity': consumerDetails.city.city,
-            'consumerRoute': consumerDetails.bill_cycle.bill_cycle_code,
+            'consumerRoute': consumerDetails.route.route_code,
             'consumerZone': consumerDetails.bill_cycle.zone.zone_name,
             'consumerNo': consumerDetails.consumer_no,
             'consumerName': consumerDetails.name,
-            'consumerAddress': consumerDetails.address_line_1 + '  ' + consumerDetails.address_line_2 + '  ' + consumerDetails.address_line_3,
+            'consumerAddress': consumer_address
         }
         data = {'success': 'true', 'consumerDetail': getConsumer}
         print 'Request show history out service request with---', data
@@ -134,179 +160,6 @@ def get_consumer_details(request):
         print 'exception ', str(traceback.print_exc())
         print 'Exception|views.py|get_consumer_modal', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
-    return HttpResponse(json.dumps(data), content_type='application/json')
-
-
-@login_required(login_url='/')
-def complaint_reading_export(request):
-    try:
-
-        selectedStatus = request.GET.get('summaryValue')
-        # print "\n Sumaaaaarrryyyyyy VAaaaaaaalllllue ", selectedStatus
-
-        Status = ComplaintDetail.objects.filter()
-        # print "\n Status Hereeeeeeeeeeeeeeee ", Status
-
-        selectedComplaintValue = request.GET.get('selectedComplaintType')
-        # print "\n Selecetd Complaint Value ", selectedComplaintValue
-        # print "+++++++++++++++++++++++++++++++++++"
-        selectedFromDate = request.GET.get('selectedFromDate')
-        # print selectedFromDate
-        selectedToDate = request.GET.get('selectedToDate')
-        # print selectedToDate
-        complaintDetail = ''
-        # total_record = ''
-
-        # Complaint_Type = All and No Dates
-
-        try:
-
-            if selectedComplaintValue == 'All':
-                print "here yeah Export"
-                try:
-                    if (selectedFromDate == "None" and selectedToDate == "None") or (
-                                    selectedFromDate == '' and selectedToDate == ''):
-                        # if selectedFromDate == '' and selectedToDate == '' :
-                        print "\nNo Dates Total All Export"
-                        # print selectedFromDate
-                        # print selectedToDate
-                        complaintDetail = ComplaintDetail.objects.filter(is_deleted=False,
-                                                                         consumer_id__city__city=request.user.userprofile.city.city, )
-
-                    else:
-                        if selectedFromDate and (
-                                            selectedToDate == "None" or selectedToDate == '' or selectedToDate == None):
-                            selectedFromDateValue = datetime.datetime.strptime(str(selectedFromDate),
-                                                                               '%d/%m/%Y').date()
-                            print "\nselectedFromDateValue Total All Export = ", selectedFromDateValue
-                            # selectedToDateValue = datetime.datetime.strptime(str(selectedToDate), '%d/%m/%Y').date()
-                            # print "\nselectedToDateValue = ", selectedToDateValue
-
-                            print "\nhereeeeeee from date only Total All Export"
-
-                            complaintDetail = ComplaintDetail.objects.filter(complaint_date__gte=selectedFromDateValue,
-                                                                             consumer_id__city__city=request.user.userprofile.city.city,
-                                                                             # complaint_date__lte=selectedToDateValue,
-                                                                             is_deleted=False)
-
-
-                        elif selectedToDate and (
-                                            selectedFromDate == "None" or selectedFromDate == '' or selectedFromDate == None):
-                            # selectedFromDateValue = datetime.datetime.strptime(str(selectedFromDate), '%d/%m/%Y').date()
-                            # print "\nselectedFromDateValue = ", selectedFromDateValue
-                            selectedToDateValue = datetime.datetime.strptime(str(selectedToDate), '%d/%m/%Y').date()
-                            selectedToDateValue = selectedToDateValue + relativedelta(days=1)
-                            print "\nselectedToDateValue Total All Export = ", selectedToDateValue
-
-                            print "\nhereeeeeee  To Date Only Total All Export"
-
-                            complaintDetail = ComplaintDetail.objects.filter(
-                                # complaint_date__gte=selectedFromDateValue,
-                                complaint_date__lte=selectedToDateValue,
-                                consumer_id__city__city=request.user.userprofile.city.city,
-                                is_deleted=False)
-                        elif selectedFromDate and selectedToDate:
-                            selectedFromDateValue = datetime.datetime.strptime(str(selectedFromDate),
-                                                                               '%d/%m/%Y').date()
-                            print "\nselectedFromDateValue Total All Export= ", selectedFromDateValue
-                            selectedToDateValue = datetime.datetime.strptime(str(selectedToDate), '%d/%m/%Y').date()
-                            selectedToDateValue = selectedToDateValue + relativedelta(days=1)
-                            print "\nselectedToDateValue Total All Export = ", selectedToDateValue
-
-                            print "\nhereeeeeee Both the dates Total All Export"
-
-                            complaintDetail = ComplaintDetail.objects.filter(complaint_date__gte=selectedFromDateValue,
-                                                                             complaint_date__lte=selectedToDateValue,
-                                                                             consumer_id__city__city=request.user.userprofile.city.city,
-                                                                             is_deleted=False)
-
-                except Exception, e:
-                    print e
-
-            else:
-                if selectedFromDate == '' and selectedToDate == '':
-                    # if  selectedFromDate == '' and selectedToDate == '':
-                    print "\nNo Dates Total ComplaintType Export"
-
-                    complaintDetail = ComplaintDetail.objects.filter(complaint_type_id=selectedComplaintValue,
-                                                                     consumer_id__city__city=request.user.userprofile.city.city,
-                                                                     is_deleted=False)
-                else:
-                    if selectedFromDate and (
-                                        selectedToDate == "None" or selectedToDate == '' or selectedToDate == None):
-                        selectedFromDateValue = datetime.datetime.strptime(str(selectedFromDate), '%d/%m/%Y').date()
-                        print "\nselectedFromDateValue Total ComplaintType Export= ", selectedFromDateValue
-                        # selectedToDateValue = datetime.datetime.strptime(str(selectedToDate), '%d/%m/%Y').date()
-                        # print "\nselectedToDateValue = ", selectedToDateValue
-
-                        print "\nhereeeeeee from date only Total ComplaintType Export"
-
-                        complaintDetail = ComplaintDetail.objects.filter(complaint_type_id=selectedComplaintValue,
-                                                                         complaint_date__gte=selectedFromDateValue,
-                                                                         consumer_id__city__city=request.user.userprofile.city.city,
-                                                                         # complaint_date__lte=selectedToDateValue,
-                                                                         is_deleted=False)
-
-                    elif selectedToDate and (
-                                        selectedFromDate == "None" or selectedFromDate == '' or selectedFromDate == None):
-                        # selectedFromDateValue = datetime.datetime.strptime(str(selectedFromDate), '%d/%m/%Y').date()
-                        # print "\nselectedFromDateValue = ", selectedFromDateValue
-                        selectedToDateValue = datetime.datetime.strptime(str(selectedToDate), '%d/%m/%Y').date()
-                        selectedToDateValue = selectedToDateValue + relativedelta(days=1)
-                        print "\nselectedToDateValue Total ComplaintType Export= ", selectedToDateValue
-
-                        print "\nhereeeeeee To date only Total ComplaintType Export"
-
-                        complaintDetail = ComplaintDetail.objects.filter(  # complaint_date__gte=selectedFromDateValue,
-                            complaint_type_id=selectedComplaintValue,
-                            complaint_date__lte=selectedToDateValue,
-                            consumer_id__city__city=request.user.userprofile.city.city,
-                            is_deleted=False)
-                    elif selectedFromDate and selectedToDate:
-                        selectedFromDateValue = datetime.datetime.strptime(str(selectedFromDate), '%d/%m/%Y').date()
-                        print "\nselectedFromDateValue Total ComplaintType Export= ", selectedFromDateValue
-                        selectedToDateValue = datetime.datetime.strptime(str(selectedToDate), '%d/%m/%Y').date()
-                        selectedToDateValue = selectedToDateValue + relativedelta(days=1)
-                        print "\nselectedToDateValue Total ComplaintType Export= ", selectedToDateValue
-
-                        print "\nhereeeeeee Both dates Total ComplaintType Export"
-
-                        complaintDetail = ComplaintDetail.objects.filter(complaint_type_id=selectedComplaintValue,
-                                                                         complaint_date__gte=selectedFromDateValue,
-                                                                         complaint_date__lte=selectedToDateValue,
-                                                                         consumer_id__city__city=request.user.userprofile.city.city,
-                                                                         is_deleted=False)
-
-
-        except Exception, e:
-            print e
-
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="Complaint_List.csv';
-        writer = csv.writer(response)
-
-        writer.writerow(
-            ['Complaint ID', 'Complaint Type', 'Raised On', 'Consumer Name', 'Consumer Number', 'Remark'])
-
-        for complaint in complaintDetail:
-            tempList = []
-
-            if complaint.complaint_date:
-                complaint_date = complaint.complaint_date.strftime('%b %d,%Y %I:%M %p')
-            else:
-                complaint_date = ('------')
-
-            tempList.append(complaint.complaint_no)
-            tempList.append(complaint.complaint_type_id.complaint_type)
-            tempList.append(complaint_date)
-            tempList.append(complaint.consumer_id.name)
-            tempList.append(complaint.consumer_id.consumer_no)
-            tempList.append(complaint.remark)
-            writer.writerow(tempList)
-        return response
-    except Exception, e:
-        print 'Exception|views.py|complaint_reading_export', e
-        data = {'success': 'false'}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -320,6 +173,44 @@ def get_complaint_count(request):
             'total': totals,
         }
         data = {'success': 'true', 'total': total}
+        return HttpResponse(json.dumps(data), content_type='application/json')
+    except Exception, e:
+        print "Exception | complaintapp | get_complaint_count = ", e
+
+
+def get_bill_cycle(request):
+    try:
+        bill_cycle_list = []
+        if request.GET.get('zone') != 'all':
+            bill_cycle_obj = BillCycle.objects.filter(is_deleted=False, zone=request.GET.get('zone'))
+        else:
+            bill_cycle_obj = BillCycle.objects.filter(is_deleted=False)
+        for bill_cycle in bill_cycle_obj:
+            bill_cycle_data = {
+                'bill_cycle_id': bill_cycle.id,
+                'bill_cycle': bill_cycle.bill_cycle_code
+            }
+            bill_cycle_list.append(bill_cycle_data)
+        data = {'success': 'true', 'bill_cycle': bill_cycle_list}
+        return HttpResponse(json.dumps(data), content_type='application/json')
+    except Exception, e:
+        print "Exception | complaintapp | get_bill_cycle = ", e
+
+
+def get_route(request):
+    try:
+        route_list = []
+        if request.GET.get('bill_cycle') != 'all':
+            route_obj = RouteDetail.objects.filter(is_deleted=False, billcycle=request.GET.get('bill_cycle'))
+        else:
+            route_obj = RouteDetail.objects.filter(is_deleted=False)
+        for route in route_obj:
+            route_data = {
+                'route_id': route.id,
+                'route': route.route_code
+            }
+            route_list.append(route_data)
+        data = {'success': 'true', 'route_list': route_list}
         return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
         print "Exception | complaintapp | get_complaint_count = ", e
