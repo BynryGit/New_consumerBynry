@@ -14,6 +14,7 @@ from paymentapp.models import PaymentDetail
 from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail
 from consumerapp.models import ConsumerDetails
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 
 # Todo show list view for payment detail
 # @login_required(login_url='/')
@@ -41,6 +42,7 @@ def payments(request):
 
 def online_payments(request):
     online_payment_list=[]
+    payment_details_list=[]
     try:
         filter_zone  	= request.GET.get('filter_zone')
         filter_bill  	= request.GET.get('filter_bill')
@@ -83,11 +85,14 @@ def online_payments(request):
 			data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
     except Exception, e:
         print e
+    print '---------payment_details_list---data----',data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 def paytm_payments(request):
     try:
         payment_wallet_list=[]
+        payment_details_list=[]
+
         filter_zone  	= request.GET.get('filter_zone')
         filter_bill  	= request.GET.get('filter_bill')
         filter_route 	= request.GET.get('filter_route')
@@ -112,6 +117,7 @@ def paytm_payments(request):
                 filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 
+            print '---------payment_details_list-------',payment_details_list
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Paytm Wallet':
@@ -134,6 +140,7 @@ def paytm_payments(request):
 def cash_payments(request):
     try:
         cash_payment_list=[]
+        payment_details_list=[]
         filter_zone  	= request.GET.get('filter_zone')
         filter_bill  	= request.GET.get('filter_bill')
         filter_route 	= request.GET.get('filter_route')
@@ -187,7 +194,7 @@ def payments_get_consumer_details(request):
                 'consumerZone': consumer_obj.bill_cycle.zone.zone_name,
                 'consumerNo': consumer_obj.consumer_no,
                 'consumerName': consumer_obj.name,
-                'consumerAddress': consumer_obj.address_line_1 + '  ' + consumer_obj.address_line_2 + '  ' + consumer_obj.address_line_3
+                'consumerAddress': consumer_obj.address_line_1 + '  ' + consumer_obj.address_line_2
             }
         data = {'success': 'true', 'consumerData': consumer_data}
         return HttpResponse(json.dumps(data), content_type='application/json')
