@@ -799,7 +799,7 @@
     }
 
 	function save_payment_details() {
-		var paid_amount = $('#consumer_bill_month1').val();
+		var paid_amount = $('#paid_amt').val();
 		$.ajax({
        type	: "GET",
        url : '/paymentapp/payments_save_payment_details/',
