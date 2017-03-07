@@ -3567,8 +3567,6 @@ def edit_consumer(request):
             aadhar_no   	= consumer_obj.aadhar_no
             address_line_1  = consumer_obj.address_line_1
             address_line_2  = consumer_obj.address_line_2
-            address_line_3  = consumer_obj.address_line_3
-            address 		= address_line_1 + ' ' + address_line_2 + ' ' + address_line_3
             city_id   		= str(consumer_obj.city.id)
             pincode_id 		= str(consumer_obj.pin_code.id)
             zone_id 		= str(consumer_obj.zone.id)
@@ -3583,7 +3581,8 @@ def edit_consumer(request):
                 'contact_no'	: contact_no,
                 'aadhar_no'		: aadhar_no,
                 'email_id'		: email_id,
-                'address'		: address,
+                'address_line_1': address_line_1,
+                'address_line_2': address_line_2,
                 'city_id'		: city_id,
                 'pincode_id'	: pincode_id,
                 'zone_id'		: zone_id,
@@ -3604,30 +3603,28 @@ def edit_consumer(request):
 @csrf_exempt
 def save_consumer_profile(request):  
     try:
-        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
-        print '..................SSS............',request.POST.get('edit_utility')
-        #consumer_obj.Utility = request.POST.get('edit_utility')
-        # consumer_obj.user_last_name = request.POST.get('edit_contact')
-        # consumer_obj.user_contact_no = request.POST.get('edit_email')
-        # consumer_obj.user_contact_no = request.POST.get('edit_aadhar')
-        # consumer_obj.user_contact_no = request.POST.get('edit_city')
-        # consumer_obj.user_contact_no = request.POST.get('edit_pincode')
-        # consumer_obj.user_contact_no = request.POST.get('edit_zone')
-        # consumer_obj.user_contact_no = request.POST.get('edit_meter_no')
-        # consumer_obj.user_contact_no = request.POST.get('edit_category')
-        # consumer_obj.user_contact_no = request.POST.get('edit_sanction_load')
-        # consumer_obj.Utility = Utility.objects.get(
-        #     utility=request.POST.get('edit_utility')) if request.POST.get(
-        #     'edit_utility') else None
-        #user_obj.user_updated_date = datetime.now()
-        #user_obj.user_status = '1'
+		consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
+		print '............SSS.........',request.POST.get('edit_contact')
+		consumer_obj.contact_no = request.POST.get('edit_contact')
+		consumer_obj.email_id = request.POST.get('edit_email')
+		consumer_obj.aadhar_no = request.POST.get('edit_aadhar')
+		consumer_obj.address_line_1 = request.POST.get('edit_address1')
+		consumer_obj.address_line_2 = request.POST.get('edit_address2') 
+		consumer_obj.meter_no = request.POST.get('edit_meter_no')
+		consumer_obj.sanction_load = request.POST.get('edit_sanction_load')
+		consumer_obj.pin_code = Pincode.objects.get(
+		    id=request.POST.get('edit_pincode')) if request.POST.get(
+		    'edit_pincode') else None
+		consumer_obj.zone = Zone.objects.get(
+			id=request.POST.get('edit_zone')) if request.POST.get(
+			'edit_zone') else None        
+		consumer_obj.updated_on = datetime.now()
+		consumer_obj.save();
 
-        consumer_obj.save();
-
-        data = {
-            'success': 'true',
-            'message': 'User Updated Successfully.'
-        }
+		data = {
+		    'success': 'true',
+		    'message': 'User Updated Successfully.'
+		}
     except Exception, e:
         data = {
             'success': 'false',
