@@ -106,7 +106,8 @@
 
             <br>
             <div class="col-md-12" style="background: #fff; margin-bottom: 20px; padding: 15px;">
-                <div class="col-md-12">
+                <div id="filter_div">
+                    <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-3">
                             <label class="control-label">Type</label>
@@ -190,6 +191,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
             <br>
             <div class="row">
@@ -214,7 +216,7 @@
                             </div>
                             <div class="actions">
                                 <div class="btn-group btn-group-devided">
-                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_complaints()">
                                             <i class="fa fa-refresh"></i> Reload
                                         </button>
                                 </div>
@@ -231,15 +233,15 @@
                                         </li>
 
                                         <li>
-                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                            <a href="javascript:;" data-action="1" class="tool-action">
                                                 <i class="icon-doc"></i> PDF</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                            <a href="javascript:;" data-action="2" class="tool-action">
                                                 <i class="icon-paper-clip"></i> Excel</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:;" data-action="4" class="tool-action">
+                                            <a href="javascript:;" data-action="3" class="tool-action">
                                                 <i class="icon-cloud-upload"></i> CSV</a>
                                         </li>
 
@@ -578,10 +580,21 @@
     }
 
     function clear_filter(){
-        initTable1();
+        $( "#filter_div" ).load(" #filter_div" );
+        setTimeout(function () {
+            $('.select2').select2();
+            initTable1();
+            src = "{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}";
+            $('script[src="' + src + '"]').remove();
+            $('<script>').attr('src', src).appendTo('head');
+        }, 1000);
     }
 
     function filter_complaints(){
+        initTable1();
+    }
+
+    function reload_complaints(){
         initTable1();
     }
 
