@@ -3522,7 +3522,7 @@ def get_consumer_list(request):
 
 			for consumer_obj in consumer_obj_list:
 				consumer_no   	 = consumer_obj.consumer_no
-				consumer_no1   	 = '<a href="/consumer-details/?consumer_no='+consumer_no+'">'+consumer_no+'</a>'
+				consumer_no1   	 = '<a href="/consumerapp/consumer-details/?consumer_no='+consumer_no+'">'+consumer_no+'</a>'
 				consumer_name 	 = consumer_obj.name
 				contact_no    	 = consumer_obj.contact_no
 				email_id      	 = consumer_obj.email_id
@@ -3631,3 +3631,46 @@ def save_consumer_profile(request):
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')    
+
+def consumer_details(request):
+    try:
+        data = {}
+        final_list = []
+        try:
+            consumer_obj	= ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no'))
+            consumer_no   	= consumer_obj.consumer_no
+            name   			= consumer_obj.name
+            utility   		= consumer_obj.Utility.utility
+            contact_no   	= consumer_obj.contact_no
+            email_id   		= consumer_obj.email_id
+            aadhar_no   	= consumer_obj.aadhar_no
+            address_line_1  = consumer_obj.address_line_1
+            address_line_2  = consumer_obj.address_line_2
+            address 		= address_line_1 + ', ' + address_line_2
+            zone_name 		= str(consumer_obj.zone.zone_name)
+            meter_no 		= consumer_obj.meter_no
+            meter_category 	= consumer_obj.meter_category
+            sanction_load 	= consumer_obj.sanction_load
+           
+            consumer_data = {
+                'name'			: name,
+                'consumer_no'	: consumer_no,
+                'utility'		: utility,
+                'contact_no'	: contact_no,
+                'aadhar_no'		: aadhar_no,
+                'email_id'		: email_id,
+                'address'		: address,
+                'zone_name'		: zone_name,
+                'meter_no'		: meter_no,
+                'meter_category': meter_category,
+                'sanction_load'	: sanction_load
+            }
+            data = {'success': 'true', 'data': consumer_data}
+        except Exception as e:
+            print "==============Exception===============================", e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print e
+    except Exception, e:
+        print 'Exception ', e	
+    return render(request, 'consumer_details.html')     
