@@ -150,14 +150,14 @@ def get_consumer_list(request):
 
             for consumer_obj in consumer_obj_list:
                 consumer_no = consumer_obj.consumer_no
-                consumer_no1 = '<a href="/consumerapp/consumer-details/?consumer_no=' + consumer_no + '">' + consumer_no + '</a>'
+                consumer_no1 = '<a href="/consumerapp/consumer-details/?consumer_id=' + str(consumer_obj.id) + '">' + consumer_no + '</a>'
                 consumer_name = consumer_obj.name
                 contact_no = consumer_obj.contact_no
                 email_id = consumer_obj.email_id
                 servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_obj.id).count()
                 complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_obj.id).count()
                 connection_status = consumer_obj.connection_status
-                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + consumer_no + ')"></i> </a>'
+                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + str(consumer_obj.id) + ')"></i> </a>'
 
                 consumer_data = {
                     'consumer_no': consumer_no1,
@@ -186,7 +186,7 @@ def edit_consumer(request):
         data = {}
         final_list = []
         try:
-            consumer_obj = ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no'))
+            consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
             consumer_no = consumer_obj.consumer_no
             name = consumer_obj.name
             name = name + ' (' + consumer_no + ') '
@@ -204,8 +204,8 @@ def edit_consumer(request):
             sanction_load = consumer_obj.sanction_load
 
             consumer_data = {
+            	'consumer_id': consumer_obj.id,
                 'name': name,
-                'consumer_no': consumer_no,
                 'utility': utility,
                 'contact_no': contact_no,
                 'aadhar_no': aadhar_no,
@@ -233,7 +233,7 @@ def edit_consumer(request):
 @csrf_exempt
 def save_consumer_profile(request):
     try:
-        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
+        consumer_obj = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
         print '............SSS.........', request.POST.get('edit_contact')
         consumer_obj.contact_no = request.POST.get('edit_contact')
         consumer_obj.email_id = request.POST.get('edit_email')

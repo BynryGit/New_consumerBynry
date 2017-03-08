@@ -288,7 +288,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Edit Consumer</h4>
-                        <input type="hidden" class="form-control" id="consumer_no">
+                        <input type="hidden" class="form-control" id="consumer_id">
                     </div>
                     <div class="modal-body">
                         <div class="scroller" style="height:420px" data-always-visible="1" data-rail-visible1="1">
@@ -597,17 +597,17 @@
    // Edit Consumer From Edit button click
 	function edit_consumer(var1) {
 
-        var  consumer_no = var1;
+        var  consumer_id = var1;
         $.ajax({
             type: 'GET',
             url: '/consumerapp/edit-consumer/',
-            data: {'consumer_no': consumer_no},
+            data: {'consumer_id': consumer_id},
             success: function (response) {
       
             console.log(response);
                 if (response.success == 'true') {                	
 						$('#edit_name').text(response.data.name)
-						$('#consumer_no').val(response.data.consumer_no)						
+						$('#consumer_id').val(response.data.consumer_id)						
 						$('#edit_utility').val(response.data.utility)
 						$('#edit_contact').val(response.data.contact_no)
 						$('#edit_email').val(response.data.email_id)
@@ -641,7 +641,7 @@ $("#save-consumer").click(function(event)  {
 													
 	   var formData= new FormData();
 
-		formData.append("consumer_no",$('#consumer_no').val());		
+		formData.append("consumer_id",$('#consumer_id').val());		
 		formData.append("edit_contact",$('#edit_contact').val());    
 		formData.append("edit_email",$('#edit_email').val());    
 		formData.append("edit_aadhar",$('#edit_aadhar').val()); 
