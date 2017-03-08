@@ -118,7 +118,7 @@
                             <select id="select_service_type" class="form-control select2">
                                 <option value="">Select a service Type</option>
                                 <option value="all">All</option>
-                                {% for type in serviceType%}
+                                {% for type in ServiceType%}
                                     <option value="{{type.id}}">{{type.service_type}}</option>
                                 {% endfor %}
                             </select>
@@ -161,9 +161,9 @@
                             <select id="select_bill_cycle" class="form-control select2" onchange="get_route()">
                                 <option value="">Select a Bill Cycle</option>
                                 <option value="all">All</option>
-                                <!--{% for cycle in billCycle%}-->
-                                    <!--<option value="{{cycle.id}}">{{cycle.bill_cycle_code}}</option>-->
-                                <!--{% endfor %}-->
+                                {% for cycle in billCycle%}
+                                    <option value="{{cycle.id}}">{{cycle.bill_cycle_code}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -171,9 +171,9 @@
                             <select id="select_route" class="form-control select2">
                                 <option value="">Select a Route</option>
                                 <option value="all">All</option>
-                                <!--{% for route in routes%}-->
-                                    <!--<option value="{{route.id}}">{{route.route_code}}</option>-->
-                                <!--{% endfor %}-->
+                                {% for route in routes%}
+                                    <option value="{{route.id}}">{{route.route_code}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -225,7 +225,7 @@
                             </div>
                             <div class="actions">
                                 <div class="btn-group btn-group-devided">
-                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_complaints()">
                                             <i class="fa fa-refresh"></i> Reload
                                         </button>
                                 </div>
@@ -580,6 +580,10 @@
     }
 
     function filter_services(){
+        initTable1();
+    }
+    
+    function reload_complaints(){
         initTable1();
     }
 
