@@ -52,13 +52,13 @@ def online_payments(request):
         try:
             payment_details_list = PaymentDetail.objects.all()
             if filter_zone != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=filter_zone)
+                consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_bill != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(bill_cycle=filter_bill)
+                consumer_obj = ConsumerDetails.objects.filter(bill_cycle__bill_cycle_code=str(filter_bill))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_route != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(route=filter_route)
+                consumer_obj = ConsumerDetails.objects.filter(route__route_code=str(filter_route))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
@@ -97,17 +97,16 @@ def paytm_payments(request):
         filter_route 	= request.GET.get('filter_route')
         filter_from 	= request.GET.get('filter_from')
         filter_to 		= request.GET.get('filter_to')
-
         try:
             payment_details_list = PaymentDetail.objects.all()
             if filter_zone != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=filter_zone)
+                consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_bill != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(bill_cycle=filter_bill)
+                consumer_obj = ConsumerDetails.objects.filter(bill_cycle__bill_cycle_code=str(filter_bill))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_route != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(route=filter_route)
+                consumer_obj = ConsumerDetails.objects.filter(route__route_code=str(filter_route))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
@@ -148,13 +147,13 @@ def cash_payments(request):
         try:
             payment_details_list = PaymentDetail.objects.all()
             if filter_zone != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=filter_zone)
+                consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_bill != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(bill_cycle=filter_bill)
+                consumer_obj = ConsumerDetails.objects.filter(bill_cycle__bill_cycle_code=str(filter_bill))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_route != 'all':
-                consumer_obj = ConsumerDetails.objects.filter(route=filter_route)
+                consumer_obj = ConsumerDetails.objects.filter(route__route_code=str(filter_route))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
