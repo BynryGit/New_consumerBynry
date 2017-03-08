@@ -16,6 +16,7 @@ from consumerapp.models import ConsumerDetails
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
 import datetime
+from django.views.decorators.csrf import csrf_exempt
 
 from dateutil.relativedelta import relativedelta
 
@@ -93,20 +94,19 @@ def get_service_data(request):
         print e
     return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 
-
+@csrf_exempt
 def get_service_details(request):
     try:
-        print '----------request-------',request.GET.get('service_id')
-        service = ServiceRequest.objects.get(id=request.GET.get('service_id'))
+        print '----------request-------',request.POST.get('service_id')
+        service = ServiceRequest.objects.get(id=request.POST.get('service_id'))
+        print '-----------type-------',service.service_type.request_type
 
         serviceIdDetail = {
             'serviceID': service.service_no,
             'serviceType': service.service_type.request_type,
             'serviceConsumerName': service.consumer_id.name,
             'serviceConsumerNo': service.consumer_id.consumer_no,
-            'serviceStatus': service.status,
-            'consumerRemark': service.remark,
-            'closureRemark': service.closure_remark
+            'serviceRequest': service.consumer_remark,
         }
 
         data = {'success': 'true', 'serviceDetail': serviceIdDetail}
@@ -120,17 +120,17 @@ def get_service_details(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-@login_required(login_url='/')
+@csrf_exempt
 def get_consumer_details(request):
     try:
-        consumerDetails = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+        print '---------in consumer--------'
+        consumerDetails = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
         consumer_address = consumerDetails.address_line_1
         if consumerDetails.address_line_2:
             consumer_address = consumer_address + ', ' + consumerDetails.address_line_2
-        if consumerDetails.address_line_3:
-            consumer_address = consumer_address + ', ' + consumerDetails.address_line_3
         if consumerDetails.pin_code:
             consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.'
+        print '---------consumerDetails.route.route_code-------',consumerDetails.route.route_code
         getConsumer = {
             'billCycle': consumerDetails.bill_cycle.bill_cycle_code,
             'consumerCity': consumerDetails.city.city,
