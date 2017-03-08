@@ -4,6 +4,7 @@ from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
 
 from consumerapp.models import ConsumerDetails
 
+
 # Create your models here.
 
 IS_DELETED = (
@@ -40,6 +41,11 @@ class ServiceRequest(models.Model):
         ('Closed', 'Closed'),
         ('Open', 'Open'),
     )
+    SERVICE_SOURCE = (
+        ('Mobile', 'Mobile'),
+        ('Web', 'Web'),
+        ('CTI', 'CTI'),
+    )
     service_no = models.CharField(max_length=50, blank=True, null=True)
     service_type = models.ForeignKey(ServiceRequestType, blank=False, null=True)
     subtype = models.ForeignKey(ServiceRequestSubType, blank=True, null=True)
@@ -47,6 +53,7 @@ class ServiceRequest(models.Model):
     request_date = models.DateTimeField(blank=True, null=True)
     request_closer_date = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=500, default='Open', choices=SERVICE_STATUS)
+    source = models.CharField(max_length=500, default='Open', choices=SERVICE_SOURCE)
     consumer_remark = models.CharField(max_length=200, blank=True, null=True)
     closure_remark = models.CharField(max_length=200, blank=True, null=True)
     created_by = models.CharField(max_length=500, blank=False, null=False)
@@ -56,4 +63,4 @@ class ServiceRequest(models.Model):
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
 
     def __unicode__(self):
-        return unicode(self.service_no)
+        return unicode(self.service_type)

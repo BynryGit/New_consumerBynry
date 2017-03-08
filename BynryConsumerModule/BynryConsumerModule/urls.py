@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf.urls import patterns, include, url
 from BynryConsumerModule import settings
 from paymentapp import urls
+from serviceapp import urls as service_urls
 from consumerapp import consumer_urls
 from complaintapp import urls as complaint_urls
 from vigilanceapp import urls as vigilance_urls
@@ -27,7 +28,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', 'views.dashboard',name='dashboard'),
     url(r'^consumer-details/', 'views.consumer_details',name='consumer_details'),
-    url(r'^services/', 'views.services',name='services'),
+    url(r'^serviceapp/', include(service_urls)),
     url(r'^vigilance-cases/', 'views.vigilance_cases',name='vigilance_cases'),
     url(r'^paymentapp/', include(urls)),
     url(r'^consumerapp/', include(consumer_urls)),
