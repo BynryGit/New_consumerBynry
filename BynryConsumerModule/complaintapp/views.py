@@ -139,8 +139,6 @@ def get_consumer_details(request):
         consumer_address = consumerDetails.address_line_1
         if consumerDetails.address_line_2:
             consumer_address = consumer_address + ', ' + consumerDetails.address_line_2
-        if consumerDetails.address_line_3:
-            consumer_address = consumer_address + ', ' + consumerDetails.address_line_3
         if consumerDetails.pin_code:
             consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.'
         getConsumer = {

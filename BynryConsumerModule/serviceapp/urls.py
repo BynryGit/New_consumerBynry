@@ -2,13 +2,11 @@ from serviceapp import views
 from django.conf.urls import include, url
 
 urlpatterns = [
-    url(r'^$', views.service_request, name='Service-request'),
-    # url(r'^service-request/', services.service_request, name='service-request'),
-    # url(r'^get-user-service-request-list/',services.get_user_service_request_list),
-    # url(r'^get-filterBy-service-request/',services.get_filterBy_service_request),
-    # url(r'^request-idDetail/',services.request_idDetail),
-    # url(r'^consumer-connection-history/',services.consumer_connection_history),
-    # url(r'^reading-export-to-excel/',services.servicerequest_reading_export,name='reading_export'),
-    # url(r'^get-service-count/',services.get_service_count,name='get_service_count'),
+    url(r'^$', views.service_request, name='Service'),
+    url(r'^get-service-data/', views.get_service_data, name='get-service-data'),
+    url(r'^get-service-details/', views.get_service_details, name='get_service_details'),
+    url(r'^get-consumer-details/', views.get_consumer_details, name='get_consumer_details'),
+    url(r'^get-bill-cycle/', views.get_bill_cycle, name='get_bill_cycle'),
+    url(r'^get-route/', views.get_route, name='get_route'),
 
    ]

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 {% load staticfiles %}
@@ -116,35 +115,42 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label class="control-label">Type</label>
-                            <select class="form-control select2">
-                                <option>Select a Service Type</option>
-                                <option>Service Type 1</option>
-                                <option>Complaint Type 2</option>
+                            <select id="select_service_type" class="form-control select2">
+                                <option value="">Select a service Type</option>
+                                <option value="all">All</option>
+                                {% for type in serviceType%}
+                                    <option value="{{type.id}}">{{type.service_type}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Status</label>
-                            <select class="form-control select2">
-                                <option>Select a Service Status</option>
-                                <option>Service Status 1</option>
-                                <option>Service Status 2</option>
+                            <select id="select_service_status" class="form-control select2">
+                                <option value="">Select a service Status</option>
+                                <option value="all">All</option>
+                                <option value="WIP">WIP</option>
+                                <option value="Closed">Closed</option>
+                                <option value="Open">Open</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Source</label>
-                            <select class="form-control select2">
-                                <option>Select a Source</option>
-                                <option>Source 1</option>
-                                <option>Source 2</option>
+                            <select id="select_service_source" class="form-control select2">
+                                <option value="">Select a Source</option>
+                                <option value="all">All</option>
+                                <option value="Mobile">Mobile</option>
+                                <option value="Web">Web</option>
+                                <option value="CTI">CTI</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Zone</label>
-                            <select class="form-control select2">
-                                <option value="AK">Alaska</option>
-                                <option value="HI" disabled="disabled">Hawaii</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="MD">Maryland</option>
+                            <select id="select_zone" class="form-control select2" onchange="get_bill_cycle()">
+                                <option value="">Select a Zone</option>
+                                <option value="all">All</option>
+                                {% for zone in zones%}
+                                    <option value="{{zone.id}}">{{zone.zone_name}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -152,59 +158,49 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label class="control-label">Bill Cycle</label>
-                            <select class="form-control select2">
-                                <option value="AK">Alaska</option>
-                                <option value="CA">California</option>
-                                <option value="NV">Nevada</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="WY">Wyoming</option>
+                            <select id="select_bill_cycle" class="form-control select2" onchange="get_route()">
+                                <option value="">Select a Bill Cycle</option>
+                                <option value="all">All</option>
+                                <!--{% for cycle in billCycle%}-->
+                                    <!--<option value="{{cycle.id}}">{{cycle.bill_cycle_code}}</option>-->
+                                <!--{% endfor %}-->
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="control-label">Route</label>
-                            <select class="form-control select2">
-                                <option value="AK">Alaska</option>
-                                <option value="HI" disabled="disabled">Hawaii</option>
-                                <option value="CA">California</option>
-                                <option value="WA">Washington</option>
+                            <select id="select_route" class="form-control select2">
+                                <option value="">Select a Route</option>
+                                <option value="all">All</option>
+                                <!--{% for route in routes%}-->
+                                    <!--<option value="{{route.id}}">{{route.route_code}}</option>-->
+                                <!--{% endfor %}-->
                             </select>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group"><label class="control-label ">Raised on Date</label>
                                 <div class="">
                                     <div class="input-group input-large date-picker input-daterange"
-                                         data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                                        <input type="text" class="form-control" placeholder="Start Date" name="from">
+                                         data-date="10/11/2012" data-date-format="dd/mm/yyyy">
+                                        <input readonly id="start_date" type="text" class="form-control" placeholder="Start Date" name="from">
                                         <span class="input-group-addon"> to </span>
-                                        <input type="text" class="form-control" placeholder="End Date" name="to">
+                                        <input readonly id="end_date" type="text" class="form-control" placeholder="End Date" name="to">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <input type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm "
-                                   style="margin-top: 27px;" value="Search">
-                            <input type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm "
-                                   style="margin-top: 27px;float:right;" value="Clear Filters">
+                        <div class="col-md-2" style="text-align:right;">
+                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                onclick="filter_services()" style="margin-top: 27px;">
+                                Filter
+                            </button>
+                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                onclick="clear_filter()" style="margin-top: 27px;">
+                                Clear
+                            </button>
                         </div>
                     </div>
                 </div>
-                <!--<div class="col-md-12">-->
-                    <!--<div class="row" style="margin-top: 48px;text-align: center;">-->
-                        <!--<div class="col-md-4" style="border-right: 1px solid black;">-->
-                            <!--<h4 class="control-label">Total</h4>-->
-                            <!--<h4 class="control-label">3000</h4>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4" >-->
-                            <!--<h4 class="control-label">Open</h4>-->
-                            <!--<h4 class="control-label" >200</h4>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-4" style="border-left: 1px solid black;">-->
-                            <!--<h4 class="control-label">Closed</h4>-->
-                            <!--<h4 class="control-label" >2800</h4>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+                
             </div>
             <br>
             <div class="row">
@@ -216,8 +212,51 @@
                                 <i class="icon-settings font-dark"></i>
                                 <span class="caption-subject bold uppercase">Services</span>
                             </div>
-                            <div class="caption font-dark" style="margin-left:3%;">
-                                <h4 class="control-label">Total : 3000  |   Open : 200   |    Closed : 2800</h4>
+                            <div class="caption font-dark" style="margin-left:5%;">
+                                <div class="row">
+                                    <h3 class="page-title" style="margin-top: -4px; margin-bottom:0px"> {{total}}
+                                        <small>Total</small>
+                                        | {{open}}
+                                        <small>Open</small>
+                                        | {{closed}}
+                                        <small>Closed</small>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group btn-group-devided">
+                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                                            <i class="fa fa-refresh"></i> Reload
+                                        </button>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="service_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="4" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -234,63 +273,7 @@
                                     <th> Status</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012345</a></td>
-                                    <td> Service Type 1</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012344</a></td>
-                                    <td> Service Type 2</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012346</a></td>
-                                    <td> Service Type 1</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012347</a></td>
-                                    <td> Service Type 2</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012348</a></td>
-                                    <td> Service Type 1</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-                                <tr>
-                                    <td> <a href="#complaint_details" data-toggle="modal">1012349</a></td>
-                                    <td> Service Type 2</td>
-                                    <td> 23/01/2017</td>
-                                    <td> <a href="#consumer_details" data-toggle="modal">201123</a></td>
-                                    <td> Vikas Kumawat</td>
-                                    <td> Source 1</td>
-                                    <td> Open</td>
-                                </tr>
-
-                                </tbody>
+                                
                             </table>
                         </div>
                     </div>
@@ -304,7 +287,7 @@
 </div>
 <!-- END CONTAINER -->
 <!--  Models Start -->
-<div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="service_details" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -312,48 +295,13 @@
                 <h4 class="modal-title">Service Requested Details</h4></div>
             <div class="modal-body">
                 <div class="scroller" style="height:240px;" data-always-visible="1" data-rail-visible1="1">
-                    <!--<h4 style="font-weight:500">Consumer Details</h4>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-md-6">-->
-                            <!--<div class="form-group form-md-line-input has-info">-->
-                                <!--<input type="text" class="form-control" readonly="" value="201123" id="service_consumer_no">-->
-                                <!--<label for="service_consumer_no">Consumer No</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-6">-->
-                            <!--<div class="form-group form-md-line-input has-info">-->
-                                <!--<input type="text" class="form-control" readonly="" value="Vikas Kumawat" id="service_consumer_name">-->
-                                <!--<label for="service_consumer_name">Consumer Name</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-md-6">-->
-                            <!--<div class="form-group form-md-line-input has-info">-->
-                                <!--<input type="text" class="form-control" readonly="" value="vikas@bynry.com" id="consumer_email_id">-->
-                                <!--<label for="consumer_email_id">Email Id</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-6">-->
-                            <!--<div class="form-group form-md-line-input has-info">-->
-                                <!--<input type="text" class="form-control" readonly="" value="Source 1" id="service_source">-->
-                                <!--<label for="service_source">Source</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-md-12">-->
-                            <!--<div class="form-group form-md-line-input has-info ">-->
-                                <!--<textarea class="form-control" readonly id="service_consumer_address" rows="2">Flat no-201, Primrose, right bhusari colony, oppo. borse hospital, kothrud, pune - 411038.</textarea>-->
-                                <!--<label >Address</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <h4><b>Vikas Kumawat (201546)</b></h4>
+                    
+                    <!-- <h4><b>Vikas Kumawat (201546)</b></h4> -->
+                    <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="service_details" rows="4"></textarea>
+                                <textarea class="form-control" readonly id="service_request" rows="4"></textarea>
                                 <label >Service Request</label>
                             </div>
                         </div>
@@ -361,13 +309,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="5862001" id="request_id">
+                                <input type="text" class="form-control" readonly="" id="request_id">
                                 <label for="request_id">Request Id</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Requested type 1" id="request_type">
+                                <input type="text" class="form-control" readonly="" id="request_type">
                                 <label for="request_type">Request Type</label>
                             </div>
                         </div>
@@ -394,13 +342,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="5862001" id="bill_cycle">
+                                <input type="text" class="form-control" readonly="" id="bill_cycle">
                                 <label for="bill_cycle">Bill Cycle Code</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="253140" id="route_code">
+                                <input type="text" class="form-control" readonly="" id="route_code">
                                 <label for="route_code">Route Code</label>
                             </div>
                         </div>
@@ -408,13 +356,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Pimpri Chinchwad D-zone" id="consumer_zone">
+                                <input type="text" class="form-control" readonly=""  id="consumer_zone">
                                 <label for="consumer_zone">Zone</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Pune" id="consumer_city">
+                                <input type="text" class="form-control" readonly="" id="consumer_city">
                                 <label for="consumer_city">City</label>
                             </div>
                         </div>
@@ -422,13 +370,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="201123" id="consumer_no">
+                                <input type="text" class="form-control" readonly="" id="consumer_no">
                                 <label for="consumer_no">Consumer No</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Vikas Kumawat" id="consumer_name">
+                                <input type="text" class="form-control" readonly="" id="consumer_name">
                                 <label for="consumer_name">Consumer Name</label>
                             </div>
                         </div>
@@ -436,7 +384,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="consumer_address" >Flat no-201, Primrose, right bhusari colony, oppo. borse hospital, kothrud, pune - 411038.</textarea>
+                                <textarea class="form-control" readonly id="consumer_address" ></textarea>
                                 <label >Address</label>
                             </div>
                         </div>
@@ -496,7 +444,7 @@
 <script src="{% static 'assets/global/plugins/clockface/js/clockface.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
 
-<script>
+<script type="text/javascript">
 
     $("#consumer_anchor").prepend('<span class="selected"></span>');
     $("#consumer_menu").addClass("active open");
@@ -505,6 +453,15 @@
 
     var initTable1 = function () {
         var table = $('#service_table');
+        service_type = $("#select_service_type").val();
+        service_status = $("#select_service_status").val();
+        service_source = $("#select_service_source").val();
+        zone = $("#select_zone").val();
+        bill_cycle = $("#select_bill_cycle").val();
+        route = $("#select_route").val();
+        start_date = $("#start_date").val();
+        end_date = $("#end_date").val();
+        
 
         var fixedHeaderOffset = 0;
         if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
@@ -516,7 +473,7 @@
         }
 
         var oTable = table.dataTable({
-
+				"bDestroy" : true,
             "language": {
                 "aria": {
                     "sortAscending": ": activate to sort column ascending",
@@ -537,13 +494,26 @@
                 headerOffset: fixedHeaderOffset
             },
 
+				"ajax": "/serviceapp/get-service-data/?service_type="+service_type+"&service_status="+service_status+"&service_source="+service_source+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
+            "columns": [
+                {"data": "service_no"},
+                {"data": "service_type"},
+                {"data": "raised_date"},
+                {"data": "consumer_no"},
+                {"data": "consumer_name"},
+                {"data": "service_source"},
+                {"data": "service_status"},
+            ],
+
             "order": [
                 [0, 'asc']
             ],
 
             buttons: [
+                { extend: 'print', className: 'btn dark btn-outline' },
                 { extend: 'pdf', className: 'btn green btn-outline' },
                 { extend: 'excel', className: 'btn yellow btn-outline ' },
+                { extend: 'csv', className: 'btn purple btn-outline ' },
             ],
 
             "lengthMenu": [
@@ -553,8 +523,64 @@
             // set the initial value
             "pageLength": 20,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
       });
+    }
+
+	  function service_details(service_id){
+        $.ajax({
+            type : "POST",
+            url : '/serviceapp/get-service-details/',
+            data : {'service_id':service_id},
+            success: function (response) {
+                if(response.success =='true'){
+                    serviceDetail = response.serviceDetail;
+                    $("#request_id").val(serviceDetail.serviceID);
+                    $("#request_type").val(serviceDetail.serviceType);
+                    $("#service_request").val(serviceDetail.serviceRequest);
+                    $("#cons_name").text(serviceDetail.serviceConsumerName);
+                    $("#cons_no").text(serviceDetail.serviceConsumerNo);
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+        $("#service_details").modal('show');
+    }
+
+	 
+    function consumer_details(consumer_id){
+        $.ajax({
+            type : "POST",
+            url : "/serviceapp/get-consumer-details/",
+            data : {'consumer_id':consumer_id},
+            success: function (response) {
+                if(response.success =='true'){
+                    consumerDetail = response.consumerDetail;
+                    $("#bill_cycle").val(consumerDetail.billCycle);
+                    $("#route_code").val(consumerDetail.consumerRoute);
+                    $("#consumer_zone").val(consumerDetail.consumerZone);
+                    $("#consumer_city").val(consumerDetail.consumerCity);
+                    $("#consumer_no").val(consumerDetail.consumerNo);
+                    $("#consumer_name").val(consumerDetail.consumerName);
+                    $("#consumer_address").text(consumerDetail.consumerAddress);
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+        $("#consumer_details").modal('show');
+    }
+
+    function clear_filter(){
+        $('.select2').val("");
+        initTable1();
+    }
+
+    function filter_services(){
+        initTable1();
     }
 
     initTable1();

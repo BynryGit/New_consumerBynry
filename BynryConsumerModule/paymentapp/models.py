@@ -32,6 +32,7 @@ class PaymentDetail(models.Model):
     consumer_id = models.ForeignKey(ConsumerDetails, blank=True, null=True)
     transaction_id = models.CharField(max_length=50, blank=False, null=True)
     bill_month = models.CharField(max_length=20, blank=False, null=True)
+    bill_months_year = models.CharField(max_length=20, blank=False, null=True)
     unit_consumed = models.CharField(max_length=100, blank=False, null=True)
     current_month_reading = models.CharField(max_length=100, blank=False, null=True)
     previous_month_reading = models.CharField(max_length=100, blank=False, null=True)
@@ -55,4 +56,4 @@ class PaymentDetail(models.Model):
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
 
     def __unicode__(self):
-     return unicode(self.consumer_id)
+     return unicode(self.id)
