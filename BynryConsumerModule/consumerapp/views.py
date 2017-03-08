@@ -234,7 +234,6 @@ def edit_consumer(request):
 def save_consumer_profile(request):
     try:
         consumer_obj = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
-        print '............SSS.........', request.POST.get('edit_contact')
         consumer_obj.contact_no = request.POST.get('edit_contact')
         consumer_obj.email_id = request.POST.get('edit_email')
         consumer_obj.aadhar_no = request.POST.get('edit_aadhar')
@@ -264,44 +263,50 @@ def save_consumer_profile(request):
 
 
 def consumer_details(request):
-    try:
-        data = {}
-        final_list = []
-        try:
-            consumer_obj = ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no'))
-            consumer_no = consumer_obj.consumer_no
-            name = consumer_obj.name
-            utility = consumer_obj.Utility.utility
-            contact_no = consumer_obj.contact_no
-            email_id = consumer_obj.email_id
-            aadhar_no = consumer_obj.aadhar_no
-            address_line_1 = consumer_obj.address_line_1
-            address_line_2 = consumer_obj.address_line_2
-            address = address_line_1 + ', ' + address_line_2
-            zone_name = str(consumer_obj.zone.zone_name)
-            meter_no = consumer_obj.meter_no
-            meter_category = consumer_obj.meter_category
-            sanction_load = consumer_obj.sanction_load
+	try:
+		data = {}
+		final_list = []
+		try:
+			consumer_obj 	= ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+			name 			= consumer_obj.name
+			print '.....................',name
+			consumer_no 	= consumer_obj.consumer_no                     
+			aadhar_no 		= consumer_obj.aadhar_no
+			address_line_1 	= consumer_obj.address_line_1
+			address_line_2 	= consumer_obj.address_line_2
+			address 		= address_line_1 + ', ' + address_line_2
+			contact_no 		= consumer_obj.contact_no
+			email_id 		= consumer_obj.email_id
+			zone_name 		= str(consumer_obj.zone.zone_name)
+			billcycle 		= str(consumer_obj.bill_cycle.bill_cycle_code) 
+			route 			= str(consumer_obj.route.route_code) 
+			utility 		= consumer_obj.Utility.utility                      
+			meter_no 		= consumer_obj.meter_no
+			meter_category 	= consumer_obj.meter_category
+			sanction_load 	= consumer_obj.sanction_load
 
-            consumer_data = {
-                'name': name,
-                'consumer_no': consumer_no,
-                'utility': utility,
-                'contact_no': contact_no,
-                'aadhar_no': aadhar_no,
-                'email_id': email_id,
-                'address': address,
-                'zone_name': zone_name,
-                'meter_no': meter_no,
-                'meter_category': meter_category,
-                'sanction_load': sanction_load
-            }
-            data = {'success': 'true', 'data': consumer_data}
-        except Exception as e:
-            print "==============Exception===============================", e
-            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
-    except MySQLdb.OperationalError, e:
-        print e
-    except Exception, e:
-        print 'Exception ', e
-    return render(request, 'consumer_details.html')
+			consumer_data = {
+			'name'		: name,
+			'consumer_no': consumer_no,
+			'aadhar_no'	: aadhar_no,
+			'address'	: address,
+			'aadhar_no'	: aadhar_no,
+			'contact_no': contact_no,
+			'email_id'	: email_id,
+			'zone_name'	: zone_name,
+			'billcycle'	: billcycle,
+			'route'		: route,
+			'utility'	: utility,
+			'meter_no'	: meter_no,
+			'meter_category': meter_category,
+			'sanction_load': sanction_load
+			}
+			data = {'success': 'true', 'data': consumer_data}
+		except Exception as e:
+			print "==============Exception===============================", e
+			data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+	except MySQLdb.OperationalError, e:
+		print e
+	except Exception, e:
+		print 'Exception ', e
+	return render(request, 'consumer_details.html',data)
