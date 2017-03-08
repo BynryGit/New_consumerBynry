@@ -42,6 +42,11 @@
     <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
           type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
+    <style type="text/css">
+		.custom-height{
+			margin-top: 4px;		
+		}    
+    </style>
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
 <div class="page-header navbar navbar-fixed-top">
@@ -179,7 +184,41 @@
                                         </span>
                                         
                                     </div>
-                                    <div class="tools"></div>
+                                    <div class="actions">
+			                                <div class="btn-group btn-group-devided">
+			                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_online_payments()">
+			                                            <i class="fa fa-refresh"></i> Reload
+			                                        </button>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+			                                        <i class="fa fa-share"></i>
+			                                        <span class="hidden-xs"> Tools </span>
+			                                        <i class="fa fa-angle-down"></i>
+			                                    </a>
+			                                    <ul class="dropdown-menu pull-right" id="service_table_tools">
+			                                        <li>
+			                                            <a href="javascript:;" data-action="0" class="tool-action">
+			                                                <i class="icon-printer"></i> Print</a>
+			                                        </li>
+			
+			                                        <li>
+			                                            <a href="javascript:;" data-action="2" class="tool-action">
+			                                                <i class="icon-doc"></i> PDF</a>
+			                                        </li>
+			                                        <li>
+			                                            <a href="javascript:;" data-action="3" class="tool-action">
+			                                                <i class="icon-paper-clip"></i> Excel</a>
+			                                        </li>
+			                                        <li>
+			                                            <a href="javascript:;" data-action="4" class="tool-action">
+			                                                <i class="icon-cloud-upload"></i> CSV</a>
+			                                        </li>
+			
+			                                        </li>
+			                                    </ul>
+			                                </div>
+			                            </div>
                                 </div>
                                 <div class="portlet-body">
                                     <table class="table table-striped table-bordered table-hover" id="sample_1">
@@ -207,7 +246,41 @@
                                         </span>
                                         
                                     </div>
-                                    <div class="tools"></div>
+                                    <div class="actions">
+			                                <div class="btn-group btn-group-devided">
+			                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_paytm_wallet()">
+			                                            <i class="fa fa-refresh"></i> Reload
+			                                        </button>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+			                                        <i class="fa fa-share"></i>
+			                                        <span class="hidden-xs"> Tools </span>
+			                                        <i class="fa fa-angle-down"></i>
+			                                    </a>
+			                                    <ul class="dropdown-menu pull-right" id="service_table_tools">
+			                                        <li>
+			                                            <a href="javascript:;" data-action="0" class="tool-action">
+			                                                <i class="icon-printer"></i> Print</a>
+			                                        </li>
+			
+			                                        <li>
+			                                            <a href="javascript:;" data-action="2" class="tool-action">
+			                                                <i class="icon-doc"></i> PDF</a>
+			                                        </li>
+			                                        <li>
+			                                            <a href="javascript:;" data-action="3" class="tool-action">
+			                                                <i class="icon-paper-clip"></i> Excel</a>
+			                                        </li>
+			                                        <li>
+			                                            <a href="javascript:;" data-action="4" class="tool-action">
+			                                                <i class="icon-cloud-upload"></i> CSV</a>
+			                                        </li>
+			
+			                                        </li>
+			                                    </ul>
+			                                </div>
+			                            </div>
                                 </div>
                                 <div class="portlet-body">
                                     <table class="table table-striped table-bordered table-hover" id="sample_2">
@@ -235,12 +308,46 @@
 														<label for="single" class="control-label">1000</label> 			                                        
                                         </span>                                        
                                         <input type="button" onclick="add_payment();"
-                                           style="margin-left:721px;"                                           
+                                           style="margin-left:660px;"                                           
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
                                            value="Add Payment"> 
                                          
                                     </div>
-                                    <!-- <div class="tools"></div> -->
+												<div class="actions custom-height" >
+			                                <div class="btn-group btn-group-devided">
+			                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_cash_payments()">
+			                                            <i class="fa fa-refresh"></i> Reload
+			                                        </button>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+			                                        <i class="fa fa-share"></i>
+			                                        <span class="hidden-xs"> Tools </span>
+			                                        <i class="fa fa-angle-down"></i>
+			                                    </a>
+			                                    <ul class="dropdown-menu pull-right" id="service_table_tools">
+			                                        <li>
+			                                            <a href="javascript:;" data-action="0" class="tool-action">
+			                                                <i class="icon-printer"></i> Print</a>
+			                                        </li>
+			
+			                                        <li>
+			                                            <a href="javascript:;" data-action="2" class="tool-action">
+			                                                <i class="icon-doc"></i> PDF</a>
+			                                        </li>
+			                                        <li>
+			                                            <a href="javascript:;" data-action="3" class="tool-action">
+			                                                <i class="icon-paper-clip"></i> Excel</a>
+			                                        </li>
+			                                        <li>
+			                                            <a href="javascript:;" data-action="4" class="tool-action">
+			                                                <i class="icon-cloud-upload"></i> CSV</a>
+			                                        </li>
+			
+			                                        </li>
+			                                    </ul>
+			                                </div>
+			                            </div>
                                 </div>
                                 <div class="portlet-body">
                                     <table class="table table-striped table-bordered table-hover" id="sample_3">
@@ -595,6 +702,16 @@
 		 $("#responsive").modal('show');         
 	}
 	
+	function reload_online_payments(){
+        initTable1();
+    }
+    function reload_paytm_wallet(){
+        initTable2();
+    }
+    function reload_cash_payments(){
+        initTable3();
+    }
+	
 	function search_consumer(){
 	    initTable1();    
 	    initTable2();    
@@ -666,7 +783,7 @@
             // set the initial value
             "pageLength": 20,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
       });
     }
     
@@ -736,7 +853,7 @@
             // set the initial value
             "pageLength": 20,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
       });
     }
 
@@ -806,16 +923,27 @@
             // set the initial value
             "pageLength": 20,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
       });
     }
 	
-	function clear_filter(){
+	/*function clear_filter(){
  	  		filter_zone 	 = $("#filter_zone").val('all').change();
 			filter_bill 	 = $("#filter_bill").val('all').change();
 			filter_route 	 = $("#filter_route").val('all').change();
 			filter_from 	 = $("#filter_from").val('');
 			filter_to 		 = $("#filter_to").val('');		  
+    }*/
+    
+    function clear_filter(){
+        filter_zone 	 = $("#filter_zone").val('all').change();
+			filter_bill 	 = $("#filter_bill").val('all').change();
+			filter_route 	 = $("#filter_route").val('all').change();
+			filter_from 	 = $("#filter_from").val('');
+			filter_to 		 = $("#filter_to").val('');	
+        initTable1();
+        initTable2();
+        initTable3();
     }
 
 	function save_payment_details() {

@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import *
 from serviceapp.models import *
-from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Zone
 from consumerapp.models import ConsumerDetails
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
@@ -29,13 +29,22 @@ import pdb
 # @login_required(login_url='/')
 def service_request(request):
     try:
-        # total = serviceDetail.objects.filter(is_deleted=False,consumer_id__city__city=request.user.userprofile.city.city).count()
-        # open = serviceDetail.objects.filter(service_status = 'Open', is_deleted=False).count()
-        # closed = serviceDetail.objects.filter(service_status = 'Closed', is_deleted=False).count()
-        # WIP = serviceDetail.objects.filter(service_status = 'WIP', is_deleted=False).count()
-        # serviceType = serviceType.objects.filter(is_deleted=False)
-        # data = {'total':total,'open':open,'closed':closed,'WIP':WIP,'serviceType':serviceType}
-        data = {}
+        total = ServiceRequest.objects.filter(is_deleted=False).count()
+        open = ServiceRequest.objects.filter(status='Open', is_deleted=False).count()
+        closed = ServiceRequest.objects.filter(status='Closed', is_deleted=False).count()
+        serviceType = ServiceRequest.objects.filter(is_deleted=False)
+        zone = Zone.objects.filter(is_deleted=False)
+        billCycle = BillCycle.objects.filter(is_deleted=False)
+        routes = RouteDetail.objects.filter(is_deleted=False)
+        data = {
+            'total': total,
+            'open': open,
+            'closed': closed,
+            'ServiceType': serviceType,
+            'zones': zone,
+            'billCycle': billCycle,
+            'routes': routes,
+        }
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|views.py|service', e
@@ -46,16 +55,14 @@ def service_request(request):
 
 def get_service_data(request):
     try:
-        print '---------------service data--------'
         service_list = []
         service_obj = ServiceRequest.objects.all()
-        print '------------service_obj----------',service_obj
         if request.GET.get('service_type'):
             if request.GET.get('service_type') == 'all':
                 serviceType = ServiceRequest.objects.filter(is_deleted=False)
             else:
                 serviceType = ServiceRequest.objects.filter(is_deleted=False, id=request.GET.get('service_type'))
-            service_obj = service_obj.filter(service_type__request_type=serviceType)
+            service_obj = serviceType.filter(service_type__id=serviceType)
         if request.GET.get('service_status') and request.GET.get('service_status') != "all":
             service_obj = service_obj.filter(status=request.GET.get('service_status'))
         if request.GET.get('service_source') and request.GET.get('service_source') != "all":
@@ -97,10 +104,7 @@ def get_service_data(request):
 @csrf_exempt
 def get_service_details(request):
     try:
-        print '----------request-------',request.POST.get('service_id')
         service = ServiceRequest.objects.get(id=request.POST.get('service_id'))
-        print '-----------type-------',service.service_type.request_type
-
         serviceIdDetail = {
             'serviceID': service.service_no,
             'serviceType': service.service_type.request_type,
@@ -123,14 +127,12 @@ def get_service_details(request):
 @csrf_exempt
 def get_consumer_details(request):
     try:
-        print '---------in consumer--------'
         consumerDetails = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
         consumer_address = consumerDetails.address_line_1
         if consumerDetails.address_line_2:
             consumer_address = consumer_address + ', ' + consumerDetails.address_line_2
         if consumerDetails.pin_code:
             consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.'
-        print '---------consumerDetails.route.route_code-------',consumerDetails.route.route_code
         getConsumer = {
             'billCycle': consumerDetails.bill_cycle.bill_cycle_code,
             'consumerCity': consumerDetails.city.city,

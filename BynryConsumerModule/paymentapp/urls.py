@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     #url(r'^open-payment-list/',views.open_payment_list, name='open-payment-list'),
-    url(r'^payments/',views.payments, name='payments'),
+    url(r'^$',views.payments, name='payments'),
     url(r'^online_payments/',views.online_payments, name='online_payments'),
     url(r'^paytm_payments/',views.paytm_payments, name='paytm_payments'),
     url(r'^cash_payments/',views.cash_payments, name='cash_payments'),

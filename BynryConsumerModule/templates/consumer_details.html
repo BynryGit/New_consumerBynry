@@ -127,8 +127,8 @@
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
-                                <div class="profile-usertitle-name"> MS Dhoni</div>
-                                <div class="profile-usertitle-job"> 12345</div>
+                                <div class="profile-usertitle-name"> {{data.name}}</div>
+                                <div class="profile-usertitle-job"> {{data.consumer_no}}</div>
                             </div>
                             <!-- END SIDEBAR USER TITLE -->
 
@@ -138,7 +138,7 @@
                                     <div class="col-md-12">
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
-                                                <input type="text" class="form-control" id="form_control_1" value="1024"
+                                                <input type="text" class="form-control" id="form_control_1" value="{{data.aadhar_no}}"
                                                        readonly>
                                                 <label for="form_control_1">Aadhar No :</label>
                                             </div>
@@ -146,41 +146,41 @@
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
                                                 <textarea type="text" class="form-control" id="form_control_1"
-                                                       readonly>Kothrud, Pune</textarea>
+                                                       readonly>{{data.address}}</textarea>
                                                 <label for="form_control_1">Address :</label>
                                             </div>
                                         </div>
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
                                                 <input type="text" class="form-control" id="form_control_1"
-                                                       value="990000001100" readonly>
+                                                       value="{{data.contact_no}}" readonly>
                                                 <label for="form_control_1">Contact No :</label>
                                             </div>
                                         </div>
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
                                                 <input type="text" class="form-control" id="form_control_1"
-                                                       value="ss@gmail.com" readonly>
+                                                       value="{{data.email_id}}" readonly>
                                                 <label for="form_control_1">Email :</label>
                                             </div>
                                         </div>
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
-                                                <input type="text" class="form-control" id="form_control_1" value="1024"
+                                                <input type="text" class="form-control" id="form_control_1" value="{{data.zone_name}}"
                                                        readonly>
                                                 <label for="form_control_1">Zone :</label>
                                             </div>
                                         </div>
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
-                                                <input type="text" class="form-control" id="form_control_1" value="1024"
+                                                <input type="text" class="form-control" id="form_control_1" value="{{data.billcycle}}"
                                                        readonly>
                                                 <label for="form_control_1">Bill Cycle :</label>
                                             </div>
                                         </div>
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
-                                                <input type="text" class="form-control" id="form_control_1" value="A"
+                                                <input type="text" class="form-control" id="form_control_1" value="{{data.route}}"
                                                        readonly>
                                                 <label for="form_control_1">Route :</label>
                                             </div>
@@ -188,7 +188,7 @@
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
                                                 <input type="text" class="form-control" id="form_control_1"
-                                                       value="Electricity" readonly>
+                                                       value="{{data.utility}}" readonly>
                                                 <label for="form_control_1">Utility :</label>
                                             </div>
                                         </div>
