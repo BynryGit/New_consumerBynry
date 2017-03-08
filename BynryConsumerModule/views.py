@@ -30,9 +30,6 @@ from django.http import HttpResponseRedirect
 def dashboard(request):
     return render(request, 'dashboard.html')   
 
-def consumer_details(request):
-    return render(request, 'consumer_details.html') 
-
 def complaints(request):
     return render(request, 'complaints.html')
 
@@ -42,9 +39,7 @@ def services(request):
 #vigilance_cases
 def vigilance_cases(request):
     return render(request, 'vigilance_cases.html')
-    
-
-    
+       
 def payments(request):
     return render(request, 'payments.html')
 
