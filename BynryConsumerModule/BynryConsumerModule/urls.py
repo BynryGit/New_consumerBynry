@@ -27,13 +27,10 @@ from django.views.generic import TemplateView
 urlpatterns = patterns('',       
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', 'views.dashboard',name='dashboard'),
-    url(r'^services/', 'views.services',name='services'),
-    url(r'^consumer-details/', 'views.consumer_details',name='consumer_details'),
     url(r'^serviceapp/', include(service_urls)),
     url(r'^vigilance-cases/', 'views.vigilance_cases',name='vigilance_cases'),
     url(r'^paymentapp/', include(urls)),
     url(r'^consumerapp/', include(consumer_urls)),
     url(r'^complaintapp/', include(complaint_urls)),
     url(r'^vigilanceapp/', include(vigilance_urls)),
-    #url(r'^payments/', 'views.payments',name='payments'),
 )
