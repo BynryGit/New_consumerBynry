@@ -8,7 +8,7 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 import sys
 from django.http import HttpResponse
-from consumerapp.models import ConsumerDetails
+from consumerapp.models import ConsumerDetails, MeterReadingDetail
 from serviceapp.models import ServiceRequest, ServiceRequestType
 from complaintapp.models import ComplaintDetail, ComplaintType
 from django.db.models import Q
@@ -29,7 +29,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
 from paymentapp.models import PaymentDetail
 from vigilanceapp.models import VigilanceType
-import datetime
+#import datetime
+from datetime import datetime
 Months = {
     1: 'JAN', 2: 'FEB', 3: 'MAR', 4: 'APR',
     5: 'MAY', 6: 'JUN', 7: 'JUL', 8: 'AUG',
@@ -271,7 +272,7 @@ def consumer_details(request):
             last_month_list = []
             month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']      
             month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']       
-            pre_Date = datetime.datetime.now()
+            pre_Date = datetime.now()
             pre_Month = pre_Date.month
             pre_Year = pre_Date.year
             for i in range(6):
@@ -341,41 +342,45 @@ def consumer_details(request):
 
 @csrf_exempt
 def get_meter_details(request):
-	try:
-		data = {}
-		final_list = []
-		try:
-			monthList = request.POST.get('monthList')
-			print '................monthList.........',monthList
-			month = monthList.split('-')
+    try:
+        data = {}
+        final_list = []
+        try:
+            consumer_id = request.POST.get('consumer_id')
+            monthList   = request.POST.get('monthList')			
+            month = monthList.split('-')
 
-		# $('#meter_no')
-		# $('#billed_days').
-		# $('#current_reading_date')
-		# $('#previous_reading_date').	
+            reading_obj = MeterReadingDetail.objects.get(consumer_id=consumer_id,bill_month=str(month[0]),bill_months_year=str(month[1]))
+            unit_consumed = reading_obj.unit_consumed
+            current_reading = reading_obj.current_month_reading
+            previous_reading = reading_obj.previous_month_reading
+            current_reading_date = reading_obj.current_reading_date
+            print '...................current_reading_date......',current_reading_date
+            previous_month_reading_date = reading_obj.previous_month_reading_date
+            print '...................previous_month_reading_date......',previous_month_reading_date
 
-			consumer_obj = PaymentDetail.objects.get(consumer_id=request.GET.get('consumer_id'),bill_month__icontains= str(month[0]))
-			print '.........................................XX.......',consumer_obj
-			unit_consumed = consumer_obj.unit_consumed
-			current_reading = consumer_obj.current_month_reading
-			previous_reading = consumer_obj.previous_month_reading
+            d1 = datetime.strptime(current_reading_date, "%Y-%m-%d")
+            print '...................current_reading_date...11...',d1
+            d2 = datetime.strptime(previous_month_reading_date, "%Y-%m-%d")
+            print '...................previous_month_reading_date..11...',d2
+            billed_days = abs((d2 - d1).days)
+            print '...................billed_days......',billed_days
 
-			consumer_data = {
-			'consumer_id': consumer_obj.id,
-			'name': name,
-			'utility': utility,
-			'contact_no': contact_no,
-			'aadhar_no': aadhar_no,
-			'meter_category': meter_category,
-			'sanction_load': sanction_load
-			}
-			data = {'success': 'true', 'data': consumer_data}
-		except Exception as e:
-			print "==============Exception===============================", e
-			data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
-	except MySQLdb.OperationalError, e:
-		print e
-	except Exception, e:
-		print 'Exception ', e
-	return HttpResponse(json.dumps(data), content_type='application/json')
+            consumer_data = {
+            'unit_consumed': unit_consumed,
+            'current_reading': current_reading,
+            'previous_reading': previous_reading,
+            'current_reading_date': current_reading_date,
+            'previous_month_reading_date': previous_month_reading_date,
+            'billed_days': billed_days
+            }
+            data = {'success': 'true', 'data': consumer_data}
+        except Exception as e:
+            print "==============Exception===============================", e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print e
+    except Exception, e:
+        print 'Exception ', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
 

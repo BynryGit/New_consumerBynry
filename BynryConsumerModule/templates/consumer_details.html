@@ -279,11 +279,8 @@
                                                                                 data-dismiss="fileinput"> Remove </a>
                                                                          </div> -->
                                                                         <div class="bold">
-                                                                            <span id="meter_no">Meter No : {{data.meter_no}}</span>
-                                                                        </div>
-                                                                        <input type="hidden" class="form-control"
-                                                                               id="consumer_id"
-                                                                               value="{{data.consumer_id}}">
+                                                                            <span>Meter No : {{data.meter_no}}</span>
+                                                                        </div>                                                                        
                                                                     </div>
 
                                                                 </div>
@@ -1243,8 +1240,8 @@
     $("#consumer_list").addClass("active open");    
 
 function meter_details() {
+		consumer_id = getUrlParam("consumer_id", window.location.href);
 		monthList =	$('#monthList').val()
-		consumer_id =	$('#consumer_id').val()
 
         $.ajax({
             type: 'POST',
@@ -1254,8 +1251,6 @@ function meter_details() {
             success: function (response) {	    	      
             console.log(response);
                 if (response.success == 'true') {                	
-                	$('#consumer_id').val(response.data.aadhar_no)
-						$('#meter_no').text(response.data.name)
 						$('#unit_consumption').val(response.data.consumer_id)						
 						$('#current_reading').val(response.data.utility)
 						$('#previous_reading').val(response.data.contact_no)
