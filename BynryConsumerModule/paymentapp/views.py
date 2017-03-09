@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from paymentapp.models import PaymentDetail
 from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail
-from consumerapp.models import ConsumerDetails
+from consumerapp.models import ConsumerDetails,MeterReadingDetail
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
@@ -221,13 +221,16 @@ def payments_get_payment_details(request):
     consumer_no = request.GET.get('consumer_no')
     bill_month = request.GET.get('bill_month')
     try:
-        consumer_obj = PaymentDetail.objects.get(consumer_id__in=consumer_no,bill_month=bill_month)
+        meter_reading_obj = MeterReadingDetail.objects.get(consumer_id__in=consumer_no,bill_month=bill_month)
+        print '-----------meter-----',meter_reading_obj
+        consumer_obj = PaymentDetail.objects.get(meter_reading_id=meter_reading_obj)
+        print '-----------consumer_obj-----------',consumer_obj
         payment_data={'consumer_no':consumer_no,
                       'meter_no':str(consumer_obj.consumer_id.meter_no),
-                      'bill_month':str(bill_month),
-                      'consumption':str(consumer_obj.unit_consumed),
-                      'current_month_reading':str(consumer_obj.current_month_reading),
-                      'previous_month_reading':str(consumer_obj.previous_month_reading),
+                      'bill_month':str(consumer_obj.meter_reading_id.bill_month),
+                      'consumption':str(consumer_obj.meter_reading_id.unit_consumed),
+                      'current_month_reading':str(consumer_obj.meter_reading_id.current_month_reading),
+                      'previous_month_reading':str(consumer_obj.meter_reading_id.previous_month_reading),
                       'current_amount':str(consumer_obj.current_amount),
                       'tariff_rate':str(consumer_obj.tariff_rate),
                       'net_amount':str(consumer_obj.net_amount),

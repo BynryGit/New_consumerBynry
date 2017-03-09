@@ -3,7 +3,7 @@ import django
 from decimal import Decimal
 from datetime import date
 
-from consumerapp.models import ConsumerDetails
+from consumerapp.models import ConsumerDetails,MeterReadingDetail
 
 # Create your models here.
 
@@ -31,11 +31,12 @@ class PaymentDetail(models.Model):
 
     consumer_id = models.ForeignKey(ConsumerDetails, blank=True, null=True)
     transaction_id = models.CharField(max_length=50, blank=False, null=True)
-    bill_month = models.CharField(max_length=20, blank=False, null=True)
-    bill_months_year = models.CharField(max_length=20, blank=False, null=True)
-    unit_consumed = models.CharField(max_length=100, blank=False, null=True)
-    current_month_reading = models.CharField(max_length=100, blank=False, null=True)
-    previous_month_reading = models.CharField(max_length=100, blank=False, null=True)
+    meter_reading_id= models.ForeignKey(MeterReadingDetail, blank=False)
+    # bill_month = models.CharField(max_length=20, blank=False, null=True)
+    # bill_months_year = models.CharField(max_length=20, blank=False, null=True)
+    # unit_consumed = models.CharField(max_length=100, blank=False, null=True)
+    # current_month_reading = models.CharField(max_length=100, blank=False, null=True)
+    # previous_month_reading = models.CharField(max_length=100, blank=False, null=True)
     current_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     tariff_rate = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     net_amount = models.CharField(max_length=100, blank=True, null=True)
