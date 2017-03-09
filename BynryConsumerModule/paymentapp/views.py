@@ -1,48 +1,30 @@
-import csv
+# __author__='Swapnil Kadu'
 import json
-import pdb
 import traceback
 import datetime
-from string import strip
 
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.db.models import Q
 from paymentapp.models import PaymentDetail
 from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail
 from consumerapp.models import ConsumerDetails,MeterReadingDetail
-from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
-# Todo show list view for payment detail
-# @login_required(login_url='/')
-# def open_payment_list(request):
-#     try:
-#         totalPayment = PaymentDetail.objects.filter(is_deleted=False).count()
-#         data = {'total': totalPayment}
-#     except Exception, e:
-#         print 'exception ', str(traceback.print_exc())
-#         print 'Exception|views.py|open_payment_list', e
-#         data = {'message': 'Server Error'}
-#     return render(request, 'paymentapp/payment.html',data)
-
-# 'Online Payment', 'Online Payment'),
-#         ('Paytm Wallet', 'Paytm Wallet'),
-#         ('Cash Payment', 'Cash Payment'),
-
+# To view payment page
 def payments(request):
-    data={'zone':Zone.objects.all(),
-          'billcycle':BillCycle.objects.all(),
-          'routeDetail':RouteDetail.objects.all()
+    print 'paymentapp|views.py|payments'
+    data={'zone':Zone.objects.all(), # zone list
+          'billcycle':BillCycle.objects.all(), # bill cycle list
+          'routeDetail':RouteDetail.objects.all() # route list
           }
     return render(request, 'payments.html',data)
 
+# To get online payments list
 def online_payments(request):
     online_payment_list=[]
     payment_details_list=[]
     try:
+        print 'paymentapp|views.py|online_payments'
         filter_zone  	= request.GET.get('filter_zone')
         filter_bill  	= request.GET.get('filter_bill')
         filter_route 	= request.GET.get('filter_route')
@@ -51,15 +33,19 @@ def online_payments(request):
 
         try:
             payment_details_list = PaymentDetail.objects.all()
+            # filter payment data by zone
             if filter_zone != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by bill cycle
             if filter_bill != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(bill_cycle__bill_cycle_code=str(filter_bill))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by route
             if filter_route != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(route__route_code=str(filter_route))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by date range
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
                 filter_from = filter_from.strftime("%Y-%m-%d")
@@ -67,6 +53,7 @@ def online_payments(request):
                 filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 
+            # get online payment data list by payment obj
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Online Payment':
@@ -81,18 +68,17 @@ def online_payments(request):
             data = {'data':online_payment_list}
         except Exception as e:
             print 'exception ', str(traceback.print_exc())
-            print 'Exception|views.py|online_payments', e
+            print 'Exception|paymentapp|views.py|online_payments', e
             print 'Exception', e
             data = {'success': 'false', 'error': 'Exception ' + str(e)}
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|online_payments', e
         print 'Exception', e
-        data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# To get paytm payments list
 def paytm_payments(request):
     try:
+        print 'paymentapp|views.py|paytm_payments'
         payment_wallet_list=[]
         payment_details_list=[]
 
@@ -103,15 +89,19 @@ def paytm_payments(request):
         filter_to 		= request.GET.get('filter_to')
         try:
             payment_details_list = PaymentDetail.objects.all()
+            # filter payment data by zone
             if filter_zone != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by bill cycle
             if filter_bill != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(bill_cycle__bill_cycle_code=str(filter_bill))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by route
             if filter_route != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(route__route_code=str(filter_route))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by date range
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
                 filter_from = filter_from.strftime("%Y-%m-%d")
@@ -119,6 +109,7 @@ def paytm_payments(request):
                 filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 
+            # get paytm payment data list by payment obj
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Paytm Wallet':
@@ -143,8 +134,10 @@ def paytm_payments(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# To get cash payments list
 def cash_payments(request):
     try:
+        print 'paymentapp|views.py|cash_payments'
         cash_payment_list=[]
         payment_details_list=[]
         filter_zone  	= request.GET.get('filter_zone')
@@ -155,15 +148,19 @@ def cash_payments(request):
 
         try:
             payment_details_list = PaymentDetail.objects.all()
+            # filter payment data by zone
             if filter_zone != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by bill cycle
             if filter_bill != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(bill_cycle__bill_cycle_code=str(filter_bill))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by route
             if filter_route != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(route__route_code=str(filter_route))
                 payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by date range
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
                 filter_from = filter_from.strftime("%Y-%m-%d")
@@ -171,6 +168,7 @@ def cash_payments(request):
                 filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 
+            # get cash payment data list by payment obj
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Cash Payment':
@@ -189,14 +187,15 @@ def cash_payments(request):
             print 'Exception', e
             data = {'success': 'false', 'error': 'Exception ' + str(e)}
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|cash_payments', e
         print 'Exception', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# To get consumer details
 def payments_get_consumer_details(request):
     try:
+        print 'paymentapp|views.py|payments_get_consumer_details'
+        # filter consumer details by consumer id
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_id'))
         consumer_data = {
                 'billCycle': consumer_obj.bill_cycle.bill_cycle_code,
@@ -208,7 +207,6 @@ def payments_get_consumer_details(request):
                 'consumerAddress': consumer_obj.address_line_1 + '  ' + consumer_obj.address_line_2
             }
         data = {'success': 'true', 'consumerData': consumer_data}
-        return HttpResponse(json.dumps(data), content_type='application/json')
 
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
@@ -217,14 +215,16 @@ def payments_get_consumer_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# To get payment details
 def payments_get_payment_details(request):
     consumer_no = request.GET.get('consumer_no')
     bill_month = request.GET.get('bill_month')
     try:
+        print 'paymentapp|views.py|payments_get_payment_details'
+        # filter meter reading details by consumer id and bill month
         meter_reading_obj = MeterReadingDetail.objects.get(consumer_id__in=consumer_no,bill_month=bill_month)
-        print '-----------meter-----',meter_reading_obj
+        # filter payment details by meter reading object
         consumer_obj = PaymentDetail.objects.get(meter_reading_id=meter_reading_obj)
-        print '-----------consumer_obj-----------',consumer_obj
         payment_data={'consumer_no':consumer_no,
                       'meter_no':str(consumer_obj.consumer_id.meter_no),
                       'bill_month':str(consumer_obj.meter_reading_id.bill_month),
@@ -241,8 +241,6 @@ def payments_get_payment_details(request):
                       'due_date':str(consumer_obj.due_date.strftime("%d/%m/%Y"))
                       }
         data = {'success': 'true', 'payment_data': payment_data}
-
-        return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|views.py|payments_get_payment_details', e
@@ -250,9 +248,13 @@ def payments_get_payment_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# To save payment details
 def payments_save_payment_details(request):
     try:
+        print 'paymentapp|views.py|payments_save_payment_details'
+        # filter meter reading details by consumer id and bill month
         meter_reading_obj = MeterReadingDetail.objects.get(consumer_id__in=request.GET.get('consumer_no'),bill_month=request.GET.get('bill_month'))
+        # filter payment details by meter reading object
         consumer_obj = PaymentDetail.objects.filter(meter_reading_id=meter_reading_obj).update(bill_amount_paid = request.GET.get('paid_amount'),payment_mode = 'Cash Payment',bill_status = 'Paid',payment_date = datetime.now())
         data={'success':'True'}
 
