@@ -263,3 +263,42 @@ def payments_save_payment_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+@csrf_exempt
+def get_bills_details(request):
+    try:
+        data = {}
+        final_list = []
+        try:
+            consumer_id = request.POST.get('consumer_id')
+            monthList   = request.POST.get('monthList')         
+            month = monthList.split('-')
+
+            try:        
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=consumer_id,bill_month=str(month[0]),bill_months_year=str(month[1]))
+                payment_obj = PaymentDetail.objects.filter(meter_reading_id=reading_obj.id).first()
+
+                transaction_id = payment_obj.transaction_id
+                bill_amount_paid = str(payment_obj.bill_amount_paid)
+                payment_date = str(payment_obj.payment_date.strftime("%d/%m/%Y"))
+                payment_mode = payment_obj.payment_mode
+
+                payment_data = {
+                'transaction_id': transaction_id,
+                'bill_amount_paid': bill_amount_paid,
+                'payment_date': payment_date,
+                'payment_mode': payment_mode
+                }
+            except Exception, e:
+                print '....................Exception',e
+                consumer_data ={}
+            
+            data = {'success': 'true', 'data': payment_data}
+            print '.....sssss.......',data
+        except Exception as e:
+            print "==============Exception===============================", e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print e
+    except Exception, e:
+        print 'Exception ', e
+    return HttpResponse(json.dumps(data), content_type='application/json')

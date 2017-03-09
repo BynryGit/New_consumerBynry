@@ -328,18 +328,21 @@ def consumer_details(request):
                 payment_obj = PaymentDetail.objects.filter(consumer_id=request.GET.get('consumer_id')).first()
                 payment_data={
                         'consumer_no':consumer_no,
-                        'transaction_id':payment_obj.transaction_id,
+                        'address': payment_obj.consumer_id.address_line_1 +' '+ payment_obj.consumer_id.address_line_2,
+                        'transaction_id':str(payment_obj.transaction_id),
+                        'payment_mode':payment_obj.payment_mode,
                         'meter_no':str(payment_obj.consumer_id.meter_no),
                         'bill_month':str(payment_obj.meter_reading_id.bill_month),
                         'consumption':str(payment_obj.meter_reading_id.unit_consumed),
                         'current_month_reading':str(payment_obj.meter_reading_id.current_month_reading),
                         'previous_month_reading':str(payment_obj.meter_reading_id.previous_month_reading),
+                        'current_reading_date':str(payment_obj.meter_reading_id.current_reading_date),
+                        'prompt_date':str(payment_obj.prompt_date),
                         'current_amount':str(payment_obj.current_amount),
                         'tariff_rate':str(payment_obj.tariff_rate),
                         'net_amount':str(payment_obj.net_amount),
                         'bill_amount_paid':str(payment_obj.bill_amount_paid),
                         'amount_after_due_date':str(payment_obj.due_amount),
-                        'arriers':str(payment_obj.arriers),
                         'payment_date':str(payment_obj.payment_date.strftime("%d/%m/%Y")),
                         'due_date':str(payment_obj.due_date.strftime("%d/%m/%Y"))
                      }
