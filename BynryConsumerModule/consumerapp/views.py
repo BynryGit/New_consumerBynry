@@ -263,69 +263,80 @@ def save_consumer_profile(request):
 
 
 def consumer_details(request):
-	try:
-		data = {}
-		final_list = []
-		try:
-			last_month_list =[]
-			month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']		
+    try:
+        data = {}
+        final_list = []
+        try:
+            last_month_list = []
+            month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']      
             month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']       
-			pre_Date = datetime.datetime.now()
-			pre_Month = pre_Date.month
-			pre_Year = pre_Date.year
-			for i in range(6):
-				last_Year = pre_Year
-				last_Month = pre_Month - i 
-				if last_Month <= 0:
-					last_Month = 12 + last_Month
-					last_Year = pre_Year -1    
-				month1 = month_list1[last_Month-1] +'-'+str(last_Year)
+            pre_Date = datetime.datetime.now()
+            pre_Month = pre_Date.month
+            pre_Year = pre_Date.year
+            for i in range(6):
+                last_Year = pre_Year
+                last_Month = pre_Month - i 
+                if last_Month <= 0:
+                    last_Month = 12 + last_Month
+                    last_Year = pre_Year -1    
+                month1 = month_list1[last_Month-1] +'-'+str(last_Year)
                 month2 = month_list2[last_Month-1] +'-'+str(last_Year)
-				last_month_list.append({'month1':month1,'month2':month2})
+                last_month_list.append({'month1':month1,'month2':month2})
 
-			consumer_obj 	= ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
-			name 			= consumer_obj.name
-			consumer_no 	= consumer_obj.consumer_no                     
-			aadhar_no 		= consumer_obj.aadhar_no
-			address_line_1 	= consumer_obj.address_line_1
-			address_line_2 	= consumer_obj.address_line_2
-			address 		= address_line_1 + ', ' + address_line_2
-			contact_no 		= consumer_obj.contact_no
-			email_id 		= consumer_obj.email_id
-			zone_name 		= str(consumer_obj.zone.zone_name)
-			billcycle 		= str(consumer_obj.bill_cycle.bill_cycle_code) 
-			route 			= str(consumer_obj.route.route_code) 
-			utility 		= consumer_obj.Utility.utility                      
-			meter_no 		= consumer_obj.meter_no
-			meter_category 	= consumer_obj.meter_category
-			sanction_load 	= consumer_obj.sanction_load
+            consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+            name = consumer_obj.name
+            consumer_no = consumer_obj.consumer_no
+            aadhar_no = consumer_obj.aadhar_no
+            address_line_1 = consumer_obj.address_line_1
+            address_line_2 = consumer_obj.address_line_2
+            address = address_line_1 + ', ' + address_line_2
+            contact_no = consumer_obj.contact_no
+            email_id = consumer_obj.email_id
+            zone_name = str(consumer_obj.zone.zone_name)
+            billcycle = str(consumer_obj.bill_cycle.bill_cycle_code)
+            route = str(consumer_obj.route.route_code)
+            utility = consumer_obj.Utility.utility
+            meter_no = consumer_obj.meter_no
+            meter_category = consumer_obj.meter_category
+            sanction_load = consumer_obj.sanction_load
 
-			consumer_data = {
-			'consumer_id': request.GET.get('consumer_id'),
-			'name'		 : name,
-			'consumer_no': consumer_no,
-			'aadhar_no'	 : aadhar_no,
-			'address'	 : address,
-			'aadhar_no'	 : aadhar_no,
-			'contact_no' : contact_no,
-			'email_id'	 : email_id,
-			'zone_name'	 : zone_name,
-			'billcycle'	 : billcycle,
-			'route'		 : route,
-			'utility'	 : utility,
-			'meter_no'	 : meter_no,
-			'meter_category': meter_category,
-			'sanction_load': sanction_load
-			}
-			data = {'success': 'true', 'data': consumer_data,'last_month_list':last_month_list}
-		except Exception as e:
-			print "==============Exception===============================", e
-			data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
-	except MySQLdb.OperationalError, e:
-		print e
-	except Exception, e:
-		print 'Exception ', e
-	return render(request, 'consumer_details.html',data)
+            vigilanceType = VigilanceType.objects.filter(is_deleted=False)
+            complaintType = ComplaintType.objects.filter(is_deleted=False)
+            serviceType = ServiceRequest.objects.filter(is_deleted=False)
+
+            consumer_data = {
+                'consumer_id': request.GET.get('consumer_id'),
+                'name': name,
+                'consumer_no': consumer_no,
+                'aadhar_no': aadhar_no,
+                'address': address,
+                'aadhar_no': aadhar_no,
+                'contact_no': contact_no,
+                'email_id': email_id,
+                'zone_name': zone_name,
+                'billcycle': billcycle,
+                'route': route,
+                'utility': utility,
+                'meter_no': meter_no,
+                'meter_category': meter_category,
+                'sanction_load': sanction_load,
+            }
+            data = {
+                'success': 'true',
+                'data': consumer_data,
+                'last_month_list': last_month_list,
+                'vigilanceType':vigilanceType,
+                'complaintType':complaintType,
+                'serviceType':serviceType,
+            }
+        except Exception as e:
+            print "==============Exception===============================", e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print e
+    except Exception, e:
+        print 'Exception ', e
+    return render(request, 'consumer_details.html', data)
 
 @csrf_exempt
 def get_meter_details(request):
