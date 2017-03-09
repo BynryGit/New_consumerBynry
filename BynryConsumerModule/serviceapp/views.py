@@ -19,14 +19,10 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 
 from dateutil.relativedelta import relativedelta
-
 import time
-
 import pdb
 
 # Create your views here.
-
-# @login_required(login_url='/')
 def service_request(request):
     try:
         total = ServiceRequest.objects.filter(is_deleted=False).count()
