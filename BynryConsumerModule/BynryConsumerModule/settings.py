@@ -114,6 +114,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (BASE_DIR +'/static/',)
+MEDIA_ROOT = BASE_DIR+'/media/'
 #STATIC_ROOT = BASE_DIR +'/static/'
 
 
