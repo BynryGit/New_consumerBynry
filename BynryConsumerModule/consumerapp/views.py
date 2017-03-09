@@ -355,17 +355,10 @@ def get_meter_details(request):
             current_reading = reading_obj.current_month_reading
             previous_reading = reading_obj.previous_month_reading
             current_reading_date = reading_obj.current_reading_date
-            print '...................current_reading_date......',current_reading_date
             previous_month_reading_date = reading_obj.previous_month_reading_date
-            print '...................previous_month_reading_date......',previous_month_reading_date
-
-            d1 = datetime.strptime(current_reading_date, "%Y-%m-%d")
-            print '...................current_reading_date...11...',d1
-            d2 = datetime.strptime(previous_month_reading_date, "%Y-%m-%d")
-            print '...................previous_month_reading_date..11...',d2
-            billed_days = abs((d2 - d1).days)
-            print '...................billed_days......',billed_days
-
+            billed_days = abs((current_reading_date - previous_month_reading_date).days)
+            current_reading_date = current_reading_date.strftime("%b %d,%Y")
+            previous_month_reading_date = previous_month_reading_date.strftime("%b %d,%Y")
             consumer_data = {
             'unit_consumed': unit_consumed,
             'current_reading': current_reading,

@@ -1251,15 +1251,15 @@ function meter_details() {
             success: function (response) {	    	      
             console.log(response);
                 if (response.success == 'true') {                	
-						$('#unit_consumption').val(response.data.consumer_id)						
-						$('#current_reading').val(response.data.utility)
-						$('#previous_reading').val(response.data.contact_no)
-						$('#billed_days').val(response.data.email_id)
-						$('#current_reading_date').val(response.data.aadhar_no)
-						$('#previous_reading_date').val(response.data.aadhar_no)						
+						$('#unit_consumption').val(response.data.unit_consumed)						
+						$('#current_reading').val(response.data.current_reading)
+						$('#previous_reading').val(response.data.previous_reading)
+						$('#billed_days').val(response.data.billed_days)
+						$('#current_reading_date').val(response.data.current_reading_date)
+						$('#previous_reading_date').val(response.data.previous_month_reading_date)						
                 }
                 if (response.success == 'false') {
-                    alert(response.message);
+                    //alert(response.message);
                 }
             },
 
