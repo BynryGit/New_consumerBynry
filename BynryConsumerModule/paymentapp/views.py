@@ -13,9 +13,9 @@ from datetime import datetime
 # To view payment page
 def payments(request):
     print 'paymentapp|views.py|payments'
-    data={'zone':Zone.objects.all(), # zone list
-          'billcycle':BillCycle.objects.all(), # bill cycle list
-          'routeDetail':RouteDetail.objects.all() # route list
+    data={'zone' : Zone.objects.filter(is_deleted=False), # Zone List
+          #'billcycle':BillCycle.objects.all(), # bill cycle list
+          #'routeDetail':RouteDetail.objects.all() # route list
           }
     return render(request, 'payments.html',data)
 
