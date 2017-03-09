@@ -1,4 +1,4 @@
-# __author__='Vikas Kumawat'
+# __author__='Vikas Kumawat' Date: 09/03/2016
 import traceback
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
@@ -13,7 +13,7 @@ import datetime
 # To view complaints page
 def complaint(request):
     try:
-        print 'Complaints.py|complaint'
+        print 'complaintapp|views.py|complaint'
         # total, open and closed complaint details count
         total = ComplaintDetail.objects.filter(is_deleted=False).count()
         open = ComplaintDetail.objects.filter(complaint_status='Open', is_deleted=False).count()
@@ -31,12 +31,14 @@ def complaint(request):
         }
     except Exception, e:
         print 'Exception|comlpaintapp|views.py|complaint', e
+        data = {}
     return render(request, 'complaints.html', data)
 
 
 # To get complaint data (filter parameters: complaint type, status, source, zone, bill cycle, route, consumer)
 def get_complaint_data(request):
     try:
+        print 'complaintapp|views.py|get_complaint_data'
         complaint_list = []
         complaint_obj = ComplaintDetail.objects.all()
 
@@ -82,7 +84,7 @@ def get_complaint_data(request):
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
             complaint_obj = complaint_obj.filter(complaint_date__range=[start_date, end_date])
 
-        # filter complaint data by route
+        # complaint data result
         for complaint in complaint_obj:
             complaint_data = {
                 'complaint_no': '<a onclick="complaint_details(' + str(
@@ -98,19 +100,22 @@ def get_complaint_data(request):
             complaint_list.append(complaint_data)
         data = {'data': complaint_list}
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|comlpaintapp|views.py|complaint', e
+        print 'Exception|comlpaintapp|views.py|get_complaint_data', e
         data = {'msg': 'error'}
-        print e
     return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 
 
+# to get complaint details
 @login_required(login_url='/')
 def get_complaint_details(request):
     try:
+        print 'complaintapp|views.py|get_complaint_details'
+        # filter complaint by complaint id
         complaint = ComplaintDetail.objects.get(id=request.GET.get('complaint_id'))
+        # complaint image path with server url
         image_address = "http://" + get_current_site(request).domain + "/" + complaint.complaint_img.url
 
+        # complaint detail result
         complaintIdDetail = {
             'complaintID': complaint.complaint_no,
             'complaintType': complaint.complaint_type_id.complaint_type,
@@ -121,29 +126,29 @@ def get_complaint_details(request):
             'closureRemark': complaint.closure_remark,
             'complaint_img': image_address,
         }
-
         data = {'success': 'true', 'complaintDetail': complaintIdDetail}
-        print 'Request show history out service request with---', data
-        return HttpResponse(json.dumps(data), content_type='application/json')
-
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|comlpaintapp|views.py|complaint', e
+        print 'Exception|comlpaintapp|views.py|get_complaint_details', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
+# to get consumer details
 @login_required(login_url='/')
 def get_consumer_details(request):
-    print 'Complaint ID Column Detail---', request.GET
     try:
+        print 'complaintapp|views.py|get_consumer_details'
+        # filter consumer detail by consumer id
         consumerDetails = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+        # consumer address
         consumer_address = consumerDetails.address_line_1
         if consumerDetails.address_line_2:
             consumer_address = consumer_address + ', ' + consumerDetails.address_line_2
         if consumerDetails.pin_code:
             consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.'
-        getConsumer = {
+
+        # consumer details result
+        consumerDetail = {
             'billCycle': consumerDetails.bill_cycle.bill_cycle_code,
             'consumerCity': consumerDetails.city.city,
             'consumerRoute': consumerDetails.route.route_code,
@@ -152,39 +157,25 @@ def get_consumer_details(request):
             'consumerName': consumerDetails.name,
             'consumerAddress': consumer_address
         }
-        data = {'success': 'true', 'consumerDetail': getConsumer}
-        print 'Request show history out service request with---', data
-        return HttpResponse(json.dumps(data), content_type='application/json')
-
+        data = {'success': 'true', 'consumerDetail': consumerDetail}
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|comlpaintapp|views.py|complaint', e
+        print 'Exception|comlpaintapp|views.py|get_consumer_details', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-def get_complaint_count(request):
-    try:
-        print "\n====================================================== In get_complaint_count ========================================================"
-        totals = ComplaintDetail.objects.filter(is_deleted=False,
-                                                consumer_id__city__city=request.user.userprofile.city.city).count()
-        print "\n====================================================== total count ===================================================================", totals
-        total = {
-            'total': totals,
-        }
-        data = {'success': 'true', 'total': total}
-        return HttpResponse(json.dumps(data), content_type='application/json')
-    except Exception, e:
-        print "Exception|comlpaintapp|views.py|complaint", e
-
-
+# to get bill cycle wrt zone
 def get_bill_cycle(request):
     try:
+        print 'complaintapp|views.py|get_bill_cycle'
         bill_cycle_list = []
+        # filer bill cycle by zone_id
         if request.GET.get('zone') != 'all':
             bill_cycle_obj = BillCycle.objects.filter(is_deleted=False, zone=request.GET.get('zone'))
         else:
             bill_cycle_obj = BillCycle.objects.filter(is_deleted=False)
+
+        # bill cycle result
         for bill_cycle in bill_cycle_obj:
             bill_cycle_data = {
                 'bill_cycle_id': bill_cycle.id,
@@ -192,18 +183,24 @@ def get_bill_cycle(request):
             }
             bill_cycle_list.append(bill_cycle_data)
         data = {'success': 'true', 'bill_cycle': bill_cycle_list}
-        return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception|comlpaintapp|views.py|complaint", e
+        print "Exception|comlpaintapp|views.py|get_bill_cycle", e
+        data = {'success': 'false', 'bill_cycle': []}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
+# to get bill cycle wrt bill cycle
 def get_route(request):
     try:
+        print 'complaintapp|views.py|get_route'
         route_list = []
+        # filer bill cycle by bill cycle
         if request.GET.get('bill_cycle') != 'all':
             route_obj = RouteDetail.objects.filter(is_deleted=False, billcycle=request.GET.get('bill_cycle'))
         else:
             route_obj = RouteDetail.objects.filter(is_deleted=False)
+
+        # route result
         for route in route_obj:
             route_data = {
                 'route_id': route.id,
@@ -211,6 +208,7 @@ def get_route(request):
             }
             route_list.append(route_data)
         data = {'success': 'true', 'route_list': route_list}
-        return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception|comlpaintapp|views.py|complaint", e
+        print "Exception|comlpaintapp|views.py|get_route", e
+        data = {'success': 'false', 'route_list': []}
+    return HttpResponse(json.dumps(data), content_type='application/json')
