@@ -265,24 +265,14 @@
                                                                          data-provides="fileinput">
                                                                         <div class="fileinput-new thumbnail"
                                                                              style="width: 200px; height: 150px;">
-                                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+                                                                            <img id="meter_image" src=""
                                                                                  alt=""/></div>
                                                                         <div class="fileinput-preview fileinput-exists thumbnail"
-                                                                             style="max-width: 200px; max-height: 150px;"></div>
-                                                                        <!--  <div>
-                                                                        <span class="btn default btn-file">
-                                                                            <span class="fileinput-new"> Select image </span>
-                                                                            <span class="fileinput-exists"> Change </span>
-                                                                            <input type="file" name="..."> </span>
-                                                                             <a href="javascript:;"
-                                                                                class="btn default fileinput-exists"
-                                                                                data-dismiss="fileinput"> Remove </a>
-                                                                         </div> -->
+                                                                             style="max-width: 200px; max-height: 150px;"></div>                                                                        
                                                                         <div class="bold">
                                                                             <span>Meter No : {{data.meter_no}}</span>
                                                                         </div>                                                                        
                                                                     </div>
-
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -291,8 +281,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               id="unit_consumption" readonly
-                                                                               value="123456">
+                                                                               id="unit_consumption" readonly>
                                                                         <label for="form_control_1">Consumption
                                                                             :</label>
                                                                     </div>
@@ -300,8 +289,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               id="current_reading" readonly
-                                                                               value="Jan">
+                                                                               id="current_reading" readonly>
                                                                         <label for="form_control_1">Current Reading
                                                                             :</label>
                                                                     </div>
@@ -309,8 +297,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               id="previous_reading" readonly
-                                                                               value="123456">
+                                                                               id="previous_reading" readonly>
                                                                         <label for="form_control_1">Previous Reading
                                                                             :</label>
                                                                     </div>
@@ -318,8 +305,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               id="billed_days" readonly
-                                                                               value="123456">
+                                                                               id="billed_days" readonly>
                                                                         <label for="form_control_1">Billed Days
                                                                             Reading :</label>
                                                                     </div>
@@ -327,8 +313,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               id="current_reading_date" readonly
-                                                                               value="27/01/2017">
+                                                                               id="current_reading_date" readonly>
                                                                         <label for="form_control_1">Reading Date
                                                                             :</label>
                                                                     </div>
@@ -336,8 +321,7 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               id="previous_reading_date" readonly
-                                                                               value="27/01/2017">
+                                                                               id="previous_reading_date" readonly>
                                                                         <label for="form_control_1">Prev. Reading Date
                                                                             :</label>
                                                                     </div>
@@ -368,7 +352,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="category" readonly value="HT">
+                                                                       id="category" readonly value="{{data.meter_category}}">
                                                                 <label for="form_control_1">Category :</label>
                                                             </div>
                                                         </div>
@@ -376,7 +360,7 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="saction_load" readonly value="123456">
+                                                                       id="saction_load" readonly value="{{data.sanction_load}}">
                                                                 <label for="form_control_1">Sanction Load
                                                                     (Watt):</label>
                                                             </div>
@@ -393,21 +377,21 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="panel_no" readonly value="123456">
+                                                                       id="panel_no" readonly value="{{data.meter_no}}">
                                                                 <label for="form_control_1">Panel :</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="latitude" readonly value="73.35">
+                                                                       id="latitude" readonly value="{{data.meter_no}}">
                                                                 <label for="form_control_1">latitude :</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="longitude" readonly value="72.33">
+                                                                       id="longitude" readonly value="{{data.meter_no}}">
                                                                 <label for="form_control_1">Longitude :</label>
                                                             </div>
                                                         </div>
@@ -475,7 +459,7 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control" readonly
-                                                                               id="form_control_1" value="Shubham">
+                                                                               id="form_control_1" value="{{payment_data.transaction_id}}">
                                                                         <label for="form_control_1">Transaction Id
                                                                             :</label>
                                                                     </div>
@@ -1257,7 +1241,8 @@ function meter_details() {
 						$('#previous_reading').val(response.data.previous_reading)
 						$('#billed_days').val(response.data.billed_days)
 						$('#current_reading_date').val(response.data.current_reading_date)
-						$('#previous_reading_date').val(response.data.previous_month_reading_date)						
+						$('#previous_reading_date').val(response.data.previous_month_reading_date)
+						$("#meter_image").attr("src",response.data.meter_reading_image);									
                 }
                 if (response.success == 'false') {
                     //alert(response.message);

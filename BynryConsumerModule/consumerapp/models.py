@@ -19,7 +19,7 @@ METER_CATEGORY = (
     ('HT', 'HT'),
     ('LT', 'LT'),
 )
-METER_IMAGES_PATH ='images/meter_images/'
+METER_IMAGES_PATH ='static/images/meter_images/'
 
 class ConsumerDetails(models.Model):
     name            = models.CharField(max_length=200, blank=False, null=True)
@@ -70,7 +70,7 @@ class MeterReadingDetail(models.Model):
     bill_month = models.CharField(max_length=20, blank=False, null=True)
     bill_months_year = models.CharField(max_length=20, blank=False, null=True)
     unit_consumed = models.CharField(max_length=100, blank=False, null=True)
-    meter_reading_image  =  models.ImageField("Image",upload_to=METER_IMAGES_PATH,max_length=500, default=None)
+    meter_reading_image  =  models.ImageField(upload_to=METER_IMAGES_PATH,null=True,blank=True)
     current_month_reading = models.CharField(max_length=100, blank=False, null=True)
     previous_month_reading = models.CharField(max_length=100, blank=False, null=True)
     current_reading_date = models.DateField(blank=True, null=True)
