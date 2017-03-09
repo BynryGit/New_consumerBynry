@@ -9,25 +9,18 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-          type="text/css"/>
-    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet"
-          type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
-          rel="stylesheet" type="text/css"/>
-    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
-          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components" type="text/css"/>
     <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css"
-          id="style_color"/>
+    <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
 </head>
@@ -41,8 +34,7 @@
             <a href="index.html">
                 <img src="{% static 'assets/layouts/layout/img/logo.png' %}" alt="logo" class="logo-default"/> </a>
             <div class="menu-toggler sidebar-toggler"></div>
-        </div>
-        
+        </div>        
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-user">
@@ -68,35 +60,13 @@
 <!-- END HEADER & CONTENT DIVIDER -->
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <!-- BEGIN SIDEBAR -->
-    <div class="page-sidebar-wrapper">
-        <!-- BEGIN SIDEBAR -->
-        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-        <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            {% include 'side-panel.html' %}
-            <!-- END SIDEBAR MENU -->
-            <!-- END SIDEBAR MENU -->
+    <div class="page-sidebar-wrapper">        
+        <div class="page-sidebar navbar-collapse collapse">           
+            {% include 'side-panel.html' %}            
         </div>
-        <!-- END SIDEBAR -->
     </div>
-    <!-- END SIDEBAR -->
-    <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
-        <!-- BEGIN CONTENT BODY -->
-        <div class="page-content">
-            <!-- BEGIN PAGE HEADER-->
-            <!-- BEGIN THEME PANEL -->
-
-            <!-- END THEME PANEL -->
-            <!-- BEGIN PAGE BAR -->
+        <div class="page-content">            
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
@@ -108,7 +78,6 @@
                     </li>
                 </ul>
             </div>
-
             <br>
             <div class="col-md-12" style="background: #fff; margin-bottom: 20px; padding: 15px;">
                 <div class="col-md-12">
@@ -199,13 +168,11 @@
                             </button>
                         </div>
                     </div>
-                </div>
-                
+                </div>                
             </div>
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
                     <div class="portlet light bordered">
                         <div class="portlet-title">
                             <div class="caption font-dark">
@@ -242,18 +209,17 @@
                                         </li>
 
                                         <li>
-                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                            <a href="javascript:;" data-action="1" class="tool-action">
                                                 <i class="icon-doc"></i> PDF</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                            <a href="javascript:;" data-action="2" class="tool-action">
                                                 <i class="icon-paper-clip"></i> Excel</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:;" data-action="4" class="tool-action">
+                                            <a href="javascript:;" data-action="3" class="tool-action">
                                                 <i class="icon-cloud-upload"></i> CSV</a>
                                         </li>
-
                                         </li>
                                     </ul>
                                 </div>
@@ -277,15 +243,11 @@
                             </table>
                         </div>
                     </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
         </div>
-        <!-- END CONTENT BODY -->
     </div>
-    <!-- END CONTENT -->
 </div>
-<!-- END CONTAINER -->
 <!--  Models Start -->
 <div id="service_details" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -294,9 +256,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Service Requested Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:240px;" data-always-visible="1" data-rail-visible1="1">
-                    
-                    <!-- <h4><b>Vikas Kumawat (201546)</b></h4> -->
+                <div class="scroller" style="height:240px;" data-always-visible="1" data-rail-visible1="1">                   
                     <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
                     <div class="row">
                         <div class="col-md-12">
@@ -411,184 +371,25 @@
 <script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"
-        type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"
-        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"
-        type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<!--<script src="{% static 'assets/global/scripts/datatable.js' %}" type="text/javascript"></script>-->
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}"
-        type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
-<!-- END THEME GLOBAL SCRIPTS -->
-
-<!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{% static 'assets/layouts/layout/scripts/layout.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/layouts/layout/scripts/demo.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
-<!--<script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>-->
-<!-- END THEME LAYOUT SCRIPTS -->
-
 <script src="{% static 'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/clockface/js/clockface.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'custom-js/services/services.js' %}" type="text/javascript"></script>
 
-<script type="text/javascript">
-
-    $("#consumer_anchor").prepend('<span class="selected"></span>');
-    $("#consumer_menu").addClass("active open");
-    $("#consumer_span").addClass("open");
-    $("#service_list").addClass("active open");
-
-    var initTable1 = function () {
-        var table = $('#service_table');
-        service_type = $("#select_service_type").val();
-        service_status = $("#select_service_status").val();
-        service_source = $("#select_service_source").val();
-        zone = $("#select_zone").val();
-        bill_cycle = $("#select_bill_cycle").val();
-        route = $("#select_route").val();
-        start_date = $("#start_date").val();
-        end_date = $("#end_date").val();
-        
-
-        var fixedHeaderOffset = 0;
-        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
-            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
-                fixedHeaderOffset = $('.page-header').outerHeight(true);
-            }
-        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
-            fixedHeaderOffset = $('.page-header').outerHeight(true);
-        }
-
-        var oTable = table.dataTable({
-				"bDestroy" : true,
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
-            fixedHeader: {
-                header: true,
-                headerOffset: fixedHeaderOffset
-            },
-
-				"ajax": "/serviceapp/get-service-data/?service_type="+service_type+"&service_status="+service_status+"&service_source="+service_source+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
-            "columns": [
-                {"data": "service_no"},
-                {"data": "service_type"},
-                {"data": "raised_date"},
-                {"data": "consumer_no"},
-                {"data": "consumer_name"},
-                {"data": "service_source"},
-                {"data": "service_status"},
-            ],
-
-            "order": [
-                [0, 'asc']
-            ],
-
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
-            ],
-
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            // set the initial value
-            "pageLength": 20,
-
-            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-      });
-    }
-
-	  function service_details(service_id){
-        $.ajax({
-            type : "POST",
-            url : '/serviceapp/get-service-details/',
-            data : {'service_id':service_id},
-            success: function (response) {
-                if(response.success =='true'){
-                    serviceDetail = response.serviceDetail;
-                    $("#request_id").val(serviceDetail.serviceID);
-                    $("#request_type").val(serviceDetail.serviceType);
-                    $("#service_request").val(serviceDetail.serviceRequest);
-                    $("#cons_name").text(serviceDetail.serviceConsumerName);
-                    $("#cons_no").text(serviceDetail.serviceConsumerNo);
-                }
-            },
-            error : function(response){
-                alert("_Error");
-            }
-        });
-        $("#service_details").modal('show');
-    }
-
-	 
-    function consumer_details(consumer_id){
-        $.ajax({
-            type : "POST",
-            url : "/serviceapp/get-consumer-details/",
-            data : {'consumer_id':consumer_id},
-            success: function (response) {
-                if(response.success =='true'){
-                    consumerDetail = response.consumerDetail;
-                    $("#bill_cycle").val(consumerDetail.billCycle);
-                    $("#route_code").val(consumerDetail.consumerRoute);
-                    $("#consumer_zone").val(consumerDetail.consumerZone);
-                    $("#consumer_city").val(consumerDetail.consumerCity);
-                    $("#consumer_no").val(consumerDetail.consumerNo);
-                    $("#consumer_name").val(consumerDetail.consumerName);
-                    $("#consumer_address").text(consumerDetail.consumerAddress);
-                }
-            },
-            error : function(response){
-                alert("_Error");
-            }
-        });
-        $("#consumer_details").modal('show');
-    }
-
-    function clear_filter(){
-        $('.select2').val("");
-        initTable1();
-    }
-
-    function filter_services(){
-        initTable1();
-    }
-    
-    function reload_complaints(){
-        initTable1();
-    }
-
-    initTable1();
-</script>
 
 </body>
 

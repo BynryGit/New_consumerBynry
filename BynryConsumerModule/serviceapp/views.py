@@ -52,7 +52,6 @@ def service_request(request):
 
     return render(request, 'services.html', data)
 
-
 def get_service_data(request):
     try:
         service_list = []
@@ -123,7 +122,6 @@ def get_service_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-
 @csrf_exempt
 def get_consumer_details(request):
     try:
@@ -152,21 +150,19 @@ def get_consumer_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-
 def get_service_count(request):
     try:
-        print "\n====================================================== In get_service_count ========================================================"
         totals = ServiceRequest.objects.filter(is_deleted=False,
                                                 consumer_id__city__city=request.user.userprofile.city.city).count()
-        print "\n====================================================== total count ===================================================================", totals
         total = {
             'total': totals,
         }
         data = {'success': 'true', 'total': total}
         return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception | serviceapp | get_service_count = ", e
-
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|serviceapp|views.py|get_service_count', e
+        print 'Exception', e
 
 def get_bill_cycle(request):
     try:
@@ -184,8 +180,9 @@ def get_bill_cycle(request):
         data = {'success': 'true', 'bill_cycle': bill_cycle_list}
         return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception | serviceapp | get_bill_cycle = ", e
-
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|serviceapp|views.py|get_bill_cycle', e
+        print 'Exception', e
 
 def get_route(request):
     try:
@@ -203,4 +200,6 @@ def get_route(request):
         data = {'success': 'true', 'route_list': route_list}
         return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception | serviceapp | get_service_count = ", e
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|serviceapp|views.py|get_route', e
+        print 'Exception', e
