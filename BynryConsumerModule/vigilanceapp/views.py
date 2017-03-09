@@ -65,15 +65,18 @@ def get_vigilance_data(request):
             vigilance_obj = vigilance_obj.filter(vigilance_status=request.GET.get('vigilance_status'))
         if request.GET.get('vigilance_source') and request.GET.get('vigilance_source') != "all":
             vigilance_obj = vigilance_obj.filter(vigilance_source=request.GET.get('vigilance_source'))
-        if request.GET.get('zone') and request.GET.get('zone') != "all":
-            consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
-            vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
-        if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
-            consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
-            vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
-        if request.GET.get('route') and request.GET.get('route') != "all":
-            consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
-            vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
+        if request.GET.get('consumer_id'):
+            vigilance_obj = vigilance_obj.filter(consumer_id=request.GET.get('consumer_id'))
+        else:
+            if request.GET.get('zone') and request.GET.get('zone') != "all":
+                consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
+                vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
+            if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
+                consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
+                vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
+            if request.GET.get('route') and request.GET.get('route') != "all":
+                consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
+                vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)

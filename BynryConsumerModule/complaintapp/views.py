@@ -68,15 +68,18 @@ def get_complaint_data(request):
             complaint_obj = complaint_obj.filter(complaint_status=request.GET.get('complaint_status'))
         if request.GET.get('complaint_source') and request.GET.get('complaint_source') != "all":
             complaint_obj = complaint_obj.filter(complaint_source=request.GET.get('complaint_source'))
-        if request.GET.get('zone') and request.GET.get('zone') != "all":
-            consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
-            complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
-        if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
-            consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
-            complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
-        if request.GET.get('route') and request.GET.get('route') != "all":
-            consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
-            complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+        if request.GET.get('consumer_id'):
+            complaint_obj = complaint_obj.filter(consumer_id=request.GET.get('consumer_id'))
+        else:
+            if request.GET.get('zone') and request.GET.get('zone') != "all":
+                consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
+                complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+            if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
+                consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
+                complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+            if request.GET.get('route') and request.GET.get('route') != "all":
+                consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
+                complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
