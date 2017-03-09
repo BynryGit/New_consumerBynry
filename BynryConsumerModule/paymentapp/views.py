@@ -9,6 +9,7 @@ from paymentapp.models import PaymentDetail
 from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail
 from consumerapp.models import ConsumerDetails,MeterReadingDetail
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
 
 # To view payment page
 def payments(request):
@@ -295,7 +296,6 @@ def get_bills_details(request):
                 consumer_data ={}
             
             data = {'success': 'true', 'data': payment_data}
-            print '.....sssss.......',data
         except Exception as e:
             print "==============Exception===============================", e
             data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
