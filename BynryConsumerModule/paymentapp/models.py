@@ -1,7 +1,7 @@
+# __author__='Swapnil Kadu'
 from django.db import models
 import django
 from decimal import Decimal
-from datetime import date
 
 from consumerapp.models import ConsumerDetails,MeterReadingDetail
 

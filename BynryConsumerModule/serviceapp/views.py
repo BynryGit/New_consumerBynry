@@ -35,7 +35,7 @@ def service_request(request):
         }
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|service_request', e
+        print 'Exception|serviceapp|views.py|service_request', e
         print e
 
     return render(request, 'services.html', data)
@@ -43,6 +43,7 @@ def service_request(request):
 # To get service data (filter parameters: service type, status, source, zone, bill cycle, route, consumer)
 def get_service_data(request):
     try:
+        print 'serviceapp|views.py|get_service_data'
         service_list = []
         service_obj = ServiceRequest.objects.all()
 
@@ -81,6 +82,7 @@ def get_service_data(request):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
             service_obj = service_obj.filter(request_date__range=[start_date, end_date])
+        # filtered service data list
         for service in service_obj:
             service_data = {
                 'service_no': '<a onclick="service_details(' + str(
@@ -97,15 +99,19 @@ def get_service_data(request):
         data = {'data': service_list}
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_service_datatable', e
+        print 'Exception|serviceapp|views.py|get_service_datatable', e
         data = {'msg': 'error'}
         print e
     return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 
+# To get service details
 @csrf_exempt
 def get_service_details(request):
     try:
+        print 'serviceapp|views.py|get_service_details'
+        # filter service data by service id
         service = ServiceRequest.objects.get(id=request.POST.get('service_id'))
+        # get service details by service object
         serviceIdDetail = {
             'serviceID': service.service_no,
             'serviceType': service.service_type.request_type,
@@ -119,19 +125,24 @@ def get_service_details(request):
 
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_service_details', e
+        print 'Exception|serviceapp|views.py|get_service_details', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# To get consumer details
 @csrf_exempt
 def get_consumer_details(request):
     try:
+        print 'serviceapp|views.py|get_consumer_details'
+        # filter consumer details by consumer id
         consumerDetails = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
-        consumer_address = consumerDetails.address_line_1
+        consumer_address = consumerDetails.address_line_1 # Consumer address line 1
         if consumerDetails.address_line_2:
-            consumer_address = consumer_address + ', ' + consumerDetails.address_line_2
+            consumer_address = consumer_address + ', ' + consumerDetails.address_line_2 # Consumer address line 2
         if consumerDetails.pin_code:
-            consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.'
+            consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.' # Consumer address pincode
+
+        # get consumer details by consumer object
         getConsumer = {
             'billCycle': consumerDetails.bill_cycle.bill_cycle_code,
             'consumerCity': consumerDetails.city.city,
@@ -146,61 +157,7 @@ def get_consumer_details(request):
 
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_consumer_modal', e
+        print 'Exception|serviceapp|views.py|get_consumer_details', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-def get_service_count(request):
-    try:
-        totals = ServiceRequest.objects.filter(is_deleted=False,
-                                                consumer_id__city__city=request.user.userprofile.city.city).count()
-        total = {
-            'total': totals,
-        }
-        data = {'success': 'true', 'total': total}
-
-    except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|serviceapp|views.py|get_service_count', e
-        print 'Exception', e
-    return HttpResponse(json.dumps(data), content_type='application/json')
-
-def get_bill_cycle(request):
-    try:
-        bill_cycle_list = []
-        if request.GET.get('zone') != 'all':
-            bill_cycle_obj = BillCycle.objects.filter(is_deleted=False, zone=request.GET.get('zone'))
-        else:
-            bill_cycle_obj = BillCycle.objects.filter(is_deleted=False)
-        for bill_cycle in bill_cycle_obj:
-            bill_cycle_data = {
-                'bill_cycle_id': bill_cycle.id,
-                'bill_cycle': bill_cycle.bill_cycle_code
-            }
-            bill_cycle_list.append(bill_cycle_data)
-        data = {'success': 'true', 'bill_cycle': bill_cycle_list}
-        return HttpResponse(json.dumps(data), content_type='application/json')
-    except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|serviceapp|views.py|get_bill_cycle', e
-        print 'Exception', e
-
-def get_route(request):
-    try:
-        route_list = []
-        if request.GET.get('bill_cycle') != 'all':
-            route_obj = RouteDetail.objects.filter(is_deleted=False, billcycle=request.GET.get('bill_cycle'))
-        else:
-            route_obj = RouteDetail.objects.filter(is_deleted=False)
-        for route in route_obj:
-            route_data = {
-                'route_id': route.id,
-                'route': route.route_code
-            }
-            route_list.append(route_data)
-        data = {'success': 'true', 'route_list': route_list}
-        return HttpResponse(json.dumps(data), content_type='application/json')
-    except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|serviceapp|views.py|get_route', e
-        print 'Exception', e

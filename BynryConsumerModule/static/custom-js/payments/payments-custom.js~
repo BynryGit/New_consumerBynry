@@ -1,0 +1,37 @@
+
+function counter_submit() {
+	document.getElementById("counter_form").removeAttribute("hidden");
+	document.getElementById("counter_form_footer").removeAttribute("hidden");
+	//document.getElementById("counter_bill").setAttributeNode("hidden"); 
+	
+	consumer_number = $('#consumer_number').val(); 
+	bill_month = $('#bill_month').val(); 
+ 
+   $.ajax({
+       type	: "POST",
+       url : '/paymentapp/payments_get_consumer_details/',
+       data : {'consumer_no':consumer_no,'bill_month':bill_month},
+       cache: false,
+       processData: false,
+       contentType: false,
+       success: function (response) {			  
+     		  if(response.success=='true'){
+				$("#consumer_number").text(response.consumer_no);     		  	
+     		  	
+     			$("#counter_bill").attr("hidden","hidden");           
+				$("#counter_bill_footer").attr("hidden","hidden");     
+     		  }
+       },
+       
+       error : function(response){
+       alert("_Error");
+       }
+   });		      	
+}
+
+    $("#consumer_anchor").prepend('<span class="selected"></span>');
+    $("#consumer_menu").addClass("active open");
+    $("#consumer_span").addClass("open");
+    $("#payment_list").addClass("active open");
+    
+    
