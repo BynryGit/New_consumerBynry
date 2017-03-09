@@ -29,6 +29,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
 from paymentapp.models import PaymentDetail
 from vigilanceapp.models import VigilanceType
+from consumerapp.models import MeterReadingDetail
 import datetime
 Months = {
     1: 'JAN', 2: 'FEB', 3: 'MAR', 4: 'APR',
@@ -304,6 +305,25 @@ def consumer_details(request):
             vigilanceType = VigilanceType.objects.filter(is_deleted=False)
             complaintType = ComplaintType.objects.filter(is_deleted=False)
             serviceType = ServiceRequest.objects.filter(is_deleted=False)
+
+            consumer_obj = PaymentDetail.objects.get(consumer_id__in=consumer_no)
+            print '-----------consumer_obj-----------',consumer_obj
+            payment_data={'consumer_no':consumer_no,
+                          'meter_no':str(consumer_obj.consumer_id.meter_no),
+                          'bill_month':str(consumer_obj.meter_reading_id.bill_month),
+                          'consumption':str(consumer_obj.meter_reading_id.unit_consumed),
+                          'current_month_reading':str(consumer_obj.meter_reading_id.current_month_reading),
+                          'previous_month_reading':str(consumer_obj.meter_reading_id.previous_month_reading),
+                          'current_amount':str(consumer_obj.current_amount),
+                          'tariff_rate':str(consumer_obj.tariff_rate),
+                          'net_amount':str(consumer_obj.net_amount),
+                          'bill_amount_paid':str(consumer_obj.bill_amount_paid),
+                          'amount_after_due_date':str(consumer_obj.due_amount),
+                          'arriers':str(consumer_obj.arriers),
+                          'payment_date':str(consumer_obj.payment_date.strftime("%d/%m/%Y")),
+                          'due_date':str(consumer_obj.due_date.strftime("%d/%m/%Y"))
+                          }
+            data = {'success': 'true', 'payment_data': payment_data}
 
             consumer_data = {
                 'consumer_id': request.GET.get('consumer_id'),
