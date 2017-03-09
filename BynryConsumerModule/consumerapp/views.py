@@ -27,8 +27,8 @@ from django.contrib.sites.shortcuts import get_current_site
 
 # SHUBHAM
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
-from datetime import datetime
-
+from paymentapp.models import PaymentDetail
+import datetime
 Months = {
     1: 'JAN', 2: 'FEB', 3: 'MAR', 4: 'APR',
     5: 'MAY', 6: 'JUN', 7: 'JUL', 8: 'AUG',
@@ -267,9 +267,22 @@ def consumer_details(request):
 		data = {}
 		final_list = []
 		try:
+			last_month_list =[]
+			month_list = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']		
+			pre_Date = datetime.datetime.now()
+			pre_Month = pre_Date.month
+			pre_Year = pre_Date.year
+			for i in range(6):
+				last_Year = pre_Year
+				last_Month = pre_Month - i 
+				if last_Month <= 0:
+					last_Month = 12 + last_Month
+					last_Year = pre_Year -1    
+				month = month_list[last_Month-1] +'-'+str(last_Year)
+				last_month_list.append({'month':month})
+
 			consumer_obj 	= ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
 			name 			= consumer_obj.name
-			print '.....................',name
 			consumer_no 	= consumer_obj.consumer_no                     
 			aadhar_no 		= consumer_obj.aadhar_no
 			address_line_1 	= consumer_obj.address_line_1
@@ -286,18 +299,59 @@ def consumer_details(request):
 			sanction_load 	= consumer_obj.sanction_load
 
 			consumer_data = {
-			'name'		: name,
+			'consumer_id': request.GET.get('consumer_id'),
+			'name'		 : name,
 			'consumer_no': consumer_no,
-			'aadhar_no'	: aadhar_no,
-			'address'	: address,
-			'aadhar_no'	: aadhar_no,
+			'aadhar_no'	 : aadhar_no,
+			'address'	 : address,
+			'aadhar_no'	 : aadhar_no,
+			'contact_no' : contact_no,
+			'email_id'	 : email_id,
+			'zone_name'	 : zone_name,
+			'billcycle'	 : billcycle,
+			'route'		 : route,
+			'utility'	 : utility,
+			'meter_no'	 : meter_no,
+			'meter_category': meter_category,
+			'sanction_load': sanction_load
+			}
+			data = {'success': 'true', 'data': consumer_data,'last_month_list':last_month_list}
+		except Exception as e:
+			print "==============Exception===============================", e
+			data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+	except MySQLdb.OperationalError, e:
+		print e
+	except Exception, e:
+		print 'Exception ', e
+	return render(request, 'consumer_details.html',data)
+
+@csrf_exempt
+def get_meter_details(request):
+	try:
+		data = {}
+		final_list = []
+		try:
+			monthList = request.POST.get('monthList')
+			print '................monthList.........',monthList
+			month = monthList.split('-')
+
+		# $('#meter_no')
+		# $('#billed_days').
+		# $('#current_reading_date')
+		# $('#previous_reading_date').	
+
+			consumer_obj = PaymentDetail.objects.get(consumer_id=request.GET.get('consumer_id'),bill_month__icontains= str(month[0]))
+			print '.........................................XX.......',consumer_obj
+			unit_consumed = consumer_obj.unit_consumed
+			current_reading = consumer_obj.current_month_reading
+			previous_reading = consumer_obj.previous_month_reading
+
+			consumer_data = {
+			'consumer_id': consumer_obj.id,
+			'name': name,
+			'utility': utility,
 			'contact_no': contact_no,
-			'email_id'	: email_id,
-			'zone_name'	: zone_name,
-			'billcycle'	: billcycle,
-			'route'		: route,
-			'utility'	: utility,
-			'meter_no'	: meter_no,
+			'aadhar_no': aadhar_no,
 			'meter_category': meter_category,
 			'sanction_load': sanction_load
 			}
@@ -309,4 +363,5 @@ def consumer_details(request):
 		print e
 	except Exception, e:
 		print 'Exception ', e
-	return render(request, 'consumer_details.html',data)
+	return HttpResponse(json.dumps(data), content_type='application/json')
+

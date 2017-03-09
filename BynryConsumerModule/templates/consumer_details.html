@@ -240,11 +240,12 @@
                											  <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="col-md-3" style="float: right;">
-                                                            <select id="select2-single-input-sm"
-                                                                    class="form-control input-sm select2-multiple">
-                                                                <option value="month">Month</option>
-                                                                <option value="week" >Week</option>
-                                                            </select>
+                                                            <select id="monthList"
+                                                                    class="form-control input-sm select2-multiple" name="monthList" onchange="meter_details();">
+																					 {% for month in last_month_list %}
+										                                   <option value="{{ month.month }}"> {{ month.month }}</option>
+										                                  {% endfor %}
+                                                            </select> 
                                                         </div>
                                                     </div>
                                                   </div>
@@ -272,8 +273,11 @@
                                                                                 data-dismiss="fileinput"> Remove </a>
                                                                          </div> -->
                                                                          <div class="bold"> 
-                                                                         	<span>Meter No : 1252485</span>
+                                                                         	<span id="meter_no">Meter No : {{data.meter_no}}</span>
                                                                          </div>
+                                                                         <input type="hidden" class="form-control"
+                                                                                id="consumer_id" 
+                                                                                value="{{data.consumer_id}}">
                                                                      </div>
 
                                                                  </div>
@@ -284,7 +288,7 @@
                                                                  <div class="col-md-4">
                                                                      <div class="form-group form-md-line-input has-info">
                                                                          <input type="text" class="form-control"
-                                                                                id="form_control_1" readonly
+                                                                                id="unit_consumption" readonly
                                                                                 value="123456">
                                                                          <label for="form_control_1">Consumption
                                                                              :</label>
@@ -293,7 +297,7 @@
                                                                  <div class="col-md-4">
                                                                      <div class="form-group form-md-line-input has-info">
                                                                          <input type="text" class="form-control"
-                                                                                id="form_control_1" readonly
+                                                                                id="current_reading" readonly
                                                                                 value="Jan">
                                                                          <label for="form_control_1">Current Reading 
                                                                              :</label>
@@ -302,7 +306,7 @@
                                                                  <div class="col-md-4">
                                                                      <div class="form-group form-md-line-input has-info">
                                                                          <input type="text" class="form-control"
-                                                                                id="form_control_1" readonly
+                                                                                id="previous_reading" readonly
                                                                                 value="123456">
                                                                          <label for="form_control_1">Previous Reading
                                                                              :</label>
@@ -311,7 +315,7 @@
                                                                  <div class="col-md-4">
                                                                      <div class="form-group form-md-line-input has-info">
                                                                          <input type="text" class="form-control"
-                                                                                id="form_control_1" readonly
+                                                                                id="billed_days" readonly
                                                                                 value="123456">
                                                                          <label for="form_control_1">Billed Days
                                                                              Reading :</label>
@@ -320,7 +324,7 @@
                                                                  <div class="col-md-4">
                                                                      <div class="form-group form-md-line-input has-info">
                                                                          <input type="text" class="form-control"
-                                                                                id="form_control_1" readonly
+                                                                                id="current_reading_date" readonly
                                                                                 value="27/01/2017">
                                                                          <label for="form_control_1">Reading Date
                                                                              :</label>
@@ -329,7 +333,7 @@
                                                                  <div class="col-md-4">
                                                                      <div class="form-group form-md-line-input has-info">
                                                                          <input type="text" class="form-control"
-                                                                                id="form_control_1" readonly
+                                                                                id="previous_reading_date" readonly
                                                                                 value="27/01/2017">
                                                                          <label for="form_control_1">Prev. Reading Date
                                                                              :</label>
@@ -353,21 +357,22 @@
                                                          <div class="col-md-4">
                                                              <div class="form-group form-md-line-input has-info">
                                                                  <input type="text" class="form-control"
-                                                                        id="form_control_1" readonly value="123456">
+                                                                        id="meter_no1" readonly value="{{data.meter_no}}">
                                                                  <label for="form_control_1">Meter No :</label>
                                                              </div>
                                                          </div>
                                                          <div class="col-md-4">
                                                              <div class="form-group form-md-line-input has-info">
                                                                  <input type="text" class="form-control"
-                                                                        id="form_control_1" readonly value="HT">
+                                                                        id="category" readonly value="HT">
                                                                  <label for="form_control_1">Category :</label>
                                                              </div>
-                                                         </div>
+                                                         </div>                                                         
+											                       				                    		
                                                          <div class="col-md-4">
                                                              <div class="form-group form-md-line-input has-info">
                                                                  <input type="text" class="form-control"
-                                                                        id="form_control_1" readonly value="123456">
+                                                                        id="saction_load" readonly value="123456">
                                                                  <label for="form_control_1">Sanction Load
                                                                      (Watt):</label>
                                                              </div>
@@ -384,21 +389,21 @@
                                                          <div class="col-md-4">
                                                              <div class="form-group form-md-line-input has-info">
                                                                  <input type="text" class="form-control"
-                                                                        id="form_control_1" readonly value="123456">
+                                                                        id="panel_no" readonly value="123456">
                                                                  <label for="form_control_1">Panel :</label>
                                                              </div>
                                                          </div>
                                                          <div class="col-md-4">
                                                              <div class="form-group form-md-line-input has-info">
                                                                  <input type="text" class="form-control"
-                                                                        id="form_control_1" readonly value="HT">
+                                                                        id="latitude" readonly value="73.35">
                                                                  <label for="form_control_1">latitude :</label>
                                                              </div>
                                                          </div>
                                                          <div class="col-md-4">
                                                              <div class="form-group form-md-line-input has-info">
                                                                  <input type="text" class="form-control"
-                                                                        id="form_control_1" readonly value="123456">
+                                                                        id="longitude" readonly value="72.33">
                                                                  <label for="form_control_1">Longitude :</label>
                                                              </div>
                                                          </div>
@@ -414,7 +419,7 @@
                                                          <div class="col-md-8">
                                                              <div class="form-group form-md-line-input has-info">
                                                                  <input type="text" class="form-control"
-                                                                        id="form_control_1" readonly value="123456">
+                                                                        id="special_instru" readonly value="Right Bhusari">
                                                              </div>
                                                          </div>
                                                          <div class="col-md-4">
@@ -1028,100 +1033,6 @@
 </div>
 <!-- END CONTAINER -->
         <!--  Models Start -->
-<!--         <div id="vigilance-model" class="modal fade" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Vigilance Case</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
-                            <div class="row">                               
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1" >
-                                        <label for="form_control_1">Case Id</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Vigilance Type</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Reg. Date</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Reg. Source</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Case Status</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Theft Found</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Remark</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="form_control_1 Bold">Penalty :</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Amount to be paid :</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Payment Status</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Payment Method</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="form_control_1 Bold">Court Case Details :</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Case Status</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Remark</label>
-                                    </div>
-                                </div>                              
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
 <div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1363,14 +1274,62 @@
     $("#consumer_anchor").prepend('<span class="selected"></span>');
     $("#consumer_menu").addClass("active open");
     $("#consumer_span").addClass("open");
-    $("#consumer_list").addClass("active open");
- 
+    $("#consumer_list").addClass("active open");    
+
+function meter_details() {
+		monthList =	$('#monthList').val()
+		consumer_id =	$('#consumer_id').val()
+
+        $.ajax({
+            type: 'POST',
+            url: '/consumerapp/get-meter-details/',
+            data: {'monthList': monthList,'consumer_id':consumer_id},
+	    		            
+            success: function (response) {	    	      
+            console.log(response);
+                if (response.success == 'true') {                	
+                	$('#consumer_id').val(response.data.aadhar_no)
+						$('#meter_no').text(response.data.name)
+						$('#unit_consumption').val(response.data.consumer_id)						
+						$('#current_reading').val(response.data.utility)
+						$('#previous_reading').val(response.data.contact_no)
+						$('#billed_days').val(response.data.email_id)
+						$('#current_reading_date').val(response.data.aadhar_no)
+						$('#previous_reading_date').val(response.data.aadhar_no)						
+                }
+                if (response.success == 'false') {
+                    alert(response.message);
+                }
+            },
+
+            error: function (response) {
+            console.log(response);
+                alert('error');
+            },
+        });            						
+}
+
+
 function change_div(var1) {
 if (var1 == '1') {
+	document.getElementById('meter_no1').readOnly 		= false;
+	document.getElementById('category').readOnly 		= false;
+	document.getElementById('saction_load').readOnly	= false;
+	document.getElementById('panel_no').readOnly 		= false;
+	document.getElementById('latitude').readOnly 		= false;
+	document.getElementById('longitude').readOnly 		= false;
+	document.getElementById('special_instru').readOnly = false;
 	$("#edit_btn").css("display","none");
 	$("#save_btn").css("display","block");
 }
 else {
+	document.getElementById('meter_no1').readOnly 		= true;
+	document.getElementById('category').readOnly 		= true;
+	document.getElementById('saction_load').readOnly 	= true;
+	document.getElementById('panel_no').readOnly 		= true;
+	document.getElementById('latitude').readOnly 		= true;
+	document.getElementById('longitude').readOnly 		= true;
+	document.getElementById('special_instru').readOnly = true;
 	$("#edit_btn").css("display","block");
 	$("#save_btn").css("display","none");
 }	
