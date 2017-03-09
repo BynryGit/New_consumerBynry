@@ -28,6 +28,7 @@ from django.contrib.sites.shortcuts import get_current_site
 # SHUBHAM
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
 from paymentapp.models import PaymentDetail
+from vigilanceapp.models import VigilanceType
 import datetime
 Months = {
     1: 'JAN', 2: 'FEB', 3: 'MAR', 4: 'APR',
