@@ -413,3 +413,24 @@ def get_meter_details(request):
         print 'Exception ', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+@csrf_exempt
+def save_consumer_details(request):
+    try:
+        consumer_obj = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
+        consumer_obj.meter_no = request.POST.get('meter_no')
+        consumer_obj.meter_category = request.POST.get('category')
+        consumer_obj.sanction_load = request.POST.get('saction_load')
+        consumer_obj.updated_on = datetime.now()
+        consumer_obj.save();
+
+        data = {
+            'success': 'true',
+            'message': 'Meter Details Updated Successfully.'
+        }
+    except Exception, e:
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')

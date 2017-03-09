@@ -1270,15 +1270,44 @@ if (var1 == '1') {
 	$("#save_btn").css("display","block");
 }
 else {
-	document.getElementById('meter_no1').readOnly 		= true;
-	document.getElementById('category').readOnly 		= true;
-	document.getElementById('saction_load').readOnly 	= true;
-	document.getElementById('panel_no').readOnly 		= true;
-	document.getElementById('latitude').readOnly 		= true;
-	document.getElementById('longitude').readOnly 		= true;
-	document.getElementById('special_instru').readOnly = true;
-	$("#edit_btn").css("display","block");
-	$("#save_btn").css("display","none");
+		consumer_id = getUrlParam("consumer_id", window.location.href);				
+	   var formData= new FormData();
+		formData.append("consumer_id",consumer_id);
+		formData.append("meter_no",$('#meter_no1').val());		
+		formData.append("category",$('#category').val());    
+		formData.append("saction_load",$('#saction_load').val());    
+		/*formData.append("panel_no",$('#panel_no').val()); 
+		formData.append("latitude",$('#latitude').val()); 
+		formData.append("longitude",$('#longitude').val()); 
+		formData.append("special_instru",$('#special_instru').val()); */
+	
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/consumerapp/save-consumer-details/',
+ 					data : formData,
+					cache: false,
+		         processData: false,
+		    		contentType: false,                       
+              success: function (response) {   
+	              if(response.success=='true'){
+	           	  		//$("#edituser_model").modal('hide');
+	           	  		location.reload();
+	              	}
+	      			if (response.success == "false") {
+							location.reload()            
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            $("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });       
+
 }	
 }   
 

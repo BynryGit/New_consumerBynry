@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^save-consumer-profile/', views.save_consumer_profile,name='save_consumer_profile'),    
     url(r'^consumer-details/', views.consumer_details,name='consumer_details'),
     url(r'^get-meter-details/', views.get_meter_details,name='get_meter_details'),
+    url(r'^save-consumer-details/', views.save_consumer_details,name='save_consumer_details'),
+
 ]
