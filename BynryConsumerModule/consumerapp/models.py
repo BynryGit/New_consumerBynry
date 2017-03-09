@@ -64,3 +64,21 @@ class ConsumerDetails(models.Model):
 
     def __unicode__(self):
         return unicode(str(self.consumer_no))
+
+class MeterReadingDetail(models.Model):
+    consumer_id= models.ForeignKey(ConsumerDetails, blank=False)
+    bill_month = models.CharField(max_length=20, blank=False, null=True)
+    bill_months_year = models.CharField(max_length=20, blank=False, null=True)
+    unit_consumed = models.CharField(max_length=100, blank=False, null=True)
+    current_month_reading = models.CharField(max_length=100, blank=False, null=True)
+    previous_month_reading = models.CharField(max_length=100, blank=False, null=True)
+    current_reading_date = models.DateField(blank=True, null=True)
+    previous_month_reading_date = models.DateField(blank=True, null=True)
+    created_by = models.CharField(max_length=500, blank=False, null=True)
+    updated_by = models.CharField(max_length=500, blank=True, null=True)
+    created_on = models.DateTimeField(default=django.utils.timezone.now)
+    updated_on = models.DateTimeField(blank=True, null=True)
+    is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
+
+    def __unicode__(self):
+     return unicode(self.id)

@@ -7,3 +7,4 @@ class ConsumerDetailsAdmin(admin.ModelAdmin):
     list_filter = ('is_new', 'is_active', 'is_deleted')
 
 admin.site.register(models.ConsumerDetails,ConsumerDetailsAdmin)
+admin.site.register(models.MeterReadingDetail)
