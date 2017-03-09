@@ -1,59 +1,45 @@
-import csv
-import traceback
-# from bson import json_uti
-import json
-import sys
 
+import traceback
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import *
 from BynryConsumerModuleapp.models import *
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
 from consumerapp.models import ConsumerDetails
-from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q
 import datetime
 
-from dateutil.relativedelta import relativedelta
-
-import time
-
-import pdb
-
-# Create your views here.
-
+# To view vigilance page
 def vigilance(request):
     try:
+        print 'vigilanceapp|views.py|complaint'
+        # total, open and closed vigilance count
         total = VigilanceDetail.objects.filter(is_deleted=False).count()
         open = VigilanceDetail.objects.filter(vigilance_status='Open', is_deleted=False).count()
         closed = VigilanceDetail.objects.filter(vigilance_status='Closed', is_deleted=False).count()
-        vigilanceType = VigilanceType.objects.filter(is_deleted=False)
-        zone = Zone.objects.filter(is_deleted=False)
-        billCycle = BillCycle.objects.filter(is_deleted=False)
-        routes = RouteDetail.objects.filter(is_deleted=False)
+
+        vigilanceType = VigilanceType.objects.filter(is_deleted=False) # vigilance type
+        zone = Zone.objects.filter(is_deleted=False) # zone list
+
         data = {
             'total': total,
             'open': open,
             'closed': closed,
             'vigilanceType': vigilanceType,
-            'zones': zone,
-            'billCycle': billCycle,
-            'routes': routes,
+            'zones': zone
         }
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|complaint', e
-        print e
-
+        print 'Exception|vigilanceapp|views.py|vigilance', e
+        data = {}
     return render(request, 'vigilance_cases.html', data)
 
+# To get vigilance data (filter parameters: vigilance type, status, source, zone, bill cycle, route, consumer)
 def get_vigilance_data(request):
     try:
+        print 'vigilanceapp|views.py|get_vigilance_data'
         vigilance_list = []
         vigilance_obj = VigilanceDetail.objects.all()
+
+        # filter vigilance data by vigilance type
         if request.GET.get('vigilance_type'):
             if request.GET.get('vigilance_type') == 'all':
                 vigilanceType = VigilanceType.objects.filter(is_deleted=False)
@@ -61,27 +47,38 @@ def get_vigilance_data(request):
                 vigilanceType = VigilanceType.objects.filter(is_deleted=False, id=request.GET.get('vigilance_type'))
             vigilance_obj = vigilance_obj.filter(vigilance_type_id__in=vigilanceType)
 
+        # filter vigilance data by vigilance status
         if request.GET.get('vigilance_status') and request.GET.get('vigilance_status') != "all":
             vigilance_obj = vigilance_obj.filter(vigilance_status=request.GET.get('vigilance_status'))
+
+        # filter vigilance data by vigilance source
         if request.GET.get('vigilance_source') and request.GET.get('vigilance_source') != "all":
             vigilance_obj = vigilance_obj.filter(vigilance_source=request.GET.get('vigilance_source'))
+
+        # filter vigilance data by consumer
         if request.GET.get('consumer_id'):
             vigilance_obj = vigilance_obj.filter(consumer_id=request.GET.get('consumer_id'))
         else:
+            # filter vigilance data by zone
             if request.GET.get('zone') and request.GET.get('zone') != "all":
                 consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
                 vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
+            # filter vigilance data by bill cycle
             if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
                 consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
                 vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
+            # filter vigilance data by route
             if request.GET.get('route') and request.GET.get('route') != "all":
                 consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
                 vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
+
+        # filter vigilance data by date range
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
             vigilance_obj = vigilance_obj.filter(registered_date__range=[start_date, end_date])
 
+        # vigilance data result
         for vigilance in vigilance_obj:
             vigilance_data = {
                 'case_id': '<a onclick="vigilance_details(' + str(
@@ -97,17 +94,18 @@ def get_vigilance_data(request):
             vigilance_list.append(vigilance_data)
         data = {'data': vigilance_list}
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_complaint_datatable', e
+        print 'Exception|vigilanceapp|views.py|get_vigilance_data', e
         data = {'msg': 'error'}
-        print e
     return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 
 
 @login_required(login_url='/')
 def get_vigilance_details(request):
     try:
+        print 'vigilanceapp|views.py|get_vigilance_details'
         vigilance = VigilanceDetail.objects.get(id=request.GET.get('vigilance_id'))
+
+        # vigilance details
         vigilanceDetail = {
             'caseID': vigilance.case_id,
             'vigilanceType': vigilance.vigilance_type_id.vigilance_type,
@@ -123,6 +121,7 @@ def get_vigilance_details(request):
             'courtCaseStatus': '',
         }
         try:
+            # vigilance penalty details
             vigilancePenalty = VigilancePenalyDetail.objects.get(vigilance_id=request.GET.get('vigilance_id'))
             vigilanceDetail['penaltyAmount'] = vigilancePenalty.payment
             vigilanceDetail['paymentStatus'] = vigilancePenalty.payment_status
@@ -130,6 +129,7 @@ def get_vigilance_details(request):
         except:
             pass
         try:
+            #vigilance court case details
             courtCase = CourtCaseDetail.objects.get(vigilance_id=request.GET.get('vigilance_id'))
             vigilanceDetail['courtRemark'] = courtCase.court_remark
             vigilanceDetail['courtCaseStatus'] = courtCase.case_status
@@ -137,11 +137,7 @@ def get_vigilance_details(request):
             pass
 
         data = {'success': 'true', 'vigilanceDetail': vigilanceDetail}
-        print 'Request show history out service request with---', data
-        return HttpResponse(json.dumps(data), content_type='application/json')
-
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_complaint_details', e
+        print 'Exception|vigilanceapp|views.py|get_vigilance_details', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
