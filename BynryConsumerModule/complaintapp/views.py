@@ -1,89 +1,88 @@
-import csv
+# __author__='Vikas Kumawat'
 import traceback
-# from bson import json_uti
-import json
-import sys
-
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import ComplaintType, ComplaintDetail
 from BynryConsumerModuleapp.models import *
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
 from consumerapp.models import ConsumerDetails
 from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q
 import datetime
 
-from dateutil.relativedelta import relativedelta
 
-import time
-
-import pdb
-
-
-# Create your views here.
-
-# @login_required(login_url='/')
+# To view complaints page
 def complaint(request):
     try:
+        print 'Complaints.py|complaint'
+        # total, open and closed complaint details count
         total = ComplaintDetail.objects.filter(is_deleted=False).count()
-        # ,consumer_id__city__city=request.user.userprofile.city.city
         open = ComplaintDetail.objects.filter(complaint_status='Open', is_deleted=False).count()
         closed = ComplaintDetail.objects.filter(complaint_status='Closed', is_deleted=False).count()
-        complaintType = ComplaintType.objects.filter(is_deleted=False)
-        zone = Zone.objects.filter(is_deleted=False)
-        billCycle = BillCycle.objects.filter(is_deleted=False)
-        routes = RouteDetail.objects.filter(is_deleted=False)
+
+        complaintType = ComplaintType.objects.filter(is_deleted=False)  # complaint types
+        zone = Zone.objects.filter(is_deleted=False)  # zone list
+
         data = {
             'total': total,
             'open': open,
             'closed': closed,
             'complaintType': complaintType,
-            'zones': zone,
-            'billCycle': billCycle,
-            'routes': routes,
+            'zones': zone
         }
     except Exception, e:
-        print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|complaint', e
-        print e
-
+        print 'Exception|comlpaintapp|views.py|complaint', e
     return render(request, 'complaints.html', data)
 
 
+# To get complaint data (filter parameters: complaint type, status, source, zone, bill cycle, route, consumer)
 def get_complaint_data(request):
     try:
         complaint_list = []
         complaint_obj = ComplaintDetail.objects.all()
+
+        # filter complaint data by complaint type
         if request.GET.get('complaint_type'):
             if request.GET.get('complaint_type') == 'all':
                 complaintType = ComplaintType.objects.filter(is_deleted=False)
             else:
                 complaintType = ComplaintType.objects.filter(is_deleted=False, id=request.GET.get('complaint_type'))
             complaint_obj = complaint_obj.filter(complaint_type_id__in=complaintType)
+
+        # filter complaint data by complaint status
         if request.GET.get('complaint_status') and request.GET.get('complaint_status') != "all":
             complaint_obj = complaint_obj.filter(complaint_status=request.GET.get('complaint_status'))
+
+        # filter complaint data by complaint source
         if request.GET.get('complaint_source') and request.GET.get('complaint_source') != "all":
             complaint_obj = complaint_obj.filter(complaint_source=request.GET.get('complaint_source'))
+
+        # filter complaint data by consumer if not consumer than by zone, bill cycle, route
         if request.GET.get('consumer_id'):
             complaint_obj = complaint_obj.filter(consumer_id=request.GET.get('consumer_id'))
         else:
+            # filter complaint data by zone
             if request.GET.get('zone') and request.GET.get('zone') != "all":
+                # filter consumer by zone
                 consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
                 complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+            # filter complaint data by bill cycle
             if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
+                # filter consumer by bill cycle
                 consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
                 complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+            # filter complaint data by route
             if request.GET.get('route') and request.GET.get('route') != "all":
+                # filter consumer by bill cycle
                 consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
                 complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
+
+        # filter complaint data by date range
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
             complaint_obj = complaint_obj.filter(complaint_date__range=[start_date, end_date])
+
+        # filter complaint data by route
         for complaint in complaint_obj:
             complaint_data = {
                 'complaint_no': '<a onclick="complaint_details(' + str(
@@ -100,7 +99,7 @@ def get_complaint_data(request):
         data = {'data': complaint_list}
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_complaint_datatable', e
+        print 'Exception|comlpaintapp|views.py|complaint', e
         data = {'msg': 'error'}
         print e
     return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
@@ -129,7 +128,7 @@ def get_complaint_details(request):
 
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_complaint_details', e
+        print 'Exception|comlpaintapp|views.py|complaint', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -159,7 +158,7 @@ def get_consumer_details(request):
 
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|get_consumer_modal', e
+        print 'Exception|comlpaintapp|views.py|complaint', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -176,7 +175,7 @@ def get_complaint_count(request):
         data = {'success': 'true', 'total': total}
         return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception | complaintapp | get_complaint_count = ", e
+        print "Exception|comlpaintapp|views.py|complaint", e
 
 
 def get_bill_cycle(request):
@@ -195,7 +194,7 @@ def get_bill_cycle(request):
         data = {'success': 'true', 'bill_cycle': bill_cycle_list}
         return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception | complaintapp | get_bill_cycle = ", e
+        print "Exception|comlpaintapp|views.py|complaint", e
 
 
 def get_route(request):
@@ -214,4 +213,4 @@ def get_route(request):
         data = {'success': 'true', 'route_list': route_list}
         return HttpResponse(json.dumps(data), content_type='application/json')
     except Exception, e:
-        print "Exception | complaintapp | get_complaint_count = ", e
+        print "Exception|comlpaintapp|views.py|complaint", e

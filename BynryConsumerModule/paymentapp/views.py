@@ -252,7 +252,8 @@ def payments_get_payment_details(request):
 
 def payments_save_payment_details(request):
     try:
-        consumer_obj = PaymentDetail.objects.filter(consumer_id__in=request.GET.get('consumer_no'),bill_month=request.GET.get('bill_month')).update(bill_amount_paid = request.GET.get('paid_amount'),payment_mode = 'Cash Payment',bill_status = 'Paid',payment_date = datetime.now())
+        meter_reading_obj = MeterReadingDetail.objects.get(consumer_id__in=request.GET.get('consumer_no'),bill_month=request.GET.get('bill_month'))
+        consumer_obj = PaymentDetail.objects.filter(meter_reading_id=meter_reading_obj).update(bill_amount_paid = request.GET.get('paid_amount'),payment_mode = 'Cash Payment',bill_status = 'Paid',payment_date = datetime.now())
         data={'success':'True'}
 
     except Exception, e:
