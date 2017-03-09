@@ -288,6 +288,7 @@ def consumer_details(request):
                 last_month_list.append({'month': month})
 
             consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+            print '------------consume------',consumer_obj
             name = consumer_obj.name
             consumer_no = consumer_obj.consumer_no
             aadhar_no = consumer_obj.aadhar_no
@@ -306,6 +307,7 @@ def consumer_details(request):
 
             vigilanceType = VigilanceType.objects.filter(is_deleted=False)
             complaintType = ComplaintType.objects.filter(is_deleted=False)
+            serviceType = ServiceRequest.objects.filter(is_deleted=False)
 
             consumer_data = {
                 'consumer_id': request.GET.get('consumer_id'),
@@ -330,6 +332,7 @@ def consumer_details(request):
                 'last_month_list': last_month_list,
                 'vigilanceType':vigilanceType,
                 'complaintType':complaintType,
+                'serviceType':serviceType,
             }
         except Exception as e:
             print "==============Exception===============================", e
