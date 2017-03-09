@@ -1,37 +1,29 @@
-import csv
+# __author__='Swapnil Kadu'
 import traceback
-# from bson import json_uti
 import json
-import sys
-
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
-from .models import *
 from serviceapp.models import *
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Zone
 from consumerapp.models import ConsumerDetails
-from django.contrib.sites.shortcuts import get_current_site
-from django.db.models import Q
 import datetime
 from django.views.decorators.csrf import csrf_exempt
 
-from dateutil.relativedelta import relativedelta
-import time
-import pdb
-
 # Create your views here.
+# To view service page
 def service_request(request):
     try:
+        print 'serviceapp|views.py|service_request'
+        # total, open and closed service details count
         total = ServiceRequest.objects.filter(is_deleted=False).count()
         open = ServiceRequest.objects.filter(status='Open', is_deleted=False).count()
         closed = ServiceRequest.objects.filter(status='Closed', is_deleted=False).count()
-        serviceType = ServiceRequest.objects.filter(is_deleted=False)
-        zone = Zone.objects.filter(is_deleted=False)
-        billCycle = BillCycle.objects.filter(is_deleted=False)
-        routes = RouteDetail.objects.filter(is_deleted=False)
+
+        serviceType = ServiceRequest.objects.filter(is_deleted=False) # Service Types
+        zone = Zone.objects.filter(is_deleted=False) # Zone List
+        billCycle = BillCycle.objects.filter(is_deleted=False) # BillCycle List
+        routes = RouteDetail.objects.filter(is_deleted=False) # Route List
         data = {
             'total': total,
             'open': open,
@@ -43,37 +35,48 @@ def service_request(request):
         }
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
-        print 'Exception|views.py|service', e
+        print 'Exception|views.py|service_request', e
         print e
 
     return render(request, 'services.html', data)
 
+# To get service data (filter parameters: service type, status, source, zone, bill cycle, route, consumer)
 def get_service_data(request):
     try:
         service_list = []
         service_obj = ServiceRequest.objects.all()
+
+        # filter service data by service type
         if request.GET.get('service_type'):
             if request.GET.get('service_type') == 'all':
                 serviceType = ServiceRequest.objects.filter(is_deleted=False)
             else:
                 serviceType = ServiceRequest.objects.filter(is_deleted=False, id=request.GET.get('service_type'))
             service_obj = serviceType.filter(service_type__id=serviceType)
+
+        # filter service data by service status
         if request.GET.get('service_status') and request.GET.get('service_status') != "all":
             service_obj = service_obj.filter(status=request.GET.get('service_status'))
+        # filter service data by service source
         if request.GET.get('service_source') and request.GET.get('service_source') != "all":
             service_obj = service_obj.filter(source=request.GET.get('service_source'))
+        # filter service data by service consumer
         if request.GET.get('consumer_id'):
             service_obj = service_obj.filter(consumer_id=request.GET.get('consumer_id'))
         else:
+            # filter service data by service zone
             if request.GET.get('zone') and request.GET.get('zone') != "all":
                 consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
                 service_obj = service_obj.filter(consumer_id__in=consumer)
+            # filter service data by service bill cycle
             if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
                 consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
                 service_obj = service_obj.filter(consumer_id__in=consumer)
+            # filter service data by service route
             if request.GET.get('route') and request.GET.get('route') != "all":
                 consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
                 service_obj = service_obj.filter(consumer_id__in=consumer)
+        # filter service data by date range
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
@@ -113,7 +116,6 @@ def get_service_details(request):
 
         data = {'success': 'true', 'serviceDetail': serviceIdDetail}
         print 'Request show history out service request with---', data
-        return HttpResponse(json.dumps(data), content_type='application/json')
 
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
@@ -141,7 +143,6 @@ def get_consumer_details(request):
         }
         data = {'success': 'true', 'consumerDetail': getConsumer}
         print 'Request show history out service request with---', data
-        return HttpResponse(json.dumps(data), content_type='application/json')
 
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
@@ -157,11 +158,12 @@ def get_service_count(request):
             'total': totals,
         }
         data = {'success': 'true', 'total': total}
-        return HttpResponse(json.dumps(data), content_type='application/json')
+
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|serviceapp|views.py|get_service_count', e
         print 'Exception', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 def get_bill_cycle(request):
     try:
