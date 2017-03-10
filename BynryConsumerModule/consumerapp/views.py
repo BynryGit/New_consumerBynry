@@ -36,26 +36,28 @@ SERVER_URL = "http://192.168.10.102:8080"
 
 def consumer_list(request):
     try:
+        print 'consumerapp|views.py|consumer_list'
         data = {'city_list': get_city(request),
                 'zone_list': get_zone(request),
                 'billcycle_list': get_billcycle(request),
                 'route_list': get_RouteDetail(request),
                 'pincode_list': get_pincode(request)}
     except Exception, e:
-        print 'Exception|views.py|consumerapp', e
+        print 'Exception|consumerapp|views.py|consumer_list', e
     return render(request, 'consumer_list.html', data)
 
 
 def get_city(request):
     city_list = []
     try:
+        print 'consumerapp|views.py|get_city'
         city_objs = City.objects.filter(is_deleted=False)
         for city in city_objs:
             city_list.append({'city_id': city.id, 'city': city.city})
             data = city_list
             return data
-    except Exception, ke:
-        print ke
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_city', e
         data = {'city_list': 'none', 'message': 'No city available'}
         return data
 
@@ -63,13 +65,14 @@ def get_city(request):
 def get_zone(request):
     zone_list = []
     try:
+        print 'consumerapp|views.py|get_zone'
         zone_objs = Zone.objects.filter(is_deleted=False)
         for zone in zone_objs:
             zone_list.append({'zone_id': zone.id, 'zone_name': zone.zone_name})
         data = zone_list
         return data
-    except Exception, ke:
-        print ke
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_zone', e
         data = {'zone_list': 'none', 'message': 'No zone available'}
         return data
 
@@ -77,13 +80,14 @@ def get_zone(request):
 def get_billcycle(request):
     billcycle_list = []
     try:
+        print 'consumerapp|views.py|get_billcycle'
         bill_objs = BillCycle.objects.filter(is_deleted=False)
         for bill in bill_objs:
             billcycle_list.append({'bill_cycle_id': bill.id, 'bill_cycle_code': bill.bill_cycle_code})
         data = billcycle_list
         return data
-    except Exception, ke:
-        print ke
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_billcycle', e
         data = {'billcycle_list': 'none', 'message': 'No billcycle available'}
         return data
 
@@ -91,13 +95,14 @@ def get_billcycle(request):
 def get_RouteDetail(request):
     route_list = []
     try:
+        print 'consumerapp|views.py|get_RouteDetail'
         route_objs = RouteDetail.objects.filter(is_deleted=False)
         for route in route_objs:
             route_list.append({'route_id': route.id, 'route_code': route.route_code})
         data = route_list
         return data
-    except Exception, ke:
-        print ke
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_RouteDetail', e
         data = {'route_list': 'none', 'message': 'No route available'}
         return data
 
@@ -105,19 +110,21 @@ def get_RouteDetail(request):
 def get_pincode(request):
     pincode_list = []
     try:
+        print 'consumerapp|views.py|get_pincode'
         pincode_objs = Pincode.objects.filter(is_deleted=False)
         for pincode in pincode_objs:
             pincode_list.append({'pincode_id': pincode.id, 'pincode': pincode.pincode})
         data = pincode_list
         return data
-    except Exception, ke:
-        print ke
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_pincode', e
         data = {'pincode_list': 'none', 'message': 'No pincode available'}
         return data
 
 
 def get_consumer_list(request):
     try:
+        print 'consumerapp|views.py|get_consumer_list'
         filter_zone = request.GET.get('filter_zone')
         filter_bill = request.GET.get('filter_bill')
         filter_route = request.GET.get('filter_route')
@@ -171,17 +178,18 @@ def get_consumer_list(request):
                 final_list.append(consumer_data)
             data = {'success': 'true', 'data': final_list}
         except Exception as e:
-            print "==============Exception===============================", e
+            print 'Exception|consumerapp|views.py|get_consumer_list', e
             data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
     except MySQLdb.OperationalError, e:
-        print e
+        print 'Exception|consumerapp|views.py|get_consumer_list', e
     except Exception, e:
-        print 'Exception ', e
+        print 'Exception|consumerapp|views.py|get_consumer_list', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def edit_consumer(request):
     try:
+        print 'consumerapp|views.py|edit_consumer'
         data = {}
         final_list = []
         try:
@@ -220,18 +228,19 @@ def edit_consumer(request):
             }
             data = {'success': 'true', 'data': consumer_data}
         except Exception as e:
-            print "==============Exception===============================", e
+            print 'Exception|consumerapp|views.py|edit_consumer', e
             data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
     except MySQLdb.OperationalError, e:
-        print e
+        print 'Exception|consumerapp|views.py|edit_consumer', e
     except Exception, e:
-        print 'Exception ', e
+        print 'Exception|consumerapp|views.py|edit_consumer', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 @csrf_exempt
 def save_consumer_profile(request):
     try:
+        print 'consumerapp|views.py|save_consumer_profile'
         consumer_obj = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
         consumer_obj.contact_no = request.POST.get('edit_contact')
         consumer_obj.email_id = request.POST.get('edit_email')
@@ -254,6 +263,7 @@ def save_consumer_profile(request):
             'message': 'User Updated Successfully.'
         }
     except Exception, e:
+        print 'Exception|consumerapp|views.py|save_consumer_profile', e
         data = {
             'success': 'false',
             'message': str(e)
@@ -263,6 +273,7 @@ def save_consumer_profile(request):
 
 def consumer_details(request):
     try:
+        print 'consumerapp|views.py|consumer_details'
         data = {}
         final_list = []
         try:
@@ -321,7 +332,7 @@ def consumer_details(request):
                     'sanction_load': sanction_load
                 } 
             except Exception, e:
-                print '......EXCEPTION......',e
+                print 'Exception|consumerapp|views.py|consumer_details', e
                 consumer_data = {}
 
             try:
@@ -347,7 +358,7 @@ def consumer_details(request):
                         'due_date':str(payment_obj.due_date.strftime("%d/%m/%Y"))
                      }
             except Exception, e:
-                print '......EXCEPTION......',e
+                print 'Exception|consumerapp|views.py|consumer_details', e
                 payment_data = {}
                 
             data = {
@@ -360,17 +371,18 @@ def consumer_details(request):
                 'payment_data': payment_data
             }
         except Exception as e:
-            print "==============Exception===============================", e
+            print 'Exception|consumerapp|views.py|consumer_details', e
             data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
     except MySQLdb.OperationalError, e:
-        print e
+        print 'Exception|consumerapp|views.py|consumer_details', e
     except Exception, e:
-        print 'Exception ', e
+        print 'Exception|consumerapp|views.py|consumer_details', e
     return render(request, 'consumer_details.html', data)
 
 @csrf_exempt
 def get_meter_details(request):
     try:
+        print 'consumerapp|views.py|get_meter_details'
         data = {}
         final_list = []
         try:
@@ -403,23 +415,24 @@ def get_meter_details(request):
                 'meter_reading_image':meter_reading_image
                 }
             except Exception, e:
-                print '....................Exception',e
+                print 'Exception|consumerapp|views.py|get_meter_details', e
                 consumer_data ={}
             
             data = {'success': 'true', 'data': consumer_data}
         except Exception as e:
-            print "==============Exception===============================", e
+            print 'Exception|consumerapp|views.py|get_meter_details', e
             data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
     except MySQLdb.OperationalError, e:
-        print e
+        print 'Exception|consumerapp|views.py|get_meter_details', e
     except Exception, e:
-        print 'Exception ', e
+        print 'Exception|consumerapp|views.py|get_meter_details', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 @csrf_exempt
 def save_consumer_details(request):
     try:
+        print 'consumerapp|views.py|save_consumer_details'
         consumer_obj = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
         consumer_obj.meter_no = request.POST.get('meter_no')
         consumer_obj.meter_category = request.POST.get('category')
@@ -432,6 +445,7 @@ def save_consumer_details(request):
             'message': 'Meter Details Updated Successfully.'
         }
     except Exception, e:
+        print 'Exception|consumerapp|views.py|save_consumer_details', e
         data = {
             'success': 'false',
             'message': str(e)
