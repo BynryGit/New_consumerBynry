@@ -214,7 +214,7 @@
 	                          <label for="applicant_other_details">Others</label>	                           
 	                          <input type="text" class="form-control" id="applicant_other_details">  	                                                          	                          									  	                      
 	                      </div>                    
-	                      <span class="help-block" style="margin-top: -27px;">To be filled if Type Of Premises selected is OTHERS.</span>
+	                      <span class="help-block" style="margin-top: -27px;">To be filled if Occupation selected is OTHERS.</span>
                     		</div>                    		                       
                     </div>
                     <br>
@@ -247,17 +247,25 @@
 	                          <input type="text" class="form-control" id="landmark">                                   	                          
 	                      </div>	                      
                     		</div>
-                    		<div class="col-md-3">
+                    		<div class="col-md-3">	                      
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="city">City/Village <span style="color:red;">*</span></label>
-	                          <input type="text" class="form-control" id="city">                                   	                          
-	                      </div>	                      
+	                          <label >City/Village <span style="color:red;">*</span></label>
+	                          <select id="city" class="form-control input-sm select2-multiple">
+                                  {% for city in city_list %}		
+                                  <option value="{{ city.city_id }}"> {{ city.city }}</option>
+                                  {% endfor %}
+                             </select>                                    	                          
+	                      </div>                     
                     		</div>
-                    		<div class="col-md-3">
-	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="pincode">PinCode <span style="color:red;">*</span></label>
-	                          <input type="text" class="form-control" id="pincode">                                   	                          
-	                      </div>	                      
+                    		<div class="col-md-3">	                     	                      	           
+	                      <div class="form-group form-md-line-input has-success">
+	                        <label >PinCode <span style="color:red;">*</span></label>
+		                          <select id="pincode" class="form-control input-sm select2-multiple">
+	                                  {% for pincode in pincode_list %}
+	                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
+	                                  {% endfor %}
+	                             </select>
+		                      </div>           
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
@@ -374,7 +382,8 @@
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
 	                           <label for="bill_other_data">Others</label>
-	                          <input type="text" class="form-control" id="bill_other_data">                                  	                          
+	                          <input type="text" class="form-control" id="bill_other_data">  
+	                          <span class="help-block" style="margin-top: -27px;">To be filled if Type Of Premises selected is OTHERS.</span>                                	                          
 	                      </div>	                      
                     		</div>                   		                       
                     </div>
@@ -382,41 +391,7 @@
                 </div>                 
                 <div class="col-md-12">
 							<hr style="border-top: dotted 1px;" />                    		
-           		 </div>   
-					<!-- <div class="col-md-12">
-                    <label class="bold">Requested Load/ Contract Demand : </label>                    
-                    <div class="row">                     
-                      <div class="col-md-12">
-								<div class="col-md-1">
-	                      	  <label for="consumer_zone"> Requested Load : </label>
-                    		</div>								
-								<div class="col-md-2">
-	                          <input type="text" class="form-control" id="consumer_zone">                                   	                          
-                    		</div>
-                    		<div class="col-md-2">
-	                          <select id="select_complaint_type" class="form-control select2">
-                                <option value="KW">KW</option>
-                                <option value="HP">HP</option>                              
-                             </select>                                      	                          
-                    		</div>                    	                   		                		
-                      </div>
-                      </div>
-                      <div class="row"> 
-                      <div class="col-md-12">
-								<div class="col-md-1">
-	                      	  <label for="consumer_zone"> Contract Demand : </label>
-                    		</div>								
-								<div class="col-md-2">
-	                          <input type="text" class="form-control" id="consumer_zone">                                   	                          
-                    		</div>
-                    		<div class="col-md-2">
-	                          <select id="select_complaint_type" class="form-control select2">
-                                <option value="KWA">KWA</option>
-                             </select>                                      	                          
-                    		</div>                    	                   		                		
-                      </div>                    
-                    </div>
-                </div>     -->   	
+           		 </div>   					  	
                 <div class="col-md-12">
                             <label class="bold">Requested Load/ Contract Demand : </label>
                             <div class="row">
@@ -510,7 +485,7 @@
                     <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" >
                                             Submit
                                         </button>
-                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" >
+                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" id="save-consumer">
                                             Submit & Print
                                         </button>
                 </div>    
@@ -696,6 +671,77 @@
     $("#nsc_anchor").prepend('<span class="selected"></span>');
     $("#nsc_menu").addClass("active open");
     $("#nsc_span").addClass("open");
+
+
+ // Save edited consumer on edit button click 
+$("#save-consumer").click(function(event)  {
+
+	event.preventDefault();  
+													
+	   var formData= new FormData();
+
+		formData.append("consumer_category",$('#consumer_category').val());		
+		formData.append("consumer_service",$('#consumer_service').val());    
+		formData.append("consumer_supply_type",$('#consumer_supply_type').val());    
+		formData.append("consumer_subcategory",$('#consumer_subcategory').val()); 
+		formData.append("consumer_reg_no",$('#consumer_reg_no').val()); 
+		formData.append("consumer_reg_date",$('#consumer_reg_date').val()); 
+		formData.append("applicant_name",$('#applicant_name').val()); 
+		formData.append("applicant_aadhar_no",$('#applicant_aadhar_no').val()); 
+		formData.append("applicant_occupation",$('#applicant_occupation').val());    
+		formData.append("applicant_other_details",$('#applicant_other_details').val());
+		formData.append("flat_no",$('#flat_no').val());
+		formData.append("address_line1",$('#address_line1').val());
+		formData.append("address_line2",$('#address_line2').val());
+		formData.append("landmark",$('#landmark').val());
+		formData.append("city",$('#city').val());
+		formData.append("pincode",$('#pincode').val());
+		formData.append("email",$('#email').val());
+		formData.append("mobile",$('#mobile').val());
+		formData.append("phone_no",$('#phone_no').val());
+		formData.append("existing_consumer_no",$('#existing_consumer_no').val());
+		formData.append("bill_flat_no",$('#bill_flat_no').val());
+		formData.append("bill_address_line1",$('#bill_address_line1').val());
+		formData.append("bill_address_line2",$('#bill_address_line2').val());
+		formData.append("bill_landmark",$('#bill_landmark').val());
+		formData.append("bill_city",$('#bill_city').val());
+		formData.append("bill_pincode",$('#bill_pincode').val());
+		formData.append("bill_email",$('#bill_email').val());
+		formData.append("bill_mobile",$('#bill_mobile').val());
+		formData.append("bill_phone_no",$('#bill_phone_no').val());
+		formData.append("bill_existing_consumer_no",$('#bill_existing_consumer_no').val());
+		formData.append("premises_type",$('#premises_type').val());
+		formData.append("bill_other_data",$('#bill_other_data').val()); 
+	
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/consumerapp/save-consumer-profile/',
+ 					data : formData,
+					cache: false,
+		         processData: false,
+		    		contentType: false,                       
+              success: function (response) {   
+	              if(response.success=='true'){
+	           	  		$("#edituser_model").modal('hide');
+	           	  		location.reload();
+	              	}
+	      			if (response.success == "false") {
+							$("#edituser_model").modal('hide');     
+							location.reload()            
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            $("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });            
+});
+    
 </script>
 
 </body>

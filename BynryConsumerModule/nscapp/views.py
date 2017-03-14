@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from consumerapp.views import get_city, get_pincode
 
 # Create your views here.
 def new_connection_list(request):
@@ -11,9 +12,12 @@ def new_connection_list(request):
 def add_new_consumer(request):
     try:
         print 'nscapp|views.py|add_new_consumer'
+        data = {'city_list': get_city(request),
+                'pincode_list': get_pincode(request)
+            }
     except Exception, e:
         print 'Exception|nscapp|views.py|add_new_consumer', e
-    return render(request, 'nsc_template/add_new_consumer.html')
+    return render(request, 'nsc_template/add_new_consumer.html',data)
 
 def review_consumer_form(request):
     try:
