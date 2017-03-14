@@ -20,7 +20,7 @@ def service_request(request):
         open = ServiceRequest.objects.filter(status='Open', is_deleted=False).count()
         closed = ServiceRequest.objects.filter(status='Closed', is_deleted=False).count()
 
-        serviceType = ServiceRequest.objects.filter(is_deleted=False) # Service Types
+        serviceType = ServiceRequestType.objects.filter(is_deleted=False) # Service Types
         zone = Zone.objects.filter(is_deleted=False) # Zone List
         billCycle = BillCycle.objects.filter(is_deleted=False) # BillCycle List
         routes = RouteDetail.objects.filter(is_deleted=False) # Route List
@@ -113,6 +113,7 @@ def get_service_details(request):
         serviceIdDetail = {
             'serviceID': service.service_no,
             'serviceType': service.service_type.request_type,
+            'serviceStatus': str(service.status),
             'serviceConsumerName': service.consumer_id.name,
             'serviceConsumerNo': service.consumer_id.consumer_no,
             'serviceRequest': service.consumer_remark,
