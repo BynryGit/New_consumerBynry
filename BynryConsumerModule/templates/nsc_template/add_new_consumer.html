@@ -41,10 +41,7 @@
         btn-sm{
             width: 85px;
         }
-        .help-block{
-            display:none;
-            color:red;
-        }
+
     </style>
     <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
           type="text/css"/>
@@ -119,7 +116,7 @@
                        <div class="row">                       	                                                                     
                         <div class="col-md-3">                         
 	                      <div class="form-group form-md-line-input has-success" >
-	                           <label for="consumer_category">Consumer Category</label>
+	                           <label for="consumer_category">Consumer Category <span style="color:red;">*</span></label>
 	                          <select id="select_category_type" class="form-control select2">
                                  <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
                                  <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
@@ -129,7 +126,7 @@
                     		</div>
                     		<div class="col-md-3">                    		 
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="consumer_service">Service Requested </label>
+	                      	  <label for="consumer_service">Service Requested <span style="color:red;">*</span></label>
 	                          <select id="select_service_type" class="form-control select2">
                                  <option value="1-LT-SUPPLY">001-New-Connection (Permanent)</option>
                                  <option value="2-HT-SUPPLY">002-New-Connection (Temporary)</option>
@@ -138,7 +135,7 @@
                     		</div>
                     		<div class="col-md-3">                    		 
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="consumer_supply_type">Supply Type</label>
+	                      	  <label for="consumer_supply_type">Supply Type <span style="color:red;">*</span></label>
 	                          <select id="select_supply_type" class="form-control select2">
                                 <option value="SINGLE-SINGLE-PHASE">SINGLE-SINGLE-PHASE</option>
                                 <option value="THREE-THREE-PHASE">THREE-THREE-PHASE</option>
@@ -148,17 +145,31 @@
                     		</div>
                     		<div class="col-md-3">                    		 
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="consumer_subcategory">Consumer Subcategory</label>
+	                      	  <label for="consumer_subcategory">Consumer Subcategory <span style="color:red;">*</span></label>
 	                          <select id="select_consumer_subcategory" class="form-control select2">
-                                 <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
-                                 <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
-                                 <option value="3-EHV">3-EHV</option>                                
+                                 <option value="1-LT-SUPPLY">30-PWW</option>
+                                 <option value="1-LT-SUPPLY">40-Residential</option>
+                                 <option value="1-LT-SUPPLY">50-Commercial</option>
+                                 <option value="1-LT-SUPPLY">60-LT industrial</option>
+                                 <option value="1-LT-SUPPLY">70-LT powerloom</option>
+                                 <option value="1-LT-SUPPLY">80-Street Light</option>
+                                 <option value="1-LT-SUPPLY">90-Agriculture</option>
+                                 <option value="1-LT-SUPPLY">91-LT poultry</option>
+                                 <option value="1-LT-SUPPLY">92-LT Advertisement and Hoarding</option>
+                                 <option value="1-LT-SUPPLY">93-LT Precooling</option>
+                                 <option value="1-LT-SUPPLY">94-LT temporary Religious</option>
+                                 <option value="1-LT-SUPPLY">95-LT temporary others</option>
+                                 <option value="1-LT-SUPPLY">165-Temp-Construction</option>
+                                 <option value="1-LT-SUPPLY">166-Crematorium And Burial</option>
+                                 <option value="1-LT-SUPPLY">167-Public Services</option>
+                                 <option value="1-LT-SUPPLY">207-LT IV A AG ZONE 1</option>
+                                 <option value="1-LT-SUPPLY">209-LT IV A AG ZONE 2</option>                               
                              </select>                                    	                          
 	                      </div>	                      
                     		</div>                    		
                         <div class="col-md-3">                            
                             <div class="form-group form-md-line-input has-success">
-                            	  <label for="consumer_reg_no">Registration No.</label>
+                            	  <label for="consumer_reg_no">Registration No. </label>
                                 <input type="text" class="form-control" readonly="" id="consumer_reg_no">                                
                             </div>
                         </div>
@@ -178,31 +189,32 @@
                     <div class="row">                       	                                                                     
                         <div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="applicant_name">Applicant/ Company Name:</label>
+	                      	  <label for="applicant_name">Applicant/ Company Name <span style="color:red;">*</span> :</label>
 	                          <input type="text" class="form-control" id="applicant_name">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="applicant_aadhar_no">Aadhar No </label>
+	                      	  <label for="applicant_aadhar_no">Aadhar No <span style="color:red;">*</span></label>
 	                          <input type="text" class="form-control" id="applicant_aadhar_no">                                   	                          
 	                      </div>	                      
                     		</div>                    		
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="applicant_occupation">Occupation</label>
-	                          <select id="select_occupation" class="form-control select2">
-                                <option value="SINGLE-SINGLE-PHASE">SINGLE</option>
-                                <option value="THREE-THREE-PHASE">THREE</option>
-                                <option value="HT-HT-SUPPLY">SUPPLY</option>                              
+	                          <label for="applicant_occupation">Occupation <span style="color:red;">*</span></label>
+	                          <select id="applicant_occupation" class="form-control select2">
+                                <option value="SINGLE-SINGLE-PHASE">SERVICE</option>
+                                <option value="THREE-THREE-PHASE">PROFESSION/ BUSINESS</option>
+                                <option value="HT-HT-SUPPLY">OTHERS</option>                              
                              </select>                                    	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                           <label for="applicant_other_details">Others</label>
-	                          <input type="text" class="form-control" id="applicant_other_details">                                  	                          
-	                      </div>	                      
+	                          <label for="applicant_other_details">Others</label>	                           
+	                          <input type="text" class="form-control" id="applicant_other_details">  	                                                          	                          									  	                      
+	                      </div>                    
+	                      <span class="help-block" style="margin-top: -27px;">To be filled if Type Of Premises selected is OTHERS.</span>
                     		</div>                    		                       
                     </div>
                     <br>
@@ -213,13 +225,13 @@
                       <div class="col-md-12">
 								<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="flat_no"> Flat No / House No / Building Name : </label>
+	                      	  <label for="flat_no"> Flat No / House No / Building Name <span style="color:red;">*</span> : </label>
 	                          <input type="text" class="form-control" id="flat_no">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="address_line1">Address Line1 : </label>
+	                          <label for="address_line1">Address Line1 <span style="color:red;">*</span> : </label>
 	                          <input type="text" class="form-control" id="address_line1">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -237,13 +249,13 @@
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="city">City/Village </label>
+	                          <label for="city">City/Village <span style="color:red;">*</span></label>
 	                          <input type="text" class="form-control" id="city">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="pincode">PinCode </label>
+	                          <label for="pincode">PinCode <span style="color:red;">*</span></label>
 	                          <input type="text" class="form-control" id="pincode">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -255,7 +267,7 @@
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="mobile">Mobile </label>
+	                          <label for="mobile">Mobile <span style="color:red;">*</span></label>
 	                          <input type="text" class="form-control" id="mobile">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -287,19 +299,19 @@
                       <div class="col-md-12">
 								<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="bill_flat_no"> Flat No / House No / Building Name : </label>
+	                      	  <label for="bill_flat_no"> Flat No / House No / Building Name <span style="color:red;">*</span> : </label>
 	                          <input type="text" class="form-control" id="bill_flat_no">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_address_line1">Address Line1 : </label>
+	                          <label for="bill_address_line1">Address Line1 <span style="color:red;">*</span> : </label>
 	                          <input type="text" class="form-control" id="bill_address_line1">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_address_line2">Address Line1 : </label>
+	                          <label for="bill_address_line2">Address Line2 : </label>
 	                          <input type="text" class="form-control" id="bill_address_line2">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -311,13 +323,13 @@
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_city">City/Village </label>
+	                          <label for="bill_city">City/Village <span style="color:red;">*</span></label>
 	                          <input type="text" class="form-control" id="bill_city">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_pincode">PinCode </label>
+	                          <label for="bill_pincode">PinCode <span style="color:red;">*</span></label>
 	                          <input type="text" class="form-control" id="bill_pincode">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -329,7 +341,7 @@
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_mobile">Mobile </label>
+	                          <label for="bill_mobile">Mobile <span style="color:red;">*</span></label>
 	                          <input type="text" class="form-control" id="bill_mobile">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -349,11 +361,12 @@
                       <div class="col-md-12">                       	                                                                                                             		
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="premises_type">Type Of Premises</label>
+	                          <label for="premises_type">Type Of Premises <span style="color:red;">*</span></label>
 	                          <select id="select_premises_type" class="form-control select2">
-                                <option value="SINGLE-SINGLE-PHASE">SINGLE</option>
-                                <option value="THREE-THREE-PHASE">THREE</option>
-                                <option value="HT-HT-SUPPLY">SUPPLY</option>                              
+                                <option value="1-OWNED">1-OWNED</option>
+                                <option value="2-RENTED">2-RENTED</option>
+                                <option value="3-LEASE">3-LEASE</option>
+                                <option value="4-LIS/OTHERS">4-LIS/OTHERS</option>                              
                              </select>                                    	                          
 	                      </div>	                      
                     		</div>
@@ -409,14 +422,14 @@
                                 <div class="col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-success">
-                                            <label >Requested Load :</label>
+                                            <label >Requested Load <span style="color:red;">*</span> :</label>
                                             <input type="text" class="form-control" >
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
 					                      <div class="form-group form-md-line-input has-success" >
-					                          <label for="load_type">Type</label>
+					                          <label for="load_type">Type <span style="color:red;">*</span></label>
 					                          <select id="load_type" class="form-control select2">
 				                                <option value="KW">KW</option>
                                 					<option value="HP">HP</option>                             
@@ -427,14 +440,14 @@
                                 <div class="col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-success">
-                                            <label >Contract Demand :</label>
+                                            <label >Contract Demand <span style="color:red;">*</span> :</label>
                                             <input type="text" class="form-control" >
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
 					                      <div class="form-group form-md-line-input has-success" >
-					                          <label for="contract_demand_type">Type</label>
+					                          <label for="contract_demand_type">Type <span style="color:red;">*</span></label>
 					                          <select id="contract_demand_type" class="form-control select2">
 				                                <option value="KWA">KWA</option>
 				                             </select>                                    	                          
@@ -447,61 +460,50 @@
 							<hr style="border-top: dotted 1px;" />                    		
            		 </div>   
 					 <div class="col-md-12">
-                    <label class="bold">Documents List : </label>                    
+                    <label class="bold">Documents List <span style="color:red;">*</span> : </label>                    
                     <div class="row">                     
                       <div class="col-md-12">
-								<div class="col-md-3">
-	                      <div class="form-group form-md-line-input has-success" >
-	                          <input type="text" class="form-control" readonly="" value="Pan Card">                                  	                          
-	                      </div>	                      
+								<div class="col-md-1">
+	                          <label >Pan Card</label>                                  	                          
                     		</div> 
                     		<div class="col-md-1">
-	                      <div class="form-group form-md-line-input has-success" >
 	                          <input type="checkbox" class="form-control" id="pancard">                                  	                          
-	                      </div>	                      
-                    		</div>   															                    		                  	                   		                		
-                      </div> 
+                    		</div>   	
+                    		<div class="col-md-3">
+	                          <input type="file" class="form-control" id="applicant_doc">                                   	                          
+                    		</div>														                    		                  	                   		                		
+                      </div>
+                     </div>
+                     <br>
+                     <div class="row">  
                       <div class="col-md-12">
-								<div class="col-md-3">
-	                      <div class="form-group form-md-line-input has-success" >
-	                          <input type="text" class="form-control" id="consumer_zone" readonly="" value="Aadhar Card">                                  	                          
-	                      </div>	                      
+								<div class="col-md-1">
+	                          <label>Aadhar Card</label>                                  	                          
                     		</div> 
                     		<div class="col-md-1">
-	                      <div class="form-group form-md-line-input has-success" >
 	                          <input type="checkbox" class="form-control" id="aadhar_card" >                                  	                          
-	                      </div>	                      
-                    		</div>   															                    		                  	                   		                		
-                      </div> 
+                    		</div>   		
+                    		<div class="col-md-3">
+	                          <input type="file" class="form-control" id="applicant_doc">                                   	                          
+                    		</div>													                    		                  	                   		                		
+                      </div>
+                     </div>
+                     <br>
+                     <div class="row">  
                       <div class="col-md-12">
-								<div class="col-md-3">
-	                      <div class="form-group form-md-line-input has-success" >
-	                          <input type="text" class="form-control" id="consumer_zone" readonly="" value="Passport"	>                                  	                          
-	                      </div>	                      
+								<div class="col-md-1">
+									  <label>Passport</label>	                                                            	                          
                     		</div> 
                     		<div class="col-md-1">
-	                      <div class="form-group form-md-line-input has-success" >
 	                          <input type="checkbox" class="form-control" id="passport">                                  	                          
-	                      </div>	                      
+                    		</div>
+                    		<div class="col-md-3">
+	                          <input type="file" class="form-control" id="applicant_doc">                                   	                          
                     		</div>   															                    		                  	                   		                		
                       </div>                                         
                     </div>
                 </div>
-                <div class="col-md-12">
-                  <br>
-                </div>
-                <div class="col-md-12">
-                    <div class="row">                     
-                      <div class="col-md-12">
-								<div class="col-md-2">
-	                      	  <label for="applicant_doc"> Attached Documents (PDF) : </label>
-                    		</div>								
-								<div class="col-md-3">
-	                          <input type="file" class="form-control" id="applicant_doc">                                   	                          
-                    		</div>                     	                    	                   		                		
-                      </div>                                       
-                    </div>
-                </div>    
+              
                 <br>
                 <div class="col-md-12" style="text-align: right;">
                     <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" >
