@@ -20,6 +20,7 @@ from BynryConsumerModule import settings
 from paymentapp import urls
 from serviceapp import urls as service_urls
 from consumerapp import consumer_urls
+from nscapp import nsc_urls
 from complaintapp import urls as complaint_urls
 from vigilanceapp import urls as vigilance_urls
 from django.views.generic import TemplateView
@@ -32,4 +33,5 @@ urlpatterns = patterns('',
     url(r'^consumerapp/', include(consumer_urls)),
     url(r'^complaintapp/', include(complaint_urls)),
     url(r'^vigilanceapp/', include(vigilance_urls)),
+    url(r'^nscapp/', include(nsc_urls)),
 )
