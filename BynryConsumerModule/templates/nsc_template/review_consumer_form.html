@@ -4,7 +4,7 @@
 {% load staticfiles %}
 <head>
     <meta charset="utf-8"/>
-    <title>Add New Consumer | Bynry</title>
+    <title>Consumer Form Review | Bynry</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
@@ -102,7 +102,11 @@
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>New Request</span>
+                        <a href="/nscapp/">NSC</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>Consumer Form Review</span>
                     </li>
                 </ul>
             </div>
@@ -285,43 +289,43 @@
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Landmark </label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_landmark}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >City/Village </label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_city}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >PinCode </label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_pincode}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Email </label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_email_id}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Mobile </label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_mobile_no}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Phone </label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_phone_no}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Existing/ Nearest Consumer No </label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_new_exst_cons_no}}">
                                         </div>
                                     </div>
                                 </div>
@@ -329,13 +333,13 @@
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Type Of Premises</label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_premises}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Others</label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{billing_other_details}}">
                                         </div>
                                     </div>
                                 </div>
@@ -351,14 +355,14 @@
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Requested Load :</label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{requested_load}}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
                                         <div class="form-group form-md-line-input has-info">
                                             <label ></label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{requested_load_type}}">
                                         </div>
                                     </div>
                                 </div>
@@ -366,14 +370,14 @@
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
                                             <label >Contract Demand :</label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{contract_demand}}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
                                         <div class="form-group form-md-line-input has-info">
                                             <label ></label>
-                                            <input type="text" class="form-control" readonly="" >
+                                            <input type="text" class="form-control" readonly="" value="{{contract_demand_type}}">
                                         </div>
                                     </div>
                                 </div>
@@ -388,39 +392,43 @@
                                 <div class="col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
+                                            <label >Pan Card :</label>
                                             <input type="text" class="form-control"  readonly=""
-                                                   value="Pan Card">
+                                                   value="{{pan_card}}">
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group form-md-line-input has-info">
-                                            <input type="checkbox" class="form-control" >
+
+                                            <input type="checkbox" class="form-control" checked>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
+                                            <label >Aadhar Card :</label>
                                             <input type="text" class="form-control"  readonly=""
-                                                   value="Aadhar Card">
+                                                   value="{{aadhar_card}}">
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group form-md-line-input has-info">
-                                            <input type="checkbox" class="form-control" >
+                                            <input type="checkbox" class="form-control" checked>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-info">
+                                            <label >Passport :</label>
                                             <input type="text" class="form-control"  readonly=""
-                                                   value="Passport">
+                                                   value="{{passport}}">
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="form-group form-md-line-input has-info">
-                                            <input type="checkbox" class="form-control" >
+                                            <input type="checkbox" class="form-control" checked>
                                         </div>
                                     </div>
                                 </div>
@@ -500,16 +508,10 @@
 <script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
 
 <script>
-    function clear_filter(){
-        $( "#filter_div" ).load(" #filter_div" );
-        setTimeout(function () {
-            $('.select2').select2();
-            //initTable1();
-            src = "{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}";
-            $('script[src="' + src + '"]').remove();
-            $('<script>').attr('src', src).appendTo('head');
-        }, 1000);
-    }
+
+    $("#nsc_anchor").prepend('<span class="selected"></span>');
+    $("#nsc_menu").addClass("active open");
+    $("#nsc_span").addClass("open");
 
 </script>
 
