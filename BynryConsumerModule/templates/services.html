@@ -90,7 +90,7 @@
                             <select id="select_service_type" class="form-control select2">
                                 <option value="all">All</option>
                                 {% for type in ServiceType%}
-                                    <option value="{{type.id}}">{{type.service_type}}</option>
+                                    <option value="{{type.id}}">{{type.request_type}}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -265,16 +265,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
                                 <input type="text" class="form-control" readonly="" id="request_id">
                                 <label for="request_id">Request Id</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
                                 <input type="text" class="form-control" readonly="" id="request_type">
                                 <label for="request_type">Request Type</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="request_status">
+                                <label for="request_status">Request Status</label>
                             </div>
                         </div>
                     </div>

@@ -89,10 +89,11 @@
             data : {'service_id':service_id},
             success: function (response) {
                 if(response.success =='true'){
-                    serviceDetail = response.serviceDetail;
+                    serviceDetail = response.serviceDetail;                   
                     $("#request_id").val(serviceDetail.serviceID);
                     $("#request_type").val(serviceDetail.serviceType);
                     $("#service_request").val(serviceDetail.serviceRequest);
+                    $("#request_status").val(serviceDetail.serviceStatus);
                     $("#cons_name").text(serviceDetail.serviceConsumerName);
                     $("#cons_no").text(serviceDetail.serviceConsumerNo);
                 }
