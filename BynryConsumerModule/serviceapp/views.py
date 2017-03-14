@@ -48,13 +48,11 @@ def get_service_data(request):
         service_obj = ServiceRequest.objects.all()
 
         # filter service data by service type
-        if request.GET.get('service_type'):
-            if request.GET.get('service_type') == 'all':
-                serviceType = ServiceRequest.objects.filter(is_deleted=False)
-            else:
-                serviceType = ServiceRequest.objects.filter(is_deleted=False, id=request.GET.get('service_type'))
-            service_obj = serviceType.filter(service_type__id=serviceType)
-
+        if request.GET.get('service_type') == 'all':
+            serviceType = ServiceRequestType.objects.filter(is_deleted=False)
+        else:
+            serviceType = ServiceRequestType.objects.filter(is_deleted=False, id=request.GET.get('service_type'))
+        service_obj = service_obj.filter(service_type__in=serviceType)
         # filter service data by service status
         if request.GET.get('service_status') and request.GET.get('service_status') != "all":
             service_obj = service_obj.filter(status=request.GET.get('service_status'))
