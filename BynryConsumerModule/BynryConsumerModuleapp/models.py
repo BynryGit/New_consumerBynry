@@ -101,8 +101,21 @@ class Utility(models.Model):
     def __unicode__(self):
         return unicode(self.utility)
 
+class Branch(models.Model):
+    branch_name = models.CharField(max_length=250, blank=False, null=False)
+    city = models.ForeignKey(City, blank=True, null=True)
+    created_by = models.CharField(max_length=50, blank=False, null=False)
+    updated_by = models.CharField(max_length=50, blank=True, null=True)
+    created_on = models.DateTimeField(default=django.utils.timezone.now)
+    updated_on = models.DateTimeField(blank=True, null=True)
+    is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
+
+    def __unicode__(self):
+        return unicode(self.branch_name)
+
 class Zone(models.Model):
     zone_name = models.CharField(max_length=250, blank=False, null=False)
+    branch = models.ForeignKey('Branch', blank=True, null=True)
     created_by = models.CharField(max_length=50, blank=False, null=False)
     updated_by = models.CharField(max_length=50, blank=True, null=True)
     created_on = models.DateTimeField(default=django.utils.timezone.now)

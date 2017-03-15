@@ -26,7 +26,7 @@ from collections import OrderedDict
 from django.contrib.sites.shortcuts import get_current_site
 
 # SHUBHAM
-from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility, Branch
 from paymentapp.models import PaymentDetail
 from vigilanceapp.models import VigilanceType
 from consumerapp.models import MeterReadingDetail
@@ -39,6 +39,7 @@ def consumer_list(request):
         print 'consumerapp|views.py|consumer_list'
         data = {'city_list': get_city(request),
                 'zone_list': get_zone(request),
+                'branch_list': get_branch(request),
                 'billcycle_list': get_billcycle(request),
                 'route_list': get_RouteDetail(request),
                 'pincode_list': get_pincode(request)}
@@ -61,6 +62,19 @@ def get_city(request):
         data = {'city_list': 'none', 'message': 'No city available'}
         return data
 
+def get_branch(request):
+    branch_list = []
+    try:
+        print 'consumerapp|views.py|get_branch'
+        branch_objs = Branch.objects.filter(is_deleted=False)
+        for branch in branch_objs:
+            branch_list.append({'branch_id': branch.id, 'branch_name': branch.branch_name})
+        data = branch_list
+        return data
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_branch', e
+        data = {'branch_list': 'none', 'message': 'No branch available'}
+        return data
 
 def get_zone(request):
     zone_list = []
@@ -126,6 +140,7 @@ def get_consumer_list(request):
     try:
         print 'consumerapp|views.py|get_consumer_list'
         filter_zone = request.GET.get('filter_zone')
+        filter_branch = request.GET.get('filter_branch')
         filter_bill = request.GET.get('filter_bill')
         filter_route = request.GET.get('filter_route')
         filter_category = request.GET.get('filter_category')
@@ -137,6 +152,8 @@ def get_consumer_list(request):
         final_list = []
         try:
             consumer_obj_list = ConsumerDetails.objects.all()
+            if filter_branch != 'all':
+                consumer_obj_list = consumer_obj_list.filter(zone=filter_branch)
             if filter_zone != 'all':
                 consumer_obj_list = consumer_obj_list.filter(zone=filter_zone)
             if filter_bill != 'all':

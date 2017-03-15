@@ -32,7 +32,9 @@ function add_payment() {
 	}	
 	
 	 var initTable1 = function () {
+		   filter_branch 	 = $("#filter_branch").val();
 		   filter_zone 	 = $("#filter_zone").val();
+		   filter_branch 	 = $("#filter_branch").val();
 			filter_bill 	 = $("#filter_bill").val();
 			filter_route 	 = $("#filter_route").val();			
 			filter_from 	 = $("#filter_from").val();
@@ -74,7 +76,7 @@ function add_payment() {
             "order": [
                 [0, 'asc']
             ],
-				"ajax": "/paymentapp/online_payments/?filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+				"ajax": "/paymentapp/online_payments/?filter_branch="+filter_branch+"&filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
                   "columns": [
                 {"data": "payment_date"},
                 {"data": "bill_amount_paid"}, 
@@ -108,6 +110,7 @@ function add_payment() {
     
      var initTable2 = function () {
      
+     		filter_branch 	 = $("#filter_branch").val();
      		filter_zone 	 = $("#filter_zone").val();
 			filter_bill 	 = $("#filter_bill").val();
 			filter_route 	 = $("#filter_route").val();			
@@ -146,7 +149,7 @@ function add_payment() {
                 header: true,
                 headerOffset: fixedHeaderOffset
             },
-				"ajax": "/paymentapp/paytm_payments/?filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+				"ajax": "/paymentapp/paytm_payments/?filter_branch="+filter_branch+"&filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
                   "columns": [
                 {"data": "payment_date"},
                 {"data": "bill_amount_paid"}, 
@@ -181,6 +184,7 @@ function add_payment() {
 
     //Cash Counter Table initialization
      var initTable3 = function () {     
+     	 	filter_branch 	 = $("#filter_branch").val();
      	 	filter_zone 	 = $("#filter_zone").val();
 			filter_bill 	 = $("#filter_bill").val();
 			filter_route 	 = $("#filter_route").val();			
@@ -219,7 +223,7 @@ function add_payment() {
                 header: true,
                 headerOffset: fixedHeaderOffset
             },
-				"ajax": "/paymentapp/cash_payments/?filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+				"ajax": "/paymentapp/cash_payments/?filter_branch="+filter_branch+"&filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
                   "columns": [
                 {"data": "payment_date"},
                 {"data": "bill_amount_paid"}, 
@@ -255,6 +259,7 @@ function add_payment() {
     
     function clear_filter(){
         filter_zone 	 = $("#filter_zone").val('all').change();
+        filter_branch 	 = $("#filter_branch").val('all').change();
 			filter_bill 	 = $("#filter_bill").val('all').change();
 			filter_route 	 = $("#filter_route").val('all').change();
 			filter_from 	 = $("#filter_from").val('');
@@ -414,7 +419,35 @@ function counter_submit() {
     $("#consumer_menu").addClass("active open");
     $("#consumer_span").addClass("open");
     $("#payment_list").addClass("active open");
-    
+
+   
+ function get_zone(){
+    branch = $("#filter_branch").val();
+    $("#filter_zone").html('');
+    $("#filter_zone").append('<option value="all">All</option>');
+    $("#filter_bill").html('');
+    $("#filter_bill").append('<option value="all">All</option>');
+    $("#filter_route").html('');
+    $("#filter_route").append('<option value="all">All</option>');
+    $("#filter_route").val("all").change();
+    if(branch != ""){
+        $.ajax({
+            type : "GET",
+            url : '/complaintapp/get-zone/',
+            data : {'branch':branch},
+            success: function (response) {
+                if(response.success =='true'){
+                    $.each(response.zone, function (index, item) {
+                        $("#filter_zone").append('<option value="'+item.zone_id+'">'+item.zone_name+'</option>')
+                    });
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+    }
+}
     
 function get_bill_cycle(){
 	

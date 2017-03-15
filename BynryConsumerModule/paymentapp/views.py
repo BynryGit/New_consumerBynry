@@ -6,7 +6,7 @@ import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from paymentapp.models import PaymentDetail
-from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail
+from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail, Branch
 from consumerapp.models import ConsumerDetails,MeterReadingDetail
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -14,7 +14,8 @@ from django.views.decorators.csrf import csrf_exempt
 # To view payment page
 def payments(request):
     print 'paymentapp|views.py|payments'
-    data={'zone' : Zone.objects.filter(is_deleted=False), # Zone List
+    data={'branch_list' : Branch.objects.filter(is_deleted=False), # Branch List
+          #'zone' : Zone.objects.filter(is_deleted=False), # Zone List
           #'billcycle':BillCycle.objects.all(), # bill cycle list
           #'routeDetail':RouteDetail.objects.all() # route list
           }
@@ -26,6 +27,7 @@ def online_payments(request):
     payment_details_list=[]
     try:
         print 'paymentapp|views.py|online_payments'
+        filter_branch  	= request.GET.get('filter_branch')
         filter_zone  	= request.GET.get('filter_zone')
         filter_bill  	= request.GET.get('filter_bill')
         filter_route 	= request.GET.get('filter_route')
@@ -34,6 +36,10 @@ def online_payments(request):
 
         try:
             payment_details_list = PaymentDetail.objects.all()
+            # filter payment data by barnch
+            if filter_branch != 'all':
+                consumer_obj = ConsumerDetails.objects.filter(branch__branch_name=str(filter_branch))
+                payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             # filter payment data by zone
             if filter_zone != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
@@ -83,6 +89,7 @@ def paytm_payments(request):
         payment_wallet_list=[]
         payment_details_list=[]
 
+        filter_branch  	= request.GET.get('filter_branch')
         filter_zone  	= request.GET.get('filter_zone')
         filter_bill  	= request.GET.get('filter_bill')
         filter_route 	= request.GET.get('filter_route')
@@ -90,6 +97,10 @@ def paytm_payments(request):
         filter_to 		= request.GET.get('filter_to')
         try:
             payment_details_list = PaymentDetail.objects.all()
+            # filter payment data by barnch
+            if filter_branch != 'all':
+                consumer_obj = ConsumerDetails.objects.filter(branch__branch_name=str(filter_branch))
+                payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             # filter payment data by zone
             if filter_zone != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))
@@ -141,6 +152,7 @@ def cash_payments(request):
         print 'paymentapp|views.py|cash_payments'
         cash_payment_list=[]
         payment_details_list=[]
+        filter_branch  	= request.GET.get('filter_branch')
         filter_zone  	= request.GET.get('filter_zone')
         filter_bill  	= request.GET.get('filter_bill')
         filter_route 	= request.GET.get('filter_route')
@@ -149,6 +161,10 @@ def cash_payments(request):
 
         try:
             payment_details_list = PaymentDetail.objects.all()
+            # filter payment data by barnch
+            if filter_branch != 'all':
+                consumer_obj = ConsumerDetails.objects.filter(branch__branch_name=str(filter_branch))
+                payment_details_list = payment_details_list.filter(consumer_id__in=consumer_obj)
             # filter payment data by zone
             if filter_zone != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(zone__zone_name=str(filter_zone))

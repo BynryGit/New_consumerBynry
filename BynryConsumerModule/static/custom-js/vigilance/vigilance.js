@@ -1,7 +1,7 @@
 $("#consumer_anchor").prepend('<span class="selected"></span>');
 $("#consumer_menu").addClass("active open");
 $("#consumer_span").addClass("open");
-$("#complaint_list").addClass("active open");
+$("#vigilance_list").addClass("active open");
 
 
 var initTable1 = function () {
@@ -144,6 +144,33 @@ function reload_vigilance(){
 }
 
 
+ function get_zone(){
+    branch = $("#select_branch").val();
+    $("#select_zone").html('');
+    $("#select_zone").append('<option value="all">All</option>');
+    $("#select_bill").html('');
+    $("#select_bill").append('<option value="all">All</option>');
+    $("#select_route").html('');
+    $("#select_route").append('<option value="all">All</option>');
+    $("#select_route").val("all").change();
+    if(branch != ""){
+        $.ajax({
+            type : "GET",
+            url : '/complaintapp/get-zone/',
+            data : {'branch':branch},
+            success: function (response) {
+                if(response.success =='true'){
+                    $.each(response.zone, function (index, item) {
+                        $("#select_zone").append('<option value="'+item.zone_id+'">'+item.zone_name+'</option>')
+                    });
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+    }
+}
 
 function get_bill_cycle(){
     zone = $("#select_zone").val();

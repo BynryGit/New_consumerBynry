@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
 from serviceapp.models import *
-from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Zone
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Zone, Branch
 from consumerapp.models import ConsumerDetails
 import datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -21,17 +21,18 @@ def service_request(request):
         closed = ServiceRequest.objects.filter(status='Closed', is_deleted=False).count()
 
         serviceType = ServiceRequestType.objects.filter(is_deleted=False) # Service Types
-        zone = Zone.objects.filter(is_deleted=False) # Zone List
-        billCycle = BillCycle.objects.filter(is_deleted=False) # BillCycle List
-        routes = RouteDetail.objects.filter(is_deleted=False) # Route List
+        branch = Branch.objects.filter(is_deleted=False) # Branch List
+        #zone = Zone.objects.filter(is_deleted=False) # Zone List
+        #billCycle = BillCycle.objects.filter(is_deleted=False) # BillCycle List
+        #routes = RouteDetail.objects.filter(is_deleted=False) # Route List
         data = {
             'total': total,
             'open': open,
             'closed': closed,
             'ServiceType': serviceType,
-            'zones': zone,
-            'billCycle': billCycle,
-            'routes': routes,
+            'branch_list': branch,
+            #'billCycle': billCycle,
+            #routes': routes,
         }
     except Exception, e:
         print 'exception ', str(traceback.print_exc())

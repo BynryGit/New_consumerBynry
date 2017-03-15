@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import ComplaintType, ComplaintDetail
 from BynryConsumerModuleapp.models import *
-from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Branch
 from consumerapp.models import ConsumerDetails
 from django.contrib.sites.shortcuts import get_current_site
 import datetime
@@ -20,14 +20,15 @@ def complaint(request):
         closed = ComplaintDetail.objects.filter(complaint_status='Closed', is_deleted=False).count()
 
         complaintType = ComplaintType.objects.filter(is_deleted=False)  # complaint types
-        zone = Zone.objects.filter(is_deleted=False)  # zone list
+        branch = Branch.objects.filter(is_deleted=False)  # branch list
+        #zone = Zone.objects.filter(is_deleted=False)  # zone list
 
         data = {
             'total': total,
             'open': open,
             'closed': closed,
             'complaintType': complaintType,
-            'zones': zone
+            'branch_list': branch
         }
     except Exception, e:
         print 'Exception|comlpaintapp|views.py|complaint', e
@@ -81,7 +82,7 @@ def get_complaint_data(request):
         # filter complaint data by date range
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
-            end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
+            end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y').replace(hour=23, minute=59, second=59)
             complaint_obj = complaint_obj.filter(complaint_date__range=[start_date, end_date])
 
         # complaint data result
@@ -163,6 +164,28 @@ def get_consumer_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# to get zone wrt branch
+def get_zone(request):
+    try:
+        print 'complaintapp|views.py|get_zone'
+        zone_list = []
+        # filer zone by branch_id
+        if request.GET.get('zone') != 'all':
+            zone_obj = Zone.objects.filter(is_deleted=False, branch=request.GET.get('branch'))
+        else:
+            zone_obj = Zone.objects.filter(is_deleted=False)
+        # zone result
+        for zone in zone_obj:
+            zone_data = {
+                'zone_id': zone.id,
+                'zone_name': zone.zone_name
+            }
+            zone_list.append(zone_data)
+        data = {'success': 'true', 'zone': zone_list}
+    except Exception, e:
+        print "Exception|comlpaintapp|views.py|get_zone", e
+        data = {'success': 'false', 'zone': []}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 # to get bill cycle wrt zone
 def get_bill_cycle(request):

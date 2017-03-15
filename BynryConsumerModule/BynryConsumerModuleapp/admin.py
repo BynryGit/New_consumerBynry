@@ -8,6 +8,7 @@ admin.site.register(State);
 admin.site.register(City);
 admin.site.register(Pincode);
 admin.site.register(Utility);
+admin.site.register(Branch);
 admin.site.register(Zone);
 admin.site.register(BillCycle);
 admin.site.register(Area);

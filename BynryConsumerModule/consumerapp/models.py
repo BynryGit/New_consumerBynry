@@ -3,7 +3,7 @@ from django.db import models
 from decimal import Decimal
 from datetime import date
 
-from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility, Branch
 
 
 IS_DELETED = (
@@ -30,6 +30,7 @@ class ConsumerDetails(models.Model):
     address_line_2  = models.CharField(max_length=500, blank=True, null=True)
     city            = models.ForeignKey(City, blank=False, null=True)
     pin_code        = models.ForeignKey(Pincode, blank=False, null=True)
+    branch            = models.ForeignKey(Branch, blank=False, null=True)
     zone            = models.ForeignKey(Zone, blank=False, null=True)
     bill_cycle      = models.ForeignKey(BillCycle, blank=True, null=True)
     route           = models.ForeignKey(RouteDetail, blank=True, null=True)
