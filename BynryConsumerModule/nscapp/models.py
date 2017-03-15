@@ -62,6 +62,11 @@ OCCUPATION = (
     ('PROFESSION/BUSINESS', 'PROFESSION/BUSINESS'),
     ('OTHERS', 'OTHERS'),
 )
+NSC_STATUS = (
+    #('WIP', 'WIP'),
+    ('Closed', 'Closed'),
+    ('Open', 'Open'),
+)
 class NewConsumerRequest(models.Model):
     applicant_name = models.CharField(max_length=200, blank=False, null=True)
     aadhar_no = models.CharField(max_length=20, blank=False, null=True)
@@ -101,6 +106,10 @@ class NewConsumerRequest(models.Model):
     requested_load_type = models.CharField(max_length=200, choices=REQUESTED_LOAD_TYPE, default='1-LT-SUPPLY')
     contarct_demand = models.CharField(max_length=100, blank=True, null=True)
     contarct_demand_type = models.CharField(max_length=200, choices=CONTRACT_DEMAND_TYPE, default='1-LT-SUPPLY')
+    status = models.CharField(max_length=200, choices=NSC_STATUS, default='Open')
+    closed_date = models.DateTimeField(blank=True, null=True)
+    is_new = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
     created_by = models.CharField(max_length=500, blank=False, null=True)
     updated_by = models.CharField(max_length=500, blank=True, null=True)

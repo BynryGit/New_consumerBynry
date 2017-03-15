@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-import json
-from consumerapp.views import get_city, get_pincode
-from nscapp.models import NewConsumerRequest
-from BynryConsumerModuleapp.models import City, Pincode
 
+from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
+from .models import *
+from BynryConsumerModuleapp.models import *
+from consumerapp.models import ConsumerDetails
+from nscapp.models import *
+import datetime
+from consumerapp.views import get_city, get_pincode
 
 # Create your views here.
 def new_connection_list(request):
@@ -14,6 +16,7 @@ def new_connection_list(request):
     except Exception, e:
         print 'Exception|nscapp|views.py|new_connection', e
     return render(request, 'nsc_template/new_connection_list.html')
+
 
 def add_new_consumer(request):
     try:
@@ -24,6 +27,38 @@ def add_new_consumer(request):
     except Exception, e:
         print 'Exception|nscapp|views.py|add_new_consumer', e
     return render(request, 'nsc_template/add_new_consumer.html',data)
+
+
+def get_nsc_data(request):
+    try:
+        nsc_list = []
+        nsc_obj = NewConsumerRequest.objects.all()
+        for nsc in nsc_obj:
+            if nsc.closed_date:
+                closed_date = nsc.closed_date.strftime('%d/%m/%Y')
+            else:
+                closed_date = ''
+            nsc_data = {
+                'registration_id': nsc.registration_no,
+                'applicant_name': nsc.applicant_name,
+                'aadhar_no': nsc.aadhar_no,
+                'contact_no': nsc.meter_mobile_no,
+                'category': nsc.consumer_category,
+                'sub_category': nsc.consumer_subcategory,
+                'supply_type': nsc.supply_type,
+                'registration_date': nsc.date_of_registration.strftime('%d/%m/%Y'),
+                'status': nsc.status,
+                'closed_date': closed_date,
+                'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id='+str(nsc.id)+'"></a>&nbsp;' + '&nbsp;<a class="fa fa-print" title="Print"></a>'
+            }
+            nsc_list.append(nsc_data)
+        print 'nscapp|views.py|get_nsc_data'
+        data = {'data': nsc_list}
+    except Exception, e:
+        print 'Exception|nscapp|views.py|get_nsc_data', e
+        data = {'msg': 'error'}
+    return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
+
 
 def review_consumer_form(request):
     try:
@@ -72,10 +107,10 @@ def review_consumer_form(request):
     except Exception, e:
         print 'Exception|nscapp|views.py|review_consumer_form', e
         data = {}
-    return render(request, 'nsc_template/review_consumer_form.html',data)
+    return render(request, 'nsc_template/review_consumer_form.html', data)
 
 
-@csrf_exempt
+#@csrf_exempt
 def save_new_consumer(request):
     try:
         print '/\n\n\n\n\n SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs'
@@ -148,4 +183,5 @@ def save_new_consumer(request):
         }
     print '..aadarta',data
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
