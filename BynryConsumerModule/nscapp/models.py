@@ -4,7 +4,6 @@ from decimal import Decimal
 from datetime import date
 
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
-
 # Create your models here.
 
 CONSUMER_CATEGORY = (
@@ -37,8 +36,8 @@ CONSUMER_SUBCATEGORY = (
     ('165-Temp-Construction', '165-Temp-Construction'),
     ('166-Crematorium And Burial', '166-Crematorium And Burial'),
     ('167-Public Services', '167-Public Services'),
-    ('165-Temp-Construction', '207-LT IV A AG ZONE 1'),
-    ('165-Temp-Construction', '209-LT IV A AG ZONE 2'),
+    ('207-LT IV A AG ZONE 1', '207-LT IV A AG ZONE 1'),
+    ('209-LT IV A AG ZONE 2', '209-LT IV A AG ZONE 2'),
 
 )
 PREMISES_TYPE = (
@@ -71,7 +70,7 @@ class NewConsumerRequest(models.Model):
     consumer_category = models.CharField(max_length=200, choices=CONSUMER_CATEGORY, default='1-LT-SUPPLY')
     service_requested = models.CharField(max_length=200, choices=SERVICE_REQUESTED,
                                          default='001-New-Connection (Permanent)')
-    supply_yype = models.CharField(max_length=200, choices=SUPPLY_TYPE, default='SINGLE-SINGLE-PHASE')
+    supply_type = models.CharField(max_length=200, choices=SUPPLY_TYPE, default='SINGLE-SINGLE-PHASE')
     consumer_subcategory = models.CharField(max_length=200, choices=CONSUMER_SUBCATEGORY, default='30-PWW')
     registration_no = models.CharField(max_length=100, blank=True, null=True)
     date_of_registration = models.DateTimeField(blank=True, null=True)
@@ -102,8 +101,6 @@ class NewConsumerRequest(models.Model):
     requested_load_type = models.CharField(max_length=200, choices=REQUESTED_LOAD_TYPE, default='1-LT-SUPPLY')
     contarct_demand = models.CharField(max_length=100, blank=True, null=True)
     contarct_demand_type = models.CharField(max_length=200, choices=CONTRACT_DEMAND_TYPE, default='1-LT-SUPPLY')
-    is_new = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
     created_by = models.CharField(max_length=500, blank=False, null=True)
     updated_by = models.CharField(max_length=500, blank=True, null=True)

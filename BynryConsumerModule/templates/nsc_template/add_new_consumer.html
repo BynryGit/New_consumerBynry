@@ -67,7 +67,7 @@
                        data-close-others="true">
                         <img alt="" class="img-circle"
                              src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
-                        <span class="username username-hide-on-mobile"> shubham@bynry.com </span>
+                        <span class="username username-hide-on-mobile"> shubhamS@bynry.com </span>
                     </a>                    
                 </li>                        
                 <li title="Log Out" class="dropdown dropdown-quick-sidebar-toggler">
@@ -116,67 +116,79 @@
                        <div class="row">                       	                                                                     
                         <div class="col-md-3">                         
 	                      <div class="form-group form-md-line-input has-success" >
-	                           <label for="consumer_category">Consumer Category <span style="color:red;">*</span></label>
+	                          <label >Consumer Category <span class="required">*</span></label>	                          
 	                          <select id="consumer_category" class="form-control select2">
+											<option value=" ">Select Consumer Category</option>                                 
                                  <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
                                  <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
                                  <option value="3-EHV">3-EHV</option>                                
-                             </select>                                    	                          
+                             </select>                                                                 	            
+                             <label class="error" style="color:red; display:none; font-size: 12px;"></label>              
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">                    		 
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="consumer_service">Service Requested <span style="color:red;">*</span></label>
+	                      	  <label for="consumer_service">Service Requested <span class="required">*</span></label>
 	                          <select id="consumer_service" class="form-control select2">
-                                 <option value="1-LT-SUPPLY">001-New-Connection (Permanent)</option>
-                                 <option value="2-HT-SUPPLY">002-New-Connection (Temporary)</option>
-                             </select>                                    	                          
+	                              <option value=" ">Select Service Requested</option> 
+                                 <option value="001-New-Connection (Permanent)">001-New-Connection (Permanent)</option>
+                                 <option value="002-New-Connection (Temporary)">002-New-Connection (Temporary)</option>
+                             </select>  
+                             <label class="error" style="color:red; display:none; font-size: 12px;"></label>                                  	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">                    		 
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="consumer_supply_type">Supply Type <span style="color:red;">*</span></label>
+	                      	  <label for="consumer_supply_type">Supply Type <span class="required">*</span></label>
 	                          <select id="consumer_supply_type" class="form-control select2">
+	                             <option value=" ">Select Supply Type</option> 
                                 <option value="SINGLE-SINGLE-PHASE">SINGLE-SINGLE-PHASE</option>
                                 <option value="THREE-THREE-PHASE">THREE-THREE-PHASE</option>
                                 <option value="HT-HT-SUPPLY">HT-HT-SUPPLY</option>                              
-                             </select>                                    	                         
+                             </select>  
+                             <label class="error" style="color:red; display:none; font-size: 12px;"></label>                                  	                         
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">                    		 
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="consumer_subcategory">Consumer Subcategory <span style="color:red;">*</span></label>
+	                      	  <label for="consumer_subcategory">Consumer Subcategory <span class="required">*</span></label>
 	                          <select id="consumer_subcategory" class="form-control select2">
-                                 <option value="1-LT-SUPPLY">30-PWW</option>
-                                 <option value="1-LT-SUPPLY">40-Residential</option>
-                                 <option value="1-LT-SUPPLY">50-Commercial</option>
-                                 <option value="1-LT-SUPPLY">60-LT industrial</option>
-                                 <option value="1-LT-SUPPLY">70-LT powerloom</option>
-                                 <option value="1-LT-SUPPLY">80-Street Light</option>
-                                 <option value="1-LT-SUPPLY">90-Agriculture</option>
-                                 <option value="1-LT-SUPPLY">91-LT poultry</option>
-                                 <option value="1-LT-SUPPLY">92-LT Advertisement and Hoarding</option>
-                                 <option value="1-LT-SUPPLY">93-LT Precooling</option>
-                                 <option value="1-LT-SUPPLY">94-LT temporary Religious</option>
-                                 <option value="1-LT-SUPPLY">95-LT temporary others</option>
-                                 <option value="1-LT-SUPPLY">165-Temp-Construction</option>
-                                 <option value="1-LT-SUPPLY">166-Crematorium And Burial</option>
-                                 <option value="1-LT-SUPPLY">167-Public Services</option>
-                                 <option value="1-LT-SUPPLY">207-LT IV A AG ZONE 1</option>
-                                 <option value="1-LT-SUPPLY">209-LT IV A AG ZONE 2</option>                               
-                             </select>                                    	                          
+	                              <option value=" ">Select Consumer Subcategory</option> 
+                                 <option value="30-PWW">30-PWW</option>
+                                 <option value="40-Residential">40-Residential</option>
+                                 <option value="50-Commercial">50-Commercial</option>
+                                 <option value="60-LT industrial">60-LT industrial</option>
+                                 <option value="70-LT powerloom">70-LT powerloom</option>
+                                 <option value="80-Street Light">80-Street Light</option>
+                                 <option value="90-Agriculture">90-Agriculture</option>
+                                 <option value="91-LT poultry">91-LT poultry</option>
+                                 <option value="92-LT Advertisement and Hoarding">92-LT Advertisement and Hoarding</option>
+                                 <option value="93-LT Precooling">93-LT Precooling</option>
+                                 <option value="94-LT temporary Religious">94-LT temporary Religious</option>
+                                 <option value="95-LT temporary others">95-LT temporary others</option>
+                                 <option value="165-Temp-Construction">165-Temp-Construction</option>
+                                 <option value="166-Crematorium And Burial">166-Crematorium And Burial</option>
+                                 <option value="167-Public Services">167-Public Services</option>
+                                 <option value="207-LT IV A AG ZONE 1">207-LT IV A AG ZONE 1</option>
+                                 <option value="209-LT IV A AG ZONE 2">209-LT IV A AG ZONE 2</option>                               
+                             </select> 
+                             <label class="error" style="color:red; display:none; font-size: 12px;"></label>                                   	                          
 	                      </div>	                      
-                    		</div>                    		
+                    		</div> 
+                    		</div>
+                    		<div class="row">                    		
                         <div class="col-md-3">                            
                             <div class="form-group form-md-line-input has-success">
                             	  <label for="consumer_reg_no">Registration No. </label>
-                                <input type="text" class="form-control" readonly="" id="consumer_reg_no">                                
+                                <input type="text" class="form-control" readonly="" id="consumer_reg_no" value="101">    
+                                <label class="error" style="color:red; display:none;"></label>                            
                             </div>
                         </div>
                         <div class="col-md-3">                            
                             <div class="form-group form-md-line-input has-success">
                                 <label for="consumer_reg_date">Date</label>
-                                <input type="text" class="form-control" readonly="" id="consumer_reg_date">                                
+                                <input type="text" class="form-control" readonly="" id="consumer_reg_date">  
+                                <label class="error" style="color:red; display:none; font-size: 12px;"></label>                              
                             </div>
                         </div> 
                     </div>
@@ -189,23 +201,24 @@
                     <div class="row">                       	                                                                     
                         <div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="applicant_name">Applicant/ Company Name <span style="color:red;">*</span> :</label>
+	                      	  <label for="applicant_name">Applicant/ Company Name <span class="required">*</span> :</label>
 	                          <input type="text" class="form-control" id="applicant_name">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="applicant_aadhar_no">Aadhar No <span style="color:red;">*</span></label>
+	                      	  <label for="applicant_aadhar_no">Aadhar No <span class="required">*</span></label>
 	                          <input type="text" class="form-control" id="applicant_aadhar_no">                                   	                          
 	                      </div>	                      
                     		</div>                    		
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="applicant_occupation">Occupation <span style="color:red;">*</span></label>
+	                          <label for="applicant_occupation">Occupation <span class="required">*</span></label>
 	                          <select id="applicant_occupation" class="form-control select2">
-                                <option value="SINGLE-SINGLE-PHASE">SERVICE</option>
-                                <option value="THREE-THREE-PHASE">PROFESSION/ BUSINESS</option>
-                                <option value="HT-HT-SUPPLY">OTHERS</option>                              
+	                              <option value=" "> Select Occupation</option>
+                                <option value="SERVICES">SERVICE</option>
+                                <option value="PROFESSION/BUSINESS">PROFESSION/ BUSINESS</option>
+                                <option value="OTHERS">OTHERS</option>                              
                              </select>                                    	                          
 	                      </div>	                      
                     		</div>
@@ -225,13 +238,13 @@
                       <div class="col-md-12">
 								<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="flat_no"> Flat No / House No / Building Name <span style="color:red;">*</span> : </label>
+	                      	  <label for="flat_no"> Flat No / House No / Building Name <span class="required">*</span> : </label>
 	                          <input type="text" class="form-control" id="flat_no">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="address_line1">Address Line1 <span style="color:red;">*</span> : </label>
+	                          <label for="address_line1">Address Line1 <span class="required">*</span> : </label>
 	                          <input type="text" class="form-control" id="address_line1">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -249,9 +262,10 @@
                     		</div>
                     		<div class="col-md-3">	                      
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label >City/Village <span style="color:red;">*</span></label>
+	                          <label >City/Village <span class="required">*</span></label>
 	                          <select id="city" class="form-control input-sm select2-multiple">
-                                  {% for city in city_list %}		
+                                  {% for city in city_list %}
+                                  <option value=" "> Select City</option>		
                                   <option value="{{ city.city_id }}"> {{ city.city }}</option>
                                   {% endfor %}
                              </select>                                    	                          
@@ -259,9 +273,10 @@
                     		</div>
                     		<div class="col-md-3">	                     	                      	           
 	                      <div class="form-group form-md-line-input has-success">
-	                        <label >PinCode <span style="color:red;">*</span></label>
+	                        <label >PinCode <span class="required">*</span></label>
 		                          <select id="pincode" class="form-control input-sm select2-multiple">
 	                                  {% for pincode in pincode_list %}
+	                                   <option value=" "> Select Pincode</option>
 	                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
 	                                  {% endfor %}
 	                             </select>
@@ -275,7 +290,7 @@
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="mobile">Mobile <span style="color:red;">*</span></label>
+	                          <label for="mobile">Mobile <span class="required">*</span></label>
 	                          <input type="text" class="form-control" id="mobile">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -307,13 +322,13 @@
                       <div class="col-md-12">
 								<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="bill_flat_no"> Flat No / House No / Building Name <span style="color:red;">*</span> : </label>
+	                      	  <label for="bill_flat_no"> Flat No / House No / Building Name <span class="required">*</span> : </label>
 	                          <input type="text" class="form-control" id="bill_flat_no">                                   	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_address_line1">Address Line1 <span style="color:red;">*</span> : </label>
+	                          <label for="bill_address_line1">Address Line1 <span class="required">*</span> : </label>
 	                          <input type="text" class="form-control" id="bill_address_line1">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -329,16 +344,27 @@
 	                          <input type="text" class="form-control" id="bill_landmark">                                   	                          
 	                      </div>	                      
                     		</div>
+                    		
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_city">City/Village <span style="color:red;">*</span></label>
-	                          <input type="text" class="form-control" id="bill_city">                                   	                          
+	                          <label for="bill_city">City/Village <span class="required">*</span></label>
+	                          <select id="bill_city" class="form-control input-sm select2-multiple">
+                                  {% for city in city_list %}		
+                                  <option value=" "> Select City</option>
+                                  <option value="{{ city.city_id }}"> {{ city.city }}</option>
+                                  {% endfor %}
+                             </select>                                    	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_pincode">PinCode <span style="color:red;">*</span></label>
-	                          <input type="text" class="form-control" id="bill_pincode">                                   	                          
+	                          <label for="bill_pincode">PinCode <span class="required">*</span></label>
+	                          <select id="bill_pincode" class="form-control input-sm select2-multiple">
+	                                  {% for pincode in pincode_list %}
+	                                  <option value=" "> Select Pincode</option>
+	                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
+	                                  {% endfor %}
+	                             </select>                                  	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
@@ -349,7 +375,7 @@
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_mobile">Mobile <span style="color:red;">*</span></label>
+	                          <label for="bill_mobile">Mobile <span class="required">*</span></label>
 	                          <input type="text" class="form-control" id="bill_mobile">                                   	                          
 	                      </div>	                      
                     		</div>
@@ -365,13 +391,13 @@
 	                          <input type="text" class="form-control" id="bill_existing_consumer_no">                                   	                          
 	                      </div>	                      
                     		</div>                    		
-                      </div>
-                      
+                      </div>                      
                       <div class="col-md-12">                       	                                                                                                             		
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="premises_type">Type Of Premises <span style="color:red;">*</span></label>
+	                          <label for="premises_type">Type Of Premises <span class="required">*</span></label>
 	                          <select id="premises_type" class="form-control select2">
+	                             <option value=" "> Select Premises</option>
                                 <option value="1-OWNED">1-OWNED</option>
                                 <option value="2-RENTED">2-RENTED</option>
                                 <option value="3-LEASE">3-LEASE</option>
@@ -382,11 +408,11 @@
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
 	                           <label for="bill_other_data">Others</label>
-	                          <input type="text" class="form-control" id="bill_other_data">  
-	                          <span class="help-block" style="margin-top: -27px;">To be filled if Type Of Premises selected is OTHERS.</span>                                	                          
+	                          <input type="text" class="form-control" id="bill_other_data">  	                                                          	                          
 	                      </div>	                      
+	                      <span class="help-block" style="margin-top: -27px;">To be filled if Type Of Premises selected is OTHERS.</span>
                     		</div>                   		                       
-                    </div>
+                      </div>
                     </div>
                 </div>                 
                 <div class="col-md-12">
@@ -398,16 +424,17 @@
                                 <div class="col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-success">
-                                            <label >Requested Load <span style="color:red;">*</span> :</label>
-                                            <input type="text" class="form-control" >
+                                            <label >Requested Load <span class="required">*</span> :</label>
+                                            <input type="text" class="form-control" id="requested_load">
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
 					                      <div class="form-group form-md-line-input has-success" >
-					                          <label for="load_type">Type <span style="color:red;">*</span></label>
+					                          <label for="load_type">Type <span class="required">*</span></label>
 					                          <select id="load_type" class="form-control select2">
-				                                <option value="KW">KW</option>
+					                              <option value=" "> Select Requested Load Type</option>
+				                                 <option value="KW">KW</option>
                                 					<option value="HP">HP</option>                             
 				                             </select>                                    	                          
 					                      </div>	                      
@@ -416,15 +443,16 @@
                                 <div class="col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-success">
-                                            <label >Contract Demand <span style="color:red;">*</span> :</label>
-                                            <input type="text" class="form-control" >
+                                            <label >Contract Demand <span class="required">*</span> :</label>
+                                            <input type="text" class="form-control" id="contract_demand">
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
 					                      <div class="form-group form-md-line-input has-success" >
-					                          <label for="contract_demand_type">Type <span style="color:red;">*</span></label>
+					                          <label >Type <span class="required">*</span></label>
 					                          <select id="contract_demand_type" class="form-control select2">
+					                             <option value=" "> Select Contract Demand Type</option>
 				                                <option value="KWA">KWA</option>
 				                             </select>                                    	                          
 					                      </div>	                      
@@ -436,7 +464,7 @@
 							<hr style="border-top: dotted 1px;" />                    		
            		 </div>   
 					 <div class="col-md-12">
-                    <label class="bold">Documents List <span style="color:red;">*</span> : </label>                    
+                    <label class="bold">Documents List <span style="color:red">*</span> : </label>                    
                     <div class="row">                     
                       <div class="col-md-12">
 								<div class="col-md-1">
@@ -482,10 +510,10 @@
               
                 <br>
                 <div class="col-md-12" style="text-align: right;">
-                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" >
+                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" id="save-consumer">
                                             Submit
                                         </button>
-                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" id="save-consumer">
+                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" >
                                             Submit & Print
                                         </button>
                 </div>    
@@ -673,9 +701,99 @@
     $("#nsc_span").addClass("open");
 
 
+function validateData(){
+
+	if(CheckConsumerCategory("#consumer_category")&CheckConsumerService("#consumer_service")&CheckSupplyType("#consumer_supply_type")&CheckConsumerSubCategory("#consumer_subcategory")&checkName("#applicant_name")&CheckAadharNo("#applicant_aadhar_no")){
+		return true;	
+	}
+	return false;
+}
+
+
+function CheckConsumerCategory(consumer_category){
+	if($(consumer_category).val()!=' ' && $(consumer_category).val()!=null)
+   {
+    $(consumer_category).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+    $(consumer_category).parent().children('.error').css("display", "block");
+    $(consumer_category).parent().children('.error').text("Please select a Consumer Category");
+   return false; 
+   }
+}
+function CheckConsumerService(consumer_service){
+	if($(consumer_service).val()!=' ' && $(consumer_service).val()!=null)
+   {
+    $(consumer_service).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+    $(consumer_service).parent().children('.error').css("display", "block");
+    $(consumer_service).parent().children('.error').text("Please select a Service Requested");
+   return false; 
+   }
+}
+function CheckSupplyType(consumer_supply_type){
+	if($(consumer_supply_type).val()!=' ' && $(consumer_supply_type).val()!=null)
+   {
+    $(consumer_supply_type).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+    $(consumer_supply_type).parent().children('.error').css("display", "block");
+    $(consumer_supply_type).parent().children('.error').text("Please select a Supply Type");
+   return false; 
+   }
+}
+function CheckConsumerSubCategory(consumer_subcategory){
+	if($(consumer_subcategory).val()!=' ' && $(consumer_subcategory).val()!=null)
+   {
+    $(consumer_subcategory).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+    $(consumer_subcategory).parent().children('.error').css("display", "block");
+    $(consumer_subcategory).parent().children('.error').text("Please select a Consumer Subcategory");
+   return false; 
+   }
+}
+function checkName(applicant_name){
+ 	var namePattern = /[A-Za-z]+/;  
+	applicant_name = $(applicant_name).val()  
+   if(namePattern.test(applicant_name)){
+
+ 	$(applicant_name).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+
+    $(applicant_name).parent().children('.error').css("display", "block");
+    $(applicant_name).parent().children('.error').text("Please enter valid Applicant Name");
+   return false; 
+   }
+}
+function CheckAadharNo() {
+
+	if($(applicant_aadhar_no).val()!=' ' && $(applicant_aadhar_no).val()!=null)
+   {
+    $(applicant_aadhar_no).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+    $(consumer_subcategory).parent().children('.error').css("display", "block");
+    $(consumer_subcategory).parent().children('.error').text("Please select a Consumer Subcategory");
+   return false; 
+   }
+   
+	 if ($('#applicant_aadhar_no:selected').text() == "Adhaar Card") { // Adhaar Card
+		$("#applicant_aadhar_no").attr("placeholder","ex: 999999999999");
+		$("#applicant_aadhar_no").mask("999999999999");
+
+	 }  
+}
+ 
+ 
+
  // Save edited consumer on edit button click 
 $("#save-consumer").click(function(event)  {
-
+	if (validateData()) {
+		
+	
 	event.preventDefault();  
 													
 	   var formData= new FormData();
@@ -712,22 +830,24 @@ $("#save-consumer").click(function(event)  {
 		formData.append("bill_existing_consumer_no",$('#bill_existing_consumer_no').val());
 		formData.append("premises_type",$('#premises_type').val());
 		formData.append("bill_other_data",$('#bill_other_data').val()); 
+		formData.append("requested_load",$('#requested_load').val()); 
+		formData.append("load_type",$('#load_type').val()); 
+		formData.append("contract_demand",$('#contract_demand').val()); 
+		formData.append("contract_demand_type",$('#contract_demand_type').val()); 
 	
   			$.ajax({  				  
 				  type	: "POST",
-				   url : '/consumerapp/save-consumer-profile/',
+				   url : '/nscapp/save-new-consumer/',
  					data : formData,
 					cache: false,
 		         processData: false,
 		    		contentType: false,                       
               success: function (response) {   
 	              if(response.success=='true'){
-	           	  		$("#edituser_model").modal('hide');
-	           	  		location.reload();
+	              alert('tru')
 	              	}
 	      			if (response.success == "false") {
-							$("#edituser_model").modal('hide');     
-							location.reload()            
+	      			alert('fa')
 	       			}							                        		                      		                       		
                },
                	beforeSend: function () {
@@ -739,7 +859,8 @@ $("#save-consumer").click(function(event)  {
                error : function(response){
                   	alert("_Error");
             	}              
-           });            
+           });           
+  } 
 });
     
 </script>
