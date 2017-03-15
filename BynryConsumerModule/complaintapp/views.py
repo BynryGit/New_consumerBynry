@@ -81,7 +81,7 @@ def get_complaint_data(request):
         # filter complaint data by date range
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
-            end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
+            end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y').replace(hour=23, minute=59, second=59)
             complaint_obj = complaint_obj.filter(complaint_date__range=[start_date, end_date])
 
         # complaint data result

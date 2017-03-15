@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^$', views.new_connection_list,name='new_connection'),    
     url(r'^add-new-consumer/', views.add_new_consumer,name='add_new_consumer'),        
     url(r'^review-consumer-form/', views.review_consumer_form,name='review_consumer_form'),
+    url(r'^get-nsc-data/', views.get_nsc_data,name='get_nsc_data'),
 ]

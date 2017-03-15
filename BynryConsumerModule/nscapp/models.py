@@ -63,6 +63,11 @@ OCCUPATION = (
     ('PROFESSION/BUSINESS', 'PROFESSION/BUSINESS'),
     ('OTHERS', 'OTHERS'),
 )
+NSC_STATUS = (
+    #('WIP', 'WIP'),
+    ('Closed', 'Closed'),
+    ('Open', 'Open'),
+)
 class NewConsumerRequest(models.Model):
     applicant_name = models.CharField(max_length=200, blank=False, null=True)
     aadhar_no = models.CharField(max_length=20, blank=False, null=True)
@@ -71,7 +76,7 @@ class NewConsumerRequest(models.Model):
     consumer_category = models.CharField(max_length=200, choices=CONSUMER_CATEGORY, default='1-LT-SUPPLY')
     service_requested = models.CharField(max_length=200, choices=SERVICE_REQUESTED,
                                          default='001-New-Connection (Permanent)')
-    supply_yype = models.CharField(max_length=200, choices=SUPPLY_TYPE, default='SINGLE-SINGLE-PHASE')
+    supply_type = models.CharField(max_length=200, choices=SUPPLY_TYPE, default='SINGLE-SINGLE-PHASE')
     consumer_subcategory = models.CharField(max_length=200, choices=CONSUMER_SUBCATEGORY, default='30-PWW')
     registration_no = models.CharField(max_length=100, blank=True, null=True)
     date_of_registration = models.DateTimeField(blank=True, null=True)
@@ -102,6 +107,8 @@ class NewConsumerRequest(models.Model):
     requested_load_type = models.CharField(max_length=200, choices=REQUESTED_LOAD_TYPE, default='1-LT-SUPPLY')
     contarct_demand = models.CharField(max_length=100, blank=True, null=True)
     contarct_demand_type = models.CharField(max_length=200, choices=CONTRACT_DEMAND_TYPE, default='1-LT-SUPPLY')
+    status = models.CharField(max_length=200, choices=NSC_STATUS, default='Open')
+    closed_date = models.DateTimeField(blank=True, null=True)
     is_new = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
