@@ -101,26 +101,32 @@
                     <div class="portlet-title">
                     <div id="filter_div">
                     		<div class="row">
-	                        <div class="col-md-2">
-	                            <label for="select2-single-input-sm" class="control-label">Zone :</label>
-	                            <select id="filter_zone" class="form-control input-sm select2-multiple select2" onchange="get_bill_cycle();">
+                    			<div class="col-md-3">
+	                            <label for="select2-single-input-sm" class="control-label">Branch :</label>
+	                            <select id="filter_branch" class="form-control input-sm select2-multiple select2" onchange="get_zone();">
 	                                <option value="all">All</option>
-	                                {% for z in zone %}		                                		
-	                            	  		<option value="{{z.id}}">{{z}}</option>	
+	                                {% for branch in branch_list %}		                                		
+	                            	  		<option value="{{branch.id}}">{{branch}}</option>	
 	                                {% endfor %}	
 	                            </select>
 	                        </div>
-	                        <div class="col-md-2">
-	                            <label for="select2-single-input-sm" class="control-label">Bill Cycle :</label>
-	                            <select id="filter_bill" class="form-control input-sm select2-multiple select2" onchange="get_route();">
-	                            	  <option value="all">All</option>	
-	                            	  <!-- {% for b in billcycle %}		                            	  		
-	                            	  		<option value="{{b}}">{{b}}</option>	
+	                        <div class="col-md-3">
+	                            <label for="select2-single-input-sm" class="control-label">Zone :</label>
+	                            <select id="filter_zone" class="form-control input-sm select2-multiple select2" onchange="get_bill_cycle();">
+	                                <option value="all">All</option>
+	                                <!-- {% for z in zone %}		                                		
+	                            	  		<option value="{{z.id}}">{{z}}</option>	
 	                                {% endfor %}	 -->
-	                                
 	                            </select>
 	                        </div>
-	                        <div class="col-md-2">
+	                        <div class="col-md-3">
+	                            <label for="select2-single-input-sm" class="control-label">Bill Cycle :</label>
+	                            <select id="filter_bill" class="form-control input-sm select2-multiple select2" onchange="get_route();">
+	                            	  <option value="all">All</option>		                            	  	                                
+	                            </select>
+	                        </div>
+	                        
+	                        <div class="col-md-3">
 	                            <label for="select2-single-input-sm" class="control-label">Route :</label>
 	                            <select id="filter_route" class="form-control input-sm select2-multiple select2">
 											   <option value="all">All</option>	 		                            	  
@@ -129,7 +135,10 @@
 	                                {% endfor %} -->
 	                            </select>
 	                        </div>  
-	                        <div class="col-md-2">
+	                        </div>
+	                        <br>
+	                        <div class="row">
+	                        <div class="col-md-3">
                                  <div class="form-group">
                                      <label class="control-label ">Payment Date Range</label>
                                      <div class="">
@@ -142,7 +151,7 @@
 			                            </div>
                                  </div>
                              </div>  
-                             <div class="col-md-4">
+                             <div class="col-md-9" style="text-align:right">
                                     <input type="button" onclick="search_consumer();"
                                            style="margin-left: 163px;margin-top: 27px;"
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
@@ -152,11 +161,12 @@
                                            class="btn btn-transparent dark btn-outline btn-circle btn-sm "
                                            value="Clear Filters">                                        
                                 </div>	                         	                        
+                                </div>	                         	                        
                     		</div>
                     		</div>
                         </div>
                     </div>
-                </div>
+
             <div class="portlet light bordered">
                 <div class="portlet-body">
                     <div class="tab-content">
@@ -675,7 +685,7 @@
             $('script[src="' + src + '"]').remove();
             $('<script>').attr('src', src).appendTo('head');
         }, 1000);
-    }
+    }       
 </script>
 </body>
 </html>

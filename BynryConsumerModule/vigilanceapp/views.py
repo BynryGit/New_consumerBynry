@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import *
 from BynryConsumerModuleapp.models import *
-from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
+from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Branch
 from consumerapp.models import ConsumerDetails
 import datetime
 
@@ -18,14 +18,15 @@ def vigilance(request):
         closed = VigilanceDetail.objects.filter(vigilance_status='Closed', is_deleted=False).count()
 
         vigilanceType = VigilanceType.objects.filter(is_deleted=False) # vigilance type
-        zone = Zone.objects.filter(is_deleted=False) # zone list
+        branch = Branch.objects.filter(is_deleted=False) # branch list
+        #zone = Zone.objects.filter(is_deleted=False) # zone list
 
         data = {
             'total': total,
             'open': open,
             'closed': closed,
             'vigilanceType': vigilanceType,
-            'zones': zone
+            'branch_list': branch
         }
     except Exception, e:
         print 'Exception|vigilanceapp|views.py|vigilance', e
