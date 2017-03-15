@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import *
@@ -6,7 +7,7 @@ from BynryConsumerModuleapp.models import *
 from consumerapp.models import ConsumerDetails
 from nscapp.models import *
 import datetime
-
+from consumerapp.views import get_city, get_pincode
 
 # Create your views here.
 def new_connection_list(request):
@@ -20,9 +21,12 @@ def new_connection_list(request):
 def add_new_consumer(request):
     try:
         print 'nscapp|views.py|add_new_consumer'
+        data = {'city_list': get_city(request),
+                'pincode_list': get_pincode(request)
+            }
     except Exception, e:
         print 'Exception|nscapp|views.py|add_new_consumer', e
-    return render(request, 'nsc_template/add_new_consumer.html')
+    return render(request, 'nsc_template/add_new_consumer.html',data)
 
 
 def get_nsc_data(request):
@@ -104,3 +108,80 @@ def review_consumer_form(request):
         print 'Exception|nscapp|views.py|review_consumer_form', e
         data = {}
     return render(request, 'nsc_template/review_consumer_form.html', data)
+
+
+#@csrf_exempt
+def save_new_consumer(request):
+    try:
+        print '/\n\n\n\n\n SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs'
+        print 'nscapp|views.py|save_new_consumer'
+        new_consumer_obj = NewConsumerRequest(
+            applicant_name=request.POST.get('applicant_name'),
+            aadhar_no=request.POST.get('applicant_aadhar_no'),
+            occupation=request.POST.get('applicant_occupation'),
+            other_occupation=request.POST.get('applicant_other_details'),
+            consumer_category=request.POST.get('consumer_category'),
+            service_requested=request.POST.get('consumer_service'),
+            supply_type=request.POST.get('consumer_supply_type'),
+            consumer_subcategory=request.POST.get('consumer_subcategory'),
+            registration_no=request.POST.get('consumer_reg_no'),
+            #date_of_registration=request.POST.get('consumer_reg_date'),
+            meter_building_name=request.POST.get('flat_no'),
+            meter_address_line_1=request.POST.get('address_line1'),
+            meter_address_line_2=request.POST.get('address_line2'),
+            meter_landmark=request.POST.get('landmark'),
+
+            meter_city = City.objects.get(
+                id=request.POST.get('city')) if request.POST.get(
+                'city') else None ,
+            meter_pin_code = Pincode.objects.get(
+                id=request.POST.get('pincode')) if request.POST.get(
+                'pincode') else None ,                
+
+
+            meter_email_id=request.POST.get('email'),
+            meter_mobile_no=request.POST.get('mobile'),
+            meter_phone_no=request.POST.get('phone_no'),
+            meter_nearest_consumer_no=request.POST.get('existing_consumer_no'),
+            #is_same_address=request.POST.get('user_role'),
+            billing_building_name=request.POST.get('bill_flat_no'),
+            billing_address_line_1=request.POST.get('bill_address_line1'),
+            billing_address_line_2=request.POST.get('bill_address_line2'),
+            billing_landmark=request.POST.get('bill_landmark'),
+
+            billing_city = City.objects.get(
+                id=request.POST.get('bill_city')) if request.POST.get(
+                'bill_city') else None ,
+            billing_pin_code = Pincode.objects.get(
+                id=request.POST.get('bill_pincode')) if request.POST.get(
+                'bill_pincode') else None , 
+
+            billing_email_id=request.POST.get('bill_email'),
+            billing_mobile_no=request.POST.get('bill_mobile'),
+            billing_phone_no=request.POST.get('bill_phone_no'),
+            billing_nearest_consumer_no=request.POST.get('bill_existing_consumer_no'),
+            type_of_premises=request.POST.get('premises_type'),
+            other_premises=request.POST.get('bill_other_data'),
+            requested_load=request.POST.get('requested_load'),
+            requested_load_type=request.POST.get('load_type'),
+            contarct_demand=request.POST.get('contract_demand'),
+            contarct_demand_type=request.POST.get('contract_demand_type'),
+            #created_on=datetime.now(),
+            #created_by=request.session['login_user'],
+
+        );
+        new_consumer_obj.save();
+        data = {
+            'success': 'true',
+            'message': 'Consumer created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_new_consumer', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    print '..aadarta',data
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+

@@ -4,7 +4,6 @@ from decimal import Decimal
 from datetime import date
 
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
-
 # Create your models here.
 
 CONSUMER_CATEGORY = (
@@ -37,8 +36,8 @@ CONSUMER_SUBCATEGORY = (
     ('165-Temp-Construction', '165-Temp-Construction'),
     ('166-Crematorium And Burial', '166-Crematorium And Burial'),
     ('167-Public Services', '167-Public Services'),
-    ('165-Temp-Construction', '207-LT IV A AG ZONE 1'),
-    ('165-Temp-Construction', '209-LT IV A AG ZONE 2'),
+    ('207-LT IV A AG ZONE 1', '207-LT IV A AG ZONE 1'),
+    ('209-LT IV A AG ZONE 2', '209-LT IV A AG ZONE 2'),
 
 )
 PREMISES_TYPE = (
