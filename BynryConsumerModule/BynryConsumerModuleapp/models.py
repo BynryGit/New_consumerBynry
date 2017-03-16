@@ -195,12 +195,12 @@ class UserRole(models.Model):
 
 class UserProfile(User):
     contact_no = models.CharField(max_length=15, blank=False, null=False)
-    address_line_1 = models.CharField(max_length=500, blank=True, null=False)
-    address_line_2 = models.CharField(max_length=500, blank=True, null=False)
+    address = models.CharField(max_length=500, blank=True, null=False)
     city = models.ForeignKey(City, blank=False, null=True)
     state = models.ForeignKey(State, blank=False, null=True)
     pincode = models.CharField(max_length=500, blank=True, null=False)
     role = models.ForeignKey(UserRole, blank=True, null=True)
+    branch = models.ForeignKey(Branch, blank=True, null=True)
     employee_id = models.CharField(max_length=100, blank=True, null=False)
     status = models.CharField(max_length=20, default='Active', choices=ROLE_STATUS)
     created_by = models.CharField(max_length=500, blank=False, null=False)

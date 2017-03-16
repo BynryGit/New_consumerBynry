@@ -33,6 +33,9 @@ def dashboard(request):
 def system_user(request):
     return render(request, 'system_user.html')
 
+def administrator(request):
+    return render(request, 'administrator.html')
+
 def complaints(request):
     return render(request, 'complaints.html')
 
