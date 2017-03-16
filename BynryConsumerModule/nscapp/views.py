@@ -115,9 +115,7 @@ def review_consumer_form(request):
 @csrf_exempt
 def save_new_consumer(request):
     try:
-        print '\n\n\n\n\n\n\n\n\''
         print 'nscapp|views.py|save_new_consumer'
-        print '2222222'
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),
             aadhar_no=request.POST.get('applicant_aadhar_no'),
@@ -183,7 +181,6 @@ def save_new_consumer(request):
             'success': 'false',
             'message': str(e)
         }
-    print '..aadarta',data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 

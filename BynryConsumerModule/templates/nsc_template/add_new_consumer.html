@@ -314,8 +314,15 @@
                     <label class="bold">Billing Details : </label>                    
                     <div class="row">
                       <div class="col-md-12">
-                     	<input type="checkbox" class="form-control" id="billing_address" onclick="make_same()">
-                     	<label>Click here if billing Address same as Meter Address</label>
+                     	<!-- <input type="checkbox" class="form-control" id="billing_address" onclick="make_same()">
+                     	<label>Click here if billing Address same as Meter Address</label> -->
+                     	<div class="md-checkbox">
+                           <input type="checkbox" value="billing_address" id="checkbox1_4" class="md-check" onclick="make_same()">
+                           <label for="checkbox1_4">
+                               <span></span>
+                               <span class="check"></span>
+                               <span class="box"></span> Click here if billing Address same as Meter Address </label>
+                        </div>
                       </div>
                       <div class="col-md-12">
 								<div class="col-md-3">
@@ -506,7 +513,7 @@
                       <div class="col-md-12">
                     		<div class="col-md-2">
 	                          <div class="md-checkbox">
-                                 <input type="checkbox" name="checkboxes1[]" value="2" id="checkbox1_2" class="md-check">
+                                 <input type="checkbox" value="aadharcard" value="2" id="checkbox1_2" class="md-check">
                                  <label for="checkbox1_2">
                                      <span></span>
                                      <span class="check"></span>
@@ -523,8 +530,8 @@
                       <div class="col-md-12">							
                     		<div class="col-md-2">
 	                          <div class="md-checkbox">
-                                 <input type="checkbox" name="checkboxes1[]" value="3" id="checkbox1_211" class="md-check">
-                                 <label for="checkbox1_211">
+                                 <input type="checkbox" value="passport" value="3" id="checkbox1_3" class="md-check">
+                                 <label for="checkbox1_3">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Passport </label>

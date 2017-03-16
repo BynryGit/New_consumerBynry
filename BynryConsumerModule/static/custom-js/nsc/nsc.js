@@ -2,7 +2,7 @@ $("#nsc_anchor").prepend('<span class="selected"></span>');
   $("#nsc_menu").addClass("active open");
   $("#nsc_span").addClass("open");
 function make_same() {
-   if (document.getElementById('billing_address').checked) {
+   if (document.getElementById('checkbox1_4').checked) {
    		$("#bill_flat_no").val($("#flat_no").val());
 			$("#bill_address_line1").val($("#address_line1").val());
 			$("#bill_address_line2").val($("#address_line2").val());
