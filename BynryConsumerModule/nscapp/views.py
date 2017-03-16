@@ -270,6 +270,7 @@ def save_new_consumer(request):
 @csrf_exempt
 def upload_consumer_docs(request):    
     try:
+        print 'nscapp|views.py|upload_consumer_docs'        
         if request.method == 'POST':
             attachment_file = ConsumerDocsImage()
             attachment_file.save()
@@ -281,11 +282,27 @@ def upload_consumer_docs(request):
         else:
             data = {'success': 'false'}
     except MySQLdb.OperationalError, e:
+        print 'Exception|nscapp|views.py|upload_consumer_docs', e
         data = {'success': 'invalid request'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def remove_consumer_docs(request):    
+    try:
+        print 'nscapp|views.py|remove_consumer_docs'        
+        image_id = request.GET.get('image_id')
+        image = ConsumerDocsImage.objects.get(id=image_id)
+        image.delete()
+
+        data = {'success': 'true'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|nscapp|views.py|remove_consumer_docs', e
+        data = {'success': 'false'}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 def save_attachments(attachment_list, consumer_id):
     try:
+        print 'nscapp|views.py|save_attachments'        
         attachment_list = attachment_list.split(',')
         attachment_list = filter(None, attachment_list)
         for attached_id in attachment_list:
@@ -295,5 +312,5 @@ def save_attachments(attachment_list, consumer_id):
 
         data = {'success': 'true'}
     except Exception, e:
-        print 'Exception ', e
+        print 'Exception|nscapp|views.py|save_attachments', e
     return HttpResponse(json.dumps(data), content_type='application/json')

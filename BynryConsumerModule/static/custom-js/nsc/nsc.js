@@ -656,10 +656,7 @@ $("#save-consumer").click(function(event)  {
                     temp_image_files.push(file);
                 });
 
-                this.on("success", function (files, response) {
-						  if (response.success == 'Expired') {		
-					  			location.href = '/backoffice/?status=Expired'
-					  		}                    
+                this.on("success", function (files, response) {               
                     $('#attachment').val($('#attachment').val()+","+response.attachid);
                     $('a .dz-remove').attr('href','/remove-advert-image/?image_id='+response.attachid);
                     reordered_array.push(response.attachid);
@@ -670,11 +667,8 @@ $("#save-consumer").click(function(event)  {
                 this.on("removedfile", function(file){
                     deleting_image_id = reordered_array[temp_image_files.indexOf(file)];
                     $.ajax({
-                        url: "/remove-advert-image/?image_id="+deleting_image_id,
-                        success: function(result){
-								  if (result.success == 'Expired') {		
-							  			location.href = '/backoffice/?status=Expired'
-							  		}                          
+                        url: "/nscapp/remove-consumer-docs/?image_id="+deleting_image_id,
+                        success: function(result){                        
                             arr = $('#attachment').val();
                             arr = arr.split(',');
                             console.log('Before Id Remove : '+ arr);
