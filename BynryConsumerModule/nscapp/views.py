@@ -83,7 +83,7 @@ def get_nsc_data(request):
                 'registration_date': nsc.date_of_registration.strftime('%d/%m/%Y'),
                 'status': nsc.status,
                 'closed_date': closed_date,
-                'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id='+str(nsc.id)+'"></a>&nbsp;' + '&nbsp;<a class="fa fa-print" title="Print"></a>'
+                'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id='+str(nsc.id)+'"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/" target="_blank" class="fa fa-print" title="Print"></a>'
             }
             nsc_list.append(nsc_data)
         print 'nscapp|views.py|get_nsc_data'
@@ -215,4 +215,21 @@ def save_new_consumer(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+from xhtml2pdf import pisa
+import cStringIO as StringIO
+from cgi import escape
+from django.template.loader import get_template
+from django.template import Context
+from django.http import HttpResponse
 
+def nsc_form(request):
+    data = {}
+    template = get_template('nsc_template/nsc_form.html')
+    html = template.render(Context(data))
+    result = StringIO.StringIO()
+
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), result)
+
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
