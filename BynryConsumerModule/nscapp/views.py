@@ -14,18 +14,26 @@ from nscapp.models import *
 # Create your views here.
 def new_connection_list(request):
     try:
+        data = {
+            'total': NewConsumerRequest.objects.all().count(),
+            'open': NewConsumerRequest.objects.filter(status='Open').count(),
+            'closed': NewConsumerRequest.objects.filter(status='Closed').count(),
+        }
         print 'nscapp|views.py|new_connection'
     except Exception, e:
+        data = {}
         print 'Exception|nscapp|views.py|new_connection', e
-    return render(request, 'nsc_template/new_connection_list.html')
+    return render(request, 'nsc_template/new_connection_list.html',data)
 
 
 def add_new_consumer(request):
     try:
         print 'nscapp|views.py|add_new_consumer'
-        data = {'city_list': get_city(request),
-                'pincode_list': get_pincode(request)
-            }
+        data = {
+
+            'city_list': get_city(request),
+            'pincode_list': get_pincode(request)
+        }
     except Exception, e:
         print 'Exception|nscapp|views.py|add_new_consumer', e
     return render(request, 'nsc_template/add_new_consumer.html',data)
@@ -35,6 +43,30 @@ def get_nsc_data(request):
     try:
         nsc_list = []
         nsc_obj = NewConsumerRequest.objects.all()
+
+        # filter complaint data by nsc category
+        if request.GET.get('consumer_category') and request.GET.get('consumer_category') != "All":
+            nsc_obj = nsc_obj.filter(consumer_category=request.GET.get('consumer_category'))
+
+        # filter complaint data by nsc sub category
+        if request.GET.get('consumer_sub_category') and request.GET.get('consumer_sub_category') != "All":
+            nsc_obj = nsc_obj.filter(consumer_subcategory=request.GET.get('consumer_sub_category'))
+
+        # filter complaint data by nsc supply type
+        if request.GET.get('supply_type') and request.GET.get('supply_type') != "All":
+            nsc_obj = nsc_obj.filter(supply_type=request.GET.get('supply_type'))
+
+        # filter complaint data by nsc status
+        if request.GET.get('nsc_status') and request.GET.get('nsc_status') != "All":
+            nsc_obj = nsc_obj.filter(status=request.GET.get('nsc_status'))
+
+        # filter complaint data by nsc registration date
+        if request.GET.get('start_date') and request.GET.get('end_date'):
+            start_date = datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
+            end_date = datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y').replace(hour=23, minute=59,
+                                                                                                   second=59)
+            nsc_obj = nsc_obj.filter(date_of_registration__range=[start_date, end_date])
+
         for nsc in nsc_obj:
             if nsc.closed_date:
                 closed_date = nsc.closed_date.strftime('%d/%m/%Y')
@@ -65,46 +97,46 @@ def get_nsc_data(request):
 def review_consumer_form(request):
     try:
         print 'nscapp|views.py|review_consumer_form'
+        nsc_id = request.GET.get('nsc_id')
+        nsc_obj = NewConsumerRequest.objects.get(id = nsc_id)
         data = {
-            'consumer_category': 'LT-Supply',
-            'service_requested': '001-New Connection',
-            'supply_type': 'Sigle Phase',
-            'consumer_sub_category': 'Residential',
-            'registration_number': 'NSC1025',
-            'registration_date': '12/03/2017',
-            'applicant_name': 'Steve Smith',
-            'aadhar_number': '4567820124',
-            'occupation': 'Self Employed',
-            'other_details': '',
-            'house_details': 'Flat 201, Primrose',
-            'address_line_1': 'Right Bhusari Colony',
-            'address_line_2': 'Kothrud',
-            'landmark': 'Oppo. Borse Hospital',
-            'city': 'Pune',
-            'pincode': '411038',
-            'email_id': 'steve.smith@gamil.com',
-            'mobile_no': '9567820124',
-            'phone_no': '',
-            'new_exst_cons_no': '',
-            'billing_house_details': 'Flat 201, Primrose',
-            'billing_address_line_1': 'Right Bhusari Colony',
-            'billing_address_line_2': 'Kothrud',
-            'billing_landmark': 'Oppo. Borse Hospital',
-            'billing_city': 'Pune',
-            'billing_pincode': '411038',
-            'billing_email_id': 'steve.smith@gamil.com',
-            'billing_mobile_no': '9567820124',
-            'billing_phone_no': '',
-            'billing_new_exst_cons_no': '',
-            'billing_premises': 'Supply',
-            'billing_other_details': '',
-            'requested_load': '440',
-            'requested_load_type': 'KW',
-            'contract_demand': '',
-            'contract_demand_type': '',
-            'pan_card': 'CTIPK0124K',
-            'aadhar_card': '4567820124',
-            'passport': ''
+            'consumer_category': nsc_obj.consumer_category,
+            'service_requested': nsc_obj.service_requested,
+            'supply_type': nsc_obj.supply_type,
+            'consumer_sub_category': nsc_obj.consumer_subcategory,
+            'registration_number': nsc_obj.registration_no,
+            'registration_date': nsc_obj.date_of_registration.strftime('%d/%m/%Y'),
+            'applicant_name': nsc_obj.applicant_name,
+            'aadhar_number': nsc_obj.aadhar_no,
+            'occupation': nsc_obj.occupation,
+            'other_details': nsc_obj.other_occupation,
+            'house_details': nsc_obj.meter_building_name,
+            'address_line_1': nsc_obj.meter_address_line_1,
+            'address_line_2': nsc_obj.meter_address_line_2,
+            'landmark': nsc_obj.meter_landmark,
+            'city': nsc_obj.meter_city,
+            'pincode': nsc_obj.meter_pin_code,
+            'email_id': nsc_obj.meter_email_id,
+            'mobile_no': nsc_obj.meter_mobile_no,
+            'phone_no': nsc_obj.meter_phone_no,
+            'new_exst_cons_no': nsc_obj.meter_nearest_consumer_no,
+            'is_same_address': nsc_obj.is_same_address,
+            'billing_house_details': nsc_obj.billing_building_name,
+            'billing_address_line_1': nsc_obj.billing_address_line_1,
+            'billing_address_line_2': nsc_obj.billing_address_line_2,
+            'billing_landmark': nsc_obj.billing_landmark,
+            'billing_city': nsc_obj.billing_city,
+            'billing_pincode': nsc_obj.billing_pin_code,
+            'billing_email_id': nsc_obj.billing_email_id,
+            'billing_mobile_no': nsc_obj.billing_mobile_no,
+            'billing_phone_no': nsc_obj.billing_phone_no,
+            'billing_new_exst_cons_no': nsc_obj.billing_nearest_consumer_no,
+            'billing_premises': nsc_obj.type_of_premises,
+            'billing_other_details': nsc_obj.other_premises,
+            'requested_load': nsc_obj.requested_load,
+            'requested_load_type': nsc_obj.requested_load_type,
+            'contract_demand': nsc_obj.contarct_demand,
+            'contract_demand_type': nsc_obj.contarct_demand_type,
         }
     except Exception, e:
         print 'Exception|nscapp|views.py|review_consumer_form', e
@@ -115,7 +147,52 @@ def review_consumer_form(request):
 @csrf_exempt
 def save_new_consumer(request):
     try:
-        print 'nscapp|views.py|save_new_consumer'
+        print 'nscapp|views.py|save_new_consumer'        
+        # Address Proof List
+        a1 = ''
+        if request.POST.get('checkbox1_1') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_1')
+        if request.POST.get('checkbox1_2') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_2')
+        if request.POST.get('checkbox1_3') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_3')
+        if request.POST.get('checkbox1_4') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_4')
+        if request.POST.get('checkbox1_5') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_5')
+        if request.POST.get('checkbox1_6') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_6')
+        if request.POST.get('checkbox1_7') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_7')
+        if request.POST.get('checkbox1_9') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_9')
+        if request.POST.get('checkbox1_10') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_10')
+        if request.POST.get('checkbox1_11') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_11')
+        # Identity Proof List
+        a2 = ''
+        if request.POST.get('checkbox1_12') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_12')
+        if request.POST.get('checkbox1_13') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_13')
+        if request.POST.get('checkbox1_14') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_14')
+        if request.POST.get('checkbox1_15') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_15')
+        if request.POST.get('checkbox1_16') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_16')
+        if request.POST.get('checkbox1_17') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_17')
+        if request.POST.get('checkbox1_18') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_18') 
+        if request.POST.get('checkbox1_19') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_19')
+        if request.POST.get('checkbox1_20') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_20')
+        if request.POST.get('checkbox1_21') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_21')                                                                                                                  
+
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),
             aadhar_no=request.POST.get('applicant_aadhar_no'),
@@ -167,10 +244,16 @@ def save_new_consumer(request):
             requested_load_type=request.POST.get('load_type'),
             contarct_demand=request.POST.get('contract_demand'),
             contarct_demand_type=request.POST.get('contract_demand_type'),
+            address_proof_list=a1,
+            identity_proof_list=a2,
             created_on=datetime.now(),
             #created_by=request.session['login_user'],
         );
         new_consumer_obj.save();
+
+        attachment_list = request.POST.get('attachments')
+        save_attachments(attachment_list, new_consumer_obj)
+
         data = {
             'success': 'true',
             'message': 'Consumer created successfully.'
@@ -184,3 +267,33 @@ def save_new_consumer(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
+@csrf_exempt
+def upload_consumer_docs(request):    
+    try:
+        if request.method == 'POST':
+            attachment_file = ConsumerDocsImage()
+            attachment_file.save()
+
+            request.FILES['file[]'].name = 'consumerDocsID_'+str(attachment_file.id)+'_'+request.FILES['file[]'].name
+            attachment_file.document_files=request.FILES['file[]']
+            attachment_file.save()
+            data = {'success': 'true', 'attachid': attachment_file.id}
+        else:
+            data = {'success': 'false'}
+    except MySQLdb.OperationalError, e:
+        data = {'success': 'invalid request'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def save_attachments(attachment_list, consumer_id):
+    try:
+        attachment_list = attachment_list.split(',')
+        attachment_list = filter(None, attachment_list)
+        for attached_id in attachment_list:
+            attachment_obj = ConsumerDocsImage.objects.get(id=attached_id)
+            attachment_obj.consumer_id = consumer_id
+            attachment_obj.save()
+
+        data = {'success': 'true'}
+    except Exception, e:
+        print 'Exception ', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
