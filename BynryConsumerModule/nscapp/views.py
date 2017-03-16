@@ -250,6 +250,10 @@ def save_new_consumer(request):
             #created_by=request.session['login_user'],
         );
         new_consumer_obj.save();
+
+        attachment_list = request.POST.get('attachments')
+        save_attachments(attachment_list, new_consumer_obj)
+
         data = {
             'success': 'true',
             'message': 'Consumer created successfully.'
@@ -263,3 +267,33 @@ def save_new_consumer(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
+@csrf_exempt
+def upload_consumer_docs(request):    
+    try:
+        if request.method == 'POST':
+            attachment_file = ConsumerDocsImage()
+            attachment_file.save()
+
+            request.FILES['file[]'].name = 'consumerDocsID_'+str(attachment_file.id)+'_'+request.FILES['file[]'].name
+            attachment_file.document_files=request.FILES['file[]']
+            attachment_file.save()
+            data = {'success': 'true', 'attachid': attachment_file.id}
+        else:
+            data = {'success': 'false'}
+    except MySQLdb.OperationalError, e:
+        data = {'success': 'invalid request'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def save_attachments(attachment_list, consumer_id):
+    try:
+        attachment_list = attachment_list.split(',')
+        attachment_list = filter(None, attachment_list)
+        for attached_id in attachment_list:
+            attachment_obj = ConsumerDocsImage.objects.get(id=attached_id)
+            attachment_obj.consumer_id = consumer_id
+            attachment_obj.save()
+
+        data = {'success': 'true'}
+    except Exception, e:
+        print 'Exception ', e
+    return HttpResponse(json.dumps(data), content_type='application/json')

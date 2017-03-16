@@ -600,3 +600,127 @@ $("#save-consumer").click(function(event)  {
            });           
   } 
 });
+
+////////////////////////////////// NEW DROPZONE ///////////////////////////
+        var uploaded_file_mb = 0;
+        var uploaded_file1_mb = 0;
+        var uploaded_file2_mb = 0;
+        Dropzone.options.myAwesomeDropzone3 = {
+            autoProcessQueue: true,
+            uploadMultiple: true,
+            paramName: "file",
+            //maxFiles: 10,
+            //maxFilesize: 2,
+            method: 'post',
+            parallelUploads: 1,
+            url: '/nscapp/upload-consumer-docs/',
+            dictDefaultMessage: "Drop or Browse up to 10 images (1MB or higher in size)",
+            addRemoveLinks: true,
+            acceptedFiles: "",
+            dictInvalidFileType: 'This file type is not supported.',
+            dictMaxFilesExceeded: "You can not upload more than 10 images.",
+
+            init: function () {
+                var myDropzone = this;
+                var reordered_array = new Array();
+                var temp_image_files = new Array();
+                this.on("sending", function () {
+                    return false;
+                });
+
+                /*this.on("totaluploadprogress", function (file,progress,bytesSent) {
+                    uploaded_file1_mb = parseInt(bytesSent)/(1024*1024);
+                    uploaded_file_mb = parseFloat(uploaded_file1_mb) + parseFloat(uploaded_file2_mb)+ parseFloat(display_image_size);;
+                    $("#progress_bar").val(parseFloat(uploaded_file_mb));
+                    if(uploaded_file_mb > 100){
+                        $("#error-modal1").modal('show');
+                        $("#error-message1").text("Uploaded file size exceeds limit of 100 MB");
+                    }
+                    progrss_count = parseFloat(uploaded_file_mb).toFixed(2) + "/100 MB"
+                    $(".progress_count").text(progrss_count);
+                    var alreadyUploadedTotalSize = getTotalPreviousUploadedFilesSize(bytesSent);
+                });*/
+
+
+                this.on("addedfile", function(file, response){
+                    $(".txt_dropzone3").text("");
+                    if (this.files.length) {
+                        var i, len, pre;
+                        for (i = 0, len = this.files.length; i < len - 1; i++){
+                            if (this.files[i].name == file.name && this.files[i].size == file.size && this.files[i].lastModifiedDate.toString() == file.lastModifiedDate.toString()) {
+                                this.removeFile(file);
+                                //return (pre = file.previewElement) != null ? pre.parentNode.removeChild(file.previewElement) : void 0;
+                            }
+                        }
+                    }
+                    temp_image_files.push(file);
+                });
+
+                this.on("success", function (files, response) {
+						  if (response.success == 'Expired') {		
+					  			location.href = '/backoffice/?status=Expired'
+					  		}                    
+                    $('#attachment').val($('#attachment').val()+","+response.attachid);
+                    $('a .dz-remove').attr('href','/remove-advert-image/?image_id='+response.attachid);
+                    reordered_array.push(response.attachid);
+                    $('#attachment').val(reordered_array);
+                    $('#attachments').val(reordered_array);
+                });
+
+                this.on("removedfile", function(file){
+                    deleting_image_id = reordered_array[temp_image_files.indexOf(file)];
+                    $.ajax({
+                        url: "/remove-advert-image/?image_id="+deleting_image_id,
+                        success: function(result){
+								  if (result.success == 'Expired') {		
+							  			location.href = '/backoffice/?status=Expired'
+							  		}                          
+                            arr = $('#attachment').val();
+                            arr = arr.split(',');
+                            console.log('Before Id Remove : '+ arr);
+                            arr = jQuery.grep(arr, function(value) {
+                                return value != deleting_image_id;
+                            });
+                            console.log('After Id Remove : '+ arr);
+                            $('#attachment').val(arr);
+                        }
+                    });
+                    arr =$('#attachments').val();
+                    arr = arr.split(',');
+                    arr = jQuery.grep(arr, function(value) {
+                        return value != deleting_image_id;
+                    });
+
+                    $('#attachments').val(arr);
+                    var index=myDropzone.files.length;
+                    var temp_image_id = reordered_array[temp_image_files.indexOf(file)];
+
+                    reordered_array = jQuery.grep(reordered_array, function(value) {
+                        return value != temp_image_id;
+                    });
+
+                    temp_image_files = jQuery.grep(temp_image_files, function(value) {
+                        return value != file;
+                    });
+                    $('#attachments').val(reordered_array);
+                    if (myDropzone.files.length == 0){
+                        $(".txt_dropzone3").text("Click or drag and drop to upload images");
+                    }
+                });
+
+                this.on("maxfilesexceeded", function (file) {
+                    this.removeFiles(file);
+                    $('#lbl_upl').css ("color", "red");
+                });
+
+                function getTotalPreviousUploadedFilesSize(bytesSent){
+                    var totalSize = 0;
+                    var image_space =bytesSent;
+                    $("#image_space").val(image_space);
+                }
+            }
+        }
+        
+        
+       
+
