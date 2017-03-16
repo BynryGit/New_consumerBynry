@@ -621,10 +621,10 @@ $("#save-consumer").click(function(event)  {
 		    		contentType: false,                       
               success: function (response) {   
 	              if(response.success=='true'){
-
+							$("#success_modal").modal('show');
 	              	}
 	      			if (response.success == "false") {
-
+							$("#error-modal").modal('show');
 	       			}							                        		                      		                       		
                },
                	beforeSend: function () {

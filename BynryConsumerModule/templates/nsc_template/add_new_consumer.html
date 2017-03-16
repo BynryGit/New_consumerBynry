@@ -565,125 +565,38 @@
 <!-- END CONTAINER -->
 
 <!--  Models Start -->
-<div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Complaint Details</h4></div>
-            <div class="modal-body">
-                <div class="scroller" style="height:400px;" data-always-visible="1" data-rail-visible1="1">
-                    <div class="col-md-12">
-                        <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group form-md-line-input has-info">
-                                    <input type="text" class="form-control" readonly="" id="complaint_id">
-                                    <label for="complaint_id">Complaint Id</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-md-line-input has-info">
-                                    <input type="text" class="form-control" readonly="" id="complaint_type">
-                                    <label for="complaint_type">Complaint Type</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-md-line-input has-info">
-                                    <input type="text" class="form-control" readonly="" id="complaint_status">
-                                    <label for="complaint_status">Status</label>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6" style="">
-                                <img id="complaint_image" src="{% static 'assets/placeholder.png' %}" style="width:100%; max-height:244px">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group form-md-line-input has-info ">
-                                    <textarea class="form-control" id="complaint_remark" readonly rows="11"></textarea>
-                                    <label >Complaint</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--  Models End -->
+
 <!--  Models Start -->
-<div id="consumer_details" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Consumer Details</h4></div>
-            <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="bill_cycle">
-                                <label for="bill_cycle">Bill Cycle Code</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="route_code">
-                                <label for="route_code">Route Code</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_zone">
-                                <label for="consumer_zone">Zone</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_city">
-                                <label for="consumer_city">City</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_no">
-                                <label for="consumer_no">Consumer No</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_name">
-                                <label for="consumer_name">Consumer Name</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="consumer_address" ></textarea>
-                                <label >Address</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-            </div>
-        </div>
+    <div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+       <div class="modal-dialog" style="width:35%;">
+           <div class="modal-content">                                                          
+               <div class="modal-body">
+                   <form action="index.html" class="form-horizontal form-row-seperated">
+                        <div class="form-body">
+                        <h4 class="text-center">Consumer added successfully</h4>
+                     </div>
+                     <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/nscapp/"><button type="button"  class="btn green">OK</button></a>
+                     </div>
+              </div>
+           </div>
+      </div>
     </div>
-</div>
+    <div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
+             <div class="modal-dialog">
+                 <div class="modal-content">                                                               
+                     <div class="modal-body">
+                         <form action="index.html" class="form-horizontal form-row-seperated">
+             <div class="form-body">
+                 <h4 class="text-center">User already exists</h4>
+                     </div>
+                     <div style="text-align:center !important;" class="modal-footer">
+                       <button type="button" class="btn green" data-dismiss="modal">OK</button>                         
+                     </div>
+                 </div>
+             </div>
+            </div>
+        </div>    
 <!--  Models End -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
