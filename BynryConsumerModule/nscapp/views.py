@@ -115,7 +115,52 @@ def review_consumer_form(request):
 @csrf_exempt
 def save_new_consumer(request):
     try:
-        print 'nscapp|views.py|save_new_consumer'
+        print 'nscapp|views.py|save_new_consumer'        
+        # Address Proof List
+        a1 = ''
+        if request.POST.get('checkbox1_1') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_1')
+        if request.POST.get('checkbox1_2') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_2')
+        if request.POST.get('checkbox1_3') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_3')
+        if request.POST.get('checkbox1_4') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_4')
+        if request.POST.get('checkbox1_5') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_5')
+        if request.POST.get('checkbox1_6') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_6')
+        if request.POST.get('checkbox1_7') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_7')
+        if request.POST.get('checkbox1_9') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_9')
+        if request.POST.get('checkbox1_10') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_10')
+        if request.POST.get('checkbox1_11') != None:
+            a1 = a1 + ',' +request.POST.get('checkbox1_11')
+        # Identity Proof List
+        a2 = ''
+        if request.POST.get('checkbox1_12') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_12')
+        if request.POST.get('checkbox1_13') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_13')
+        if request.POST.get('checkbox1_14') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_14')
+        if request.POST.get('checkbox1_15') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_15')
+        if request.POST.get('checkbox1_16') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_16')
+        if request.POST.get('checkbox1_17') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_17')
+        if request.POST.get('checkbox1_18') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_18') 
+        if request.POST.get('checkbox1_19') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_19')
+        if request.POST.get('checkbox1_20') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_20')
+        if request.POST.get('checkbox1_21') != None:
+            a2 = a2 + ',' +request.POST.get('checkbox1_21')                                                                                                                  
+
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),
             aadhar_no=request.POST.get('applicant_aadhar_no'),
@@ -167,6 +212,8 @@ def save_new_consumer(request):
             requested_load_type=request.POST.get('load_type'),
             contarct_demand=request.POST.get('contract_demand'),
             contarct_demand_type=request.POST.get('contract_demand_type'),
+            address_proof_list=a1,
+            identity_proof_list=a2,
             created_on=datetime.now(),
             #created_by=request.session['login_user'],
         );
