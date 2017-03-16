@@ -185,7 +185,7 @@
                     <div class="row">                       	                                                                     
                         <div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="applicant_name">Applicant/ Company Name <span class="required">*</span> :</label>
+	                      	  <label for="applicant_name">Applicant/ Company Name <span class="required">*</span></label>
 	                          <input type="text" class="form-control" id="applicant_name">           
 	                          <label id="applicant_name_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                        	                          
 	                      </div>	                      
@@ -226,21 +226,21 @@
                       <div class="col-md-12">
 								<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="flat_no"> Flat No / House No / Building Name <span class="required">*</span> : </label>
+	                      	  <label for="flat_no"> Flat No / House No / Building Name <span class="required">*</span> </label>
 	                          <input type="text" class="form-control" id="flat_no" onblur="make_same()">  
 									  <label id="flat_no_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                                 	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="address_line1">Address Line1 <span class="required">*</span> : </label>
+	                          <label for="address_line1">Address Line1 <span class="required">*</span> </label>
 	                          <input type="text" class="form-control" id="address_line1" onblur="make_same()">  
 	                          <label id="address_line1_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                                 	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="address_line2">Address Line2 : </label>
+	                          <label for="address_line2">Address Line2 </label>
 	                          <input type="text" class="form-control" id="address_line2" onblur="make_same()">  
 	                          <label id="address_line2_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                                 	                          
 	                      </div>	                      
@@ -320,21 +320,21 @@
                       <div class="col-md-12">
 								<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                      	  <label for="bill_flat_no"> Flat No / House No / Building Name <span class="required">*</span> : </label>
+	                      	  <label for="bill_flat_no"> Flat No / House No / Building Name <span class="required">*</span>  </label>
 	                          <input type="text" class="form-control" id="bill_flat_no">   
 	                          <label id="bill_flat_no_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                                	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_address_line1">Address Line1 <span class="required">*</span> : </label>
+	                          <label for="bill_address_line1">Address Line1 <span class="required">*</span>  </label>
 	                          <input type="text" class="form-control" id="bill_address_line1">  
 	                          <label id="bill_address_line1_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                                 	                          
 	                      </div>	                      
                     		</div>
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
-	                          <label for="bill_address_line2">Address Line2 : </label>
+	                          <label for="bill_address_line2">Address Line2  </label>
 	                          <input type="text" class="form-control" id="bill_address_line2">             
 	                          <label id="bill_address_line2_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                      	                          
 	                      </div>	                      
@@ -487,11 +487,14 @@
                     <label class="bold">Documents List <span style="color:red">*</span> : </label>                    
                     <div class="row">                     
                       <div class="col-md-12">
-								<div class="col-md-1">
-	                          <label >Pan Card</label>                                  	                          
-                    		</div> 
-                    		<div class="col-md-1">
-	                          <input type="checkbox" class="form-control" id="pancard">                                  	                          
+                    		<div class="col-md-2">
+	                          <div class="md-checkbox">
+                                 <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_1" class="md-check">
+                                 <label for="checkbox1_1">
+                                     <span></span>
+                                     <span class="check"></span>
+                                     <span class="box"></span> Pan Card </label>
+                             </div>                                	                          
                     		</div>   	
                     		<div class="col-md-3">
 	                          <input type="file" class="form-control" id="applicant_doc">                                   	                          
@@ -501,11 +504,14 @@
                      <br>
                      <div class="row">  
                       <div class="col-md-12">
-								<div class="col-md-1">
-	                          <label>Aadhar Card</label>                                  	                          
-                    		</div> 
-                    		<div class="col-md-1">
-	                          <input type="checkbox" class="form-control" id="aadhar_card" >                                  	                          
+                    		<div class="col-md-2">
+	                          <div class="md-checkbox">
+                                 <input type="checkbox" name="checkboxes1[]" value="2" id="checkbox1_2" class="md-check">
+                                 <label for="checkbox1_2">
+                                     <span></span>
+                                     <span class="check"></span>
+                                     <span class="box"></span> Aadhar Card </label>
+                             </div>                                	                          
                     		</div>   		
                     		<div class="col-md-3">
 	                          <input type="file" class="form-control" id="applicant_doc">                                   	                          
@@ -514,12 +520,15 @@
                      </div>
                      <br>
                      <div class="row">  
-                      <div class="col-md-12">
-								<div class="col-md-1">
-									  <label>Passport</label>	                                                            	                          
-                    		</div> 
-                    		<div class="col-md-1">
-	                          <input type="checkbox" class="form-control" id="passport">                                  	                          
+                      <div class="col-md-12">							
+                    		<div class="col-md-2">
+	                          <div class="md-checkbox">
+                                 <input type="checkbox" name="checkboxes1[]" value="3" id="checkbox1_211" class="md-check">
+                                 <label for="checkbox1_211">
+                                     <span></span>
+                                     <span class="check"></span>
+                                     <span class="box"></span> Passport </label>
+                             </div>                                	                          
                     		</div>
                     		<div class="col-md-3">
 	                          <input type="file" class="form-control" id="applicant_doc">                                   	                          

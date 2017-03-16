@@ -112,10 +112,12 @@ def review_consumer_form(request):
     return render(request, 'nsc_template/review_consumer_form.html', data)
 
 
-#@csrf_exempt
+@csrf_exempt
 def save_new_consumer(request):
     try:
+        print '\n\n\n\n\n\n\n\n\''
         print 'nscapp|views.py|save_new_consumer'
+        print '2222222'
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),
             aadhar_no=request.POST.get('applicant_aadhar_no'),
