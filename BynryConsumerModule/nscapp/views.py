@@ -1,13 +1,15 @@
 from django.shortcuts import render
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+import json
+from consumerapp.views import get_city, get_pincode
+from nscapp.models import NewConsumerRequest
+from BynryConsumerModuleapp.models import *
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
-from .models import *
-from BynryConsumerModuleapp.models import *
 from consumerapp.models import ConsumerDetails
 from nscapp.models import *
-import datetime
-from consumerapp.views import get_city, get_pincode
 
 # Create your views here.
 def new_connection_list(request):
@@ -110,10 +112,9 @@ def review_consumer_form(request):
     return render(request, 'nsc_template/review_consumer_form.html', data)
 
 
-#@csrf_exempt
+@csrf_exempt
 def save_new_consumer(request):
     try:
-        print '/\n\n\n\n\n SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs'
         print 'nscapp|views.py|save_new_consumer'
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),
@@ -124,8 +125,8 @@ def save_new_consumer(request):
             service_requested=request.POST.get('consumer_service'),
             supply_type=request.POST.get('consumer_supply_type'),
             consumer_subcategory=request.POST.get('consumer_subcategory'),
-            registration_no=request.POST.get('consumer_reg_no'),
-            #date_of_registration=request.POST.get('consumer_reg_date'),
+            registration_no='111',  # Need to change logic
+            date_of_registration=datetime.now(),
             meter_building_name=request.POST.get('flat_no'),
             meter_address_line_1=request.POST.get('address_line1'),
             meter_address_line_2=request.POST.get('address_line2'),
@@ -166,9 +167,8 @@ def save_new_consumer(request):
             requested_load_type=request.POST.get('load_type'),
             contarct_demand=request.POST.get('contract_demand'),
             contarct_demand_type=request.POST.get('contract_demand_type'),
-            #created_on=datetime.now(),
+            created_on=datetime.now(),
             #created_by=request.session['login_user'],
-
         );
         new_consumer_obj.save();
         data = {
@@ -181,7 +181,6 @@ def save_new_consumer(request):
             'success': 'false',
             'message': str(e)
         }
-    print '..aadarta',data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
