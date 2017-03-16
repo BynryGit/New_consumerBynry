@@ -8,6 +8,7 @@
         service_type = $("#select_service_type").val();
         service_status = $("#select_service_status").val();
         service_source = $("#select_service_source").val();
+        branch = $("#select_branch").val();
         zone = $("#select_zone").val();
         bill_cycle = $("#select_bill_cycle").val();
         route = $("#select_route").val();
@@ -45,7 +46,7 @@
                 headerOffset: fixedHeaderOffset
             },
 
-				"ajax": "/serviceapp/get-service-data/?service_type="+service_type+"&service_status="+service_status+"&service_source="+service_source+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
+				"ajax": "/serviceapp/get-service-data/?service_type="+service_type+"&service_status="+service_status+"&service_source="+service_source+"&branch="+branch+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
             "columns": [
                 {"data": "service_no"},
                 {"data": "service_type"},

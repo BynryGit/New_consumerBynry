@@ -9,6 +9,7 @@ var initTable1 = function () {
     vigilance_type = $("#select_vigilance_type").val();
     vigilance_status = $("#select_vigilance_status").val();
     vigilance_source = $("#select_vigilance_source").val();
+    branch = $("#select_branch").val();
     zone = $("#select_zone").val();
     bill_cycle = $("#select_bill_cycle").val();
     route = $("#select_route").val();
@@ -45,7 +46,7 @@ var initTable1 = function () {
             headerOffset: fixedHeaderOffset
         },
 
-        "ajax": "/vigilanceapp/get-vigilance-data/?vigilance_type="+vigilance_type+"&vigilance_status="+vigilance_status+"&vigilance_source="+vigilance_source+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
+        "ajax": "/vigilanceapp/get-vigilance-data/?vigilance_type="+vigilance_type+"&vigilance_status="+vigilance_status+"&vigilance_source="+vigilance_source+"&branch="+branch+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
         "columns": [
             {"data": "case_id"},
             {"data": "vigilance_type"},

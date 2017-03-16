@@ -29,6 +29,7 @@ from django.conf.urls.static import static
 urlpatterns = patterns('',       
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', 'views.dashboard',name='dashboard'),
+    url(r'^system-user/', 'views.system_user',name='system-user'),
     url(r'^serviceapp/', include(service_urls)),
     url(r'^paymentapp/', include(urls)),
     url(r'^consumerapp/', include(consumer_urls)),

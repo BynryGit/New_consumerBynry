@@ -63,6 +63,11 @@ def get_complaint_data(request):
         if request.GET.get('consumer_id'):
             complaint_obj = complaint_obj.filter(consumer_id=request.GET.get('consumer_id'))
         else:
+            # filter complaint data by branch
+            if request.GET.get('branch') and request.GET.get('branch') != "all":
+                # filter consumer by branch
+                consumer = ConsumerDetails.objects.filter(branch=request.GET.get('branch'))
+                complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
             # filter complaint data by zone
             if request.GET.get('zone') and request.GET.get('zone') != "all":
                 # filter consumer by zone

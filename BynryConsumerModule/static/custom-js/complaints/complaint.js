@@ -8,6 +8,7 @@ var initTable1 = function () {
     complaint_type = $("#select_complaint_type").val();
     complaint_status = $("#select_complaint_status").val();
     complaint_source = $("#select_complaint_source").val();
+    branch = $("#select_branch").val();
     zone = $("#select_zone").val();
     bill_cycle = $("#select_bill_cycle").val();
     route = $("#select_route").val();
@@ -44,7 +45,7 @@ var initTable1 = function () {
             headerOffset: fixedHeaderOffset
         },
 
-        "ajax": "/complaintapp/get-complaint-data/?complaint_type="+complaint_type+"&complaint_status="+complaint_status+"&complaint_source="+complaint_source+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
+        "ajax": "/complaintapp/get-complaint-data/?complaint_type="+complaint_type+"&complaint_status="+complaint_status+"&complaint_source="+complaint_source+"&branch="+branch+"&zone="+zone+"&route="+route+"&bill_cycle="+bill_cycle+"&start_date="+start_date+"&end_date="+end_date,
         "columns": [
             {"data": "complaint_no"},
             {"data": "complaint_type"},

@@ -60,6 +60,10 @@ def get_vigilance_data(request):
         if request.GET.get('consumer_id'):
             vigilance_obj = vigilance_obj.filter(consumer_id=request.GET.get('consumer_id'))
         else:
+            # filter vigilance data by branch
+            if request.GET.get('branch') and request.GET.get('branch') != "all":
+                consumer = ConsumerDetails.objects.filter(branch=request.GET.get('branch'))
+                vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
             # filter vigilance data by zone
             if request.GET.get('zone') and request.GET.get('zone') != "all":
                 consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
