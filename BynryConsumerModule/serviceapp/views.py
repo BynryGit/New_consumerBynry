@@ -64,6 +64,10 @@ def get_service_data(request):
         if request.GET.get('consumer_id'):
             service_obj = service_obj.filter(consumer_id=request.GET.get('consumer_id'))
         else:
+            # filter service data by service branch
+            if request.GET.get('branch') and request.GET.get('branch') != "all":
+                consumer = ConsumerDetails.objects.filter(branch=request.GET.get('branch'))
+                service_obj = service_obj.filter(consumer_id__in=consumer)
             # filter service data by service zone
             if request.GET.get('zone') and request.GET.get('zone') != "all":
                 consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
