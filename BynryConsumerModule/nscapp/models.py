@@ -106,6 +106,9 @@ class NewConsumerRequest(models.Model):
     requested_load_type = models.CharField(max_length=200, choices=REQUESTED_LOAD_TYPE, default='1-LT-SUPPLY')
     contarct_demand = models.CharField(max_length=100, blank=True, null=True)
     contarct_demand_type = models.CharField(max_length=200, choices=CONTRACT_DEMAND_TYPE, default='1-LT-SUPPLY')
+    address_proof_list = models.CharField(max_length=2000, blank=True, null=True)
+    identity_proof_list = models.CharField(max_length=2000, blank=True, null=True)
+    
     status = models.CharField(max_length=200, choices=NSC_STATUS, default='Open')
     closed_date = models.DateTimeField(blank=True, null=True)
     is_new = models.BooleanField(default=False)

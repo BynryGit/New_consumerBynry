@@ -573,52 +573,13 @@ function CheckDemandType(contract_demand_type){
 $("#save-consumer").click(function(event)  {
 	if (validateData()) {
 		
-	event.preventDefault();  
-													
-	   var formData= new FormData();
-
-		formData.append("consumer_category",$('#consumer_category').val());		
-		formData.append("consumer_service",$('#consumer_service').val());    
-		formData.append("consumer_supply_type",$('#consumer_supply_type').val());    
-		formData.append("consumer_subcategory",$('#consumer_subcategory').val()); 
-		formData.append("applicant_name",$('#applicant_name').val()); 
-		formData.append("applicant_aadhar_no",$('#applicant_aadhar_no').val()); 
-		formData.append("applicant_occupation",$('#applicant_occupation').val());    
-		formData.append("applicant_other_details",$('#applicant_other_details').val());
-		formData.append("flat_no",$('#flat_no').val());
-		formData.append("address_line1",$('#address_line1').val());
-		formData.append("address_line2",$('#address_line2').val());
-		formData.append("landmark",$('#landmark').val());
-		formData.append("city",$('#city').val());
-		formData.append("pincode",$('#pincode').val());
-		formData.append("email",$('#email').val());
-		formData.append("mobile",$('#mobile').val());
-		formData.append("phone_no",$('#phone_no').val());
-		formData.append("existing_consumer_no",$('#existing_consumer_no').val());
-		formData.append("bill_flat_no",$('#bill_flat_no').val());
-		formData.append("bill_address_line1",$('#bill_address_line1').val());
-		formData.append("bill_address_line2",$('#bill_address_line2').val());
-		formData.append("bill_landmark",$('#bill_landmark').val());
-		formData.append("bill_city",$('#bill_city').val());
-		formData.append("bill_pincode",$('#bill_pincode').val());
-		formData.append("bill_email",$('#bill_email').val());
-		formData.append("bill_mobile",$('#bill_mobile').val());
-		formData.append("bill_phone_no",$('#bill_phone_no').val());
-		formData.append("bill_existing_consumer_no",$('#bill_existing_consumer_no').val());
-		formData.append("premises_type",$('#premises_type').val());
-		formData.append("bill_other_data",$('#bill_other_data').val()); 
-		formData.append("requested_load",$('#requested_load').val()); 
-		formData.append("load_type",$('#load_type').val()); 
-		formData.append("contract_demand",$('#contract_demand').val()); 
-		formData.append("contract_demand_type",$('#contract_demand_type').val()); 
+	event.preventDefault();  												
 	
   			$.ajax({  				  
 				  type	: "POST",
 				   url : '/nscapp/save-new-consumer/',
- 					data : formData,
-					cache: false,
-		         processData: false,
-		    		contentType: false,                       
+ 					data : $("#consumer_form").serialize(),
+                     
               success: function (response) {   
 	              if(response.success=='true'){
 							$("#success_modal").modal('show');
