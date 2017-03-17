@@ -11,6 +11,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from consumerapp.models import ConsumerDetails
 from nscapp.models import *
 
+
 # Create your views here.
 def new_connection_list(request):
     try:
@@ -23,7 +24,7 @@ def new_connection_list(request):
     except Exception, e:
         data = {}
         print 'Exception|nscapp|views.py|new_connection', e
-    return render(request, 'nsc_template/new_connection_list.html',data)
+    return render(request, 'nsc_template/new_connection_list.html', data)
 
 
 def add_new_consumer(request):
@@ -36,7 +37,7 @@ def add_new_consumer(request):
         }
     except Exception, e:
         print 'Exception|nscapp|views.py|add_new_consumer', e
-    return render(request, 'nsc_template/add_new_consumer.html',data)
+    return render(request, 'nsc_template/add_new_consumer.html', data)
 
 
 def get_nsc_data(request):
@@ -64,7 +65,7 @@ def get_nsc_data(request):
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y').replace(hour=23, minute=59,
-                                                                                                   second=59)
+                                                                                          second=59)
             nsc_obj = nsc_obj.filter(date_of_registration__range=[start_date, end_date])
 
         for nsc in nsc_obj:
@@ -83,7 +84,8 @@ def get_nsc_data(request):
                 'registration_date': nsc.date_of_registration.strftime('%d/%m/%Y'),
                 'status': nsc.status,
                 'closed_date': closed_date,
-                'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id='+str(nsc.id)+'"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/" target="_blank" class="fa fa-print" title="Print"></a>'
+                'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id=' + str(
+                    nsc.id) + '"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/" target="_blank" class="fa fa-print" title="Print"></a>'
             }
             nsc_list.append(nsc_data)
         print 'nscapp|views.py|get_nsc_data'
@@ -98,7 +100,7 @@ def review_consumer_form(request):
     try:
         print 'nscapp|views.py|review_consumer_form'
         nsc_id = request.GET.get('nsc_id')
-        nsc_obj = NewConsumerRequest.objects.get(id = nsc_id)
+        nsc_obj = NewConsumerRequest.objects.get(id=nsc_id)
         data = {
             'consumer_category': nsc_obj.consumer_category,
             'service_requested': nsc_obj.service_requested,
@@ -147,51 +149,7 @@ def review_consumer_form(request):
 @csrf_exempt
 def save_new_consumer(request):
     try:
-        print 'nscapp|views.py|save_new_consumer'        
-        # Address Proof List
-        a1 = ''
-        if request.POST.get('checkbox1_1') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_1')
-        if request.POST.get('checkbox1_2') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_2')
-        if request.POST.get('checkbox1_3') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_3')
-        if request.POST.get('checkbox1_4') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_4')
-        if request.POST.get('checkbox1_5') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_5')
-        if request.POST.get('checkbox1_6') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_6')
-        if request.POST.get('checkbox1_7') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_7')
-        if request.POST.get('checkbox1_9') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_9')
-        if request.POST.get('checkbox1_10') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_10')
-        if request.POST.get('checkbox1_11') != None:
-            a1 = a1 + ',' +request.POST.get('checkbox1_11')
-        # Identity Proof List
-        a2 = ''
-        if request.POST.get('checkbox2_12') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_12')
-        if request.POST.get('checkbox2_13') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_13')
-        if request.POST.get('checkbox2_14') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_14')
-        if request.POST.get('checkbox2_15') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_15')
-        if request.POST.get('checkbox2_16') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_16')
-        if request.POST.get('checkbox2_17') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_17')
-        if request.POST.get('checkbox2_18') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_18') 
-        if request.POST.get('checkbox2_19') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_19')
-        if request.POST.get('checkbox2_20') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_20')
-        if request.POST.get('checkbox2_21') != None:
-            a2 = a2 + ',' +request.POST.get('checkbox1_21')                                                                                                                  
+        print 'nscapp|views.py|save_new_consumer'
 
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),
@@ -202,37 +160,36 @@ def save_new_consumer(request):
             service_requested=request.POST.get('consumer_service'),
             supply_type=request.POST.get('consumer_supply_type'),
             consumer_subcategory=request.POST.get('consumer_subcategory'),
-            registration_no='111',  # Need to change logic
+            registration_no='NSC11110',  # Need to change logic
             date_of_registration=datetime.now(),
             meter_building_name=request.POST.get('flat_no'),
             meter_address_line_1=request.POST.get('address_line1'),
             meter_address_line_2=request.POST.get('address_line2'),
             meter_landmark=request.POST.get('landmark'),
 
-            meter_city = City.objects.get(
+            meter_city=City.objects.get(
                 id=request.POST.get('city')) if request.POST.get(
-                'city') else None ,
-            meter_pin_code = Pincode.objects.get(
+                'city') else None,
+            meter_pin_code=Pincode.objects.get(
                 id=request.POST.get('pincode')) if request.POST.get(
-                'pincode') else None ,                
-
+                'pincode') else None,
 
             meter_email_id=request.POST.get('email'),
             meter_mobile_no=request.POST.get('mobile'),
             meter_phone_no=request.POST.get('phone_no'),
             meter_nearest_consumer_no=request.POST.get('existing_consumer_no'),
-            #is_same_address=request.POST.get('user_role'),
+            # is_same_address=request.POST.get('user_role'),
             billing_building_name=request.POST.get('bill_flat_no'),
             billing_address_line_1=request.POST.get('bill_address_line1'),
             billing_address_line_2=request.POST.get('bill_address_line2'),
             billing_landmark=request.POST.get('bill_landmark'),
 
-            billing_city = City.objects.get(
+            billing_city=City.objects.get(
                 id=request.POST.get('bill_city')) if request.POST.get(
-                'bill_city') else None ,
-            billing_pin_code = Pincode.objects.get(
+                'bill_city') else None,
+            billing_pin_code=Pincode.objects.get(
                 id=request.POST.get('bill_pincode')) if request.POST.get(
-                'bill_pincode') else None , 
+                'bill_pincode') else None,
 
             billing_email_id=request.POST.get('bill_email'),
             billing_mobile_no=request.POST.get('bill_mobile'),
@@ -244,10 +201,10 @@ def save_new_consumer(request):
             requested_load_type=request.POST.get('load_type'),
             contarct_demand=request.POST.get('contract_demand'),
             contarct_demand_type=request.POST.get('contract_demand_type'),
-            address_proof_list=a1,
-            identity_proof_list=a2,
+            address_proof_list=request.POST.getlist('address_proof'),
+            identity_proof_list=request.POST.getlist('id_proof'),
             created_on=datetime.now(),
-            #created_by=request.session['login_user'],
+            # created_by=request.session['login_user'],
         );
         new_consumer_obj.save();
 
@@ -266,12 +223,14 @@ def save_new_consumer(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 from xhtml2pdf import pisa
 import cStringIO as StringIO
 from cgi import escape
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
+
 
 def nsc_form(request):
     data = {}
@@ -283,16 +242,18 @@ def nsc_form(request):
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 
+
 @csrf_exempt
-def upload_consumer_docs(request):    
+def upload_consumer_docs(request):
     try:
-        print 'nscapp|views.py|upload_consumer_docs'        
+        print 'nscapp|views.py|upload_consumer_docs'
         if request.method == 'POST':
             attachment_file = ConsumerDocsImage()
             attachment_file.save()
 
-            request.FILES['file[]'].name = 'consumerDocsID_'+str(attachment_file.id)+'_'+request.FILES['file[]'].name
-            attachment_file.document_files=request.FILES['file[]']
+            request.FILES['file[]'].name = 'consumerDocsID_' + str(attachment_file.id) + '_' + request.FILES[
+                'file[]'].name
+            attachment_file.document_files = request.FILES['file[]']
             attachment_file.save()
             data = {'success': 'true', 'attachid': attachment_file.id}
         else:
@@ -302,10 +263,11 @@ def upload_consumer_docs(request):
         data = {'success': 'invalid request'}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 @csrf_exempt
-def remove_consumer_docs(request):    
+def remove_consumer_docs(request):
     try:
-        print 'nscapp|views.py|remove_consumer_docs'        
+        print 'nscapp|views.py|remove_consumer_docs'
         image_id = request.GET.get('image_id')
         image = ConsumerDocsImage.objects.get(id=image_id)
         image.delete()
@@ -316,9 +278,10 @@ def remove_consumer_docs(request):
         data = {'success': 'false'}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 def save_attachments(attachment_list, consumer_id):
     try:
-        print 'nscapp|views.py|save_attachments'        
+        print 'nscapp|views.py|save_attachments'
         attachment_list = attachment_list.split(',')
         attachment_list = filter(None, attachment_list)
         for attached_id in attachment_list:
@@ -330,4 +293,3 @@ def save_attachments(attachment_list, consumer_id):
     except Exception, e:
         print 'Exception|nscapp|views.py|save_attachments', e
     return HttpResponse(json.dumps(data), content_type='application/json')
-
