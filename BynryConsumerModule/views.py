@@ -66,6 +66,7 @@ def save_system_user_details(request):
             username=request.GET.get('email'),
             password=request.GET.get('password'),
             contact_no=request.GET.get('contact_no'),
+            address=request.GET.get('address'),
             first_name=request.GET.get('first_name'),
             last_name=request.GET.get('last_name'),
             city=city_obj,

@@ -309,7 +309,7 @@ function edit_admin_modal(user_id) {
 						$("#user_email").val(response.user_data.email); 
 						$("#user_emp_id").val(response.user_data.employee_id); 
 						$("#user_contact_no").val(response.user_data.contact_no); 
-						//$("#user_city").val(response.user_data.city); 
+						$("#user_city").val(response.user_data.city); 
 						$("#user_status").val(response.user_data.user_status); 						
 						
 						$("#edit_admin_modal").modal('show');   
