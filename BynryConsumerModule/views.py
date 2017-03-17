@@ -13,10 +13,10 @@ import urllib
 import smtplib
 from smtplib import SMTPException
 from django.shortcuts import *
-from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail,Branch,SystemUserProfile,City,UserRole,Branch
+from BynryConsumerModuleapp.models import UserPrivilege,Zone,BillCycle,RouteDetail,Branch,SystemUserProfile,City,UserRole,Branch
 import json
 import traceback
-import datetime
+from datetime import datetime
 from consumerapp.views import get_city
 
 # importing mysqldb and system packages
@@ -134,4 +134,43 @@ def head_admin(request):
             data = {'success': 'false', 'error': 'Exception ' + str(e)}
     except Exception, e:
         print 'Exception', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_new_role(request):
+    try:
+        print '\n\nSHUBHAM\n\nviews.py|save_new_role\n\n\n'
+
+        privilege_list = request.POST.get('privilege_list')
+        privilege_list = privilege_list.split(',')
+
+        new_role_obj = UserRole(
+            role=request.POST.get('roll_name'),
+            description=request.POST.get('description'),
+            status="Active",
+            #created_by=request.session['login_user'],
+            #updated_by=request.session['login_user'],
+            created_on=datetime.now(), 
+            updated_on=datetime.now(),            
+
+        );
+        new_role_obj.save();
+
+        for list_obj in privilege_list:
+            print '.>>>>>SSSSSSSSSSSSSS',list_obj
+            obj = UserPrivilege.objects.get(privilege=list_obj) 
+            new_role_obj.privilege.add(obj)
+            print '\n\n.....SSASASASASAS'
+            new_role_obj.save()        
+
+        data = {
+            'success': 'false',
+            'message': 'Consumer created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|views.py|save_new_role', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
     return HttpResponse(json.dumps(data), content_type='application/json')

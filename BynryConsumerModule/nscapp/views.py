@@ -214,7 +214,7 @@ def save_new_consumer(request):
         save_attachments(attachment_list, new_consumer_obj)
 
         data = {
-            'success': 'false',
+            'success': 'true',
             'message': 'Consumer created successfully.'
         }
     except Exception, e:
