@@ -9,5 +9,7 @@ urlpatterns = [
     url(r'^review-consumer-form/', views.review_consumer_form,name='review_consumer_form'),
     url(r'^get-nsc-data/', views.get_nsc_data,name='get_nsc_data'),
     url(r'^save-new-consumer/', views.save_new_consumer,name='save_new_consumer'),
+    url(r'^nsc-form/', views.nsc_form,name='nsc_form'),
     url(r'^upload-consumer-docs/', views.upload_consumer_docs,name='upload_consumer_docs'),
+    url(r'^remove-consumer-docs/', views.remove_consumer_docs,name='remove_consumer_docs'),
 ]

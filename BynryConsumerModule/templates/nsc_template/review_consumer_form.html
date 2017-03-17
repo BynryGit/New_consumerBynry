@@ -275,9 +275,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="md-checkbox">
-                                        {% if %}
-                                        <input type="checkbox" checked value="billing_address" id="checkbox1_4" class="md-check" disabled>
-                                        <label for="checkbox1_4">
+
+                                        {% if is_same_address == True%}
+                                            <input type="checkbox" checked value="billing_address" id="address_check" class="md-check" disabled>
+                                        {% else %}
+                                            <input type="checkbox" value="billing_address" id="address_check " class="md-check" disabled>
+                                        {% endif %}
+                                        <label for="address_check">
                                             <span></span>
                                             <span class="check"></span>
                                             <span class="box"></span> Click here if billing Address same as Meter
@@ -420,64 +424,200 @@
                             <hr style="border-top: dotted 1px;"/>
                         </div>
                         <div class="col-md-12">
-                            <label class="bold">Documents List : </label>
+                            <label class="bold">Documents List <span style="color:red">*</span> : </label>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group form-md-line-input has-info">
-                                            <label>Pan Card :</label>
-                                            <input type="text" class="form-control" readonly=""
-                                                   value="{{pan_card}}">
+                                    <div class="col-md-4">
+                                        <label style="font-size: 15px;" class="bold">Address Proof (Any one of the
+                                            following)</label>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="Ration Card"
+                                                   id="checkbox1_1" class="md-check">
+                                            <label for="checkbox1_1">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Ration Card </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]"
+                                                   value="Local Authority Tax Bill/ Receipt" id="checkbox1_2"
+                                                   class="md-check">
+                                            <label for="checkbox1_2">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Local Authority Tax Bill/ Receipt </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_3"
+                                                   class="md-check">
+                                            <label for="checkbox1_3">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Approved plan by Competent Govt. Authority
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_4"
+                                                   class="md-check">
+                                            <label for="checkbox1_4">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Voter ID Card </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_5"
+                                                   class="md-check">
+                                            <label for="checkbox1_5">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> UID Card/ Aadhar Card </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_6"
+                                                   class="md-check">
+                                            <label for="checkbox1_6">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Passport </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_7"
+                                                   class="md-check">
+                                            <label for="checkbox1_7">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Driving License </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_9"
+                                                   class="md-check">
+                                            <label for="checkbox1_9">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Developer Agreement with Land Owner/ Occupier/
+                                                Govt. Agency </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_10"
+                                                   class="md-check">
+                                            <label for="checkbox1_10">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Govt. Issued Property Card or 7/12 Extract
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_11"
+                                                   class="md-check">
+                                            <label for="checkbox1_11">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Society Registration </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group form-md-line-input has-info">
-
-                                            <input type="checkbox" class="form-control" checked>
+                                    <div class="col-md-4">
+                                        <label style="font-size: 15px;" class="bold">Identity Proof (Any One of the
+                                            following)</label>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_12"
+                                                   class="md-check">
+                                            <label for="checkbox1_12">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Voter's Identification Card </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_13"
+                                                   class="md-check">
+                                            <label for="checkbox1_13">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Collector / Govt </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_14"
+                                                   class="md-check">
+                                            <label for="checkbox1_14">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Authorized Photo ID </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_15"
+                                                   class="md-check">
+                                            <label for="checkbox1_15">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> UID Card/ Aadhar Card </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_16"
+                                                   class="md-check">
+                                            <label for="checkbox1_16">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Passport </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_17"
+                                                   class="md-check">
+                                            <label for="checkbox1_17">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> PAN Card </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_18"
+                                                   class="md-check">
+                                            <label for="checkbox1_18">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Driving License </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_19"
+                                                   class="md-check">
+                                            <label for="checkbox1_19">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Photo Pass (Recognized By Govt. Department)
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_20"
+                                                   class="md-check">
+                                            <label for="checkbox1_20">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Sr. Citizens Identity Card issued by Govt.
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            <input type="checkbox" name="checkboxes1[]" value="1" id="checkbox1_21"
+                                                   class="md-check">
+                                            <label for="checkbox1_21">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Photo ID in Purchase/Sale Agreement </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group form-md-line-input has-info">
-                                            <label>Aadhar Card :</label>
-                                            <input type="text" class="form-control" readonly=""
-                                                   value="{{aadhar_card}}">
+                                    <div class="col-md-4">
+                                        <div>
+                                            <div class="dropzone"
+                                                 style=" min-height: 70px; border-color: #e4e5e7 !important;"
+                                                 id="my-active-dropzone"><span
+                                                    class="txt_dropzone bold"
+                                                    style="text-align: center;float: left;">Click or drag and drop to upload documents</span>
+                                            </div>
+                                            <input type="hidden"
+                                                   class="form-control"
+                                                   id="ac_attachment"
+                                                   name="ac_attachments">
+                                            <input type="hidden"
+                                                   class="form-control"
+                                                   id="ac_attachments"
+                                                   name="ac_attachment">
                                         </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group form-md-line-input has-info">
-                                            <input type="checkbox" class="form-control" checked>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group form-md-line-input has-info">
-                                            <label>Passport :</label>
-                                            <input type="text" class="form-control" readonly=""
-                                                   value="{{passport}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="form-group form-md-line-input has-info">
-                                            <input type="checkbox" class="form-control" checked>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <br>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-2">
-                                        <label> Attached Documents (PDF) : </label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="file" class="form-control">
                                     </div>
                                 </div>
                             </div>

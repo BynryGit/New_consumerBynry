@@ -7,7 +7,7 @@ function make_same() {
 			$("#bill_address_line1").val($("#address_line1").val());
 			$("#bill_address_line2").val($("#address_line2").val());
 			$("#bill_landmark").val($("#landmark").val());
-			$("#bill_city").val($("#city").val()).change();
+			$("#bill_city").val($("#city").val()).change();			 
 			$("#bill_pincode").val($("#pincode").val()).change();
 			$("#bill_email").val($("#email").val());
 			$("#bill_mobile").val($("#mobile").val());
@@ -95,7 +95,7 @@ function validateData(){
 	   &CheckBillLandmark("#bill_landmark")&CheckBillCity("#bill_city")&CheckBillPincode("#bill_pincode")&checkBillEmail("#bill_email")
 	   &checkBillContactNo("#bill_mobile")&checkBillHomePhone("#bill_phone_no")&CheckBillConsumerNo("#bill_existing_consumer_no")
 	   &CheckPremises("#premises_type")&CheckRequestedLoad("#requested_load")&CheckLoadType("#load_type")
-	   &CheckContractDemand("#contract_demand")&CheckDemandType("#contract_demand_type")){    
+	   &CheckContractDemand("#contract_demand")&CheckDemandType("#contract_demand_type")&CheckAddressProof()&CheckIdProof()){    
 		return true;	
 	}
 	return false;
@@ -568,17 +568,58 @@ function CheckDemandType(contract_demand_type){
    return false; 
    }
 }
-
+function CheckAddressProof() {
+	
+	flag_1 = 0
+	var addProofList = document.getElementsByClassName('addproofclass')
+	for(var i=0; addProofList[i]; ++i){
+      if(addProofList[i].checked){
+           flag_1 = 1
+           break;
+      }
+   }
+   if (flag_1 == 1) {
+   	$("#addProofset_error").css("display", "none");
+  		return true;
+	}	
+	else {
+    	$("#addProofset_error").css("display", "block");	
+      $("#addProofset_error").text("Please Enter Address Proof");
+   	return false; 
+	}
+}
+function CheckIdProof() {
+	flag_1 = 0
+	var IdProofList = document.getElementsByClassName('idproofclass')
+	for(var i=0; IdProofList[i]; ++i){
+      if(IdProofList[i].checked){
+           flag_1 = 1
+           break;
+      }
+   }
+   if (flag_1 == 1) {
+   	$("#idProofset_error").css("display", "none");
+  		return true;
+	}	
+	else {
+    	$("#idProofset_error").css("display", "block");	
+      $("#idProofset_error").text("Please Enter Identity Proof");
+   	return false; 
+	}
+}
  // Save edited consumer on edit button click 
 $("#save-consumer").click(function(event)  {
+	//console.log($("#consumer_form").serialize())
+	bill_city = $("#bill_city").val()
+	bill_pincode = $("#bill_pincode").val()
+
 	if (validateData()) {
-		
 	event.preventDefault();  												
 	
   			$.ajax({  				  
 				  type	: "POST",
 				   url : '/nscapp/save-new-consumer/',
- 					data : $("#consumer_form").serialize(),
+ 					data : $("#consumer_form").serialize()+'&bill_city='+bill_city+'&bill_pincode='+bill_pincode,
                      
               success: function (response) {   
 	              if(response.success=='true'){
@@ -656,10 +697,7 @@ $("#save-consumer").click(function(event)  {
                     temp_image_files.push(file);
                 });
 
-                this.on("success", function (files, response) {
-						  if (response.success == 'Expired') {		
-					  			location.href = '/backoffice/?status=Expired'
-					  		}                    
+                this.on("success", function (files, response) {               
                     $('#attachment').val($('#attachment').val()+","+response.attachid);
                     $('a .dz-remove').attr('href','/remove-advert-image/?image_id='+response.attachid);
                     reordered_array.push(response.attachid);
@@ -670,11 +708,8 @@ $("#save-consumer").click(function(event)  {
                 this.on("removedfile", function(file){
                     deleting_image_id = reordered_array[temp_image_files.indexOf(file)];
                     $.ajax({
-                        url: "/remove-advert-image/?image_id="+deleting_image_id,
-                        success: function(result){
-								  if (result.success == 'Expired') {		
-							  			location.href = '/backoffice/?status=Expired'
-							  		}                          
+                        url: "/nscapp/remove-consumer-docs/?image_id="+deleting_image_id,
+                        success: function(result){                        
                             arr = $('#attachment').val();
                             arr = arr.split(',');
                             console.log('Before Id Remove : '+ arr);
