@@ -443,9 +443,7 @@
 	                          <input type="text" class="form-control" id="bill_existing_consumer_no" name="bill_existing_consumer_no"> 
 	                          <label id="bill_existing_consumer_no_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                                  	                          
 	                      </div>	                      
-                    		</div>                    		
-                      </div>                      
-                      <div class="col-md-12">                       	                                                                                                             		
+                    		</div>           
                     		<div class="col-md-3">
 	                      <div class="form-group form-md-line-input has-success" >
 	                          <label for="premises_type">Type Of Premises <span class="required">*</span></label>
@@ -466,8 +464,8 @@
 	                          <label id="bill_other_data_error" class="error" style="color:red; display:none; font-size: 12px;"></label>                                                         	                          
 	                      </div>	                      
 	                      <span class="help-block" style="margin-top: -27px;">To be filled if Type Of Premises selected is OTHERS.</span>
-                    		</div>                   		                       
-                      </div>
+                    		</div>          		
+                      </div>                                         
                     </div>
                 </div>                 
                 <div class="col-md-12">
@@ -499,9 +497,7 @@
 				                             <label  class="error" style="color:red; display:none; font-size: 12px;"></label>                           	                          
 					                      </div>	                      
 				                    		</div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-3">                                       
+				                    		<div class="col-md-3">                                       
                                         <div class="form-group form-md-line-input has-success" >
 					                          <label >Contract Demand <span class="required">*</span></label>
 					                          <select id="contract_demand" class="form-control select2" name="contract_demand">
@@ -522,7 +518,7 @@
 				                             <label  class="error" style="color:red; display:none; font-size: 12px;"></label>                          	                          
 					                      </div>	                      
 				                    		</div>
-                                </div>
+                                </div>                                
                             </div>
                         </div>	
                 <div class="col-md-12">
@@ -533,7 +529,8 @@
                     <div class="row">                     
                       <div class="col-md-12">
                          <div class="col-md-4">
-                            <label style="font-size: 15px;" class="bold">Address Proof (Any one of the following)</label>
+                            <label style="font-size: 15px;" class="bold" >Address Proof (Any one of the following)</label>
+                            <label  class="addProofset_error" style="color:red; display:none; font-size: 12px;"></label>
 	                         <div class="md-checkbox">
                                  <input type="checkbox" name="checkbox1_1" value="Ration Card" id="checkbox1_1" class="md-check">
                                  <label for="checkbox1_1">
@@ -606,72 +603,73 @@
                             </div>                               	                          
                          </div>
                          <div class="col-md-4">
-                           <label style="font-size: 15px;" class="bold">Identity Proof (Any One of the following)</label>
+                           <label style="font-size: 15px;" class="bold" >Identity Proof (Any One of the following)</label>
+                           <label  class="idProofset_error" style="color:red; display:none; font-size: 12px;"></label>
                            <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_12" value="Voter's Identification Card" id="checkbox1_12" class="md-check">
+                                 <input type="checkbox" name="checkbox2_12" value="Voter's Identification Card" id="checkbox1_12" class="md-check">
                                  <label for="checkbox1_12">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Voter's Identification Card </label>
                             </div>                                	                          
 	                         <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_13" value="Collector / Govt" id="checkbox1_13" class="md-check">
+                                 <input type="checkbox" name="checkbox2_13" value="Collector / Govt" id="checkbox1_13" class="md-check">
                                  <label for="checkbox1_13">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Collector / Govt </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_14" value="Authorized Photo ID" id="checkbox1_14" class="md-check">
+                                 <input type="checkbox" name="checkbox2_14" value="Authorized Photo ID" id="checkbox1_14" class="md-check">
                                  <label for="checkbox1_14">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Authorized Photo ID </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_15" value="UID Card/ Aadhar Card" id="checkbox1_15" class="md-check">
+                                 <input type="checkbox" name="checkbox2_15" value="UID Card/ Aadhar Card" id="checkbox1_15" class="md-check">
                                  <label for="checkbox1_15">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> UID Card/ Aadhar Card </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_16" value="Passport" id="checkbox1_16" class="md-check">
+                                 <input type="checkbox" name="checkbox2_16" value="Passport" id="checkbox1_16" class="md-check">
                                  <label for="checkbox1_16">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Passport </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_17" value="PAN Card" id="checkbox1_17" class="md-check">
+                                 <input type="checkbox" name="checkbox2_17" value="PAN Card" id="checkbox1_17" class="md-check">
                                  <label for="checkbox1_17">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> PAN Card </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_18" value="Driving License" id="checkbox1_18" class="md-check">
+                                 <input type="checkbox" name="checkbox2_18" value="Driving License" id="checkbox1_18" class="md-check">
                                  <label for="checkbox1_18">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Driving License </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_19" value="Photo Pass (Recognized By Govt. Department)" id="checkbox1_19" class="md-check">
+                                 <input type="checkbox" name="checkbox2_19" value="Photo Pass (Recognized By Govt. Department)" id="checkbox1_19" class="md-check">
                                  <label for="checkbox1_19">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Photo Pass (Recognized By Govt. Department) </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_20" value="Sr. Citizens Identity Card issued by Govt." id="checkbox1_20" class="md-check">
+                                 <input type="checkbox" name="checkbox2_20" value="Sr. Citizens Identity Card issued by Govt." id="checkbox1_20" class="md-check">
                                  <label for="checkbox1_20">
                                      <span></span>
                                      <span class="check"></span>
                                      <span class="box"></span> Sr. Citizens Identity Card issued by Govt. </label>
                             </div>
                             <div class="md-checkbox">
-                                 <input type="checkbox" name="checkbox1_21" value="Photo ID in Purchase/Sale Agreement" id="checkbox1_21" class="md-check">
+                                 <input type="checkbox" name="checkbox2_21" value="Photo ID in Purchase/Sale Agreement" id="checkbox1_21" class="md-check">
                                  <label for="checkbox1_21">
                                      <span></span>
                                      <span class="check"></span>

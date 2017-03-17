@@ -571,6 +571,11 @@ function CheckDemandType(contract_demand_type){
 
  // Save edited consumer on edit button click 
 $("#save-consumer").click(function(event)  {
+	//ss = document.getElementByName("checkbox1_12").checked
+	ss =document.getElementsByName("checkbox2_12").checked
+	alert(ss)
+	return false;
+	 
 	if (validateData()) {
 		
 	event.preventDefault();  												

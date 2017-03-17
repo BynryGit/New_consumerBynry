@@ -172,25 +172,25 @@ def save_new_consumer(request):
             a1 = a1 + ',' +request.POST.get('checkbox1_11')
         # Identity Proof List
         a2 = ''
-        if request.POST.get('checkbox1_12') != None:
+        if request.POST.get('checkbox2_12') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_12')
-        if request.POST.get('checkbox1_13') != None:
+        if request.POST.get('checkbox2_13') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_13')
-        if request.POST.get('checkbox1_14') != None:
+        if request.POST.get('checkbox2_14') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_14')
-        if request.POST.get('checkbox1_15') != None:
+        if request.POST.get('checkbox2_15') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_15')
-        if request.POST.get('checkbox1_16') != None:
+        if request.POST.get('checkbox2_16') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_16')
-        if request.POST.get('checkbox1_17') != None:
+        if request.POST.get('checkbox2_17') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_17')
-        if request.POST.get('checkbox1_18') != None:
+        if request.POST.get('checkbox2_18') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_18') 
-        if request.POST.get('checkbox1_19') != None:
+        if request.POST.get('checkbox2_19') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_19')
-        if request.POST.get('checkbox1_20') != None:
+        if request.POST.get('checkbox2_20') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_20')
-        if request.POST.get('checkbox1_21') != None:
+        if request.POST.get('checkbox2_21') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_21')                                                                                                                  
 
         new_consumer_obj = NewConsumerRequest(
