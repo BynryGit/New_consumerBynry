@@ -149,8 +149,10 @@ def review_consumer_form(request):
 @csrf_exempt
 def save_new_consumer(request):
     try:
-        print 'nscapp|views.py|save_new_consumer',request.POST.get('bill_city'),request.POST.get('bill_pincode')
-
+        print 'nscapp|views.py|save_new_consumer'
+        is_same = request.POST.get('checkbox1_44')
+        if is_same == None:
+            is_same = 0
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),
             aadhar_no=request.POST.get('applicant_aadhar_no'),
@@ -178,7 +180,7 @@ def save_new_consumer(request):
             meter_mobile_no=request.POST.get('mobile'),
             meter_phone_no=request.POST.get('phone_no'),
             meter_nearest_consumer_no=request.POST.get('existing_consumer_no'),
-            # is_same_address=request.POST.get('user_role'),
+            is_same_address=is_same,
             billing_building_name=request.POST.get('bill_flat_no'),
             billing_address_line_1=request.POST.get('bill_address_line1'),
             billing_address_line_2=request.POST.get('bill_address_line2'),
@@ -212,7 +214,7 @@ def save_new_consumer(request):
         save_attachments(attachment_list, new_consumer_obj)
 
         data = {
-            'success': 'true',
+            'success': 'false',
             'message': 'Consumer created successfully.'
         }
     except Exception, e:
