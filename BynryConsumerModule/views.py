@@ -201,7 +201,7 @@ def head_supervisor(request):
 @csrf_exempt
 def save_new_role(request):
     try:
-        print '\n\nSHUBHAM\n\nviews.py|save_new_role\n\n\n'
+        print 'views.py|save_new_role'
 
         privilege_list = request.POST.get('privilege_list')
         privilege_list = privilege_list.split(',')
@@ -219,10 +219,8 @@ def save_new_role(request):
         new_role_obj.save();
 
         for list_obj in privilege_list:
-            print '.>>>>>SSSSSSSSSSSSSS',list_obj
             obj = UserPrivilege.objects.get(privilege=list_obj) 
             new_role_obj.privilege.add(obj)
-            print '\n\n.....SSASASASASAS'
             new_role_obj.save()        
 
         data = {
@@ -235,4 +233,45 @@ def save_new_role(request):
             'success': 'false',
             'message': str(e)
         }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_role_list(request):
+    try:
+        print 'views.py|get_role_list'
+
+        data = {}
+        final_list = []
+        try:
+            role_obj_list = UserRole.objects.all()            
+
+            for role_obj in role_obj_list:
+                role = role_obj.role
+                description = role_obj.description
+                created_on = role_obj.created_on
+                associated_user = '--'
+
+                if role_obj.status == 'Active':
+                    status = '<span style="cursor: default;" class="btn btn-success">Active</span>'
+                else:
+                    status = '<span style="cursor: default;" class="btn btn-danger">Inactive</span>'
+
+                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + str(role_obj.id) + ')"></i> </a>'
+
+                role_data = {
+                    'role': role,
+                    'description': description,
+                    'created_on': created_on,
+                    'associated_user': associated_user,
+                    'status': status,
+                    'action': action
+                }
+                final_list.append(role_data)
+            data = {'success': 'true', 'data': final_list}
+        except Exception as e:
+            print 'Exception|views.py|get_role_list', e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|views.py|get_role_list', e
+    except Exception, e:
+        print 'Exception|views.py|get_role_list', e
     return HttpResponse(json.dumps(data), content_type='application/json')

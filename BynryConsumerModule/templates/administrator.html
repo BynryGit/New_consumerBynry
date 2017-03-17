@@ -290,65 +290,7 @@
                                     <th> Status</th>
                                     <th> Action</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td> Steve Smith</td>
-                                    <td> Admin</td>
-                                    <td> 25/02/2017</td>
-                                    <td> ---</td>
-                                    <td>
-                                        <span class="label label-sm label-success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#edit_role_modal" title="Validate" data-toggle="modal">
-                                            <i class="icon-pencil" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Steve Smith</td>
-                                    <td> Admin</td>
-                                    <td> 25/02/2017</td>
-                                    <td> ---</td>
-                                    <td>
-                                        <span class="label label-sm label-success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#edit_role_modal" title="Validate" data-toggle="modal">
-                                            <i class="icon-pencil" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Steve Smith</td>
-                                    <td> Admin</td>
-                                    <td> 25/02/2017</td>
-                                    <td> ---</td>
-                                    <td>
-                                        <span class="label label-sm label-danger">Deactive</span>
-                                    </td>
-                                    <td>
-                                        <a href="#edit_role_modal" title="Validate" data-toggle="modal">
-                                            <i class="icon-pencil" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Steve Smith</td>
-                                    <td> Admin</td>
-                                    <td> 25/02/2017</td>
-                                    <td> ---</td>
-                                    <td>
-                                        <span class="label label-sm label-success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#edit_role_modal" title="Validate" data-toggle="modal">
-                                            <i class="icon-pencil" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
+                                </thead>                                
                             </table>
                         </div>
                     </div>
@@ -541,7 +483,7 @@
 	 $("#admin_menu").addClass("active open");
 	 $("#admin_span").addClass("open");
 	 
-    var initTable1 = function () {
+  /*  var initTable1 = function () {
         var table = $('#dispatch_bill_cycle_table');
 
         var oTable = table.dataTable({
@@ -573,7 +515,17 @@
             "order": [
                 [0, 'asc']
             ],
-
+            "ajax": "/consumerapp/get-consumer-list/?filter_branch="+filter_branch+"&filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_category="+filter_category+"&filter_service="+filter_service+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+            "columns": [
+                {"data": "consumer_no","sClass": "text-center"},
+                {"data": "consumer_name","sClass": "text-center"},
+                {"data": "contact_no","sClass": "text-center"},
+                {"data": "email_id","sClass": "text-center"},
+                {"data": "servicerequest","sClass": "text-center"},
+                {"data": "complaintrequest","sClass": "text-center"},                                                        
+                {"data": "connection_status","sClass": "text-center"}  ,
+                {"data": "action","sClass": "text-center"}                                                       
+            ],  
             "lengthMenu": [
                 [5, 10, 15, 20, -1],
                 [5, 10, 15, 20, "All"] // change per page values here
@@ -586,8 +538,72 @@
             var action = $(this).attr('data-action');
             oTable.DataTable().button(action).trigger();
         });
-    }
+    } */
     
+    	 var initTable1 = function () {	 	
+		
+        var table = $('#dispatch_bill_cycle_table');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+				"bDestroy" : true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+
+            "order": [
+                [0, 'asc']
+            ],
+
+            "ajax": "/get-role-list/",
+            "columns": [
+                {"data": "role","sClass": "text-center"},
+                {"data": "description","sClass": "text-center"},
+                {"data": "created_on","sClass": "text-center"},
+                {"data": "associated_user","sClass": "text-center"},
+                {"data": "status","sClass": "text-center"},
+                {"data": "action","sClass": "text-center"}                                                       
+            ],                                                                                                                                                                  
+                                                      
+            buttons: [
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+      });
+    }
     initTable1();
 
 $("#save-role").click(function(event)  {
