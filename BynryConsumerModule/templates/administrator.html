@@ -143,24 +143,27 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="roll_name">
-                                        <label for="bill_cycle">Roll Name</label>
+                                    	 <label for="bill_cycle">Roll Name</label>
+                                        <input type="text" class="form-control" id="roll_name">                                        
+                                        <label class="error" style="color:red; display:none; font-size: 12px;"></label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="description">
-                                        <label for="bill_cycle">Discription</label>
+                                    	 <label for="bill_cycle">Discription</label>
+                                        <input type="text" class="form-control" id="description">                                       
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="col-md-11">
-                                            <label><b>Privillages</b></label>
-                                        </div>
+                                            <label><b>Privileges</b></label>
+                                            <label id="priv_err" style="color:red; display:none; font-size: 12px;"></label>
+                                        </div>                                          
                                     </div>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="col-md-2">                                            
@@ -428,6 +431,38 @@
         </div>
     </div>
 </div>
+<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Role added successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/administrator/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Role already exists</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="page-footer">
     <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
@@ -482,63 +517,7 @@
 	 $("#admin_anchor").prepend('<span class="selected"></span>');
 	 $("#admin_menu").addClass("active open");
 	 $("#admin_span").addClass("open");
-	 
-  /*  var initTable1 = function () {
-        var table = $('#dispatch_bill_cycle_table');
-
-        var oTable = table.dataTable({
-
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
-                { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
-            ],
-
-            responsive: true,
-
-            "order": [
-                [0, 'asc']
-            ],
-            "ajax": "/consumerapp/get-consumer-list/?filter_branch="+filter_branch+"&filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_category="+filter_category+"&filter_service="+filter_service+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
-            "columns": [
-                {"data": "consumer_no","sClass": "text-center"},
-                {"data": "consumer_name","sClass": "text-center"},
-                {"data": "contact_no","sClass": "text-center"},
-                {"data": "email_id","sClass": "text-center"},
-                {"data": "servicerequest","sClass": "text-center"},
-                {"data": "complaintrequest","sClass": "text-center"},                                                        
-                {"data": "connection_status","sClass": "text-center"}  ,
-                {"data": "action","sClass": "text-center"}                                                       
-            ],  
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            "pageLength": 10,
-
-        });
-
-        $('#dispatch_bill_cycle_tools > li > a.tool-action').on('click', function() {
-            var action = $(this).attr('data-action');
-            oTable.DataTable().button(action).trigger();
-        });
-    } */
+	
     
     	 var initTable1 = function () {	 	
 		
@@ -606,8 +585,44 @@
     }
     initTable1();
 
-$("#save-role").click(function(event)  {
+function validateRole(user_role){
+	
+	user_name = $(user_role).val()
 
+   if($(user_role).val()!=''){
+  
+ 	$(user_role).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+   
+    $(user_role).parent().children('.error').css("display", "block");
+    $(user_role).parent().children('.error').text("Please enter Role Name");
+   return false; 
+   }
+}
+function check_privilage(){
+			var checkboxValues1 = []
+			checkboxValues1 = $('.privillages:checked').map(function() {
+			    return $(this).val();
+			}).get(); 
+
+			if (checkboxValues1.length == 0){
+				$("#priv_err").css("display", "block");
+				$("#priv_err").text("Please select at least 1 Privilege");
+			   return false; 
+			}else{
+				$("#priv_err").css("display", "none");
+				return true;
+			}
+		} 
+
+$("#save-role").click(function(event)  {
+ 
+ if(validateRole("#roll_name")){	
+	var prv = check_privilage()
+	if (prv == false){
+     return false;	
+	}		 
 	event.preventDefault();  	
 	var checkboxValues = []
 	checkboxValues = $('.privillages:checked').map(function() {
@@ -630,7 +645,7 @@ $("#save-role").click(function(event)  {
 		 			               
 	        success: function (response) {   
 	           if(response.success=='true'){
-						$("#success_modal").modal('show');
+						$("#success_modal").modal('show');						
 	           	}
 	   			if (response.success == "false") {
 						$("#error-modal").modal('show');
@@ -645,7 +660,8 @@ $("#save-role").click(function(event)  {
 	         error : function(response){
 	            	alert("_Error");
 	      	}              
-	  });           
+	  });     
+	  }      
 });    
     
 </script>
