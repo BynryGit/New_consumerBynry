@@ -462,11 +462,10 @@
                                             <div class="form-group form-md-line-input has-success">
                                                 <label for="bill_city">City/Village <span
                                                         class="required">*</span></label>
-                                                <select id="bill_city" class="form-control input-sm select2-multiple"
-                                                        name="bill_city">
+                                                <select id="bill_city" class="form-control input-sm select2-multiple">
                                                     <option value=" "> Select City</option>
                                                     {% for city in city_list %}
-                                                    <option value="{{ city.city_id }}"> {{ city.city }}</option>
+                                                    <option value="{{city.city_id}}"> {{ city.city }}</option>
                                                     {% endfor %}
                                                 </select>
                                                 <label class="error"
@@ -477,11 +476,10 @@
                                             <div class="form-group form-md-line-input has-success">
                                                 <label for="bill_pincode">PinCode <span
                                                         class="required">*</span></label>
-                                                <select id="bill_pincode" class="form-control input-sm select2-multiple"
-                                                        name="bill_pincode">
+                                                <select id="bill_pincode" class="form-control input-sm select2-multiple">
                                                     <option value=" "> Select Pincode</option>
                                                     {% for pincode in pincode_list %}
-                                                    <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}
+                                                    <option value="{{pincode.pincode_id}}"> {{ pincode.pincode }}
                                                     </option>
                                                     {% endfor %}
                                                 </select>
@@ -569,8 +567,8 @@
                                                 <select id="requested_load" class="form-control select2"
                                                         name="requested_load">
                                                     <option value=" "> Select Requested Load</option>
-                                                    <option value="KW">120</option>
-                                                    <option value="HP">230</option>
+                                                    <option value="120">120</option>
+                                                    <option value="230">230</option>
                                                 </select>
                                                 <label class="error"
                                                        style="color:red; display:none; font-size: 12px;"></label>
@@ -594,7 +592,7 @@
                                                 <select id="contract_demand" class="form-control select2"
                                                         name="contract_demand">
                                                     <option value=" "> Select Contract Demand</option>
-                                                    <option value="KWA">120</option>
+                                                    <option value="120">120</option>
                                                 </select>
                                                 <label class="error"
                                                        style="color:red; display:none; font-size: 12px;"></label>

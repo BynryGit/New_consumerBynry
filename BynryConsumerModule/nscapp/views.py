@@ -149,7 +149,7 @@ def review_consumer_form(request):
 @csrf_exempt
 def save_new_consumer(request):
     try:
-        print 'nscapp|views.py|save_new_consumer'
+        print 'nscapp|views.py|save_new_consumer',request.POST.get('bill_city'),request.POST.get('bill_pincode')
 
         new_consumer_obj = NewConsumerRequest(
             applicant_name=request.POST.get('applicant_name'),

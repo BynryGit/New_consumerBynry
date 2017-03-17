@@ -7,7 +7,7 @@ function make_same() {
 			$("#bill_address_line1").val($("#address_line1").val());
 			$("#bill_address_line2").val($("#address_line2").val());
 			$("#bill_landmark").val($("#landmark").val());
-			$("#bill_city").val($("#city").val()).change();
+			$("#bill_city").val($("#city").val()).change();			 
 			$("#bill_pincode").val($("#pincode").val()).change();
 			$("#bill_email").val($("#email").val());
 			$("#bill_mobile").val($("#mobile").val());
@@ -609,15 +609,17 @@ function CheckIdProof() {
 }
  // Save edited consumer on edit button click 
 $("#save-consumer").click(function(event)  {
-	 	 
+	//console.log($("#consumer_form").serialize())
+	bill_city = $("#bill_city").val()
+	bill_pincode = $("#bill_pincode").val()
+
 	if (validateData()) {
-		
 	event.preventDefault();  												
 	
   			$.ajax({  				  
 				  type	: "POST",
 				   url : '/nscapp/save-new-consumer/',
- 					data : $("#consumer_form").serialize(),
+ 					data : $("#consumer_form").serialize()+'&bill_city='+bill_city+'&bill_pincode='+bill_pincode,
                      
               success: function (response) {   
 	              if(response.success=='true'){
