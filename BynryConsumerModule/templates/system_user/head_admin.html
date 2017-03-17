@@ -73,9 +73,10 @@
                         <div class="col-md-4 custom-sys-user-margin-top1" >
                             <div class="form-group form-md-line-input has-success">
                             		<label for="bill_cycle">Status : </label>
-                                <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+                                <input type="checkbox" id="update_user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
                             </div>
-                        </div> 
+                        </div>
+                        <input type="hidden" class="form-control" id="user_id"> 
                 	  </div>
                     <div class="row">                    		 
                         <div class="col-md-4">
@@ -92,7 +93,7 @@
                         </div>
                         <div class="col-md-4 custom-sys-user-margin-top2">
 	                      <div class="form-group form-md-line-input has-success">
-	                          <select id="city" class="form-control input-sm select2-multiple">
+	                          <select id="user_city" class="form-control input-sm select2-multiple">
                                     {% for city in city_list %}                                  		
 	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
 	                                  {% endfor %}
@@ -118,7 +119,7 @@
                         </div>
                          <div class="col-md-6">
 	                      	<div class="form-group form-md-line-input has-success">
-                                <input type="text" readonly="" value="H.O. Admin" class="form-control" id="user_role">
+                                <input type="text" readonly="" value="H.O.Admin" class="form-control" id="user_role">
                                 <label for="user_role">Role</label>
                             </div>	                      
                     		</div>
@@ -165,7 +166,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Save</button>
+                <button onclick="update_head_admin_details();" type="button" data-dismiss="modal" class="btn dark btn-outline">Save</button>
             </div>
         </div>
     </div>

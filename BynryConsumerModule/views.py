@@ -59,7 +59,7 @@ def payments(request):
 
 def save_system_user_details(request):
     try:
-        print 'views.py|save_head_admin_details'
+        print 'views.py|save_system_user_details'
         city_obj = City.objects.get(city=request.GET.get('city'))
         role_obj = UserRole.objects.get(role=request.GET.get('role'))
         user_obj = SystemUserProfile(
@@ -94,7 +94,7 @@ def get_system_user_details(request):
         print 'views.py|get_system_user_details'
         user_obj = SystemUserProfile.objects.get(id=request.GET.get('user_id'))
 
-        user_data={'first_name':user_obj.first_name,'last_name':user_obj.last_name,
+        user_data={'user_id':user_obj.id,'first_name':user_obj.first_name,'last_name':user_obj.last_name,
                    'city':user_obj.city.city,'role':user_obj.role.role,'email':user_obj.email,
                    'user_status':user_obj.status,'employee_id':user_obj.employee_id,
                    'contact_no':user_obj.contact_no,'address':user_obj.address
@@ -104,6 +104,41 @@ def get_system_user_details(request):
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|views.py|get_system_user_details', e
+        print 'Exception', e
+        data = {'success': 'false', 'error': 'Exception ' + str(e)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def update_system_user_details(request):
+    try:
+        print 'views.py|update_system_user_details'
+        user_obj = SystemUserProfile.objects.get(id=request.GET.get('user_id'))
+
+        city_obj = City.objects.get(city=request.GET.get('city'))
+        role_obj = UserRole.objects.get(role=request.GET.get('role'))
+
+        user_obj.username=request.GET.get('email')
+        user_obj.password=request.GET.get('password')
+        user_obj.contact_no=request.GET.get('contact_no')
+        user_obj.address=request.GET.get('address')
+        user_obj.first_name=request.GET.get('first_name')
+        user_obj.last_name=request.GET.get('last_name')
+        user_obj.city=city_obj
+        user_obj.employee_id=request.GET.get('emp_id')
+        user_obj.role=role_obj
+        user_obj.email=request.GET.get('email')
+        user_obj.status=request.GET.get('user_status')
+        user_obj.save()
+
+        if request.GET.get('branch'):
+            branch_obj = Branch.objects.get(branch_name=request.GET.get('branch'))
+            user_obj.branch = branch_obj
+            user_obj.save()
+        data={'success':'True'}
+
+    except Exception, e:
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|views.py|update_system_user_details', e
         print 'Exception', e
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
@@ -130,6 +165,34 @@ def head_admin(request):
         except Exception as e:
             print 'exception ', str(traceback.print_exc())
             print 'Exception|views.py|head_admin', e
+            print 'Exception', e
+            data = {'success': 'false', 'error': 'Exception ' + str(e)}
+    except Exception, e:
+        print 'Exception', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def head_supervisor(request):
+    final_list=[]
+    try:
+        print 'views.py|head_supervisor'
+        try:
+            role_obj = UserRole.objects.get(role="H.O.Supervisor")
+            head_supervisor_list = SystemUserProfile.objects.filter(role=role_obj)
+            # get head admin data list
+            for h in head_supervisor_list:
+                head_admin_data ={'id':str(h.id),
+                              'name':str(h.first_name)+' '+str(h.last_name),
+                              'contact':str(h.contact_no),
+                              'email':str(h.email),
+                              'status':str(h.status),
+                              'actions':'<a class="icon-pencil" title="Edit" onclick="edit_supervisor_modal('+ str(h.id) +');"></a>',
+                              }
+                final_list.append(head_admin_data)
+            data = {'data':final_list}
+        except Exception as e:
+            print 'exception ', str(traceback.print_exc())
+            print 'Exception|views.py|head_supervisor', e
             print 'Exception', e
             data = {'success': 'false', 'error': 'Exception ' + str(e)}
     except Exception, e:
