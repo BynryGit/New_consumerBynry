@@ -247,7 +247,7 @@ def get_role_list(request):
             for role_obj in role_obj_list:
                 role = role_obj.role
                 description = role_obj.description
-                created_on = role_obj.created_on
+                created_on = role_obj.created_on.strftime("%Y-%m-%d")
                 associated_user = '--'
 
                 if role_obj.status == 'Active':
