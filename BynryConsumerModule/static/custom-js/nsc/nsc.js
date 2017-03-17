@@ -590,9 +590,9 @@ function CheckAddressProof() {
 }
 function CheckIdProof() {
 	flag_1 = 0
-	var addProofList = document.getElementsByClassName('idproofclass')
-	for(var i=0; addProofList[i]; ++i){
-      if(addProofList[i].checked){
+	var IdProofList = document.getElementsByClassName('idproofclass')
+	for(var i=0; IdProofList[i]; ++i){
+      if(IdProofList[i].checked){
            flag_1 = 1
            break;
       }
