@@ -172,25 +172,25 @@ def save_new_consumer(request):
             a1 = a1 + ',' +request.POST.get('checkbox1_11')
         # Identity Proof List
         a2 = ''
-        if request.POST.get('checkbox1_12') != None:
+        if request.POST.get('checkbox2_12') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_12')
-        if request.POST.get('checkbox1_13') != None:
+        if request.POST.get('checkbox2_13') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_13')
-        if request.POST.get('checkbox1_14') != None:
+        if request.POST.get('checkbox2_14') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_14')
-        if request.POST.get('checkbox1_15') != None:
+        if request.POST.get('checkbox2_15') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_15')
-        if request.POST.get('checkbox1_16') != None:
+        if request.POST.get('checkbox2_16') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_16')
-        if request.POST.get('checkbox1_17') != None:
+        if request.POST.get('checkbox2_17') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_17')
-        if request.POST.get('checkbox1_18') != None:
+        if request.POST.get('checkbox2_18') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_18') 
-        if request.POST.get('checkbox1_19') != None:
+        if request.POST.get('checkbox2_19') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_19')
-        if request.POST.get('checkbox1_20') != None:
+        if request.POST.get('checkbox2_20') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_20')
-        if request.POST.get('checkbox1_21') != None:
+        if request.POST.get('checkbox2_21') != None:
             a2 = a2 + ',' +request.POST.get('checkbox1_21')                                                                                                                  
 
         new_consumer_obj = NewConsumerRequest(
@@ -250,6 +250,10 @@ def save_new_consumer(request):
             #created_by=request.session['login_user'],
         );
         new_consumer_obj.save();
+
+        attachment_list = request.POST.get('attachments')
+        save_attachments(attachment_list, new_consumer_obj)
+
         data = {
             'success': 'true',
             'message': 'Consumer created successfully.'
@@ -274,9 +278,56 @@ def nsc_form(request):
     template = get_template('nsc_template/nsc_form.html')
     html = template.render(Context(data))
     result = StringIO.StringIO()
-
     pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), result)
-
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+
+@csrf_exempt
+def upload_consumer_docs(request):    
+    try:
+        print 'nscapp|views.py|upload_consumer_docs'        
+        if request.method == 'POST':
+            attachment_file = ConsumerDocsImage()
+            attachment_file.save()
+
+            request.FILES['file[]'].name = 'consumerDocsID_'+str(attachment_file.id)+'_'+request.FILES['file[]'].name
+            attachment_file.document_files=request.FILES['file[]']
+            attachment_file.save()
+            data = {'success': 'true', 'attachid': attachment_file.id}
+        else:
+            data = {'success': 'false'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|nscapp|views.py|upload_consumer_docs', e
+        data = {'success': 'invalid request'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def remove_consumer_docs(request):    
+    try:
+        print 'nscapp|views.py|remove_consumer_docs'        
+        image_id = request.GET.get('image_id')
+        image = ConsumerDocsImage.objects.get(id=image_id)
+        image.delete()
+
+        data = {'success': 'true'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|nscapp|views.py|remove_consumer_docs', e
+        data = {'success': 'false'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def save_attachments(attachment_list, consumer_id):
+    try:
+        print 'nscapp|views.py|save_attachments'        
+        attachment_list = attachment_list.split(',')
+        attachment_list = filter(None, attachment_list)
+        for attached_id in attachment_list:
+            attachment_obj = ConsumerDocsImage.objects.get(id=attached_id)
+            attachment_obj.consumer_id = consumer_id
+            attachment_obj.save()
+
+        data = {'success': 'true'}
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_attachments', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+

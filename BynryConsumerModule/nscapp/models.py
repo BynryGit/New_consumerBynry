@@ -5,6 +5,7 @@ from datetime import date
 
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility
 # Create your models here.
+CONSUMER_DOCS_PATH ='images/consumer_docs_file/'
 
 CONSUMER_CATEGORY = (
     ('1-LT-SUPPLY', '1-LT-SUPPLY'),
@@ -121,4 +122,15 @@ class NewConsumerRequest(models.Model):
 
     def __unicode__(self):
         return unicode(str(self.registration_no))
+
+class ConsumerDocsImage(models.Model):
+    consumer_id		= models.ForeignKey(NewConsumerRequest,blank=True,null=True)
+    document_files 	= models.FileField(upload_to=CONSUMER_DOCS_PATH, max_length=500, null=True, blank=True)
+    creation_date 	= models.DateTimeField(null=True,blank=True)
+    created_by 		= models.CharField(max_length=500,null=True,blank=True)
+    updated_by 		= models.CharField(max_length=500,null=True,blank= True)
+    updation_date	= models.DateTimeField(null=True,blank=True)
+    
+    def __unicode__(self):
+        return unicode(self.id)        
 
