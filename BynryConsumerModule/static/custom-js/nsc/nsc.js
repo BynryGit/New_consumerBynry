@@ -95,7 +95,7 @@ function validateData(){
 	   &CheckBillLandmark("#bill_landmark")&CheckBillCity("#bill_city")&CheckBillPincode("#bill_pincode")&checkBillEmail("#bill_email")
 	   &checkBillContactNo("#bill_mobile")&checkBillHomePhone("#bill_phone_no")&CheckBillConsumerNo("#bill_existing_consumer_no")
 	   &CheckPremises("#premises_type")&CheckRequestedLoad("#requested_load")&CheckLoadType("#load_type")
-	   &CheckContractDemand("#contract_demand")&CheckDemandType("#contract_demand_type")){    
+	   &CheckContractDemand("#contract_demand")&CheckDemandType("#contract_demand_type")&CheckAddressProof()&CheckIdProof()){    
 		return true;	
 	}
 	return false;
@@ -568,14 +568,48 @@ function CheckDemandType(contract_demand_type){
    return false; 
    }
 }
-
+function CheckAddressProof() {
+	
+	flag_1 = 0
+	var addProofList = document.getElementsByClassName('addproofclass')
+	for(var i=0; addProofList[i]; ++i){
+      if(addProofList[i].checked){
+           flag_1 = 1
+           break;
+      }
+   }
+   if (flag_1 == 1) {
+   	$("#addProofset_error").css("display", "none");
+  		return true;
+	}	
+	else {
+    	$("#addProofset_error").css("display", "block");	
+      $("#addProofset_error").text("Please Enter Address Proof");
+   	return false; 
+	}
+}
+function CheckIdProof() {
+	flag_1 = 0
+	var addProofList = document.getElementsByClassName('idproofclass')
+	for(var i=0; addProofList[i]; ++i){
+      if(addProofList[i].checked){
+           flag_1 = 1
+           break;
+      }
+   }
+   if (flag_1 == 1) {
+   	$("#idProofset_error").css("display", "none");
+  		return true;
+	}	
+	else {
+    	$("#idProofset_error").css("display", "block");	
+      $("#idProofset_error").text("Please Enter Identity Proof");
+   	return false; 
+	}
+}
  // Save edited consumer on edit button click 
 $("#save-consumer").click(function(event)  {
-	//ss = document.getElementByName("checkbox1_12").checked
-	ss =document.getElementsByName("checkbox2_12").checked
-	alert(ss)
-	return false;
-	 
+	 	 
 	if (validateData()) {
 		
 	event.preventDefault();  												
