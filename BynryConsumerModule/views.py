@@ -224,7 +224,7 @@ def save_new_role(request):
             new_role_obj.save()        
 
         data = {
-            'success': 'true',
+            'success':  'true',
             'message': 'Consumer created successfully.'
         }
     except Exception, e:
