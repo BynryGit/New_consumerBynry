@@ -272,6 +272,387 @@
     <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
+<!-- Start Model -->
+ <div id="KYC_model" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title"> Know Your Customer (KYC) Verification:</h4>
+                        <input type="hidden" class="form-control" id="consumer_id">
+                    </div>
+                    <div class="modal-body">
+                        <div class="scroller" style="height:760px" data-always-visible="1" data-rail-visible1="1">
+                            <div class="row">                                                             	
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Aadhar No.</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="text-align: -webkit-right;">
+                                    <button type="button" class="btn green" >Verify</button>
+                                </div>                     
+                             </div>
+                             <div class="row">
+	                                <hr style="border-top: dotted 1px;"/>
+                             </div>
+                             <div class="row">
+                                <div class="col-md-12">
+                                     <h4><b >  e-KYC Information</b></h4>
+                                </div> 
+                             </div>
+                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_email" readonly="">
+                                        <label for="form_control_1">Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <label for="form_control_1">Contact</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <label for="form_control_1">Email</label>
+                                    </div>
+                                </div>                               			                                               
+                              </div>
+                              <div class="row">
+				                        <div class="col-md-12">
+				                            <div class="form-group form-md-line-input has-success ">
+				                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+				                                <label >Address</label>
+				                            </div>
+				                        </div>				                        
+				                        <div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success" >
+					                          <select id="edit_city" class="form-control input-sm select2-multiple" disabled>
+		                                        {% for city in city_list %}		
+		                                        <option value="{{ city.city_id }}"> {{ city.city }}</option>
+		                                        {% endfor %}
+				                             </select>                                    
+					                          <label for="consumer_zone">City</label>
+					                      </div>	                      
+				                    		</div>
+				                    		<div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success">
+					                          <select id="edit_pincode" class="form-control input-sm select2-multiple" disabled>
+				                                  {% for pincode in pincode_list %}
+				                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
+				                                  {% endfor %}
+				                             </select>
+					                          <label for="consumer_zone">Pincode</label>
+					                      </div>	                      
+				                    		</div>
+				                    		<div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success">
+					                          <select id="edit_zone" class="form-control input-sm select2-multiple" disabled>
+				                                  {% for zone in zone_list %}
+				                                   <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
+				                                  {% endfor %}
+				                             </select>
+					                          <label for="consumer_zone">Zone</label>
+					                      </div>	                      
+				                    		</div> 
+				                   </div>  
+				                   <div class="row">
+		                                <hr style="border-top: dotted 1px;"/>
+	                            </div>
+	                            <div class="row">
+	                               <div class="col-md-12">
+	                                     <h4><b >  Given by Applicant</b></h4>
+	                               </div> 
+	                            </div> 
+	                           <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_email" readonly="">
+                                        <label for="form_control_1">Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <label for="form_control_1">Contact</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <label for="form_control_1">Email</label>
+                                    </div>
+                                </div>                               			                                               
+                              </div>
+                              <div class="row">
+				                        <div class="col-md-12">
+				                            <div class="form-group form-md-line-input has-success ">
+				                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+				                                <label >Address</label>
+				                            </div>
+				                        </div>				                        
+				                        <div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success" >
+					                          <select id="edit_city" class="form-control input-sm select2-multiple" disabled>
+		                                        {% for city in city_list %}		
+		                                        <option value="{{ city.city_id }}"> {{ city.city }}</option>
+		                                        {% endfor %}
+				                             </select>                                    
+					                          <label for="consumer_zone">City</label>
+					                      </div>	                      
+				                    		</div>
+				                    		<div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success">
+					                          <select id="edit_pincode" class="form-control input-sm select2-multiple" disabled>
+				                                  {% for pincode in pincode_list %}
+				                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
+				                                  {% endfor %}
+				                             </select>
+					                          <label for="consumer_zone">Pincode</label>
+					                      </div>	                      
+				                    		</div>
+				                    		<div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success">
+					                          <select id="edit_zone" class="form-control input-sm select2-multiple" disabled>
+				                                  {% for zone in zone_list %}
+				                                   <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
+				                                  {% endfor %}
+				                             </select>
+					                          <label for="consumer_zone">Zone</label>
+					                      </div>	                      
+				                    		</div> 
+				                   </div>     	
+				                   <div class="row">
+		                                <hr style="border-top: dotted 1px;"/>
+	                            </div>	   
+	                            <div class="col-md-6"  style="margin-top: 4px;">
+				                      <div class="form-group form-md-line-input has-success">
+				                          <select id="edit_zone" class="form-control input-sm select2-multiple">
+			                                   <option value="verified"> Verified</option>
+			                                   <option value="not_verified"> Not Verified</option>
+			                             </select>
+				                          <label for="consumer_zone">Status </label>
+				                      </div>	                      
+			                    		</div>                         									 
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                        	<button type="button" class="btn green" id="save-consumer">Save</button>
+                        </div>
+                     </div>
+                </div>                    
+        </div> 
+         <div id="edituser_model" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title"> Technical Checking Details:</h4>
+                        <input type="hidden" class="form-control" id="consumer_id">
+                    </div>
+                    <div class="modal-body">
+                        <div class="scroller" style="height:760px" data-always-visible="1" data-rail-visible1="1">
+                            <div class="row">
+	                               <div class="col-md-12">
+	                                     <h4><b >  Application Details</b></h4>
+	                               </div> 
+	                         </div>
+                            <div class="row">                                                             	
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Reg. No.</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Cons. Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Contact No.</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+			                            <div class="form-group form-md-line-input has-success ">
+			                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+			                                <label >Address</label>
+			                            </div>
+				                     </div>
+				                     <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Category</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Subcategory</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Supply Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Premise Type</label>
+                                    </div>
+                                </div>                                                    
+                             </div>
+                             <div class="row">
+	                                <hr style="border-top: dotted 1px;"/>
+                             </div>
+                             <div class="row">
+                                <div class="col-md-12">
+                                     <h4><b >  Checklist</b></h4>
+                                </div> 
+                             </div>
+                             <div class="row">
+                              <div class="col-md-12">
+                                <div class="col-md-3">
+                                  <div class="md-checkbox">
+                                       <input type="checkbox" name="address_proof" value="Ration Card"
+                                              id="checkbox1_1" class="md-check addproofclass">
+                                       <label for="checkbox1_1">
+                                           <span></span>
+                                           <span class="check"></span>
+                                           <span class="box"></span> Ration Card </label>
+                                   </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="md-checkbox">
+                                       <input type="checkbox" name="address_proof" value="Ration Card"
+                                              id="checkbox1_1" class="md-check addproofclass">
+                                       <label for="checkbox1_1">
+                                           <span></span>
+                                           <span class="check"></span>
+                                           <span class="box"></span> Ration Card </label>
+                                   </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="md-checkbox">
+                                       <input type="checkbox" name="address_proof" value="Ration Card"
+                                              id="checkbox1_1" class="md-check addproofclass">
+                                       <label for="checkbox1_1">
+                                           <span></span>
+                                           <span class="check"></span>
+                                           <span class="box"></span> Ration Card </label>
+                                   </div>
+                                </div>
+                                <div class="col-md-3">
+	                               <div class="md-checkbox">
+                                       <input type="checkbox" name="address_proof" value="Ration Card"
+                                              id="checkbox1_1" class="md-check addproofclass">
+                                       <label for="checkbox1_1">
+                                           <span></span>
+                                           <span class="check"></span>
+                                           <span class="box"></span> Ration Card </label>
+                                   </div>
+                                </div>  
+                                </div>                             			                                               
+                              </div>
+                              
+				                   <div class="row">
+		                                <hr style="border-top: dotted 1px;"/>
+	                            </div>
+	                            <div class="row">
+	                               <div class="col-md-12">
+	                                     <h4><b >  Given by Applicant</b></h4>
+	                               </div> 
+	                            </div> 
+	                           <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_email" readonly="">
+                                        <label for="form_control_1">Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <label for="form_control_1">Contact</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <label for="form_control_1">Email</label>
+                                    </div>
+                                </div>                               			                                               
+                              </div>
+                              <div class="row">
+				                        <div class="col-md-12">
+				                            <div class="form-group form-md-line-input has-success ">
+				                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+				                                <label >Address</label>
+				                            </div>
+				                        </div>				                        
+				                        <div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success" >
+					                          <select id="edit_city" class="form-control input-sm select2-multiple" disabled>
+		                                        {% for city in city_list %}		
+		                                        <option value="{{ city.city_id }}"> {{ city.city }}</option>
+		                                        {% endfor %}
+				                             </select>                                    
+					                          <label for="consumer_zone">City</label>
+					                      </div>	                      
+				                    		</div>
+				                    		<div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success">
+					                          <select id="edit_pincode" class="form-control input-sm select2-multiple" disabled>
+				                                  {% for pincode in pincode_list %}
+				                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
+				                                  {% endfor %}
+				                             </select>
+					                          <label for="consumer_zone">Pincode</label>
+					                      </div>	                      
+				                    		</div>
+				                    		<div class="col-md-4"  style="margin-top: 4px;">
+					                      <div class="form-group form-md-line-input has-success">
+					                          <select id="edit_zone" class="form-control input-sm select2-multiple" disabled>
+				                                  {% for zone in zone_list %}
+				                                   <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
+				                                  {% endfor %}
+				                             </select>
+					                          <label for="consumer_zone">Zone</label>
+					                      </div>	                      
+				                    		</div> 
+				                   </div>     	
+				                   <div class="row">
+		                                <hr style="border-top: dotted 1px;"/>
+	                            </div>	   
+	                            <div class="col-md-6"  style="margin-top: 4px;">
+				                      <div class="form-group form-md-line-input has-success">
+				                          <select id="edit_zone" class="form-control input-sm select2-multiple">
+			                                   <option value="verified"> Verified</option>
+			                                   <option value="not_verified"> Not Verified</option>
+			                             </select>
+				                          <label for="consumer_zone">Status </label>
+				                      </div>	                      
+			                    		</div>                         									 
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                        	<button type="button" class="btn green" id="save-consumer">Save</button>
+                        </div>
+                     </div>
+                </div>                    
+        </div>
+<!-- End Model -->        
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
