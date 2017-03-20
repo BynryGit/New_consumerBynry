@@ -447,7 +447,7 @@
                      </div>
                 </div>                    
         </div>
-        <div id="edituser_model" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div id="technical_model" class="modal fade" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -596,6 +596,130 @@
 				                      </div>	                      
 			                    		</div>                                                    			                                               
                               </div>                                   					                    	                                                     									 
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                        	<button type="button" class="btn green" id="save-consumer">Save</button>
+                        </div>
+                     </div>
+                </div>                    
+        </div> 
+        <div id="payment_model" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title"> Payment Details:</h4>
+                        <input type="hidden" class="form-control" id="consumer_id">
+                    </div>
+                    <div class="modal-body">
+                        <div class="scroller" style="height:600px" data-always-visible="1" data-rail-visible1="1">
+                            <div class="row">
+	                               <div class="col-md-12">
+	                                     <h4><b >  Application Details</b></h4>
+	                               </div> 
+	                         </div>
+                            <div class="row">                                                             	
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Reg. No.</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Cons. Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Contact No.</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Category</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Subcategory</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Supply Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+			                            <div class="form-group form-md-line-input has-success ">
+			                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+			                                <label >Address</label>
+			                            </div>
+				                     </div>
+				                     <div class="col-md-4"  style="margin-top: 4px;">
+				                      <div class="form-group form-md-line-input has-success">
+				                          <select id="edit_pincode" class="form-control input-sm select2-multiple" disabled>
+			                                  {% for pincode in pincode_list %}
+			                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
+			                                  {% endfor %}
+			                             </select>
+				                          <label for="consumer_zone">Pincode</label>
+				                      </div>	                      
+			                    		</div>				                                                                    
+                             </div>
+                             <div class="row">
+	                                <hr style="border-top: dotted 1px;"/>
+                             </div>
+                             <div class="row">
+                                <div class="col-md-12">
+                                     <h4><b >  Payment Details</b></h4>
+                                </div> 
+                             </div>
+                             <div class="row">
+                               <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Payment Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Amount Paid</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Payment Mode</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Payment Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Cheque No./ Demand Draft No. </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <label for="form_control_1">Name on Cheque/ DD</label>
+                                    </div>
+                                </div>                                                        			                                               
+                              </div>                              				                  	                                                            					                    	                                                     									 
                             </div>
                         </div>
                         <div class="modal-footer">
