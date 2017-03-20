@@ -273,7 +273,7 @@
 </div>
 <!-- END CONTAINER -->
 <!-- Start Model -->
- <div id="KYC_model" class="modal fade" tabindex="-1" aria-hidden="true">
+         <div id="KYC_model" class="modal fade" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -282,7 +282,7 @@
                         <input type="hidden" class="form-control" id="consumer_id">
                     </div>
                     <div class="modal-body">
-                        <div class="scroller" style="height:760px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="scroller" style="height:830px" data-always-visible="1" data-rail-visible1="1">
                             <div class="row">                                                             	
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
@@ -431,13 +431,19 @@
 	                            </div>	   
 	                            <div class="col-md-6"  style="margin-top: 4px;">
 				                      <div class="form-group form-md-line-input has-success">
-				                          <select id="edit_zone" class="form-control input-sm select2-multiple">
+				                          <select id="verify_KYC" class="form-control input-sm select2-multiple" onchange="open_remark_KYC();">
 			                                   <option value="verified"> Verified</option>
 			                                   <option value="not_verified"> Not Verified</option>
 			                             </select>
 				                          <label for="consumer_zone">Status </label>
 				                      </div>	                      
-			                    		</div>                         									 
+			                    		</div>
+			                    		<div class="col-md-12" style="display:none" id="remark_div">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="KYC_remark">
+                                        <label for="form_control_1">Remark</label>
+                                    </div>
+                                </div>                         									 
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -456,7 +462,7 @@
                         <input type="hidden" class="form-control" id="consumer_id">
                     </div>
                     <div class="modal-body">
-                        <div class="scroller" style="height:650px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="scroller" style="height:700px" data-always-visible="1" data-rail-visible1="1">
                             <div class="row">
 	                               <div class="col-md-12">
 	                                     <h4><b >  Application Details</b></h4>
@@ -588,13 +594,19 @@
                                 </div>         
                                 <div class="col-md-6"  style="margin-top: 4px;">
 				                      <div class="form-group form-md-line-input has-success">
-				                          <select id="edit_zone" class="form-control input-sm select2-multiple">
+				                          <select id="verify_technical" class="form-control input-sm select2-multiple" onchange="open_remark_technical();">
 			                                   <option value="passed"> Pass</option>
 			                                   <option value="failed"> Failed</option>
 			                             </select>
 				                          <label for="consumer_zone">Status by Technician </label>
 				                      </div>	                      
-			                    		</div>                                                    			                                               
+			                    		</div>      
+			                    		<div class="col-md-12" style="display:none" id="remark_div_tech">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="KYC_remark">
+                                        <label for="form_control_1">Remark</label>
+                                    </div>
+                                </div>                                             			                                               
                               </div>                                   					                    	                                                     									 
                             </div>
                         </div>
@@ -604,7 +616,7 @@
                         </div>
                      </div>
                 </div>                    
-        </div> 
+        </div>          
         <div id="payment_model" class="modal fade" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -868,6 +880,25 @@
         $("#end_date").val('');
         initTable1();
     }
+    
+    // SHUBHAM
+   function open_remark_KYC() {	
+		if ($("#verify_KYC").val()== 'not_verified' ) {
+	  		 $("#remark_div").css("display","block");
+		}
+		else {
+   		$("#remark_div").css("display","none");
+		}
+	}	
+   function open_remark_technical() {	
+		if ($("#verify_technical").val()== 'failed' ) {
+	  		 $("#remark_div_tech").css("display","block");
+		}
+		else {
+   		$("#remark_div_tech").css("display","none");
+		}
+	}
+			
 
 </script>
 
