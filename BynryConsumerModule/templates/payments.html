@@ -33,6 +33,33 @@
 		.custom-height{
 			margin-top: 4px;		
 		}    
+		.custom-top-margin-btn{			
+			margin-top: 27px;		
+		}
+		.custom-left-margin-btn{
+			margin-left:5px;
+		}
+		.custom-left{
+			margin-left:660px;		
+		}
+		.custom-modal-height{
+			height:110px;		
+		}
+		.custom-modal-height2{
+			height:485px;		
+		}
+		.custom-modal-height3{
+			height:250px;		
+		}
+		.custom-modal-height4{
+			height:40px;		
+		}
+		.custom-modal-top1{
+			margin-top: -25px;		
+		}
+		.custom-modal-top2{
+			margin-top: -24px;		
+		}
     </style>
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
@@ -152,13 +179,11 @@
                                  </div>
                              </div>  
                              <div class="col-md-9" style="text-align:right">
-                                    <input type="button" onclick="search_consumer();"
-                                           style="margin-left: 163px;margin-top: 27px;"
-                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm "
+                                    <input type="button" onclick="search_consumer();"                                           
+                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-top-margin-btn"
                                            value="Search">
-                                    <input type="button" onclick="clear_filter();"
-                                           style="margin-left:5px;margin-top: 27px;"
-                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm "
+                                    <input type="button" onclick="clear_filter();"                                           
+                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-top-margin-btn custom-left-margin-btn"
                                            value="Clear Filters">                                        
                                 </div>	                         	                        
                                 </div>	                         	                        
@@ -297,9 +322,8 @@
                                         <span class="caption-subject bold uppercase">Cash Payments : 
 														<label for="single" class="control-label">1000</label> 			                                        
                                         </span>                                        
-                                        <input type="button" onclick="add_payment();"
-                                           style="margin-left:660px;"                                           
-                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm "
+                                        <input type="button" onclick="add_payment();"                                                                                    
+                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-left"
                                            value="Add Payment">                                          
                                     </div>
 												<div class="actions custom-height" >
@@ -372,7 +396,7 @@
             </div>
             <div class="modal-body" id="counter_bill">
             	<div id="clear_div">
-                <div class="scroller" style="height:110px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller custom-modal-height" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="col-md-6">
                             <p>
@@ -412,7 +436,7 @@
             <label class="error2" style="color:red; "></label>
             </div>
             <div class="modal-body" id="counter_form" hidden="">
-                <div class="scroller" style="height:485px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller custom-modal-height2" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="col-md-12">
                             <h4><b>Bill Month : <span id="consumer_bill_month"></span> 2017</b></h4>
@@ -515,7 +539,7 @@
                         <div class="row">
                         <div class="col-md-12">
 	                        <div class="col-md-6">	                            
-	                            <div class="form-group form-md-line-input has-info" style="margin-top: -25px;">
+	                            <div class="form-group form-md-line-input has-info custom-modal-top1" >
 	                                <label class="control-label" for="form_control_1">Payment Mode</label>	
 	                                <input type="text" class="form-control" readonly="" id="payment_mode"
                                        placeholder="Payment Mode" value="Cash">
@@ -527,7 +551,7 @@
 	                            </div>
 	                        </div>
 	                        <div class="col-md-6">	                        
-	                            <div class="form-group form-md-line-input has-success" style="margin-top: -24px;">      
+	                            <div class="form-group form-md-line-input has-success custom-modal-top2">      
 												<label for="form_control_1">Enter Amount *</label>                      	  								                                
 	                                <div class="input-group">
 	                                   <span class="input-group-addon">₹</span>
@@ -564,7 +588,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Consumer Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:250px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller custom-modal-height3"  data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                     		<div class="col-md-12">
                             <h4><b><span id="cName"></span> (<span id="cNo"></span>)</b></h4>
@@ -622,7 +646,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Consumer Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:40px;" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller custom-modal-height4" data-always-visible="1" data-rail-visible1="1">
                      <label>Data Saved Successfully</label>           
                 </div>
             </div>

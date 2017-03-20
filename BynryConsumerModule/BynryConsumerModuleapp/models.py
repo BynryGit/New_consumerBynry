@@ -37,13 +37,6 @@ import django
 # Create your models here.
 
 
-class User(User):
-    user_id                        =       models.AutoField(primary_key=True, editable=False)
-    user_name                      =       models.CharField(max_length=100,default=None,blank=True,null=True)
-
-    def __unicode__(self):
-        return unicode(self.operator_id)
-
 
 IS_DELETED = (
     (True, True),
@@ -193,14 +186,16 @@ class UserRole(models.Model):
     def __unicode__(self):
         return unicode(self.role)
 
-class UserProfile(User):
+class SystemUserProfile(User):
     contact_no = models.CharField(max_length=15, blank=False, null=False)
-    address_line_1 = models.CharField(max_length=500, blank=True, null=False)
-    address_line_2 = models.CharField(max_length=500, blank=True, null=False)
+    address = models.CharField(max_length=500, blank=True, null=False)
+    user_first_name = models.CharField(max_length=500, blank=True, null=False)
+    user_last_name = models.CharField(max_length=500, blank=True, null=False)
+    address = models.CharField(max_length=500, blank=True, null=False)
+    user_email = models.CharField(max_length=500, blank=True, null=False)
     city = models.ForeignKey(City, blank=False, null=True)
-    state = models.ForeignKey(State, blank=False, null=True)
-    pincode = models.CharField(max_length=500, blank=True, null=False)
     role = models.ForeignKey(UserRole, blank=True, null=True)
+    branch = models.ForeignKey(Branch, blank=True, null=True)
     employee_id = models.CharField(max_length=100, blank=True, null=False)
     status = models.CharField(max_length=20, default='Active', choices=ROLE_STATUS)
     created_by = models.CharField(max_length=500, blank=False, null=False)
@@ -226,4 +221,3 @@ class ProcessingCycle(models.Model):
 
     def __unicode__(self):
         return  unicode(str(self.P_C))
-

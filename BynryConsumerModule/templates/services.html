@@ -25,11 +25,25 @@
     <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>    
     <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet" type="text/css"/>
-    <style>
-        
-        .custom-width{
-				    width: 29%;        
-        }
+    <style>        
+      .custom-width{
+			width: 29%;        
+      }
+      .custom-top-margin-btn{			
+			margin-top: 27px;		
+		}		
+		.custom-left-margin{
+			margin-left:5%;
+		}		
+		.custom-top-margin{
+			margin-top: -4px;		
+		}
+		.custom-service-modal-height1{
+			height:240px;		
+		}
+		.custom-service-modal-height2{
+			height:300px;		
+		}
     </style>
 </head>
 <!-- END HEAD -->
@@ -171,12 +185,12 @@
                             </div>
                         </div>
                         <div class="col-md-2" style="text-align:right;">
-                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                onclick="filter_services()" style="margin-top: 27px;">
+                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-top-margin-btn"
+                                onclick="filter_services()">
                                 Filter
                             </button>
-                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                onclick="clear_filter()" style="margin-top: 27px;">
+                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-top-margin-btn"
+                                onclick="clear_filter()">
                                 Clear
                             </button>
                         </div>
@@ -193,9 +207,9 @@
                                 <i class="icon-settings font-dark"></i>
                                 <span class="caption-subject bold uppercase">Services</span>
                             </div>
-                            <div class="caption font-dark" style="margin-left:5%;">
+                            <div class="caption font-dark custom-left-margin">
                                 <div class="row">
-                                    <h3 class="page-title" style="margin-top: -4px; margin-bottom:0px"> {{total}}
+                                    <h3 class="page-title custom-top-margin" style="margin-bottom:0px"> {{total}}
                                         <small>Total</small>
                                         | {{open}}
                                         <small>Open</small>
@@ -252,8 +266,7 @@
                                     <th> Source </th>
                                     <th> Status</th>
                                 </tr>
-                                </thead>
-                                
+                                </thead>                                
                             </table>
                         </div>
                     </div>
@@ -270,7 +283,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Service Requested Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:240px;" data-always-visible="1" data-rail-visible1="1">                   
+                <div class="scroller custom-service-modal-height1" data-always-visible="1" data-rail-visible1="1">                   
                     <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
                     <div class="row">
                         <div class="col-md-12">
@@ -318,7 +331,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Consumer Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller custom-service-modal-height2" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">

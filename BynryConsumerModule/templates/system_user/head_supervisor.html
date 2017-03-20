@@ -1,0 +1,307 @@
+<div class="portlet light bordered">
+       <div class="portlet-title">
+         <div class="caption font-dark">
+	           <i class="icon-settings font-dark"></i>
+	           <span class="caption-subject bold uppercase"> H.O. Supervisor</span>
+	       </div>
+    
+         <div class="actions">                                                                                               
+			    <div class="btn-group">
+			     
+			      <div class="btn-group btn-group-devided custom-sys-user-padding-right" data-toggle="buttons">
+			        <span class="custom-sys-user-width">
+			        	<input type="button" onclick="add_head_supervisor();"
+                        class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-sys-user-width2"
+                        value="Add Supervisor" data-toggle="modal">
+			        </span>
+                 
+               </div>
+               <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
+                   <i class="fa fa-share"></i>
+                   <span class="hidden-xs"> Tools </span>
+                   <i class="fa fa-angle-down"></i>
+               </a>
+               <ul class="dropdown-menu pull-right" id="head_supervisor_tools">
+                   <li>
+                       <a href="javascript:;" data-action="0" class="tool-action">
+                           <i class="icon-printer"></i> Print</a>
+                   </li>
+                   <li>
+                       <a href="javascript:;" data-action="1" class="tool-action">
+                           <i class="icon-doc"></i> PDF</a>
+                   </li>
+                   <li>
+                       <a href="javascript:;" data-action="2" class="tool-action">
+                           <i class="icon-paper-clip"></i> Excel</a>
+                   </li>
+               </ul>
+           </div>
+         </div>
+     </div>
+     <div class="portlet-body">
+         <table class="table table-striped table-bordered table-hover" id="head_supervisor_table">
+             <thead>
+             <tr>
+                 <th> Id</th>
+                 <th> Name</th>
+                 <th> Contact</th>                                            
+                 <th> Email</th>
+                 <th> Status</th>
+                 <th style="text-align:center"> Actions</th>
+             </tr>
+             </thead>
+             
+         </table>
+     </div>
+ </div>
+ 
+ <!-- Counter Payment Modal Begin -->
+
+
+<div id="edit_supervisor_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit H.O. Admin Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
+                	  <div class="row">
+                	     	<div class="col-md-8">
+                            <h4><b>Basic Details </b></h4>
+                        </div>
+                        <div class="col-md-4 custom-sys-user-margin-top1" >
+                            <div class="form-group form-md-line-input has-success">
+                            		<label for="bill_cycle">Status : </label>
+                                <input type="checkbox" id="hs_update_user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+                            </div>
+                        </div> 
+                        <input type="hidden" class="form-control" id="hs_user_id"> 
+                	  </div>
+                    <div class="row">                    		 
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_user_first_name">
+                                <label for="user_first_name">First Name</label>
+                            </div>
+                        </div>                        
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_user_last_name">
+                                <label for="user_last_name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 custom-sys-user-margin-top2">
+	                      <div class="form-group form-md-line-input has-success">
+	                          <select id="hs_user_city" class="form-control input-sm select2-multiple">
+                                    {% for city in city_list %}                                  		
+	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
+	                                  {% endfor %}
+                             </select>
+	                          <label for="consumer_zone">City</label>
+	                      </div>	                      
+                    		</div>
+                    </div>
+						  <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success ">
+                                <textarea class="form-control" id="hs_user_address" ></textarea>
+                                <label >Address</label>
+                            </div>
+                        </div>
+                    </div>            
+                    <div class="row">                    		                                               
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_user_emp_id">
+                                <label for="route_code">Employee ID</label>
+                            </div>
+                        </div>
+                         <div class="col-md-6">
+	                      	<div class="form-group form-md-line-input has-success">
+                                <input type="text" readonly="" value="H.O.Supervisor" class="form-control" id="hs_user_role">
+                                <label for="user_role">Role</label>
+                            </div>	                      
+                    		</div>
+                    </div>                        
+                    <div class="row">
+                    		<div class="col-md-6">
+                            <h4><b>Contact Details :</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                    		<div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_user_contact_no">
+                                <label for="user_contact_no">Contact No.</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_user_email">
+                                <label for="user_email">Email Id</label>
+                            </div>
+                        </div>
+                    </div>
+							<div class="row">
+                         <div class="col-md-6">
+                            <h4><b>Reset Password :</b></h4>
+                        </div>   
+                     </div>                        
+                      <div class="row">                
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="password" class="form-control"  id="hs_user_password" >
+                                <label for="bill_cycle">Password</label>
+                            </div>
+                        </div>                                                                                   
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="password" class="form-control"  id="hs_user_re_password" >
+                                <label for="route_code">Retype Password</label>
+                            </div>
+                        </div>                        
+                    </div>                                                     
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                <button type="button" onclick="update_head_supervisor_details();" class="btn dark btn-outline">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="add_supervisor_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add H.O. Supervisor</h4></div>
+            <div class="modal-body">
+            	<div id="clear_div">
+                <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
+                	 <div class="row">
+                	 		<div class="col-md-8">
+                            <h4><b>Basic Details :</b></h4>
+                        </div>
+								<div class="col-md-4 custom-sys-user-margin-top1">
+                            <div class="form-group form-md-line-input has-success">
+                            		<label for="user_status">Status : </label>
+                                <input type="checkbox" id="hs_user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+                            </div>
+                        </div>
+                    </div>                     
+                    <div class="row">                    		
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_fname">
+                                <label for="bill_cycle">First Name</label>
+                            </div>
+                        </div>                        
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_lname">
+                                <label for="route_code">Last Name</label>
+                            </div>
+                        </div>
+                         <div class="col-md-4 custom-sys-user-margin-top2">
+	                      <div class="form-group form-md-line-input has-success">
+	                          <select id="hs_city" class="form-control input-sm select2-multiple">
+                                    <!-- <option value=" "> Select City</option> -->
+	                                  {% for city in city_list %}                                  		
+	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
+	                                  {% endfor %}
+                             </select>
+	                          <label for="city">City</label>
+	                      </div>	                      
+                    		</div>
+                    </div>
+						  <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success ">
+                                <textarea class="form-control" id="hs_address" ></textarea>
+                                <label >Address</label>
+                            </div>
+                        </div>
+                    </div>                                         
+                    <div class="row">                    		                                               
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_employee_id">
+                                <label for="employee_id">Employee ID</label>
+                            </div>
+                        </div>
+                         <div class="col-md-6">
+	                      	<div class="form-group form-md-line-input has-success">
+                                <input type="text" readonly="" value="H.O.Supervisor" class="form-control" id="hs_role">
+                                <label for="role">Role</label>
+                            </div>	                      
+                    		</div>
+                    </div>            
+
+                    <div class="row">
+                    		<div class="col-md-6">
+                            <h4><b>Contact Details :</b></h4>
+                        </div>
+                   
+                        <div class="col-md-6">
+                            <h4><b>Set Password :</b></h4>
+                        </div>            
+                     </div> 
+                    <div class="row">                    
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_contact_no">
+                                <label for="contact_no">Contact No.</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="password" class="form-control" id="hs_password" >
+                                <label for="password">Password</label>
+                            </div>
+                        </div>  								   
+                     </div>                          
+                     <div class="row">          
+                         <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="hs_email">
+                                <label for="email">Email Id</label>
+                            </div>
+                        </div>                                                         
+                         <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="password" class="form-control" id="hs_re_password" >
+                                <label for="re_password">Retype Password</label>
+                            </div>
+                            <label class="error" style="color:red; "></label> 
+                        </div>                        
+                    </div>                                                                 
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                <button type="button" onclick="save_head_supervisor_details();" class="btn dark btn-outline">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="hs_success_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">H.O. Supervisor Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller custom-modal-height4" data-always-visible="1" data-rail-visible1="1">
+                     <label>Data Saved Successfully</label>           
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

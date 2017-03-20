@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8"/>
+    <title>Administrator | Bynry</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/icheck/skins/all.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME LAYOUT STYLES -->
+
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <style>
+        .input-group{
+            padding-top: 0px !important;
+        }
+        td{
+            text-align: center;
+        }
+        th{
+            text-align: center;
+        }
+        .btn-sm{
+            width: 80px;
+            padding: 5px 6px;
+        }
+        .portlet {
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding: 0;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner ">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="{% static 'assets/layouts/layout/img/logo.png' %}" alt="logo" class="logo-default"/> </a>
+            <div class="menu-toggler sidebar-toggler" style="pointer-events: none;"></div>
+        </div>
+
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                       data-close-others="true">
+                        <img alt="" class="img-circle"
+                             src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
+                        <span class="username username-hide-on-mobile"> swapnil@bynry.com </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                           <a href="/login">
+                                <i class="icon-key"></i> Log Out </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            {% include 'side-panel.html' %}
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <a>Consumers</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>Administrator</span>
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <div class="portlet light bordered">
+                <div class="portlet-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab"> Add Role </a>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="add_role">
+                    <div class="row" style="background: #fff; margin: 0px; margin-bottom: 20px; padding: 8px;">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-md-line-input has-success">
+                                    	 <label for="bill_cycle">Roll Name</label>
+                                        <input type="text" class="form-control" id="roll_name">                                        
+                                        <label class="error" style="color:red; display:none; font-size: 12px;"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-md-line-input has-success">
+                                    	 <label for="bill_cycle">Discription</label>
+                                        <input type="text" class="form-control" id="description">                                       
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-11">
+                                            <label><b>Privileges</b></label>
+                                            <label id="priv_err" style="color:red; display:none; font-size: 12px;"></label>
+                                        </div>                                          
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-2">                                            
+                                           <div class="md-checkbox">
+                                            <input type="checkbox" value="Admin" id="checkbox1_44"
+                                                   class="md-check privillages"  >
+                                            <label for="checkbox1_44">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Dashboard </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Consumer List" id="checkbox1_1"
+                                                   class="md-check privillages"  >
+                                            <label for="checkbox1_1">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Cosnsumer List </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Payments" id="checkbox1_2"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_2">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Payments </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Complaints" id="checkbox1_3"
+                                                   class="md-check privillages">
+                                            <label for="checkbox1_3">
+                                                <span></span>
+                                                <span class="check privillages"></span>
+                                                <span class="box"></span> Complaints </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Services" id="checkbox1_4"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_4">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Services </label>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-2">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Vigilance Cases" id="checkbox1_5"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_5">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Vigilance Cases </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="NSC" id="checkbox1_6"
+                                                   class="md-check privillages">
+                                            <label for="checkbox1_6">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> NSC </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-2">                                    
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="System User" id="checkbox1_7"
+                                                   class="md-check privillages">
+                                            <label for="checkbox1_7">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> System User </label>
+                                           </div>
+                                        </div>
+                                        
+                                        <div class="col-md-2">                                            
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Administration" id="checkbox1_8"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_8">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Administration </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-4" style="text-align:right;margin-top: -1%;">
+                                            <button type="button" id="save-role"
+                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                                                <i class="fa fa-plus"></i> Add
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="portlet light bordered" id="dispatch_bill_cycle_div">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">Roles</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover"
+                                   id="dispatch_bill_cycle_table">
+                                <thead>
+                                <tr>
+                                    <th> Name</th>
+                                    <th> Description</th>
+                                    <th> Creation Date</th>
+                                    <th> Associated Users</th>
+                                    <th> Status</th>
+                                    <th> Action</th>
+                                </tr>
+                                </thead>                                
+                            </table>
+                        </div>
+                    </div>
+                </div>                                                                
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<div id="edit_role_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit Role</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4><b>System Administrator</b></h4>
+                        </div>
+                        <div class="col-md-3" style="text-align: right;">
+                           <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-info">
+                                <textarea class="form-control" readonly id="role_desc"
+                                          rows="1">System Administrator</textarea>
+                                <label for="route_code">Description </label>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-11">
+                                    <label><b>Privillages</b></label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Dashboard</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Import PN33 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Schedule </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Dispatch </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Validation 1 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Validation 2 </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Approve Schedule </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Upload</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> System User </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="checkbox-list">
+                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
+                                                                              value="1"> Administration </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Role added successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/administrator/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Role already exists</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-footer">
+    <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
+
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/morris/morris.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/morris/raphael-min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/counterup/jquery.waypoints.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/counterup/jquery.counterup.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.resize.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.categories.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.sparkline.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/dashboard.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout/scripts/layout.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout/scripts/demo.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/scripts/datatable.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-validation/js/jquery.validate.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-validation/js/additional-methods.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/form-validation-md.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/form-icheck.min.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">
+	 $("#admin_anchor").prepend('<span class="selected"></span>');
+	 $("#admin_menu").addClass("active open");
+	 $("#admin_span").addClass("open");
+	
+    
+    	 var initTable1 = function () {	 	
+		
+        var table = $('#dispatch_bill_cycle_table');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+				"bDestroy" : true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+
+            "order": [
+                [0, 'asc']
+            ],
+
+            "ajax": "/get-role-list/",
+            "columns": [
+                {"data": "role","sClass": "text-center"},
+                {"data": "description","sClass": "text-center"},
+                {"data": "created_on","sClass": "text-center"},
+                {"data": "associated_user","sClass": "text-center"},
+                {"data": "status","sClass": "text-center"},
+                {"data": "action","sClass": "text-center"}                                                       
+            ],                                                                                                                                                                  
+                                                      
+            buttons: [
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+      });
+    }
+    initTable1();
+
+function validateRole(user_role){
+	
+	user_name = $(user_role).val()
+
+   if($(user_role).val()!=''){
+  
+ 	$(user_role).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+   
+    $(user_role).parent().children('.error').css("display", "block");
+    $(user_role).parent().children('.error').text("Please enter Role Name");
+   return false; 
+   }
+}
+function check_privilage(){
+			var checkboxValues1 = []
+			checkboxValues1 = $('.privillages:checked').map(function() {
+			    return $(this).val();
+			}).get(); 
+
+			if (checkboxValues1.length == 0){
+				$("#priv_err").css("display", "block");
+				$("#priv_err").text("Please select at least 1 Privilege");
+			   return false; 
+			}else{
+				$("#priv_err").css("display", "none");
+				return true;
+			}
+		} 
+
+$("#save-role").click(function(event)  {
+ 
+ if(validateRole("#roll_name")){	
+	var prv = check_privilage()
+	if (prv == false){
+     return false;	
+	}		 
+	event.preventDefault();  	
+	var checkboxValues = []
+	checkboxValues = $('.privillages:checked').map(function() {
+			    return $(this).val();
+			}).get(); 
+
+	var formData= new FormData();
+
+	formData.append("roll_name",$('#roll_name').val());
+	formData.append("description",$('#description').val());				
+	formData.append("privilege_list",checkboxValues);												
+	
+	 $.ajax({  				  
+			  type	: "POST",
+			   url : '/save-new-role/',
+	 			data : formData,
+				cache: false,
+		      processData: false,
+		 		contentType: false, 
+		 			               
+	        success: function (response) {   
+	           if(response.success=='true'){
+						$("#success_modal").modal('show');						
+	           	}
+	   			if (response.success == "false") {
+						$("#error-modal").modal('show');
+	    			}							                        		                      		                       		
+	         },
+	         	beforeSend: function () {
+	      $("#processing").css('display','block');
+	      },
+	      complete: function () {
+	          $("#processing").css('display','none');
+	      },
+	         error : function(response){
+	            	alert("_Error");
+	      	}              
+	  });     
+	  }      
+});    
+    
+</script>
+
+
+</body>
+
+</html>
