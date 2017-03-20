@@ -17,7 +17,7 @@ def new_connection_list(request):
     try:
         data = {
             'total': NewConsumerRequest.objects.all().count(),
-            'open': NewConsumerRequest.objects.filter(status='Open').count(),
+            'open': NewConsumerRequest.objects.filter(status='Registered').count(),
             'closed': NewConsumerRequest.objects.filter(status='Closed').count(),
         }
         print 'nscapp|views.py|new_connection'
@@ -73,6 +73,16 @@ def get_nsc_data(request):
                 closed_date = nsc.closed_date.strftime('%d/%m/%Y')
             else:
                 closed_date = ''
+            if nsc.status == 'Registered':
+                other_action = '&nbsp;<a> <i class="fa fa-life-ring" aria-hidden="true" onclick="KYC_verify(' + str(nsc.id) + ')"></i> </a>'
+            elif nsc.status == 'KYC':
+                other_action = '&nbsp;<a> <i class="fa fa-life-ring" aria-hidden="true" onclick="Technical_verify(' + str(nsc.id) + ')"></i> </a>'
+            elif nsc.status == 'Technical':
+                other_action = '&nbsp;<a> <i class="fa fa-life-ring" aria-hidden="true" onclick="Payment_verify(' + str(nsc.id) + ')"></i> </a>'
+            elif nsc.status == 'Payment':
+                other_action = '&nbsp;<a> <i class="fa fa-life-ring" aria-hidden="true"></i> </a>'
+            elif nsc.status == 'Closed':
+                other_action = ''
             nsc_data = {
                 'registration_id': nsc.registration_no,
                 'applicant_name': nsc.applicant_name,
@@ -85,7 +95,8 @@ def get_nsc_data(request):
                 'status': nsc.status,
                 'closed_date': closed_date,
                 'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id=' + str(
-                    nsc.id) + '"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/?nsc_id='+str(nsc.id)+'" target="_blank" class="fa fa-print" title="Print"></a>'
+                    nsc.id) + '"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/?nsc_id='+str(nsc.id)+'" target="_blank" class="fa fa-print" title="Print"></a>&nbsp;'
+                    + other_action
             }
             nsc_list.append(nsc_data)
         print 'nscapp|views.py|get_nsc_data'
@@ -224,6 +235,7 @@ def save_new_consumer(request):
             contarct_demand_type=request.POST.get('contract_demand_type'),
             address_proof_list=request.POST.getlist('address_proof'),
             identity_proof_list=request.POST.getlist('id_proof'),
+            status = 'Registered',
             created_on=datetime.now(),
             # created_by=request.session['login_user'],
         );
@@ -329,7 +341,6 @@ def nsc_form(request):
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 
-
 @csrf_exempt
 def upload_consumer_docs(request):
     try:
@@ -379,4 +390,107 @@ def save_attachments(attachment_list, consumer_id):
         data = {'success': 'true'}
     except Exception, e:
         print 'Exception|nscapp|views.py|save_attachments', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_kyc_data(request):
+    try:
+        print 'nscapp|views.py|get_kyc_data'
+        data = {}
+        final_list = []
+        try:
+            consumer_obj = NewConsumerRequest.objects.get(id=request.GET.get('registration_id'))
+            applicant_name = consumer_obj.applicant_name
+            meter_mobile_no = consumer_obj.meter_mobile_no
+            meter_email_id = consumer_obj.meter_email_id
+            meter_address_line_1 = consumer_obj.meter_address_line_1
+            meter_address_line_2 = consumer_obj.meter_address_line_2
+            if meter_address_line_2:
+                address = meter_address_line_1 + ', ' +meter_address_line_2
+            else:
+                address = meter_address_line_1
+            city_name = str(consumer_obj.meter_city.city)
+            pincode = str(consumer_obj.meter_pin_code.pincode)
+            consumer_data = {
+                'consumer_id':consumer_obj.id,
+                'applicant_name': applicant_name,
+                'meter_mobile_no': meter_mobile_no,
+                'meter_email_id': meter_email_id,
+                'address': address,
+                'city_name': city_name,
+                'pincode': pincode
+            }
+            data = {'success': 'true', 'data': consumer_data}
+        except Exception as e:
+            print 'Exception|nscapp|views.py|get_kyc_data', e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|nscapp|views.py|get_kyc_data', e
+    except Exception, e:
+        print 'Exception|nscapp|views.py|get_kyc_data', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_consumer_kyc(request):
+    try:
+        print 'nscapp|views.py|save_consumer_kyc'
+        new_KYC_obj = KycVerification(            
+            consumer_id=NewConsumerRequest.objects.get(
+                id=request.POST.get('consumer_id')) if request.POST.get(
+                'consumer_id') else None,
+            status =request.POST.get('verify_KYC_status'),
+            remark =request.POST.get('KYC_remark'),
+            creation_date =datetime.now(),
+            # created_by=request.session['login_user'],
+        );
+        new_KYC_obj.save();
+
+        consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('consumer_id'))
+        consumer_obj.status = 'KYC'
+        consumer_obj.save();    
+
+        data = {
+            'success': 'true',
+            'message': 'KYC created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_consumer_kyc', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_technical_data(request):
+    try:
+        print 'nscapp|views.py|get_technical_data'
+        data = {}
+        final_list = []
+        try:
+            consumer_obj = NewConsumerRequest.objects.get(id=request.GET.get('registration_id'))        
+            meter_address_line_1 = consumer_obj.meter_address_line_1
+            meter_address_line_2 = consumer_obj.meter_address_line_2
+            if meter_address_line_2:
+                address = meter_address_line_1 + ', ' +meter_address_line_2
+            else:
+                address = meter_address_line_1
+
+            consumer_data = {
+                'consumer_id':consumer_obj.id,
+                'registration_no':consumer_obj.registration_no,
+                'applicant_name': consumer_obj.applicant_name,
+                'meter_mobile_no': consumer_obj.meter_mobile_no,
+                'address': address,
+                'consumer_category': consumer_obj.consumer_category,
+                'consumer_subcategory': consumer_obj.consumer_subcategory,
+                'supply_type': consumer_obj.supply_type,
+                'type_of_premises': consumer_obj.type_of_premises
+            }
+            data = {'success': 'true', 'data': consumer_data}
+        except Exception as e:
+            print 'Exception|nscapp|views.py|get_technical_data', e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|nscapp|views.py|get_technical_data', e
+    except Exception, e:
+        print 'Exception|nscapp|views.py|get_technical_data', e
     return HttpResponse(json.dumps(data), content_type='application/json')

@@ -143,7 +143,10 @@
                                 <label class="control-label">Status</label>
                                 <select id="select_nsc_status" class="form-control select2">
                                     <option value="All">All</option>
-                                    <option value="Open">Open</option>
+                                    <option value="Registered">Registered</option>
+                                    <option value="KYC">KYC</option>
+                                    <option value="Technical">Technical</option>
+                                    <option value="Payment">Payment</option>
                                     <option value="Closed">Closed</option>
                                 </select>
                             </div>
@@ -329,36 +332,18 @@
 				                                <label >Address</label>
 				                            </div>
 				                        </div>				                        
-				                        <div class="col-md-4"  style="margin-top: 4px;">
-					                      <div class="form-group form-md-line-input has-success" >
-					                          <select id="edit_city" class="form-control input-sm select2-multiple" disabled>
-		                                        {% for city in city_list %}		
-		                                        <option value="{{ city.city_id }}"> {{ city.city }}</option>
-		                                        {% endfor %}
-				                             </select>                                    
-					                          <label for="consumer_zone">City</label>
-					                      </div>	                      
-				                    		</div>
-				                    		<div class="col-md-4"  style="margin-top: 4px;">
-					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="edit_pincode" class="form-control input-sm select2-multiple" disabled>
-				                                  {% for pincode in pincode_list %}
-				                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
-				                                  {% endfor %}
-				                             </select>
-					                          <label for="consumer_zone">Pincode</label>
-					                      </div>	                      
-				                    		</div>
-				                    		<div class="col-md-4"  style="margin-top: 4px;">
-					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="edit_zone" class="form-control input-sm select2-multiple" disabled>
-				                                  {% for zone in zone_list %}
-				                                   <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
-				                                  {% endfor %}
-				                             </select>
-					                          <label for="consumer_zone">Zone</label>
-					                      </div>	                      
-				                    		</div> 
+				                        <div class="col-md-4">
+	                                    <div class="form-group form-md-line-input has-success">
+	                                        <input type="text" class="form-control" id="" readonly="">
+	                                        <label for="form_control_1">City</label>
+	                                    </div>
+                                    </div>     
+                                    <div class="col-md-4">
+	                                    <div class="form-group form-md-line-input has-success">
+	                                        <input type="text" class="form-control" id="" readonly="">
+	                                        <label for="form_control_1">Pincode</label>
+	                                    </div>
+	                                 </div> 
 				                   </div>  
 				                   <div class="row">
 		                                <hr style="border-top: dotted 1px;"/>
@@ -368,22 +353,22 @@
 	                                     <h4><b >  Given by Applicant</b></h4>
 	                               </div> 
 	                            </div> 
-	                           <div class="row">
+	                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_email" readonly="">
+                                        <input type="text" class="form-control" id="KYC_applicant_name" readonly="">
                                         <label for="form_control_1">Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <input type="text" class="form-control" id="KYC_mobile_no" readonly="">
                                         <label for="form_control_1">Contact</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <input type="text" class="form-control" id="KYC_email_id" readonly="">
                                         <label for="form_control_1">Email</label>
                                     </div>
                                 </div>                               			                                               
@@ -391,49 +376,32 @@
                               <div class="row">
 				                        <div class="col-md-12">
 				                            <div class="form-group form-md-line-input has-success ">
-				                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+				                                <textarea class="form-control" id="KYC_address" readonly=""></textarea>
 				                                <label >Address</label>
 				                            </div>
-				                        </div>				                        
-				                        <div class="col-md-4"  style="margin-top: 4px;">
-					                      <div class="form-group form-md-line-input has-success" >
-					                          <select id="edit_city" class="form-control input-sm select2-multiple" disabled>
-		                                        {% for city in city_list %}		
-		                                        <option value="{{ city.city_id }}"> {{ city.city }}</option>
-		                                        {% endfor %}
-				                             </select>                                    
-					                          <label for="consumer_zone">City</label>
-					                      </div>	                      
-				                    		</div>
-				                    		<div class="col-md-4"  style="margin-top: 4px;">
-					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="edit_pincode" class="form-control input-sm select2-multiple" disabled>
-				                                  {% for pincode in pincode_list %}
-				                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
-				                                  {% endfor %}
-				                             </select>
-					                          <label for="consumer_zone">Pincode</label>
-					                      </div>	                      
-				                    		</div>
-				                    		<div class="col-md-4"  style="margin-top: 4px;">
-					                      <div class="form-group form-md-line-input has-success">
-					                          <select id="edit_zone" class="form-control input-sm select2-multiple" disabled>
-				                                  {% for zone in zone_list %}
-				                                   <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
-				                                  {% endfor %}
-				                             </select>
-					                          <label for="consumer_zone">Zone</label>
-					                      </div>	                      
-				                    		</div> 
-				                   </div>     	
+				                        </div>				          
+				                        <div class="col-md-4">
+	                                    <div class="form-group form-md-line-input has-success">
+	                                        <input type="text" class="form-control" id="KYC_city" readonly="">
+	                                        <label for="form_control_1">City</label>
+	                                    </div>
+                                    </div>     
+                                    <div class="col-md-4">
+	                                    <div class="form-group form-md-line-input has-success">
+	                                        <input type="text" class="form-control" id="KYC_pincode" readonly="">
+	                                        <label for="form_control_1">Pincode</label>
+	                                    </div>
+	                                 </div>         				                    	
+				                   </div> 				                  	                                	
 				                   <div class="row">
 		                                <hr style="border-top: dotted 1px;"/>
 	                            </div>	   
+	                            <div class="row"> 
 	                            <div class="col-md-6"  style="margin-top: 4px;">
 				                      <div class="form-group form-md-line-input has-success">
 				                          <select id="verify_KYC" class="form-control input-sm select2-multiple" onchange="open_remark_KYC();">
-			                                   <option value="verified"> Verified</option>
-			                                   <option value="not_verified"> Not Verified</option>
+			                                   <option value="Verified"> Verified</option>
+			                                   <option value="NotVerified"> Not Verified</option>
 			                             </select>
 				                          <label for="consumer_zone">Status </label>
 				                      </div>	                      
@@ -443,12 +411,14 @@
                                         <input type="text" class="form-control" id="KYC_remark">
                                         <label for="form_control_1">Remark</label>
                                     </div>
-                                </div>                         									 
+                                </div>                         					
+                              </div>				 
                             </div>
                         </div>
                         <div class="modal-footer">
+                        	<input type="hidden" class="form-control" id="KYC_consumerid">
                         	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                        	<button type="button" class="btn green" id="save-consumer">Save</button>
+                        	<button type="button" class="btn green" id="save-KYC">Save</button>
                         </div>
                      </div>
                 </div>                    
@@ -471,49 +441,49 @@
                             <div class="row">                                                             	
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <input type="text" class="form-control" id="tech_reg_no" readonly="">
                                         <label for="form_control_1">Reg. No.</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <input type="text" class="form-control" id="tech_cons_names" readonly="">
                                         <label for="form_control_1">Cons. Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <input type="text" class="form-control" id="tech_cont_no" readonly="">
                                         <label for="form_control_1">Contact No.</label>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
 			                            <div class="form-group form-md-line-input has-success ">
-			                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+			                                <textarea class="form-control" id="tech_address" readonly=""></textarea>
 			                                <label >Address</label>
 			                            </div>
 				                     </div>
 				                     <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <input type="text" class="form-control" id="tech_category" readonly="">
                                         <label for="form_control_1">Category</label>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
+                                 </div>
+                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <input type="text" class="form-control" id="tech_subcat" readonly="">
                                         <label for="form_control_1">Subcategory</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <input type="text" class="form-control" id="tech_supply_type" readonly="">
                                         <label for="form_control_1">Supply Type</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
+                                        <input type="text" class="form-control" id="tech_premise_type" readonly="">
                                         <label for="form_control_1">Premise Type</label>
                                     </div>
                                 </div>                                                    
@@ -535,44 +505,44 @@
                                        <label for="checkbox1_1">
                                            <span></span>
                                            <span class="check"></span>
-                                           <span class="box"></span> Ration Card </label>
+                                           <span class="box"></span> checkbox1 </label>
                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
                                        <input type="checkbox" name="address_proof" value="Ration Card"
-                                              id="checkbox1_1" class="md-check addproofclass">
-                                       <label for="checkbox1_1">
+                                              id="checkbox1_2" class="md-check addproofclass">
+                                       <label for="checkbox1_2">
                                            <span></span>
                                            <span class="check"></span>
-                                           <span class="box"></span> Ration Card </label>
+                                           <span class="box"></span> checkbox2 </label>
                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
                                        <input type="checkbox" name="address_proof" value="Ration Card"
-                                              id="checkbox1_1" class="md-check addproofclass">
-                                       <label for="checkbox1_1">
+                                              id="checkbox1_3" class="md-check addproofclass">
+                                       <label for="checkbox1_3">
                                            <span></span>
                                            <span class="check"></span>
-                                           <span class="box"></span> Ration Card </label>
+                                           <span class="box"></span> checkbox3 </label>
                                    </div>
                                 </div>
                                 <div class="col-md-3">
 	                               <div class="md-checkbox">
                                        <input type="checkbox" name="address_proof" value="Ration Card"
-                                              id="checkbox1_1" class="md-check addproofclass">
-                                       <label for="checkbox1_1">
+                                              id="checkbox1_4" class="md-check addproofclass">
+                                       <label for="checkbox1_4">
                                            <span></span>
                                            <span class="check"></span>
-                                           <span class="box"></span> Ration Card </label>
+                                           <span class="box"></span> checkbox4 </label>
                                    </div>
                                 </div>  
-                                </div>                             			                                               
+                               </div>                             			                                               
                               </div>
                               
 				                   <div class="row">
-		                                <hr style="border-top: dotted 1px;"/>
+		                             <hr style="border-top: dotted 1px;"/>
 	                            </div>
 	                            <div class="row">
 	                               <div class="col-md-12">
@@ -582,13 +552,13 @@
 	                           <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_email" readonly="">
+                                        <input type="text" class="form-control" id="technician_name">
                                         <label for="form_control_1">Technician Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                        <input type="text" class="form-control" id="tech_contact_no">
                                         <label for="form_control_1">Contact No.</label>
                                     </div>
                                 </div>         
@@ -603,7 +573,7 @@
 			                    		</div>      
 			                    		<div class="col-md-12" style="display:none" id="remark_div_tech">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="KYC_remark">
+                                        <input type="text" class="form-control" id="tech_remark">
                                         <label for="form_control_1">Remark</label>
                                     </div>
                                 </div>                                             			                                               
@@ -611,6 +581,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
+                        	<input type="hidden" class="form-control" id="tech_consumerid">
                         	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
                         	<button type="button" class="btn green" id="save-consumer">Save</button>
                         </div>
@@ -740,7 +711,39 @@
                         </div>
                      </div>
                 </div>                    
-        </div> 
+        </div>
+    <div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Changes saved successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/nscapp/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Error</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div> 
 
 <!-- End Model -->        
 <!-- BEGIN FOOTER -->
@@ -881,9 +884,9 @@
         initTable1();
     }
     
-    // SHUBHAM
+    // SHUBHAM KYC
    function open_remark_KYC() {	
-		if ($("#verify_KYC").val()== 'not_verified' ) {
+		if ($("#verify_KYC").val()== 'NotVerified' ) {
 	  		 $("#remark_div").css("display","block");
 		}
 		else {
@@ -898,10 +901,112 @@
    		$("#remark_div_tech").css("display","none");
 		}
 	}
-			
+	   // KYC Verification
+	function KYC_verify(var1) {
 
+        var  registration_id = var1;
+        $.ajax({
+            type: 'GET',
+            url: '/nscapp/get-kyc-data/',
+            data: {'registration_id': registration_id},
+            success: function (response) {
+      
+            console.log(response);
+                if (response.success == 'true') {                                	
+						$('#KYC_consumerid').val(response.data.consumer_id)						
+						$('#KYC_applicant_name').val(response.data.applicant_name)
+						$('#KYC_mobile_no').val(response.data.meter_mobile_no)						
+						$('#KYC_email_id').val(response.data.meter_email_id)
+						$('#KYC_address').val(response.data.address)
+						$('#KYC_city').val(response.data.city_name)
+						$('#KYC_pincode').val(response.data.pincode)
+
+                  $("#KYC_model").modal('show');
+                }
+                if (response.success == 'false') {
+                    alert(response.message);
+                }
+            },
+
+            error: function (response) {
+            console.log(response);
+                alert('error');
+            },
+        });            
+		}
+ 	// Save KYC verification 
+	$("#save-KYC").click(function(event)  {
+
+		event.preventDefault();  
+													
+	   var formData= new FormData();
+
+		formData.append("consumer_id",$('#KYC_consumerid').val());		
+		formData.append("verify_KYC_status",$('#verify_KYC').val());    
+		formData.append("KYC_remark",$('#KYC_remark').val());    
+	
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/nscapp/save-consumer-kyc/',
+ 					data : formData,
+					cache: false,
+		         processData: false,
+		    		contentType: false,                       
+              success: function (response) {   
+	              if(response.success=='true'){
+	           	  		$("#success_modal").modal('show');
+	              	}
+	      			if (response.success == "false") {
+							$("#error-model").modal('show');     
+
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            		$("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });            
+});			
+// Technical
+	function Technical_verify(var1) {
+
+        var  registration_id = var1;
+        $.ajax({
+            type: 'GET',
+            url: '/nscapp/get-technical-data/',
+            data: {'registration_id': registration_id},
+            success: function (response) {
+      
+            console.log(response);
+                if (response.success == 'true') {                                	
+						$('#tech_reg_no').val(response.data.registration_no)						
+						$('#tech_cons_names').val(response.data.applicant_name)
+						$('#tech_cont_no').val(response.data.meter_mobile_no)						
+						$('#tech_address').val(response.data.address)
+						$('#tech_category').val(response.data.consumer_category)
+						$('#tech_subcat').val(response.data.consumer_subcategory)
+						$('#tech_supply_type').val(response.data.supply_type)
+						$('#tech_premise_type').val(response.data.type_of_premises)
+
+                  $("#technical_model").modal('show');
+                }
+                if (response.success == 'false') {
+                    alert(response.message);
+                }
+            },
+
+            error: function (response) {
+            console.log(response);
+                alert('error');
+            },
+        });            
+		}
 </script>
-
 </body>
 
 </html>
