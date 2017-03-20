@@ -85,7 +85,7 @@ def get_nsc_data(request):
                 'status': nsc.status,
                 'closed_date': closed_date,
                 'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id=' + str(
-                    nsc.id) + '"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/" target="_blank" class="fa fa-print" title="Print"></a>'
+                    nsc.id) + '"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/?nsc_id='+str(nsc.id)+'" target="_blank" class="fa fa-print" title="Print"></a>'
             }
             nsc_list.append(nsc_data)
         print 'nscapp|views.py|get_nsc_data'
@@ -101,6 +101,23 @@ def review_consumer_form(request):
         print 'nscapp|views.py|review_consumer_form'
         nsc_id = request.GET.get('nsc_id')
         nsc_obj = NewConsumerRequest.objects.get(id=nsc_id)
+        address_document_list = []
+        if nsc_obj.address_proof_list:
+            address_proof_list = [str(x) for x in eval(nsc_obj.address_proof_list)]
+            for address_proof in address_proof_list:
+                docs = {
+                    'document': address_proof,
+                }
+                address_document_list.append(docs)
+
+        id_document_list = []
+        if nsc_obj.identity_proof_list:
+            identity_proof_list = [str(x) for x in eval(nsc_obj.identity_proof_list)]
+            for identity_proof in identity_proof_list:
+                docs = {
+                    'document': identity_proof,
+                }
+                id_document_list.append(docs)
         data = {
             'consumer_category': nsc_obj.consumer_category,
             'service_requested': nsc_obj.service_requested,
@@ -139,6 +156,8 @@ def review_consumer_form(request):
             'requested_load_type': nsc_obj.requested_load_type,
             'contract_demand': nsc_obj.contarct_demand,
             'contract_demand_type': nsc_obj.contarct_demand_type,
+            'address_proof': address_document_list,
+            'id_proof': id_document_list,
         }
     except Exception, e:
         print 'Exception|nscapp|views.py|review_consumer_form', e
@@ -235,7 +254,73 @@ from django.http import HttpResponse
 
 
 def nsc_form(request):
-    data = {}
+    nsc_id = request.GET.get('nsc_id')
+    nsc_obj = NewConsumerRequest.objects.get(id=nsc_id)
+    address = ''
+    billing_address = ''
+
+    address = address + nsc_obj.meter_building_name + ', '+ nsc_obj.meter_address_line_1
+    if nsc_obj.meter_address_line_2:
+        address = address + ', ' + nsc_obj.meter_address_line_2
+    if nsc_obj.meter_landmark:
+        address = address + ', ' + nsc_obj.meter_landmark
+
+    billing_address = billing_address + nsc_obj.billing_building_name + ', ' + nsc_obj.billing_address_line_1
+    if nsc_obj.billing_address_line_2:
+        billing_address = billing_address + ', ' + nsc_obj.billing_address_line_2
+    if nsc_obj.billing_landmark:
+        billing_address = address + ', ' + nsc_obj.billing_landmark
+
+    document_list = []
+    if nsc_obj.address_proof_list:
+        address_proof_list = [str(x) for x in eval(nsc_obj.address_proof_list)]
+        for address_proof in address_proof_list:
+            docs = {
+                'document':address_proof,
+            }
+            document_list.append(docs)
+
+    if nsc_obj.identity_proof_list:
+        identity_proof_list = [str(x) for x in eval(nsc_obj.identity_proof_list)]
+        for identity_proof in identity_proof_list:
+            docs = {
+                'document': identity_proof,
+            }
+            document_list.append(docs)
+
+    data = {
+        'consumer_category': nsc_obj.consumer_category,
+        'service_requested': nsc_obj.service_requested,
+        'supply_type': nsc_obj.supply_type,
+        'consumer_sub_category': nsc_obj.consumer_subcategory,
+        'registration_number': nsc_obj.registration_no,
+        'registration_date': nsc_obj.date_of_registration.strftime('%d/%m/%Y'),
+        'applicant_name': nsc_obj.applicant_name,
+        'aadhar_number': nsc_obj.aadhar_no,
+        'occupation': nsc_obj.occupation,
+        'other_details': nsc_obj.other_occupation,
+        'address': address,
+        'city': nsc_obj.meter_city.city,
+        'pincode': nsc_obj.meter_pin_code.pincode,
+        'email_id': nsc_obj.meter_email_id,
+        'mobile_no': nsc_obj.meter_mobile_no,
+        'phone_no': nsc_obj.meter_phone_no,
+        'new_exst_cons_no': nsc_obj.meter_nearest_consumer_no,
+        'billing_address': billing_address,
+        'billing_city': nsc_obj.billing_city.city,
+        'billing_pincode': nsc_obj.billing_pin_code.pincode,
+        'billing_email_id': nsc_obj.billing_email_id,
+        'billing_mobile_no': nsc_obj.billing_mobile_no,
+        'billing_phone_no': nsc_obj.billing_phone_no,
+        'billing_new_exst_cons_no': nsc_obj.billing_nearest_consumer_no,
+        'billing_premises': nsc_obj.type_of_premises,
+        'billing_other_details': nsc_obj.other_premises,
+        'requested_load': nsc_obj.requested_load,
+        'requested_load_type': nsc_obj.requested_load_type,
+        'contract_demand': nsc_obj.contarct_demand,
+        'contract_demand_type': nsc_obj.contarct_demand_type,
+        'document_list': document_list
+    }
     template = get_template('nsc_template/nsc_form.html')
     html = template.render(Context(data))
     result = StringIO.StringIO()
