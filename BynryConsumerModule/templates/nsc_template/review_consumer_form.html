@@ -424,13 +424,16 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-4">
-                                        <label style="font-size: 15px;" class="bold">Address Proof </label>
-                                        <label>{{address_proof}}</label>
+                                        <label style="font-size: 15px;" class="bold">Address Proof </label><br>
+                                        {% for documents in address_proof %}
+                                            <label>{{forloop.counter}}. {{documents.document}}</label><br>
+                                        {% endfor %}
                                     </div>
                                     <div class="col-md-4">
-                                        <label style="font-size: 15px;" class="bold">Identity Proof </label>
-
-                                        <label>{{id_proof}}</label>
+                                        <label style="font-size: 15px;" class="bold">Identity Proof </label><br>
+                                        {% for documents in id_proof %}
+                                            <label>{{forloop.counter}}. {{documents.document}}</label><br>
+                                        {% endfor %}
 
                                     </div>
                                     <div class="col-md-4">
@@ -443,9 +446,9 @@
                         </div>
                         <br>
                         <div class="col-md-12" style="text-align: right;">
-                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                            <a type="button" href="/nscapp/" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
                                 Cancel
-                            </button>
+                            </a>
                             <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
                                 Print
                             </button>
