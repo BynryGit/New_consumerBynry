@@ -425,6 +425,7 @@
         </div>
         <div id="technical_model" class="modal fade" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
+              <form id="technical_form" method="POST">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -500,8 +501,8 @@
                               <div class="col-md-12">
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
-                                       <input type="checkbox" name="address_proof" value="Ration Card"
-                                              id="checkbox1_1" class="md-check addproofclass">
+                                       <input type="checkbox" name="checkbox1_1" value="checkbox1"
+                                              id="checkbox1_1" class="md-check">
                                        <label for="checkbox1_1">
                                            <span></span>
                                            <span class="check"></span>
@@ -510,8 +511,8 @@
                                 </div>
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
-                                       <input type="checkbox" name="address_proof" value="Ration Card"
-                                              id="checkbox1_2" class="md-check addproofclass">
+                                       <input type="checkbox" name="checkbox1_2" value="checkbox2"
+                                              id="checkbox1_2" class="md-check">
                                        <label for="checkbox1_2">
                                            <span></span>
                                            <span class="check"></span>
@@ -520,8 +521,8 @@
                                 </div>
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
-                                       <input type="checkbox" name="address_proof" value="Ration Card"
-                                              id="checkbox1_3" class="md-check addproofclass">
+                                       <input type="checkbox" name="checkbox1_3" value="checkbox3"
+                                              id="checkbox1_3" class="md-check">
                                        <label for="checkbox1_3">
                                            <span></span>
                                            <span class="check"></span>
@@ -530,8 +531,8 @@
                                 </div>
                                 <div class="col-md-3">
 	                               <div class="md-checkbox">
-                                       <input type="checkbox" name="address_proof" value="Ration Card"
-                                              id="checkbox1_4" class="md-check addproofclass">
+                                       <input type="checkbox" name="checkbox1_4" value="checkbox4"
+                                              id="checkbox1_4" class="md-check">
                                        <label for="checkbox1_4">
                                            <span></span>
                                            <span class="check"></span>
@@ -552,28 +553,28 @@
 	                           <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="technician_name">
+                                        <input type="text" class="form-control" id="technician_name" name="technician_name">
                                         <label for="form_control_1">Technician Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_contact_no">
+                                        <input type="text" class="form-control" id="tech_contact_no" name="tech_contact_no">
                                         <label for="form_control_1">Contact No.</label>
                                     </div>
                                 </div>         
                                 <div class="col-md-6"  style="margin-top: 4px;">
 				                      <div class="form-group form-md-line-input has-success">
-				                          <select id="verify_technical" class="form-control input-sm select2-multiple" onchange="open_remark_technical();">
-			                                   <option value="passed"> Pass</option>
-			                                   <option value="failed"> Failed</option>
+				                          <select id="verify_technical" name="verify_technical" class="form-control input-sm select2-multiple" onchange="open_remark_technical();">
+			                                   <option value="Passed"> Pass</option>
+			                                   <option value="Failed"> Failed</option>
 			                             </select>
 				                          <label for="consumer_zone">Status by Technician </label>
 				                      </div>	                      
 			                    		</div>      
 			                    		<div class="col-md-12" style="display:none" id="remark_div_tech">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_remark">
+                                        <input type="text" class="form-control" id="tech_remark" name="tech_remark">
                                         <label for="form_control_1">Remark</label>
                                     </div>
                                 </div>                                             			                                               
@@ -581,11 +582,12 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                        	<input type="hidden" class="form-control" id="tech_consumerid">
+                        	<input type="hidden" class="form-control" id="tech_consumerid" name="tech_consumerid">
                         	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                        	<button type="button" class="btn green" id="save-consumer">Save</button>
+                        	<button type="button" class="btn green" id="save-technical">Save</button>
                         </div>
                      </div>
+                    </div>
                 </div>                    
         </div>          
         <div id="payment_model" class="modal fade" tabindex="-1" aria-hidden="true">
@@ -894,7 +896,8 @@
 		}
 	}	
    function open_remark_technical() {	
-		if ($("#verify_technical").val()== 'failed' ) {
+
+		if ($("#verify_technical").val()== 'Failed' ) {
 	  		 $("#remark_div_tech").css("display","block");
 		}
 		else {
@@ -983,7 +986,8 @@
             success: function (response) {
       
             console.log(response);
-                if (response.success == 'true') {                                	
+                if (response.success == 'true') {            
+                	$('#tech_consumerid').val(response.data.consumer_id)	                    	
 						$('#tech_reg_no').val(response.data.registration_no)						
 						$('#tech_cons_names').val(response.data.applicant_name)
 						$('#tech_cont_no').val(response.data.meter_mobile_no)						
@@ -1005,8 +1009,38 @@
                 alert('error');
             },
         });            
-		}
+		}  
+		
+ 	// Save technical verification 
+	$("#save-technical").click(function(event)  {
+
+		event.preventDefault();  												
+						
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/nscapp/save-consumer-technical/',
+ 					data : $("#technical_form").serialize(),
+                       
+              success: function (response) {   
+	              if(response.success=='true'){
+	           	  		$("#success_modal").modal('show');
+	              	}
+	      			if (response.success == "false") {
+							$("#error-model").modal('show');     
+
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            		$("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });            
+});
 </script>
 </body>
-
 </html>

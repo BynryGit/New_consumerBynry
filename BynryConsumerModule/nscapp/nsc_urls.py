@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^get-kyc-data/', views.get_kyc_data,name='get_kyc_data'),
     url(r'^save-consumer-kyc/', views.save_consumer_kyc,name='save_consumer_kyc'),
     url(r'^get-technical-data/', views.get_technical_data,name='get_technical_data'),
+    url(r'^save-consumer-technical/', views.save_consumer_technical,name='save_consumer_technical'),
 ]

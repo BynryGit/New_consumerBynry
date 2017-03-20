@@ -494,3 +494,53 @@ def get_technical_data(request):
     except Exception, e:
         print 'Exception|nscapp|views.py|get_technical_data', e
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_consumer_technical(request):
+    try:
+        print '\n\n\n\n\nnscapp|views.py|save_consumer_technical'
+        checkbox1_1=False
+        checkbox1_2=False
+        checkbox1_3=False
+        checkbox1_4=False
+        if request.POST.get('checkbox1_1') :
+            checkbox1_1 = True
+        if request.POST.get('checkbox1_2') :
+            checkbox1_2 = True
+        if request.POST.get('checkbox1_3') :
+            checkbox1_3 = True
+        if request.POST.get('checkbox1_4') :
+            checkbox1_4 = True
+
+        new_Technical_obj = TechnicalVerification(            
+            consumer_id=NewConsumerRequest.objects.get(
+                id=request.POST.get('tech_consumerid')) if request.POST.get(
+                'tech_consumerid') else None,
+            checkbox1 =checkbox1_1,
+            checkbox2 =checkbox1_2,
+            checkbox3 =checkbox1_3,
+            checkbox4 =checkbox1_4,
+            technician_mobile_no =request.POST.get('tech_contact_no'),
+            status =request.POST.get('verify_technical'),
+            remark =request.POST.get('tech_remark'),
+            technician_name =request.POST.get('technician_name'),
+            creation_date =datetime.now(),
+            # created_by=request.session['login_user'],
+        );
+        new_Technical_obj.save();
+
+        consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('tech_consumerid'))
+        consumer_obj.status = 'Technical'
+        consumer_obj.save();    
+
+        data = {
+            'success': 'true',
+            'message': 'Technical created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_consumer_technical', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
