@@ -163,10 +163,7 @@ class KycVerification(models.Model):
 
 class TechnicalVerification(models.Model):
     consumer_id = models.ForeignKey(NewConsumerRequest,blank=True,null=True)
-    checkbox1 = models.BooleanField(default=True)
-    checkbox2 = models.BooleanField(default=True)
-    checkbox3 = models.BooleanField(default=True)
-    checkbox4 = models.BooleanField(default=True)
+    checkbox = models.CharField(max_length=2000, blank=True, null=True)
     technician_name = models.CharField(max_length=200, blank=False, null=True)
     technician_mobile_no = models.CharField(max_length=50, blank=True, null=True)
     status          = models.CharField(max_length=200, choices=TECHNICAL_STATUS, default='Failed')
