@@ -83,7 +83,7 @@ def get_nsc_data(request):
             elif nsc.status == 'Technical':
                 other_action = '&nbsp;<a> <i class="fa icon-wallet" aria-hidden="true" onclick="Payment_verify(' + str(nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Payment':
-                other_action = '&nbsp;<a> <i class="fa icon-user-follow" aria-hidden="true"></i> </a>'
+                other_action = '&nbsp;<a> <i class="fa icon-user-follow" aria-hidden="true" onclick="consumer_details(' + str(nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Closed':
                 other_action = ''
             nsc_data = {

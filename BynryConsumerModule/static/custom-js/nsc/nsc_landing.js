@@ -477,8 +477,7 @@ function clear_filter(){
 });
 
 
-    function consumer_details() {
-        var  registration_id = '4';
+    function consumer_details(registration_id) {
         $.ajax({
             type: 'GET',
             url: '/nscapp/get-consumer-data/',
@@ -505,8 +504,6 @@ function clear_filter(){
             },
         });
 	}
-
-	consumer_details();
 
 	function save_meter_details(){
 	    if(validate_meter_details()){
