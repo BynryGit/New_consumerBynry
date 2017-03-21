@@ -64,10 +64,21 @@ OCCUPATION = (
     ('OTHERS', 'OTHERS'),
 )
 NSC_STATUS = (
-    #('WIP', 'WIP'),
+    ('Registered', 'Registered'),
+    ('KYC', 'KYC'),
+    ('Technical', 'Technical'),
+    ('Payment', 'Payment'),
     ('Closed', 'Closed'),
-    ('Open', 'Open'),
 )
+KYC_STATUS = (
+    ('Verified', 'Verified'),
+    ('NotVerified', 'NotVerified'),
+)
+TECHNICAL_STATUS = (
+    ('Pass', 'Pass'),
+    ('Failed', 'Failed'),
+)  
+
 class NewConsumerRequest(models.Model):
     applicant_name = models.CharField(max_length=200, blank=False, null=True)
     aadhar_no = models.CharField(max_length=20, blank=False, null=True)
@@ -110,7 +121,7 @@ class NewConsumerRequest(models.Model):
     address_proof_list = models.CharField(max_length=2000, blank=True, null=True)
     identity_proof_list = models.CharField(max_length=2000, blank=True, null=True)
     
-    status = models.CharField(max_length=200, choices=NSC_STATUS, default='Open')
+    status = models.CharField(max_length=200, choices=NSC_STATUS)
     closed_date = models.DateTimeField(blank=True, null=True)
     is_new = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -132,5 +143,35 @@ class ConsumerDocsImage(models.Model):
     updation_date	= models.DateTimeField(null=True,blank=True)
     
     def __unicode__(self):
-        return unicode(self.id)        
+        return unicode(self.id) 
+
+class KycVerification(models.Model):
+    consumer_id     = models.ForeignKey(NewConsumerRequest,blank=True,null=True)
+    status          = models.CharField(max_length=200, choices=KYC_STATUS, default='NotVerified')
+    remark          = models.CharField(max_length=500, blank=True, null=True)
+    creation_date   = models.DateTimeField(null=True,blank=True)
+    created_by      = models.CharField(max_length=500,null=True,blank=True)
+    updated_by      = models.CharField(max_length=500,null=True,blank= True)
+    updation_date   = models.DateTimeField(null=True,blank=True)
+    
+    def __unicode__(self):
+        return unicode(self.id) 
+
+class TechnicalVerification(models.Model):
+    consumer_id = models.ForeignKey(NewConsumerRequest,blank=True,null=True)
+    checkbox1 = models.BooleanField(default=True)
+    checkbox2 = models.BooleanField(default=True)
+    checkbox3 = models.BooleanField(default=True)
+    checkbox4 = models.BooleanField(default=True)
+    technician_name = models.CharField(max_length=200, blank=False, null=True)
+    technician_mobile_no = models.CharField(max_length=50, blank=True, null=True)
+    status          = models.CharField(max_length=200, choices=TECHNICAL_STATUS, default='Failed')
+    remark          = models.CharField(max_length=500, blank=True, null=True)
+    creation_date   = models.DateTimeField(null=True,blank=True)
+    created_by      = models.CharField(max_length=500,null=True,blank=True)
+    updated_by      = models.CharField(max_length=500,null=True,blank= True)
+    updation_date   = models.DateTimeField(null=True,blank=True)
+    
+    def __unicode__(self):
+        return unicode(self.id)                        
 
