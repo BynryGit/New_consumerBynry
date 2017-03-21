@@ -548,3 +548,38 @@ def save_consumer_payment(request):
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def get_consumer_data(request):
+    try:
+        nsc_id = request.GET.get('registration_id')
+        nsc_obj = NewConsumerRequest.objects.get(id=nsc_id)
+        address = ''
+        address = address + nsc_obj.meter_building_name + ', '+ nsc_obj.meter_address_line_1
+        if nsc_obj.meter_address_line_2:
+            address = address + ', ' + nsc_obj.meter_address_line_2
+        if nsc_obj.meter_landmark:
+            address = address + ', ' + nsc_obj.meter_landmark
+        if nsc_obj.meter_city:
+            address = address + ', ' + nsc_obj.meter_city.city
+        if nsc_obj.meter_pin_code.pincode:
+            address = address + ' - ' + nsc_obj.meter_pin_code.pincode + '.'
+
+        data = {
+            'consumer_category': nsc_obj.consumer_category,
+            'supply_type': nsc_obj.supply_type,
+            'consumer_sub_category': nsc_obj.consumer_subcategory,
+            'registration_number': nsc_obj.registration_no,
+            'applicant_name': nsc_obj.applicant_name,
+            'address': address,
+            'mobile_no': nsc_obj.meter_mobile_no,
+            'phone_no': nsc_obj.meter_phone_no,
+            'success': 'true'
+        }
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_consumer_payment', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
