@@ -392,42 +392,45 @@ def save_attachments(attachment_list, consumer_id):
         print 'Exception|nscapp|views.py|save_attachments', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-def get_kyc_data(request):
+def get_verification_data(request):
     try:
-        print 'nscapp|views.py|get_kyc_data'
+        print 'nscapp|views.py|get_verification_data'
         data = {}
         final_list = []
         try:
-            consumer_obj = NewConsumerRequest.objects.get(id=request.GET.get('registration_id'))
-            applicant_name = consumer_obj.applicant_name
-            meter_mobile_no = consumer_obj.meter_mobile_no
-            meter_email_id = consumer_obj.meter_email_id
+            consumer_obj = NewConsumerRequest.objects.get(id=request.GET.get('registration_id'))        
             meter_address_line_1 = consumer_obj.meter_address_line_1
             meter_address_line_2 = consumer_obj.meter_address_line_2
             if meter_address_line_2:
                 address = meter_address_line_1 + ', ' +meter_address_line_2
             else:
                 address = meter_address_line_1
-            city_name = str(consumer_obj.meter_city.city)
-            pincode = str(consumer_obj.meter_pin_code.pincode)
+
             consumer_data = {
                 'consumer_id':consumer_obj.id,
-                'applicant_name': applicant_name,
-                'meter_mobile_no': meter_mobile_no,
-                'meter_email_id': meter_email_id,
+                'registration_no':consumer_obj.registration_no,
+                'applicant_name': consumer_obj.applicant_name,
+                'meter_mobile_no': consumer_obj.meter_mobile_no,
                 'address': address,
-                'city_name': city_name,
-                'pincode': pincode
+                'consumer_category': consumer_obj.consumer_category,
+                'consumer_subcategory': consumer_obj.consumer_subcategory,
+                'supply_type': consumer_obj.supply_type,
+                'type_of_premises': consumer_obj.type_of_premises,
+                'pincode' : str(consumer_obj.meter_pin_code.pincode),
+                'city_name' : str(consumer_obj.meter_city.city),
+                'meter_email_id': consumer_obj.meter_email_id
             }
+
             data = {'success': 'true', 'data': consumer_data}
         except Exception as e:
-            print 'Exception|nscapp|views.py|get_kyc_data', e
+            print 'Exception|nscapp|views.py|get_verification_data', e
             data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
     except MySQLdb.OperationalError, e:
-        print 'Exception|nscapp|views.py|get_kyc_data', e
+        print 'Exception|nscapp|views.py|get_verification_data', e
     except Exception, e:
-        print 'Exception|nscapp|views.py|get_kyc_data', e
+        print 'Exception|nscapp|views.py|get_verification_data', e
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 @csrf_exempt
 def save_consumer_kyc(request):
@@ -460,45 +463,10 @@ def save_consumer_kyc(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-def get_technical_data(request):
-    try:
-        print 'nscapp|views.py|get_technical_data'
-        data = {}
-        final_list = []
-        try:
-            consumer_obj = NewConsumerRequest.objects.get(id=request.GET.get('registration_id'))        
-            meter_address_line_1 = consumer_obj.meter_address_line_1
-            meter_address_line_2 = consumer_obj.meter_address_line_2
-            if meter_address_line_2:
-                address = meter_address_line_1 + ', ' +meter_address_line_2
-            else:
-                address = meter_address_line_1
-
-            consumer_data = {
-                'consumer_id':consumer_obj.id,
-                'registration_no':consumer_obj.registration_no,
-                'applicant_name': consumer_obj.applicant_name,
-                'meter_mobile_no': consumer_obj.meter_mobile_no,
-                'address': address,
-                'consumer_category': consumer_obj.consumer_category,
-                'consumer_subcategory': consumer_obj.consumer_subcategory,
-                'supply_type': consumer_obj.supply_type,
-                'type_of_premises': consumer_obj.type_of_premises
-            }
-            data = {'success': 'true', 'data': consumer_data}
-        except Exception as e:
-            print 'Exception|nscapp|views.py|get_technical_data', e
-            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
-    except MySQLdb.OperationalError, e:
-        print 'Exception|nscapp|views.py|get_technical_data', e
-    except Exception, e:
-        print 'Exception|nscapp|views.py|get_technical_data', e
-    return HttpResponse(json.dumps(data), content_type='application/json')
-
 @csrf_exempt
 def save_consumer_technical(request):
     try:
-        print '\n\n\n\n\nnscapp|views.py|save_consumer_technical'
+        print 'nscapp|views.py|save_consumer_technical'
         checkbox1_1=False
         checkbox1_2=False
         checkbox1_3=False
@@ -539,6 +507,42 @@ def save_consumer_technical(request):
         }
     except Exception, e:
         print 'Exception|nscapp|views.py|save_consumer_technical', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_consumer_payment(request):
+    try:
+        print '\n\n\n\n\nnscapp|views.py|save_consumer_payment',request.POST.get('pay_amount_paid')
+
+        new_Payment_obj = PaymentVerification(            
+            consumer_id=NewConsumerRequest.objects.get(
+                id=request.POST.get('pay_consumerid')) if request.POST.get(
+                'pay_consumerid') else None,
+            amount_paid =request.POST.get('pay_amount_paid'),
+            payment_mode =request.POST.get('payment_mode'),
+            cheque_no =request.POST.get('pay_cheque_no'),
+            name_on_cheque =request.POST.get('pay_cheque_name'),
+            DD_no =request.POST.get('pay_DD_no'),
+            DD =request.POST.get('pay_DD'),
+            creation_date =datetime.now(),
+            # created_by=request.session['login_user'],
+        );
+        new_Payment_obj.save();
+
+        consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('pay_consumerid'))
+        consumer_obj.status = 'Payment'
+        consumer_obj.save();    
+
+        data = {
+            'success': 'true',
+            'message': 'Payment created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_consumer_payment', e
         data = {
             'success': 'false',
             'message': str(e)
