@@ -516,7 +516,7 @@ def save_consumer_technical(request):
 @csrf_exempt
 def save_consumer_payment(request):
     try:
-        print '\n\n\n\n\nnscapp|views.py|save_consumer_payment',request.POST.get('pay_amount_paid')
+        print 'nscapp|views.py|save_consumer_payment',request.POST.get('pay_amount_paid')
 
         new_Payment_obj = PaymentVerification(            
             consumer_id=NewConsumerRequest.objects.get(
