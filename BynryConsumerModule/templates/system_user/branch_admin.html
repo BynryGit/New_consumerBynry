@@ -12,7 +12,7 @@
 			        <span class="custom-sys-user-width">
 			        	<a type="button"
                         class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-sys-user-width"
-                        href="#add_branch_admin_model" data-toggle="modal">Add Admin</a>
+                        href="#add_branch_admin_modal" data-toggle="modal">Add Admin</a>
 			        </span>
                  
                </div>
@@ -49,70 +49,52 @@
                  <th> Status</th>
                  <th style="text-align:center"> Actions</th>
              </tr>
-             </thead>
-             <tbody>
-             <tr>
-                 <td> 1122</td>
-                 <td> Steve Smith</td>
-                 <td> 9125685698</td>                                            
-                 <td> steve@bynry.com</td>
-                 <td> Active</td>
-                 <td style="text-align:center"> 
-                 <a href="#edit_branch_admin_model" data-toggle="modal"> <i class="icon-pencil" aria-hidden="true"></i> </a> </td>
-             </tr>
-             <tr>
-                 <td> 1122</td>
-                 <td> Steve Smith</td>
-                 <td> 9125685698</td>                                            
-                 <td> steve@bynry.com</td>
-                 <td> Active</td>
-                 <td style="text-align:center"> 
-                 <a href="#edit_branch_admin_model" data-toggle="modal"> <i class="icon-pencil" aria-hidden="true"></i> </a> </td>
-             </tr>                                                                            
-             </tbody>
+             </thead>             
          </table>
      </div>
  </div>
  
  <!-- Counter Payment Modal Begin -->
 
-<div id="edit_branch_admin_model" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="edit_branch_admin_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Edit H.O. Admin Details</h4></div>
+                <h4 class="modal-title">Edit Branch Admin Details</h4></div>
             <div class="modal-body">
                 <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
                 	  <div class="row">
                 	     	<div class="col-md-8">
-                            <h4><b>1001 </b></h4>
+                            <h4><b>Basic Details </b></h4>
                         </div>
-                        <div class="col-md-4 custom-sys-user-margin-top1">
+                        <div class="col-md-4 custom-sys-user-margin-top1" >
                             <div class="form-group form-md-line-input has-success">
                             		<label for="bill_cycle">Status : </label>
-                                <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+                                <input type="checkbox" id="ba_update_user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
                             </div>
-                        </div> 
+                        </div>
+                        <input type="hidden" class="form-control" id="ba_user_id"> 
                 	  </div>
                     <div class="row">                    		 
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" value="5862001" id="bill_cycle">
-                                <label for="bill_cycle">First Name</label>
+                                <input type="text" class="form-control" id="ba_user_first_name">
+                                <label for="user_first_name">First Name</label>
                             </div>
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" value="253140" id="route_code">
-                                <label for="route_code">Last Name</label>
+                                <input type="text" class="form-control" id="ba_user_last_name">
+                                <label for="user_last_name">Last Name</label>
                             </div>
                         </div>
-                        <div class="col-md-4 custom-sys-user-margin-top1">
+                        <div class="col-md-4 custom-sys-user-margin-top2">
 	                      <div class="form-group form-md-line-input has-success">
-	                          <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
-                                    <option value="HI">Pune</option>
-                                    <option value="CT">Mumbai</option>
+	                          <select id="ba_user_city" class="form-control input-sm select2-multiple">
+                                    {% for city in city_list %}                                  		
+	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
+	                                  {% endfor %}
                              </select>
 	                          <label for="consumer_zone">City</label>
 	                      </div>	                      
@@ -121,7 +103,7 @@
 						  <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-success ">
-                                <textarea class="form-control" id="consumer_address" >Flat no-201, Primrose, right bhusari colony, oppo. borse hospital, kothrud, pune - 411038.</textarea>
+                                <textarea class="form-control" id="ba_user_address" ></textarea>
                                 <label >Address</label>
                             </div>
                         </div>
@@ -129,51 +111,52 @@
                     <div class="row">                    		                                               
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" value="B1008" class="form-control" id="route_code">
+                                <input type="text" class="form-control" id="ba_user_emp_id">
                                 <label for="route_code">Employee ID</label>
                             </div>
                         </div>
                          <div class="col-md-6">
 	                      	<div class="form-group form-md-line-input has-success">
-                                <input type="text" readonly="" value="Branch Admin" class="form-control" id="route_code">
-                                <label for="route_code">Role</label>
+                                <input type="text" readonly="" value="Branch Admin" class="form-control" id="ba_user_role">
+                                <label for="ba_user_role">Role</label>
                             </div>	                      
                     		</div>
-                    </div>                       
+                    </div>                        
                     <div class="row">
                     		<div class="col-md-6">
                             <h4><b>Contact Details :</b></h4>
                         </div>
+                        <div class="col-md-6">
+                            <h4><b>Reset Password :</b></h4>
+                        </div> 
                     </div>
                     <div class="row">
                     		<div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" value="5862001" id="bill_cycle">
-                                <label for="bill_cycle">Contact No.</label>
+                                <input type="text" class="form-control" id="ba_user_contact_no">
+                                <label for="user_contact_no">Contact No.</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" value="253140" id="route_code">
-                                <label for="route_code">Email Id</label>
-                            </div>
-                        </div>
-                    </div>
-							<div class="row">
-                         <div class="col-md-6">
-                            <h4><b>Reset Password :</b></h4>
-                        </div>   
-                     </div>                        
-                      <div class="row">                
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
-                                <input type="password" class="form-control" value="5862001" id="password" >
+                                <input type="password" class="form-control"  id="ba_user_password" >
                                 <label for="bill_cycle">Password</label>
                             </div>
-                        </div>                                                                                   
+                        </div>
+                        
+                    </div>
+							                        
+                      <div class="row">  
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="password" class="form-control" value="253140" id="re_pass" >
+                                <input type="text" class="form-control" id="ba_user_email">
+                                <label for="user_email">Email Id</label>
+                            </div>
+                        </div>              
+                                                                                                           
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="password" class="form-control"  id="ba_user_re_password" >
                                 <label for="route_code">Retype Password</label>
                             </div>
                         </div>                        
@@ -182,18 +165,21 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Save</button>
+                <button onclick="update_branch_admin_details();" type="button" data-dismiss="modal" class="btn dark btn-outline">Save</button>
             </div>
         </div>
     </div>
 </div>
-<div id="add_branch_admin_model" class="modal fade" tabindex="-1" aria-hidden="true">
+
+
+<div id="add_branch_admin_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add H.O. Admin</h4></div>
+                <h4 class="modal-title">Add Branch Admin</h4></div>
             <div class="modal-body">
+            	<div id="clear_div">
                 <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
                 	 <div class="row">
                 	 		<div class="col-md-8">
@@ -201,101 +187,117 @@
                         </div>
 								<div class="col-md-4 custom-sys-user-margin-top1">
                             <div class="form-group form-md-line-input has-success">
-                            		<label for="bill_cycle">Status : </label>
-                                <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+                            		<label for="user_status">Status : </label>
+                                <input type="checkbox" id="branch_user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
                             </div>
                         </div>
                     </div>                     
                     <div class="row">                    		
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="bill_cycle">
+                                <input type="text" class="form-control" id="branch_fname">
                                 <label for="bill_cycle">First Name</label>
                             </div>
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="route_code">
+                                <input type="text" class="form-control" id="branch_lname">
                                 <label for="route_code">Last Name</label>
                             </div>
                         </div>
-                         <div class="col-md-4 custom-sys-user-margin-top2">
-	                      <div class="form-group form-md-line-input has-success">
-	                          <select id="select2-single-input-sm" class="form-control input-sm select2-multiple">
-                                    <option value="HI">Pune</option>
-                                    <option value="CT">Mumbai</option>
-                             </select>
-	                          <label for="consumer_zone">City</label>
-	                      </div>	                      
+                         <div class="col-md-4">
+                         	<div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="branch_employee_id">
+                                <label for="employee_id">Employee ID</label>
+                            </div>	                                            
                     		</div>
                     </div>
 						  <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-success ">
-                                <textarea class="form-control" id="consumer_address" ></textarea>
+                                <textarea class="form-control" id="branch_address" ></textarea>
                                 <label >Address</label>
                             </div>
                         </div>
-                    </div>            
-							<div class="row">                    		                                               
-                        <div class="col-md-6">
+                    </div>                                         
+                    <div class="row">                    		                                               
+                        <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="route_code">
-                                <label for="route_code">Employee ID</label>
-                            </div>
+	                          <select id="branch_city" class="form-control input-sm select2-multiple custom-sys-user-margin-top2" onchange="get_branch();">
+                                  <option value=" "> Select City</option> 
+                                  {% for city in city_list %}                                  		
+                                  <option value="{{ city.city }}"> {{ city.city }}</option>
+                                  {% endfor %}
+                             </select>
+	                          <label for="city">City</label>
+	                      	</div>	
                         </div>
-                         <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+	                          <select id="branch_name" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
+                                  <option value=" "> Select Branch</option>
+                                  <!-- {% for branch in branch_list %}                                  		
+                                  <option value="{{ branch.branch }}"> {{ branch.branch }}</option>
+                                  {% endfor %} -->
+                             </select>
+	                          <label for="city">Branch</label>
+	                      	</div>	
+                        </div>
+                         <div class="col-md-4">
 	                      	<div class="form-group form-md-line-input has-success">
-                                <input type="text" readonly="" value="Branch Admin" class="form-control" id="route_code">
-                                <label for="route_code">Role</label>
+                                <input type="text" readonly="" value="Branch Admin" class="form-control" id="branch_role">
+                                <label for="role">Role</label>
                             </div>	                      
                     		</div>
-                    </div>  
+                    </div>            
+
                     <div class="row">
-                    		<div class="col-md-4">
+                    		<div class="col-md-6">
                             <h4><b>Contact Details :</b></h4>
                         </div>
-                    </div>      
+                   
+                        <div class="col-md-6">
+                            <h4><b>Set Password :</b></h4>
+                        </div>            
+                     </div> 
                     <div class="row">                    
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="bill_cycle">
-                                <label for="bill_cycle">Contact No.</label>
+                                <input type="text" class="form-control" id="branch_contact_no">
+                                <label for="contact_no">Contact No.</label>
                             </div>
                         </div>
-								<div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="route_code">
-                                <label for="route_code">Email Id</label>
-                            </div>
-                        </div>     
-                     </div>   
-                     <div class="row">  
-                        <div class="col-md-4">
-                            <h4><b>Set Password :</b></h4>
-                        </div>            
-                     </div>  
-                     <div class="row">          
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="password" >
-                                <label for="bill_cycle">Password</label>
+                                <input type="password" class="form-control" id="branch_password" >
+                                <label for="password">Password</label>
                             </div>
-                        </div>                                                          
+                        </div>  								   
+                     </div>                          
+                     <div class="row">          
                          <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="re_pass" >
-                                <label for="route_code">Retype Password</label>
+                                <input type="text" class="form-control" id="branch_email">
+                                <label for="email">Email Id</label>
                             </div>
+                        </div>                                                         
+                         <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="password" class="form-control" id="branch_re_password" >
+                                <label for="re_password">Retype Password</label>
+                            </div>
+                            <label class="error" style="color:red; "></label> 
                         </div>                        
                     </div>                                                                 
                 </div>
             </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Save</button>
+                <button type="button" onclick="save_branch_admin_details();" class="btn dark btn-outline">Save</button>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Counter Payment Modal End -->
