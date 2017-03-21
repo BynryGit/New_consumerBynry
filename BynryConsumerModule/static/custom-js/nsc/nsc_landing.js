@@ -2,6 +2,8 @@ $("#nsc_anchor").prepend('<span class="selected"></span>');
 $("#nsc_menu").addClass("active open");
 $("#nsc_span").addClass("open");
 
+
+
 var initTable1 = function () {
     var table = $('#nsc_table');
     consumer_category = $("#select_consumer_category").val();
@@ -485,10 +487,10 @@ function clear_filter(){
             success: function (response) {
             console.log(response);
                 if (response.success == 'true') {
-                    $('#meter_consumer_id').val('');
+                    $('#meter_consumer_id').val(response.consumer_id);
                     $('#registration_no').val(response.registration_number);
                     $('#applicant_name').val(response.applicant_name);
-                    $('#consumer_number').val('');
+                    $('#consumer_number').val(response.consumer_no);
                     $('#connection_category').val(response.consumer_category);
                     $('#connection_sub_category').val(response.consumer_sub_category);
                     $('#connection_supply_type').val(response.supply_type);
@@ -507,7 +509,7 @@ function clear_filter(){
 
 	function save_meter_details(){
 	    if(validate_meter_details()){
-
+            console.log($("#meter_detail_form").serialize());
 	    }
 	}
 

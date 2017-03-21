@@ -546,6 +546,7 @@ def save_consumer_payment(request):
             contact_no =consumer_obj.meter_mobile_no,
             address_line_1 =consumer_obj.meter_address_line_1,
             address_line_2 =consumer_obj.meter_address_line_2,
+            consumer_no ='CONS123456',
 
             city=City.objects.get(
                 id=consumer_obj.meter_city.id) if consumer_obj.meter_city.id else None,
@@ -575,6 +576,7 @@ def get_consumer_data(request):
     try:
         nsc_id = request.GET.get('registration_id')
         nsc_obj = NewConsumerRequest.objects.get(id=nsc_id)
+        consumer_obj = ConsumerDetails.objects.get(consumer_id=nsc_id)
         address = ''
         address = address + nsc_obj.meter_building_name + ', '+ nsc_obj.meter_address_line_1
         if nsc_obj.meter_address_line_2:
@@ -587,6 +589,8 @@ def get_consumer_data(request):
             address = address + ' - ' + nsc_obj.meter_pin_code.pincode + '.'
 
         data = {
+            'consumer_no': consumer_obj.consumer_no,
+            'consumer_id': str(consumer_obj.id),
             'consumer_category': nsc_obj.consumer_category,
             'supply_type': nsc_obj.supply_type,
             'consumer_sub_category': nsc_obj.consumer_subcategory,
@@ -596,6 +600,64 @@ def get_consumer_data(request):
             'mobile_no': nsc_obj.meter_mobile_no,
             'phone_no': nsc_obj.meter_phone_no,
             'success': 'true'
+        }
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_consumer_payment', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_meter_details(request):
+    try:
+        print 'nscapp|views.py|save_consumer_payment',request.POST.get('pay_amount_paid')
+
+        new_Payment_obj = PaymentVerification(
+            consumer_id=NewConsumerRequest.objects.get(
+                id=request.POST.get('pay_consumerid')) if request.POST.get(
+                'pay_consumerid') else None,
+            amount_paid =request.POST.get('pay_amount_paid'),
+            payment_mode =request.POST.get('payment_mode'),
+            cheque_no =request.POST.get('pay_cheque_no'),
+            name_on_cheque =request.POST.get('pay_cheque_name'),
+            DD_no =request.POST.get('pay_DD_no'),
+            DD =request.POST.get('pay_DD'),
+            creation_date =datetime.now(),
+            # created_by=request.session['login_user'],
+        );
+        new_Payment_obj.save();
+
+        consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('pay_consumerid'))
+        consumer_obj.status = 'Payment'
+        consumer_obj.save();
+
+        new_Consumer_obj = ConsumerDetails(
+            consumer_id=NewConsumerRequest.objects.get(
+                id=request.POST.get('pay_consumerid')) if request.POST.get(
+                'pay_consumerid') else None,
+            name =consumer_obj.applicant_name,
+            email_id =consumer_obj.meter_email_id,
+            contact_no =consumer_obj.meter_mobile_no,
+            address_line_1 =consumer_obj.meter_address_line_1,
+            address_line_2 =consumer_obj.meter_address_line_2,
+            consumer_no ='CONS123456',
+
+            city=City.objects.get(
+                id=consumer_obj.meter_city.id) if consumer_obj.meter_city.id else None,
+            pin_code=Pincode.objects.get(
+                id=consumer_obj.meter_pin_code.id) if consumer_obj.meter_pin_code.id else None,
+
+            aadhar_no =consumer_obj.aadhar_no,
+            created_on =datetime.now(),
+            # created_by=request.session['login_user'],
+        );
+        new_Consumer_obj.save();
+
+        data = {
+            'success': 'true',
+            'message': 'Payment created successfully.'
         }
     except Exception, e:
         print 'Exception|nscapp|views.py|save_consumer_payment', e

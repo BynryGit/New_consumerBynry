@@ -11,13 +11,13 @@ var ComponentsSelect2 = function() {
         var placeholder = "Select a State";
 
         $(".select2, .select2-multiple").select2({
-            placeholder: placeholder,
+            //placeholder: placeholder,
             width: null
         });
 
         $(".select2-allow-clear").select2({
             allowClear: true,
-            placeholder: placeholder,
+            //placeholder: placeholder,
             width: null
         });
 

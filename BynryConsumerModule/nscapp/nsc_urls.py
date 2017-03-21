@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^save-consumer-technical/', views.save_consumer_technical,name='save_consumer_technical'),
     url(r'^save-consumer-payment/', views.save_consumer_payment,name='save_consumer_payment'),
     url(r'^get-consumer-data/', views.get_consumer_data,name='get_consumer_data'),
+    url(r'^save-meter-details/', views.save_meter_details,name='save_meter_details'),
 ]
