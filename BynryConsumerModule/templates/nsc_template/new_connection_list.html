@@ -868,13 +868,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
-                                <input class="form-control form-control-inline  date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years"
+                                <input id="meter_date" class="form-control form-control-inline  date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years"
                                        type="text" class="form-control" readonly>
-                                <!--<span class="input-group-btn">-->
-                                    <!--<button class="btn default" type="button" style="margin-top: 0px;">-->
-                                        <!--<i class="fa fa-calendar"></i>-->
-                                    <!--</button>-->
-                                <!--</span>-->
                                 <label class="control-label">Meter Connection Date <span class="required" aria-required="true"> * </span></label>
                             </div>
                             <span id="error_meter_date" class="display-none has-error" > Please select Meter Connection Date </span>
@@ -902,7 +897,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
-                                <input type="text" class="form-control" id="tech_contact" >
+                                <input type="text" class="form-control" id="tech_contact" maxlength="10">
                                 <label >Contact No. <span class="required" aria-required="true"> * </span></label>
                             </div>
                             <span id="error_tech_contact" class="display-none has-error" > Please enter Contact No. </span>
@@ -1466,9 +1461,7 @@
                     alert(response.message);
                 }
             },
-
             error: function (response) {
-            console.log(response);
                 alert('error');
             },
         });
@@ -1477,8 +1470,67 @@
 	consumer_details();
 
 	function save_meter_details(){
-        $("#")
+	    if(validate_meter_details()){
+
+	    }
 	}
+
+    function validate_meter_details() {
+        if(validate_meter_data("meter_status","error_meter_status") & validate_meter_data("meter_no","error_meter_no") & validate_meter_data("meter_date","error_meter_date") & validate_meter_data("meter_route","error_meter_route") & CheckTechName() & checkTechNo()){
+            return true;
+        }
+    }
+
+    function validate_meter_data(id,error) {
+	 	if ($("#"+id).val()) {
+            $("#"+error).css("display","none");
+			return true;
+		}
+		else {
+			$("#"+error).css("display","block");
+            $("#"+error).css("color","red");
+			return false;
+		}
+	}
+
+	function CheckTechName() {
+        var namePattern = /[A-Za-z]+/;
+        ckname = $("#tech_name").val();
+        $("#error_tech_name").css("color","red");
+        if(!ckname){
+            $("#error_tech_name").css("display", "block");
+		    $("#error_tech_name").text("Please enter Technician Name");
+            return false;
+        }
+		else if(namePattern.test(ckname)){
+		 	$("#error_tech_name").css("display", "none");
+		    return true;
+		}else{
+		    $("#error_tech_name").css("display", "block");
+		    $("#error_tech_name").text("Please enter valid Name");
+            return false;
+        }
+	}
+
+	function checkTechNo(){
+	    validate_meter_data("tech_contact","error_tech_contact")
+        mobile = $("#tech_contact").val();
+        $("#error_tech_contact").css("color","red");
+        var phoneNumberPattern = /^[789]\d{9}$/;
+        if(!mobile){
+            $("#error_tech_contact").css("display", "block");
+		    $("#error_tech_contact").text("Please enter Contact No.");
+            return false;
+        }
+        if(phoneNumberPattern.test(mobile)){
+            $("#error_tech_contact").css("display", "none");
+            return true;
+        }else{
+            $("#error_tech_contact").css("display", "block");
+            $("#error_tech_contact").text("Please enter valid Contact No.");
+            return false;
+        }
+    }
 
 </script>
 </body>
