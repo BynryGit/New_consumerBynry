@@ -401,15 +401,17 @@
 			                          <select id="verify_KYC" class="form-control input-sm select2-multiple" onchange="open_remark_KYC();">
 		                                   <option value="Verified"> Verified</option>
 		                                   <option value="NotVerified"> Not Verified</option>
-		                             </select>
+		                             </select>		                             
 			                          <label for="consumer_zone">Status </label>
 			                      </div>	                      
 		                    		</div>
 		                    		<div class="col-md-12" style="display:none" id="remark_div">
+		                    			<label id="remark_error" class="error"
+                                                       style="color:red; display:none; font-size: 12px;"></label>
                                  <div class="form-group form-md-line-input has-success">
                                      <input type="text" class="form-control" id="KYC_remark">
                                      <label for="form_control_1">Remark</label>
-                                 </div>
+                                 </div>                                 
                              </div>                         					
                            </div>				 
                          </div>
@@ -497,10 +499,12 @@
                              </div>
                              <div class="row">
                               <div class="col-md-12">
+                                <label id="checklist_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label>
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
                                        <input type="checkbox" name="Checklist" value="checkbox1"
-                                              id="checkbox1_1" class="md-check">
+                                              id="checkbox1_1" class="md-check CheckListclass">
                                        <label for="checkbox1_1">
                                            <span></span>
                                            <span class="check"></span>
@@ -510,7 +514,7 @@
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
                                        <input type="checkbox" name="Checklist" value="checkbox2"
-                                              id="checkbox1_2" class="md-check">
+                                              id="checkbox1_2" class="md-check CheckListclass">
                                        <label for="checkbox1_2">
                                            <span></span>
                                            <span class="check"></span>
@@ -520,7 +524,7 @@
                                 <div class="col-md-3">
                                   <div class="md-checkbox">
                                        <input type="checkbox" name="Checklist" value="checkbox3"
-                                              id="checkbox1_3" class="md-check">
+                                              id="checkbox1_3" class="md-check CheckListclass">
                                        <label for="checkbox1_3">
                                            <span></span>
                                            <span class="check"></span>
@@ -530,7 +534,7 @@
                                 <div class="col-md-3">
 	                               <div class="md-checkbox">
                                        <input type="checkbox" name="Checklist" value="checkbox4"
-                                              id="checkbox1_4" class="md-check">
+                                              id="checkbox1_4" class="md-check CheckListclass">
                                        <label for="checkbox1_4">
                                            <span></span>
                                            <span class="check"></span>
@@ -549,18 +553,26 @@
 	                               </div> 
 	                            </div> 
 	                           <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="technician_name" name="technician_name">
-                                        <label for="form_control_1">Technician Name</label>
-                                    </div>
+                                <div class="col-md-6">       
+                                 	                           		                                
+                                    <div class="form-group form-md-line-input has-success">  
+                                    	 <label for="form_control_1">Technician Name</label>                                      
+                                        <input type="text" class="form-control" id="technician_name" name="technician_name">                                        
+                                        <label id="techname_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label>  
+                                    </div> 
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_contact_no" name="tech_contact_no">
+                                  
+                                    <div class="form-group form-md-line-input has-success">                                                                                 
                                         <label for="form_control_1">Contact No.</label>
+                                        <input type="text" class="form-control" id="tech_contact_no" name="tech_contact_no">
+                                        <label id="mobile_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label>
                                     </div>
-                                </div>         
+                                </div>        
+                               </div>
+                               <div class="row"> 
                                 <div class="col-md-6"  style="margin-top: 4px;">
 				                      <div class="form-group form-md-line-input has-success">
 				                          <select id="verify_technical" name="verify_technical" class="form-control input-sm select2-multiple" onchange="open_remark_technical();">
@@ -569,8 +581,10 @@
 			                             </select>
 				                          <label for="consumer_zone">Status by Technician </label>
 				                      </div>	                      
-			                    		</div>      
-			                    		<div class="col-md-12" style="display:none" id="remark_div_tech">
+			                    	 </div>      
+			                    	 <div class="col-md-12" style="display:none" id="remark_div_tech">
+			                    	      <label id="techremark_error" class="error"
+                                                       style="color:red; display:none; font-size: 12px;"></label>
                                     <div class="form-group form-md-line-input has-success">
                                         <input type="text" class="form-control" id="tech_remark" name="tech_remark">
                                         <label for="form_control_1">Remark</label>
@@ -665,45 +679,56 @@
                              <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" name="pay_amount_paid" >
                                         <label for="form_control_1">Amount Paid</label>
-                                    </div>
+                                        <input type="text" class="form-control" name="pay_amount_paid" id="pay_amount_paid">                                        
+                                        <label id="amount_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label>
+                                    </div>  
                                 </div>                                
-                                <div class="col-md-6" style="margin-top: 4px;">
+                                <div class="col-md-6" style="margin-top: 4px;"> 
 				                      <div class="form-group form-md-line-input has-success">
+				                      	  <label for="consumer_zone">Payment Mode</label>
 				                          <select id="payment_mode" name="payment_mode" class="form-control input-sm select2-multiple" onchange="change_pay_mode()">
 			                                    <option value="Cheque">By Cheque</option>
 			                                    <option value="DD">By DD</option>
 			                             </select>
-				                          <label for="consumer_zone">Payment Mode</label>
+				                          
 				                      </div>	                      
 			                    	 </div>     
                             </div>
                             <div class="row" id="cheque_div">                           
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" name="pay_cheque_no" >
                                         <label for="form_control_1">Cheque No. </label>
+                                        <input type="text" class="form-control" name="pay_cheque_no" id="pay_cheque_no">
+                                        <label id="checkno_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label>                                        
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" name="pay_cheque_name" >
                                         <label for="form_control_1">Name on Cheque</label>
+                                        <input type="text" class="form-control" name="pay_cheque_name" id="pay_cheque_name">
+                                        <label id="checknm_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label> 
                                     </div>
                                 </div>                                                        			                                               
                              </div>
                              <div class="row" style="display:none" id="DD_div">                           
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" name="pay_DD_no" >
                                         <label for="form_control_1">Demand Draft No. </label>
+                                        <input type="text" class="form-control" name="pay_DD_no" id="pay_DD_no">                                        
+                                        <label id="checkDDno_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label> 
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" name="pay_DD" >
                                         <label for="form_control_1">DD</label>
+                                        <input type="text" class="form-control" name="pay_DD" id="pay_DD">                                        
+                                        <label id="checkDDnm_error"
+                                                   style="color:red; display:none; font-size: 12px;"></label> 
                                     </div>
                                 </div>                                                        			                                               
                               </div>                              				                  	                                                            					                    	                                                     									 
@@ -953,9 +978,21 @@
             },
         });            
 		}
+	function validate_KYC() {
+	
+		if ($('#verify_KYC').val() == 'NotVerified' & $('#KYC_remark').val() == '') {
+			$("#remark_error").css("display", "block");
+		   $("#remark_error").text("Please write Remark");
+		   return false; 
+		}
+		else {
+		   $("#remark_error").css("display", "none");
+			return true
+		}		
+	}
  	// Save KYC verification 
-	$("#save-KYC").click(function(event)  {
-
+	$("#save-KYC").click(function(event) {
+		if (validate_KYC()) {
 		event.preventDefault();  
 													
 	   var formData= new FormData();
@@ -977,7 +1014,6 @@
 	              	}
 	      			if (response.success == "false") {
 							$("#error-model").modal('show');     
-
 	       			}							                        		                      		                       		
                },
                	beforeSend: function () {
@@ -989,7 +1025,8 @@
                error : function(response){
                   	alert("_Error");
             	}              
-           });            
+           });
+     }            
 });			
 // Technical
 	function Technical_verify(var1) {
@@ -1026,12 +1063,72 @@
             },
         });            
 		}  
-		
+	
+   function validate_Technical() {
+		if (CheckChecklist()&checkName("#technician_name")&CheckContact("#tech_contact_no")&CheckStatus()) {
+			return true;			
+		}
+		return false;
+	 }
+	function CheckChecklist() {
+			flag_1 = 0
+			var CheckedList = document.getElementsByClassName('CheckListclass')
+			for(var i=0; CheckedList[i]; ++i){
+		      if(CheckedList[i].checked){
+		           flag_1 = 1
+		           break;
+		      }
+		   }
+		   if (flag_1 == 1) {
+		   	$("#checklist_error").css("display", "none");
+		  		return true;
+			}	
+			else {
+		    	$("#checklist_error").css("display", "block");	
+		      $("#checklist_error").text("Please select at least one Check");
+		   	return false; 
+			}	
+	}
+	function checkName(techname) {
+		 	var namePattern = /[A-Za-z]+/;  
+			techname = $(techname).val()  
+		   if(namePattern.test(techname)){
+		 	$(techname_error).css("display", "none");
+		   return true;
+		   }else{
+		    $(techname_error).css("display", "block");
+		    $(techname_error).text("Please enter valid Name");
+		   return false; 
+		   }
+	}
+	function CheckContact(mobile) {
+		    mobile = $(mobile).val()     
+		   var phoneNumberPattern = /^[789]\d{9}$/; 
+		   if(phoneNumberPattern.test(mobile)){
+		    $(mobile_error).css("display", "none");
+		   return true;
+		   }else{
+		    $(mobile_error).css("display", "block");
+		    $(mobile_error).text("Please enter valid Mobile Number");
+		   return false; 
+		   }
+	}
+	function CheckStatus() {
+		if ($('#verify_technical').val() == 'Failed' & $('#tech_remark').val() == '') {
+			$("#techremark_error").css("display", "block");
+		   $("#techremark_error").text("Please write Remark");
+		   return false; 
+		}
+		else {
+		   $("#techremark_error").css("display", "none");
+			return true
+		}	
+	}
  	// Save technical verification 
 	$("#save-technical").click(function(event)  {
+		if (validate_Technical()) {
 
-		event.preventDefault();  												
-						
+			event.preventDefault();  																		
   			$.ajax({  				  
 				  type	: "POST",
 				   url : '/nscapp/save-consumer-technical/',
@@ -1055,7 +1152,8 @@
                error : function(response){
                   	alert("_Error");
             	}              
-           });            
+           });          
+     }  
 });
 
 // Payment
@@ -1093,9 +1191,86 @@
             },
         });            
 		}
+		
+	function validate_Payment() {	
+	
+	 	if ($("#payment_mode").val()== 'DD' ) {
+			if (CheckAmount()&CheckDDNo()&CheckDDName()) {
+			  return true;
+			}
+			return false;
+		}
+		else {
+			if (CheckAmount()&CheckCNo()&CheckCName()) {
+			  return true;
+			}
+			return false;		   		
+		}				
+	}
+	function CheckAmount() {
+		 	var namePattern = /[0-9]+/;  
+			Amount = $(pay_amount_paid).val()  
+			if(namePattern.test(Amount)){
+		 	$(amount_error).css("display", "none");
+		   return true;
+		   }else{
+		    $(amount_error).css("display", "block");
+		    $(amount_error).text("Please enter valid Amount");
+		   return false; 
+		   }
+	}
+	function CheckCNo() {
+		 	var namePattern = /[0-9]+/;  
+			number = $(pay_cheque_no).val()  
+			if(namePattern.test(number)){
+		 	$(checkno_error).css("display", "none");
+		   return true;
+		   }else{
+		    $(checkno_error).css("display", "block");
+		    $(checkno_error).text("Please enter valid Cheque No");
+		   return false; 
+		   }
+	}
+	function CheckCName() {
+		 	var namePattern = /[A-Za-z]+/;  
+			ckname = $(pay_cheque_name).val()  
+		   if(namePattern.test(ckname)){
+		 	$(checknm_error).css("display", "none");
+		   return true;
+		   }else{
+		    $(checknm_error).css("display", "block");
+		    $(checknm_error).text("Please enter valid Name");
+		   return false; 
+		   }		
+	}
+	function CheckDDNo() {
+		 	var namePattern = /[0-9]+/;  
+			number = $(pay_DD_no).val()  
+			if(namePattern.test(number)){
+		 	$(checkDDno_error).css("display", "none");
+		   return true;
+		   }else{
+		    $(checkDDno_error).css("display", "block");
+		    $(checkDDno_error).text("Please enter valid DD No");
+		   return false; 
+		   }
+	}
+	function CheckDDName() {
+		 	var namePattern = /[A-Za-z]+/;  
+			ckname = $(pay_DD).val()  
+		   if(namePattern.test(ckname)){
+		 	$(checkDDnm_error).css("display", "none");
+		   return true;
+		   }else{
+		    $(checkDDnm_error).css("display", "block");
+		    $(checkDDnm_error).text("Please enter valid Name");
+		   return false; 
+		   }		
+	}	
  	// Save payment verification 
 	$("#save-payment").click(function(event)  {
-	console.log($("#payment_form").serialize())
+	if (validate_Payment()) {
+
 		event.preventDefault();  												
 						
   			$.ajax({  				  
@@ -1121,7 +1296,8 @@
                error : function(response){
                   	alert("_Error");
             	}              
-           });            
+           });    
+     }        
 });		
 </script>
 </body>
