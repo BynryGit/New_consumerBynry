@@ -584,7 +584,7 @@ function CheckAddressProof() {
 	}	
 	else {
     	$("#addProofset_error").css("display", "block");	
-      $("#addProofset_error").text("Please Enter Address Proof");
+      $("#addProofset_error").text("Please select at least one Address Proof");
    	return false; 
 	}
 }
@@ -603,7 +603,7 @@ function CheckIdProof() {
 	}	
 	else {
     	$("#idProofset_error").css("display", "block");	
-      $("#idProofset_error").text("Please Enter Identity Proof");
+      $("#idProofset_error").text("Please select at least one Identity Proof");
    	return false; 
 	}
 }

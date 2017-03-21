@@ -484,10 +484,7 @@ def save_consumer_technical(request):
             consumer_id=NewConsumerRequest.objects.get(
                 id=request.POST.get('tech_consumerid')) if request.POST.get(
                 'tech_consumerid') else None,
-            checkbox1 =checkbox1_1,
-            checkbox2 =checkbox1_2,
-            checkbox3 =checkbox1_3,
-            checkbox4 =checkbox1_4,
+            checkbox =request.POST.getlist('Checklist'),
             technician_mobile_no =request.POST.get('tech_contact_no'),
             status =request.POST.get('verify_technical'),
             remark =request.POST.get('tech_remark'),
