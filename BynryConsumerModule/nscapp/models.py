@@ -78,6 +78,10 @@ TECHNICAL_STATUS = (
     ('Pass', 'Pass'),
     ('Failed', 'Failed'),
 )  
+PAYMENT_MODE = (
+    ('Cheque', 'Cheque'),
+    ('DD', 'DD'),
+)
 
 class NewConsumerRequest(models.Model):
     applicant_name = models.CharField(max_length=200, blank=False, null=True)
@@ -159,10 +163,7 @@ class KycVerification(models.Model):
 
 class TechnicalVerification(models.Model):
     consumer_id = models.ForeignKey(NewConsumerRequest,blank=True,null=True)
-    checkbox1 = models.BooleanField(default=True)
-    checkbox2 = models.BooleanField(default=True)
-    checkbox3 = models.BooleanField(default=True)
-    checkbox4 = models.BooleanField(default=True)
+    checkbox = models.CharField(max_length=2000, blank=True, null=True)
     technician_name = models.CharField(max_length=200, blank=False, null=True)
     technician_mobile_no = models.CharField(max_length=50, blank=True, null=True)
     status          = models.CharField(max_length=200, choices=TECHNICAL_STATUS, default='Failed')
@@ -173,5 +174,21 @@ class TechnicalVerification(models.Model):
     updation_date   = models.DateTimeField(null=True,blank=True)
     
     def __unicode__(self):
-        return unicode(self.id)                        
+        return unicode(self.id)     
+
+class PaymentVerification(models.Model):
+    consumer_id = models.ForeignKey(NewConsumerRequest,blank=True,null=True)
+    amount_paid = models.CharField(max_length=200, blank=False, null=True)
+    payment_mode = models.CharField(max_length=200, choices=PAYMENT_MODE, default='Cheque')
+    cheque_no = models.CharField(max_length=50, blank=True, null=True)
+    name_on_cheque = models.CharField(max_length=100, blank=True, null=True)
+    DD_no = models.CharField(max_length=50, blank=True, null=True)
+    DD = models.CharField(max_length=50, blank=True, null=True)
+    creation_date   = models.DateTimeField(null=True,blank=True)
+    created_by      = models.CharField(max_length=500,null=True,blank=True)
+    updated_by      = models.CharField(max_length=500,null=True,blank= True)
+    updation_date   = models.DateTimeField(null=True,blank=True)
+    
+    def __unicode__(self):
+        return unicode(self.id)                            
 

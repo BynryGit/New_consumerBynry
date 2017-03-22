@@ -47,6 +47,7 @@
         }
 
 
+
     </style>
     <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
           type="text/css"/>
@@ -274,19 +275,19 @@
                             <label class="bold">Billing Details : </label>
                             <div class="row">
                                 <!--<div class="col-md-12">-->
-                                    <!--<div class="md-checkbox">-->
+                                <!--<div class="md-checkbox">-->
 
-                                        <!--{% if is_same_address == True%}-->
-                                            <!--<input type="checkbox" checked value="billing_address" id="address_check" class="md-check" disabled>-->
-                                        <!--{% else %}-->
-                                            <!--<input type="checkbox" value="billing_address" id="address_check " class="md-check" disabled>-->
-                                        <!--{% endif %}-->
-                                        <!--<label for="address_check">-->
-                                            <!--<span></span>-->
-                                            <!--<span class="check"></span>-->
-                                            <!--<span class="box"></span> Click here if billing Address same as Meter-->
-                                            <!--Address </label>-->
-                                    <!--</div>-->
+                                <!--{% if is_same_address == True%}-->
+                                <!--<input type="checkbox" checked value="billing_address" id="address_check" class="md-check" disabled>-->
+                                <!--{% else %}-->
+                                <!--<input type="checkbox" value="billing_address" id="address_check " class="md-check" disabled>-->
+                                <!--{% endif %}-->
+                                <!--<label for="address_check">-->
+                                <!--<span></span>-->
+                                <!--<span class="check"></span>-->
+                                <!--<span class="box"></span> Click here if billing Address same as Meter-->
+                                <!--Address </label>-->
+                                <!--</div>-->
                                 <!--</div>-->
                                 <div class="col-md-12">
                                     <div class="col-md-3">
@@ -426,13 +427,13 @@
                                     <div class="col-md-4">
                                         <label style="font-size: 15px;" class="bold">Address Proof </label><br>
                                         {% for documents in address_proof %}
-                                            <label>{{forloop.counter}}. {{documents.document}}</label><br>
+                                        <label>{{forloop.counter}}. {{documents.document}}</label><br>
                                         {% endfor %}
                                     </div>
                                     <div class="col-md-4">
                                         <label style="font-size: 15px;" class="bold">Identity Proof </label><br>
                                         {% for documents in id_proof %}
-                                            <label>{{forloop.counter}}. {{documents.document}}</label><br>
+                                        <label>{{forloop.counter}}. {{documents.document}}</label><br>
                                         {% endfor %}
 
                                     </div>
@@ -446,7 +447,8 @@
                         </div>
                         <br>
                         <div class="col-md-12" style="text-align: right;">
-                            <a type="button" href="/nscapp/" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
+                            <a type="button" href="/nscapp/"
+                               class="btn btn-transparent dark btn-outline btn-circle btn-sm">
                                 Cancel
                             </a>
                             <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm">
@@ -463,6 +465,7 @@
     <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
+
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
@@ -507,7 +510,6 @@
     $("#nsc_anchor").prepend('<span class="selected"></span>');
     $("#nsc_menu").addClass("active open");
     $("#nsc_span").addClass("open");
-
 
 </script>
 

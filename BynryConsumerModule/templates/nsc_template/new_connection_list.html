@@ -46,6 +46,7 @@
             color:red;
         }
 
+
     </style>
     <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
           type="text/css"/>
@@ -210,8 +211,8 @@
                                         <button type="button"
                                                 class="btn btn-transparent dark btn-outline btn-circle btn-sm">
                                             <!--<i class="fa fa-plus"></i>-->
-                                           <!--<span class="hidden-xs"> Add New Consumer </span>-->
-                                           Add New Consumer
+                                            <!--<span class="hidden-xs"> Add New Consumer </span>-->
+                                            Add New Consumer
                                         </button>
                                     </a>
                                 </div>
@@ -250,17 +251,17 @@
                                    id="nsc_table">
                                 <thead>
                                 <tr>
-                                    <th > Registration ID</th>
-                                    <th > Applicant Name</th>
-                                    <th > Aadhar No.</th>
-                                    <th > Contact</th>
-                                    <th > Category</th>
-                                    <th > Subcategory</th>
-                                    <th > Supply Type</th>
-                                    <th > Date</th>
-                                    <th > Status</th>
-                                    <th > Closed Date</th>
-                                    <th > Actions</th>
+                                    <th> Registration ID</th>
+                                    <th> Applicant Name</th>
+                                    <th> Aadhar No.</th>
+                                    <th> Contact</th>
+                                    <th> Category</th>
+                                    <th> Subcategory</th>
+                                    <th> Supply Type</th>
+                                    <th> Date</th>
+                                    <th> Status</th>
+                                    <th> Closed Date</th>
+                                    <th> Actions</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -276,445 +277,479 @@
 </div>
 <!-- END CONTAINER -->
 <!-- Start Model -->
-         <div id="KYC_model" class="modal fade" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title"> Know Your Customer (KYC) Verification:</h4>
-                        <input type="hidden" class="form-control" id="consumer_id">
-                    </div>
-                    <div class="modal-body">
-                        <div class="scroller" style="height:830px" data-always-visible="1" data-rail-visible1="1">
-                            <div class="row">                                                             	
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Aadhar No.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" style="text-align: -webkit-right;">
-                                    <button type="button" class="btn green" >Verify</button>
-                                </div>                     
-                             </div>
-                             <div class="row">
-	                                <hr style="border-top: dotted 1px;"/>
-                             </div>
-                             <div class="row">
-                                <div class="col-md-12">
-                                     <h4><b >  e-KYC Information</b></h4>
-                                </div> 
-                             </div>
-                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_email" readonly="">
-                                        <label for="form_control_1">Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
-                                        <label for="form_control_1">Contact</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_aadhar" readonly="">
-                                        <label for="form_control_1">Email</label>
-                                    </div>
-                                </div>                               			                                               
-                              </div>
-                              <div class="row">
-				                        <div class="col-md-12">
-				                            <div class="form-group form-md-line-input has-success ">
-				                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
-				                                <label >Address</label>
-				                            </div>
-				                        </div>				                        
-				                        <div class="col-md-4">
-	                                    <div class="form-group form-md-line-input has-success">
-	                                        <input type="text" class="form-control" id="" readonly="">
-	                                        <label for="form_control_1">City</label>
-	                                    </div>
-                                    </div>     
-                                    <div class="col-md-4">
-	                                    <div class="form-group form-md-line-input has-success">
-	                                        <input type="text" class="form-control" id="" readonly="">
-	                                        <label for="form_control_1">Pincode</label>
-	                                    </div>
-	                                 </div> 
-				                   </div>  
-				                   <div class="row">
-		                                <hr style="border-top: dotted 1px;"/>
-	                            </div>
-	                            <div class="row">
-	                               <div class="col-md-12">
-	                                     <h4><b >  Given by Applicant</b></h4>
-	                               </div> 
-	                            </div> 
-	                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="KYC_applicant_name" readonly="">
-                                        <label for="form_control_1">Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="KYC_mobile_no" readonly="">
-                                        <label for="form_control_1">Contact</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="KYC_email_id" readonly="">
-                                        <label for="form_control_1">Email</label>
-                                    </div>
-                                </div>                               			                                               
-                              </div>
-                              <div class="row">
-				                        <div class="col-md-12">
-				                            <div class="form-group form-md-line-input has-success ">
-				                                <textarea class="form-control" id="KYC_address" readonly=""></textarea>
-				                                <label >Address</label>
-				                            </div>
-				                        </div>				          
-				                        <div class="col-md-4">
-	                                    <div class="form-group form-md-line-input has-success">
-	                                        <input type="text" class="form-control" id="KYC_city" readonly="">
-	                                        <label for="form_control_1">City</label>
-	                                    </div>
-                                    </div>     
-                                    <div class="col-md-4">
-	                                    <div class="form-group form-md-line-input has-success">
-	                                        <input type="text" class="form-control" id="KYC_pincode" readonly="">
-	                                        <label for="form_control_1">Pincode</label>
-	                                    </div>
-	                                 </div>         				                    	
-				                   </div> 				                  	                                	
-				                   <div class="row">
-		                                <hr style="border-top: dotted 1px;"/>
-	                            </div>	   
-	                            <div class="row"> 
-	                            <div class="col-md-6"  style="margin-top: 4px;">
-				                      <div class="form-group form-md-line-input has-success">
-				                          <select id="verify_KYC" class="form-control input-sm select2-multiple" onchange="open_remark_KYC();">
-			                                   <option value="Verified"> Verified</option>
-			                                   <option value="NotVerified"> Not Verified</option>
-			                             </select>
-				                          <label for="consumer_zone">Status </label>
-				                      </div>	                      
-			                    		</div>
-			                    		<div class="col-md-12" style="display:none" id="remark_div">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="KYC_remark">
-                                        <label for="form_control_1">Remark</label>
-                                    </div>
-                                </div>                         					
-                              </div>				 
+<div id="KYC_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"> Know Your Customer (KYC) Verification:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:830px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="edit_utility">
+                                <label for="form_control_1">Aadhar No.</label>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                        	<input type="hidden" class="form-control" id="KYC_consumerid">
-                        	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                        	<button type="button" class="btn green" id="save-KYC">Save</button>
+                        <div class="col-md-6" style="text-align: -webkit-right;">
+                            <button type="button" class="btn green">Verify</button>
                         </div>
-                     </div>
-                </div>                    
+                    </div>
+                    <div class="row">
+                        <hr style="border-top: dotted 1px;"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b> e-KYC Information</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="edit_email" readonly="">
+                                <label for="form_control_1">Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                <label for="form_control_1">Contact</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="edit_aadhar" readonly="">
+                                <label for="form_control_1">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success ">
+                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
+                                <label>Address</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="" readonly="">
+                                <label for="form_control_1">City</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="" readonly="">
+                                <label for="form_control_1">Pincode</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr style="border-top: dotted 1px;"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b> Given by Applicant</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_applicant_name" readonly="">
+                                <label for="form_control_1">Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_mobile_no" readonly="">
+                                <label for="form_control_1">Contact</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_email_id" readonly="">
+                                <label for="form_control_1">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success ">
+                                <textarea class="form-control" id="KYC_address" readonly=""></textarea>
+                                <label>Address</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_city" readonly="">
+                                <label for="form_control_1">City</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_pincode" readonly="">
+                                <label for="form_control_1">Pincode</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr style="border-top: dotted 1px;"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="margin-top: 4px;">
+                            <div class="form-group form-md-line-input has-success">
+                                <select id="verify_KYC" class="form-control input-sm select2-multiple"
+                                        onchange="open_remark_KYC();">
+                                    <option value="Verified"> Verified</option>
+                                    <option value="NotVerified"> Not Verified</option>
+                                </select>
+                                <label for="consumer_zone">Status </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display:none" id="remark_div">
+                            <label id="remark_error" class="error"
+                                   style="color:red; display:none; font-size: 12px;"></label>
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_remark">
+                                <label for="form_control_1">Remark</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" class="form-control" id="KYC_consumerid">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" class="btn green" id="save-KYC">Save</button>
+            </div>
         </div>
-        <div id="technical_model" class="modal fade" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-              <form id="technical_form" method="POST">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title"> Technical Checking Details:</h4>
-                        <input type="hidden" class="form-control" id="consumer_id">
-                    </div>
-                    <div class="modal-body">
-                        <div class="scroller" style="height:700px" data-always-visible="1" data-rail-visible1="1">
-                            <div class="row">
-	                               <div class="col-md-12">
-	                                     <h4><b >  Application Details</b></h4>
-	                               </div> 
-	                         </div>
-                            <div class="row">                                                             	
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_reg_no" readonly="">
-                                        <label for="form_control_1">Reg. No.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_cons_names" readonly="">
-                                        <label for="form_control_1">Cons. Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_cont_no" readonly="">
-                                        <label for="form_control_1">Contact No.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-			                            <div class="form-group form-md-line-input has-success ">
-			                                <textarea class="form-control" id="tech_address" readonly=""></textarea>
-			                                <label >Address</label>
-			                            </div>
-				                     </div>
-				                     <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_category" readonly="">
-                                        <label for="form_control_1">Category</label>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_subcat" readonly="">
-                                        <label for="form_control_1">Subcategory</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_supply_type" readonly="">
-                                        <label for="form_control_1">Supply Type</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_premise_type" readonly="">
-                                        <label for="form_control_1">Premise Type</label>
-                                    </div>
-                                </div>                                                    
-                             </div>
-                             <div class="row">
-	                                <hr style="border-top: dotted 1px;"/>
-                             </div>
-                             <div class="row">
-                                <div class="col-md-12">
-                                     <h4><b >  Checklist</b></h4>
-                                </div> 
-                             </div>
-                             <div class="row">
-                              <div class="col-md-12">
-                                <div class="col-md-3">
-                                  <div class="md-checkbox">
-                                       <input type="checkbox" name="checkbox1_1" value="checkbox1"
-                                              id="checkbox1_1" class="md-check">
-                                       <label for="checkbox1_1">
-                                           <span></span>
-                                           <span class="check"></span>
-                                           <span class="box"></span> checkbox1 </label>
-                                   </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div class="md-checkbox">
-                                       <input type="checkbox" name="checkbox1_2" value="checkbox2"
-                                              id="checkbox1_2" class="md-check">
-                                       <label for="checkbox1_2">
-                                           <span></span>
-                                           <span class="check"></span>
-                                           <span class="box"></span> checkbox2 </label>
-                                   </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div class="md-checkbox">
-                                       <input type="checkbox" name="checkbox1_3" value="checkbox3"
-                                              id="checkbox1_3" class="md-check">
-                                       <label for="checkbox1_3">
-                                           <span></span>
-                                           <span class="check"></span>
-                                           <span class="box"></span> checkbox3 </label>
-                                   </div>
-                                </div>
-                                <div class="col-md-3">
-	                               <div class="md-checkbox">
-                                       <input type="checkbox" name="checkbox1_4" value="checkbox4"
-                                              id="checkbox1_4" class="md-check">
-                                       <label for="checkbox1_4">
-                                           <span></span>
-                                           <span class="check"></span>
-                                           <span class="box"></span> checkbox4 </label>
-                                   </div>
-                                </div>  
-                               </div>                             			                                               
-                              </div>
-                              
-				                   <div class="row">
-		                             <hr style="border-top: dotted 1px;"/>
-	                            </div>
-	                            <div class="row">
-	                               <div class="col-md-12">
-	                                     <h4><b >  Technician Details</b></h4>
-	                               </div> 
-	                            </div> 
-	                           <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="technician_name" name="technician_name">
-                                        <label for="form_control_1">Technician Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_contact_no" name="tech_contact_no">
-                                        <label for="form_control_1">Contact No.</label>
-                                    </div>
-                                </div>         
-                                <div class="col-md-6"  style="margin-top: 4px;">
-				                      <div class="form-group form-md-line-input has-success">
-				                          <select id="verify_technical" name="verify_technical" class="form-control input-sm select2-multiple" onchange="open_remark_technical();">
-			                                   <option value="Passed"> Pass</option>
-			                                   <option value="Failed"> Failed</option>
-			                             </select>
-				                          <label for="consumer_zone">Status by Technician </label>
-				                      </div>	                      
-			                    		</div>      
-			                    		<div class="col-md-12" style="display:none" id="remark_div_tech">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="tech_remark" name="tech_remark">
-                                        <label for="form_control_1">Remark</label>
-                                    </div>
-                                </div>                                             			                                               
-                              </div>                                   					                    	                                                     									 
+    </div>
+</div>
+<div id="technical_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="technical_form" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title"> Technical Checking Details:</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:700px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Application Details</b></h4>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                        	<input type="hidden" class="form-control" id="tech_consumerid" name="tech_consumerid">
-                        	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                        	<button type="button" class="btn green" id="save-technical">Save</button>
-                        </div>
-                     </div>
-                    </div>
-                </div>                    
-        </div>          
-        <div id="payment_model" class="modal fade" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title"> Payment Details:</h4>
-                        <input type="hidden" class="form-control" id="consumer_id">
-                    </div>
-                    <div class="modal-body">
-                        <div class="scroller" style="height:600px" data-always-visible="1" data-rail-visible1="1">
-                            <div class="row">
-	                               <div class="col-md-12">
-	                                     <h4><b >  Application Details</b></h4>
-	                               </div> 
-	                         </div>
-                            <div class="row">                                                             	
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Reg. No.</label>
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_reg_no" readonly="">
+                                    <label for="form_control_1">Reg. No.</label>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Cons. Name</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_cons_names" readonly="">
+                                    <label for="form_control_1">Cons. Name</label>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Contact No.</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_cont_no" readonly="">
+                                    <label for="form_control_1">Contact No.</label>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Category</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group form-md-line-input has-success ">
+                                    <textarea class="form-control" id="tech_address" readonly=""></textarea>
+                                    <label>Address</label>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Subcategory</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_category" readonly="">
+                                    <label for="form_control_1">Category</label>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Supply Type</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_subcat" readonly="">
+                                    <label for="form_control_1">Subcategory</label>
                                 </div>
-                                <div class="col-md-12">
-			                            <div class="form-group form-md-line-input has-success ">
-			                                <textarea class="form-control" id="edit_address1" readonly=""></textarea>
-			                                <label >Address</label>
-			                            </div>
-				                     </div>
-				                     <div class="col-md-4"  style="margin-top: 4px;">
-				                      <div class="form-group form-md-line-input has-success">
-				                          <select id="edit_pincode" class="form-control input-sm select2-multiple" disabled>
-			                                  {% for pincode in pincode_list %}
-			                                   <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
-			                                  {% endfor %}
-			                             </select>
-				                          <label for="consumer_zone">Pincode</label>
-				                      </div>	                      
-			                    		</div>				                                                                    
-                             </div>
-                             <div class="row">
-	                                <hr style="border-top: dotted 1px;"/>
-                             </div>
-                             <div class="row">
-                                <div class="col-md-12">
-                                     <h4><b >  Payment Details</b></h4>
-                                </div> 
-                             </div>
-                             <div class="row">
-                               <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Payment Status</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_supply_type" readonly="">
+                                    <label for="form_control_1">Supply Type</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Amount Paid</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_premise_type" readonly="">
+                                    <label for="form_control_1">Premise Type</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Payment Mode</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Payment Date</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Cheque No./ Demand Draft No. </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="edit_utility" >
-                                        <label for="form_control_1">Name on Cheque/ DD</label>
-                                    </div>
-                                </div>                                                        			                                               
-                              </div>                              				                  	                                                            					                    	                                                     									 
                             </div>
                         </div>
-                        <div class="modal-footer">
-                        	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                        	<button type="button" class="btn green" id="save-consumer">Save</button>
+                        <div class="row">
+                            <hr style="border-top: dotted 1px;"/>
                         </div>
-                     </div>
-                </div>                    
-        </div>
-    <div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Checklist</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label id="checklist_error"
+                                       style="color:red; display:none; font-size: 12px;"></label>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox1"
+                                               id="checkbox1_1" class="md-check CheckListclass">
+                                        <label for="checkbox1_1">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox1 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox2"
+                                               id="checkbox1_2" class="md-check CheckListclass">
+                                        <label for="checkbox1_2">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox2 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox3"
+                                               id="checkbox1_3" class="md-check CheckListclass">
+                                        <label for="checkbox1_3">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox3 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox4"
+                                               id="checkbox1_4" class="md-check CheckListclass">
+                                        <label for="checkbox1_4">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox4 </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr style="border-top: dotted 1px;"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Technician Details</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Technician Name</label>
+                                    <input type="text" class="form-control" id="technician_name" name="technician_name">
+                                    <label id="techname_error"
+                                           style="color:red; display:none; font-size: 12px;"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Contact No.</label>
+                                    <input type="text" class="form-control" id="tech_contact_no" name="tech_contact_no">
+                                    <label id="mobile_error"
+                                           style="color:red; display:none; font-size: 12px;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" style="margin-top: 4px;">
+                                <div class="form-group form-md-line-input has-success">
+                                    <select id="verify_technical" name="verify_technical"
+                                            class="form-control input-sm select2-multiple"
+                                            onchange="open_remark_technical();">
+                                        <option value="Passed"> Pass</option>
+                                        <option value="Failed"> Failed</option>
+                                    </select>
+                                    <label for="consumer_zone">Status by Technician </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="display:none" id="remark_div_tech">
+                                <label id="techremark_error" class="error"
+                                       style="color:red; display:none; font-size: 12px;"></label>
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_remark" name="tech_remark">
+                                    <label for="form_control_1">Remark</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" class="form-control" id="tech_consumerid" name="tech_consumerid">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                    <button type="button" class="btn green" id="save-technical">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="payment_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="payment_form" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title"> Payment Details:</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:550px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Application Details</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="pay_reg_no">
+                                    <label for="form_control_1">Reg. No.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="pay_cons_name" readonly="">
+                                    <label for="form_control_1">Cons. Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="pay_cont_no" readonly="">
+                                    <label for="form_control_1">Contact No.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="pay_category" readonly="">
+                                    <label for="form_control_1">Category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="pay_subcategory" readonly="">
+                                    <label for="form_control_1">Subcategory</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="pay_supply_type" readonly="">
+                                    <label for="form_control_1">Supply Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group form-md-line-input has-success ">
+                                    <textarea class="form-control" id="pay_address" readonly=""></textarea>
+                                    <label>Address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="pay_pincode" readonly="">
+                                    <label for="form_control_1">Pincode</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr style="border-top: dotted 1px;"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Payment Details</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Amount Paid</label>
+                                    <input type="text" class="form-control" name="pay_amount_paid" id="pay_amount_paid">
+                                    <label id="amount_error"
+                                           style="color:red; display:none; font-size: 12px;"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="margin-top: 4px;">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="consumer_zone">Payment Mode</label>
+                                    <select id="payment_mode" name="payment_mode"
+                                            class="form-control input-sm select2-multiple" onchange="change_pay_mode()">
+                                        <option value="Cheque">By Cheque</option>
+                                        <option value="DD">By DD</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="cheque_div">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Cheque No. </label>
+                                    <input type="text" class="form-control" name="pay_cheque_no" id="pay_cheque_no">
+                                    <label id="checkno_error"
+                                           style="color:red; display:none; font-size: 12px;"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Name on Cheque</label>
+                                    <input type="text" class="form-control" name="pay_cheque_name" id="pay_cheque_name">
+                                    <label id="checknm_error"
+                                           style="color:red; display:none; font-size: 12px;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="display:none" id="DD_div">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Demand Draft No. </label>
+                                    <input type="text" class="form-control" name="pay_DD_no" id="pay_DD_no">
+                                    <label id="checkDDno_error"
+                                           style="color:red; display:none; font-size: 12px;"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">DD</label>
+                                    <input type="text" class="form-control" name="pay_DD" id="pay_DD">
+                                    <label id="checkDDnm_error"
+                                           style="color:red; display:none; font-size: 12px;"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" class="form-control" id="pay_consumerid" name="pay_consumerid">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                    <button type="button" class="btn green" id="save-payment">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
     <div class="modal-dialog" style="width:35%;">
         <div class="modal-content">
             <div class="modal-body">
@@ -745,9 +780,147 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
-<!-- End Model -->        
+<div id="Meter_Detail_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width:104%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"> Meter Connection Details:</h4>
+            </div>
+            <div class="modal-body">
+                <form id="meter_detail_form" method="POST">
+                    <div class="scroller" style="height:450px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="registration_no" readonly>
+                                    <label>Registration No.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="applicant_name" readonly="">
+                                    <label >Consumer Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="consumer_number" readonly="">
+                                    <label >Consumer No.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="connection_category" readonly="">
+                                    <label >Category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="connection_sub_category" readonly="">
+                                    <label >Sub Category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="connection_supply_type" readonly="">
+                                    <label >Supply Type</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-md-line-input has-success ">
+                                    <textarea class="form-control" id="connection_address" readonly=""></textarea>
+                                    <label>Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr style="border-top: dotted 1px;"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Meter Details</b></h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <input type="hidden" class="form-control" id="meter_consumer_id" name="consumer_id">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                    <select name="meter_status" id="meter_status" class="form-control input-sm select2-multiple">
+                                        <option value="">Select a Status</option>
+                                        <option value="Done"> Done</option>
+                                        <option value="Not Done"> Not Done</option>
+                                    </select>
+                                    <label>Meter Connection Status<span class="required" aria-required="true"> * </span></label>
+                                </div>
+                                <span id="error_meter_status" class="display-none has-error"> Please select Meter Connection Status </span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                    <input name="meter_no" type="text" class="form-control" id="meter_no" >
+                                    <label >Meter No. <span class="required" aria-required="true"> * </span></label>
+                                </div>
+                                <span id="error_meter_no" class="display-none has-error"> Please enter Meter No. </span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                    <input name="meter_date" id="meter_date" class="form-control form-control-inline  date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years"
+                                           type="text" class="form-control" readonly>
+                                    <label class="control-label">Meter Connection Date <span class="required" aria-required="true"> * </span></label>
+                                </div>
+                                <span id="error_meter_date" class="display-none has-error" > Please select Meter Connection Date </span>
+                            </div>
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                    <select name="meter_route" id="meter_route" class="form-control input-sm select2-multiple">
+                                        <option value="">Select a Route</option>
+                                        {% for route in route_list %}
+                                            <option value="{{route.id}}"> {{route.route_code}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label>Route <span class="required" aria-required="true"> * </span></label>
+                                </div>
+                                <span id="error_meter_route" class="display-none has-error" > Please select Route </span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                    <input name="tech_name" type="text" class="form-control" id="tech_name" >
+                                    <label >Technician Name <span class="required" aria-required="true"> * </span></label>
+                                </div>
+                                <span id="error_tech_name" class="display-none has-error" > Please enter Technician Name </span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                    <input name="tech_contact" type="text" class="form-control" id="tech_contact" maxlength="10">
+                                    <label >Contact No. <span class="required" aria-required="true"> * </span></label>
+                                </div>
+                                <span id="error_tech_contact" class="display-none has-error" > Please enter Contact No. </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" class="btn green" id="save-consumer" onclick="save_meter_details()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Model -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
     <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
@@ -786,261 +959,6 @@
         type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/clockface/js/clockface.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
-
-<script>
-
-    
-    $("#nsc_anchor").prepend('<span class="selected"></span>');
-    $("#nsc_menu").addClass("active open");
-    $("#nsc_span").addClass("open");
-
-    var initTable1 = function () {
-        var table = $('#nsc_table');
-
-        consumer_category = $("#select_consumer_category").val();
-        consumer_sub_category = $("#select_consumer_sub_category").val();
-        supply_type = $("#select_supply_type").val();
-        nsc_status = $("#select_nsc_status").val();
-        start_date = $("#start_date").val();
-        end_date = $("#end_date").val();
-
-        var fixedHeaderOffset = 0;
-        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
-            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
-                fixedHeaderOffset = $('.page-header').outerHeight(true);
-            }
-        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
-            fixedHeaderOffset = $('.page-header').outerHeight(true);
-        }
-
-        var oTable = table.dataTable({
-            "bDestroy":true,
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            fixedHeader: {
-                header: true,
-                headerOffset: fixedHeaderOffset
-            },
-
-            "ajax": "/nscapp/get-nsc-data/?consumer_category="+consumer_category+"&consumer_sub_category="+consumer_sub_category+"&supply_type="+supply_type+"&nsc_status="+nsc_status+"&start_date="+start_date+"&end_date="+end_date,
-            "columns": [
-                {"data": "registration_id"},
-                {"data": "applicant_name"},
-                {"data": "aadhar_no"},
-                {"data": "contact_no"},
-                {"data": "category"},
-                {"data": "sub_category"},
-                {"data": "supply_type"},
-                {"data": "registration_date"},
-                {"data": "status"},
-                {"data": "closed_date"},
-                {"data": "actions"},
-            ],
-
-            "order": [
-                [0, 'asc']
-            ],
-
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
-            ],
-
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"]
-            ],
-            "pageLength": 20,
-
-        });
-        $('#nsc_table_tools > li > a.tool-action').on('click', function() {
-            var action = $(this).attr('data-action');
-            oTable.DataTable().button(action).trigger();
-        });
-    }
-
-    initTable1();
-
-    function filter_nsc(){
-        initTable1();
-    }
-
-    function clear_filter(){
-        $('.select2').val('All').change();
-        $("#start_date").val('');
-        $("#end_date").val('');
-        initTable1();
-    }
-    
-    // SHUBHAM KYC
-   function open_remark_KYC() {	
-		if ($("#verify_KYC").val()== 'NotVerified' ) {
-	  		 $("#remark_div").css("display","block");
-		}
-		else {
-   		$("#remark_div").css("display","none");
-		}
-	}	
-   function open_remark_technical() {	
-
-		if ($("#verify_technical").val()== 'Failed' ) {
-	  		 $("#remark_div_tech").css("display","block");
-		}
-		else {
-   		$("#remark_div_tech").css("display","none");
-		}
-	}
-	   // KYC Verification
-	function KYC_verify(var1) {
-
-        var  registration_id = var1;
-        $.ajax({
-            type: 'GET',
-            url: '/nscapp/get-kyc-data/',
-            data: {'registration_id': registration_id},
-            success: function (response) {
-      
-            console.log(response);
-                if (response.success == 'true') {                                	
-						$('#KYC_consumerid').val(response.data.consumer_id)						
-						$('#KYC_applicant_name').val(response.data.applicant_name)
-						$('#KYC_mobile_no').val(response.data.meter_mobile_no)						
-						$('#KYC_email_id').val(response.data.meter_email_id)
-						$('#KYC_address').val(response.data.address)
-						$('#KYC_city').val(response.data.city_name)
-						$('#KYC_pincode').val(response.data.pincode)
-
-                  $("#KYC_model").modal('show');
-                }
-                if (response.success == 'false') {
-                    alert(response.message);
-                }
-            },
-
-            error: function (response) {
-            console.log(response);
-                alert('error');
-            },
-        });            
-		}
- 	// Save KYC verification 
-	$("#save-KYC").click(function(event)  {
-
-		event.preventDefault();  
-													
-	   var formData= new FormData();
-
-		formData.append("consumer_id",$('#KYC_consumerid').val());		
-		formData.append("verify_KYC_status",$('#verify_KYC').val());    
-		formData.append("KYC_remark",$('#KYC_remark').val());    
-	
-  			$.ajax({  				  
-				  type	: "POST",
-				   url : '/nscapp/save-consumer-kyc/',
- 					data : formData,
-					cache: false,
-		         processData: false,
-		    		contentType: false,                       
-              success: function (response) {   
-	              if(response.success=='true'){
-	           	  		$("#success_modal").modal('show');
-	              	}
-	      			if (response.success == "false") {
-							$("#error-model").modal('show');     
-
-	       			}							                        		                      		                       		
-               },
-               	beforeSend: function () {
-            		$("#processing").css('display','block');
-            },
-            complete: function () {
-                $("#processing").css('display','none');
-            },
-               error : function(response){
-                  	alert("_Error");
-            	}              
-           });            
-});			
-// Technical
-	function Technical_verify(var1) {
-
-        var  registration_id = var1;
-        $.ajax({
-            type: 'GET',
-            url: '/nscapp/get-technical-data/',
-            data: {'registration_id': registration_id},
-            success: function (response) {
-      
-            console.log(response);
-                if (response.success == 'true') {            
-                	$('#tech_consumerid').val(response.data.consumer_id)	                    	
-						$('#tech_reg_no').val(response.data.registration_no)						
-						$('#tech_cons_names').val(response.data.applicant_name)
-						$('#tech_cont_no').val(response.data.meter_mobile_no)						
-						$('#tech_address').val(response.data.address)
-						$('#tech_category').val(response.data.consumer_category)
-						$('#tech_subcat').val(response.data.consumer_subcategory)
-						$('#tech_supply_type').val(response.data.supply_type)
-						$('#tech_premise_type').val(response.data.type_of_premises)
-
-                  $("#technical_model").modal('show');
-                }
-                if (response.success == 'false') {
-                    alert(response.message);
-                }
-            },
-
-            error: function (response) {
-            console.log(response);
-                alert('error');
-            },
-        });            
-		}  
-		
- 	// Save technical verification 
-	$("#save-technical").click(function(event)  {
-
-		event.preventDefault();  												
-						
-  			$.ajax({  				  
-				  type	: "POST",
-				   url : '/nscapp/save-consumer-technical/',
- 					data : $("#technical_form").serialize(),
-                       
-              success: function (response) {   
-	              if(response.success=='true'){
-	           	  		$("#success_modal").modal('show');
-	              	}
-	      			if (response.success == "false") {
-							$("#error-model").modal('show');     
-
-	       			}							                        		                      		                       		
-               },
-               	beforeSend: function () {
-            		$("#processing").css('display','block');
-            },
-            complete: function () {
-                $("#processing").css('display','none');
-            },
-               error : function(response){
-                  	alert("_Error");
-            	}              
-           });            
-});
-</script>
+<script src="{% static 'custom-js/nsc/nsc_landing.js' %}" type="text/javascript"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ from decimal import Decimal
 from datetime import date
 
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Pincode, Zone, Utility, Branch
-
+from nscapp.models import NewConsumerRequest
 
 IS_DELETED = (
     (True, True),
@@ -22,15 +22,16 @@ METER_CATEGORY = (
 METER_IMAGES_PATH ='static/images/meter_images/'
 
 class ConsumerDetails(models.Model):
-    name            = models.CharField(max_length=200, blank=False, null=True)
     consumer_no     = models.CharField(max_length=200, blank=False, null=True)
+    consumer_id     = models.ForeignKey(NewConsumerRequest,blank=True,null=True)
+    name            = models.CharField(max_length=200, blank=False, null=True)    
     email_id        = models.CharField(max_length=50, blank=True, null=True)
     contact_no      = models.CharField(max_length=50, blank=True, null=True)
     address_line_1  = models.CharField(max_length=500, blank=True, null=True)
     address_line_2  = models.CharField(max_length=500, blank=True, null=True)
     city            = models.ForeignKey(City, blank=False, null=True)
     pin_code        = models.ForeignKey(Pincode, blank=False, null=True)
-    branch            = models.ForeignKey(Branch, blank=False, null=True)
+    branch          = models.ForeignKey(Branch, blank=False, null=True)
     zone            = models.ForeignKey(Zone, blank=False, null=True)
     bill_cycle      = models.ForeignKey(BillCycle, blank=True, null=True)
     route           = models.ForeignKey(RouteDetail, blank=True, null=True)
