@@ -83,12 +83,17 @@
                                 <input type="text" class="form-control" id="branch_agent_first_name">
                                 <label for="user_first_name">First Name</label>
                             </div>
+                            <span class="branch_agent_first_name_error" style="color:red;"></span>  
+
+                        
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
                                 <input type="text" class="form-control" id="branch_agent_last_name">
                                 <label for="user_last_name">Last Name</label>
                             </div>
+                            <span class="branch_agent_last_name_error" style="color:red;"></span> 
+
                         </div>
                         <div class="col-md-4 custom-sys-user-margin-top2">
 	                      <div class="form-group form-md-line-input has-success">
@@ -98,7 +103,9 @@
 	                                  {% endfor %}
                              </select>
 	                          <label for="consumer_zone">City</label>
-	                      </div>	                      
+	                      </div>	  
+	                      <span class="branch_agent_city_error" style="color:red;" ></span>
+            
                     		</div>
                     </div>
 						  <div class="row">
@@ -107,6 +114,8 @@
                                 <textarea class="form-control" id="branch_agent_user_address" ></textarea>
                                 <label >Address</label>
                             </div>
+                            <span class="branch_agent_address_error" style="color:red;"></span>
+      
                         </div>
                     </div>            
                     <div class="row">                    		                                               
@@ -115,12 +124,16 @@
                                 <input type="text" class="form-control" id="branch_agent_emp_id">
                                 <label for="route_code">Employee ID</label>
                             </div>
+                            <span class="branch_agent_employee_id_error" style="color:red;"></span>
+
                         </div>
                          <div class="col-md-6">
 	                      	<div class="form-group form-md-line-input has-success">
                                 <input type="text" readonly="" value="Branch Desk Agent" class="form-control" id="branch_agent_role">
                                 <label for="bas_user_role">Role</label>
-                            </div>	                      
+                            </div>	
+                            
+                       
                     		</div>
                     </div>                        
                     <div class="row">
@@ -137,12 +150,17 @@
                                 <input type="text" class="form-control" id="branch_agent_contact_no">
                                 <label for="user_contact_no">Contact No.</label>
                             </div>
+                            <span class="branch_agent_contact_no_error" style="color:red;"></span>
+                            
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
                                 <input type="password" class="form-control"  id="branch_agent_password" >
                                 <label for="bill_cycle">Password</label>
                             </div>
+                            <span class="branch_agent_password_error" style="color:red;"></span>
+                            
                         </div>  
                     </div>
 							                       
@@ -152,6 +170,8 @@
                                 <input type="text" class="form-control" id="branch_agent_email">
                                 <label for="user_email">Email Id</label>
                             </div>
+									<span class="branch_agent_email_error" style="color:red;"></span>
+
                         </div>              
                                                                                                          
                         <div class="col-md-6">
@@ -159,6 +179,7 @@
                                 <input type="password" class="form-control"  id="branch_agent_re_password" >
                                 <label for="route_code">Retype Password</label>
                             </div>
+										<span class="branch_agent_re_password_error" style="color:red;"></span> 
                         </div>                        
                     </div>                                                     
                 </div>

@@ -35,6 +35,9 @@ from django.http import HttpResponseRedirect
 def dashboard(request):
     return render(request, 'dashboard.html')
 
+def login(request):
+    return render(request, 'login.html')
+
 def system_user(request):
     data = {
             'city_list': get_city(request),
@@ -324,7 +327,7 @@ def get_role_list(request):
         data = {}
         final_list = []
         try:
-            role_obj_list = UserRole.objects.all()            
+            role_obj_list = UserRole.objects.all()
 
             for role_obj in role_obj_list:
                 role = role_obj.role
@@ -337,7 +340,7 @@ def get_role_list(request):
                 else:
                     status = '<span style="cursor: default;" class="btn btn-danger">Inactive</span>'
 
-                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + str(role_obj.id) + ')"></i> </a>'
+                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_role_modal(' + str(role_obj.id) + ')"></i> </a>'
 
                 role_data = {
                     'role': role,
@@ -356,6 +359,25 @@ def get_role_list(request):
         print 'Exception|views.py|get_role_list', e
     except Exception, e:
         print 'Exception|views.py|get_role_list', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_role_details(request):
+    try:
+        print 'views.py|get_role_details'
+        data = {}
+        final_list = []
+        print '-------------role id----',request.GET.get('role_id')
+        try:
+            role_obj = UserRole.objects.get(id=request.GET.get('role_id'))
+
+            user_data={'role':role_obj.role,'role_description':role_obj.description
+                   }
+            data = {'success': 'true', 'user_data': user_data}
+        except Exception as e:
+            print 'Exception|views.py|get_role_details', e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|views.py|get_role_details', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 # to get branch wrt city

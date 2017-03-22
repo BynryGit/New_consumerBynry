@@ -196,12 +196,16 @@
                                 <input type="text" class="form-control" id="hs_fname">
                                 <label for="bill_cycle">First Name</label>
                             </div>
+                            <span class="hs_fname_error" style="color:red;"></span>  
+
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
                                 <input type="text" class="form-control" id="hs_lname">
                                 <label for="route_code">Last Name</label>
                             </div>
+                            <span class="hs_lname_error" style="color:red;"></span> 
+
                         </div>
                          <div class="col-md-4 custom-sys-user-margin-top2">
 	                      <div class="form-group form-md-line-input has-success">
@@ -212,7 +216,9 @@
 	                                  {% endfor %}
                              </select>
 	                          <label for="city">City</label>
-	                      </div>	                      
+	                      </div>
+	                      <span class="hs_city_error" style="color:red;" ></span>
+	                      
                     		</div>
                     </div>
 						  <div class="row">
@@ -221,6 +227,8 @@
                                 <textarea class="form-control" id="hs_address" ></textarea>
                                 <label >Address</label>
                             </div>
+                            <span class="hs_address_error" style="color:red;"></span>
+
                         </div>
                     </div>                                         
                     <div class="row">                    		                                               
@@ -229,6 +237,8 @@
                                 <input type="text" class="form-control" id="hs_employee_id">
                                 <label for="employee_id">Employee ID</label>
                             </div>
+                            <span class="hs_employee_id_error" style="color:red;"></span>
+
                         </div>
                          <div class="col-md-6">
 	                      	<div class="form-group form-md-line-input has-success">
@@ -253,12 +263,16 @@
                                 <input type="text" class="form-control" id="hs_contact_no">
                                 <label for="contact_no">Contact No.</label>
                             </div>
+                            <span class="hs_contact_no_error" style="color:red;"></span>
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
                                 <input type="password" class="form-control" id="hs_password" >
                                 <label for="password">Password</label>
                             </div>
+                            <span class="hs_password_error" style="color:red;"></span>
+
                         </div>  								   
                      </div>                          
                      <div class="row">          
@@ -267,13 +281,15 @@
                                 <input type="text" class="form-control" id="hs_email">
                                 <label for="email">Email Id</label>
                             </div>
+                            <span class="hs_email_error" style="color:red;"></span>
+
                         </div>                                                         
                          <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
                                 <input type="password" class="form-control" id="hs_re_password" >
                                 <label for="re_password">Retype Password</label>
                             </div>
-                            <label class="error" style="color:red; "></label> 
+                            <span class="hs_re_password_error" style="color:red;"></span> 
                         </div>                        
                     </div>                                                                 
                 </div>

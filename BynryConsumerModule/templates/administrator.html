@@ -313,7 +313,7 @@
                 <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="col-md-9">
-                            <h4><b>System Administrator</b></h4>
+                            <h4><b><span id="role_name"></span></b></h4>
                         </div>
                         <div class="col-md-3" style="text-align: right;">
                            <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">
@@ -322,8 +322,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info">
-                                <textarea class="form-control" readonly id="role_desc"
-                                          rows="1">System Administrator</textarea>
+                                <textarea class="form-control" id="role_desc" rows="1">System Administrator</textarea>
                                 <label for="route_code">Description </label>
                             </div>
                         </div>
@@ -337,96 +336,115 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Dashboard</label>
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">                                            
+                                           <div class="md-checkbox">
+                                            <input type="checkbox" value="Admin" id="checkbox1_441"
+                                                   class="md-check privillages"  >
+                                            <label for="checkbox1_441">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Dashboard </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Consumer List" id="checkbox1_11"
+                                                   class="md-check privillages"  >
+                                            <label for="checkbox1_11">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Cosnsumer List </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Payments" id="checkbox1_21"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_21">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Payments </label>
+                                           </div>
+                                        </div>                                                                                
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Import PN33 </label>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    	 <div class="col-md-4">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Complaints" id="checkbox1_31"
+                                                   class="md-check privillages">
+                                            <label for="checkbox1_31">
+                                                <span></span>
+                                                <span class="check privillages"></span>
+                                                <span class="box"></span> Complaints </label>
+                                           </div>
+                                        </div>
+                                    	 <div class="col-md-4">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Services" id="checkbox1_41"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_41">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Services </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Vigilance Cases" id="checkbox1_51"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_51">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Vigilance Cases </label>
+                                           </div>
+                                        </div>                                                                                
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Schedule </label>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    	<div class="col-md-4">
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="NSC" id="checkbox1_61"
+                                                   class="md-check privillages">
+                                            <label for="checkbox1_61">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> NSC </label>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-4">                                    
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="System User" id="checkbox1_71"
+                                                   class="md-check privillages">
+                                            <label for="checkbox1_71">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> System User </label>
+                                           </div>
+                                        </div>                                        
+                                        <div class="col-md-4">                                            
+                                            <div class="md-checkbox">
+                                            <input type="checkbox" value="Administration" id="checkbox1_81"
+                                                   class="md-check privillages" >
+                                            <label for="checkbox1_81">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Administration </label>
+                                           </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Dispatch </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Validation 1 </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Validation 2 </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Approve Schedule </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Upload</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> System User </label>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-4">
-                                    <div class="checkbox-list">
-                                        <label class="checkbox-inline"><input type="checkbox" id="glowl_dismiss"
-                                                                              value="1"> Administration </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                                </div>                                                                    
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Update</button>
+                <button type="button" onclick="update_role_details();" class="btn dark btn-outline">Update</button>
             </div>
         </div>
     </div>
@@ -512,159 +530,8 @@
 <script src="{% static 'assets/global/plugins/jquery-validation/js/additional-methods.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/pages/scripts/form-validation-md.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/pages/scripts/form-icheck.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'custom-js/administrator/administrator.js' %}" type="text/javascript"></script>
 
-<script type="text/javascript">
-	 $("#admin_anchor").prepend('<span class="selected"></span>');
-	 $("#admin_menu").addClass("active open");
-	 $("#admin_span").addClass("open");
-	
-    
-    	 var initTable1 = function () {	 	
-		
-        var table = $('#dispatch_bill_cycle_table');
-
-        var fixedHeaderOffset = 0;
-        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
-            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
-                fixedHeaderOffset = $('.page-header').outerHeight(true);
-            }
-        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
-            fixedHeaderOffset = $('.page-header').outerHeight(true);
-        }
-
-        var oTable = table.dataTable({
-				"bDestroy" : true,
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
-            fixedHeader: {
-                header: true,
-                headerOffset: fixedHeaderOffset
-            },
-
-            "order": [
-                [0, 'asc']
-            ],
-
-            "ajax": "/get-role-list/",
-            "columns": [
-                {"data": "role","sClass": "text-center"},
-                {"data": "description","sClass": "text-center"},
-                {"data": "created_on","sClass": "text-center"},
-                {"data": "associated_user","sClass": "text-center"},
-                {"data": "status","sClass": "text-center"},
-                {"data": "action","sClass": "text-center"}                                                       
-            ],                                                                                                                                                                  
-                                                      
-            buttons: [
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-            ],
-
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            // set the initial value
-            "pageLength": 20,
-
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-      });
-    }
-    initTable1();
-
-function validateRole(user_role){
-	
-	user_name = $(user_role).val()
-
-   if($(user_role).val()!=''){
-  
- 	$(user_role).parent().children('.error').css("display", "none");
-   return true;
-   }else{
-   
-    $(user_role).parent().children('.error').css("display", "block");
-    $(user_role).parent().children('.error').text("Please enter Role Name");
-   return false; 
-   }
-}
-function check_privilage(){
-			var checkboxValues1 = []
-			checkboxValues1 = $('.privillages:checked').map(function() {
-			    return $(this).val();
-			}).get(); 
-
-			if (checkboxValues1.length == 0){
-				$("#priv_err").css("display", "block");
-				$("#priv_err").text("Please select at least 1 Privilege");
-			   return false; 
-			}else{
-				$("#priv_err").css("display", "none");
-				return true;
-			}
-		} 
-
-$("#save-role").click(function(event)  {
- 
- if(validateRole("#roll_name")){	
-	var prv = check_privilage()
-	if (prv == false){
-     return false;	
-	}		 
-	event.preventDefault();  	
-	var checkboxValues = []
-	checkboxValues = $('.privillages:checked').map(function() {
-			    return $(this).val();
-			}).get(); 
-
-	var formData= new FormData();
-
-	formData.append("roll_name",$('#roll_name').val());
-	formData.append("description",$('#description').val());				
-	formData.append("privilege_list",checkboxValues);												
-	
-	 $.ajax({  				  
-			  type	: "POST",
-			   url : '/save-new-role/',
-	 			data : formData,
-				cache: false,
-		      processData: false,
-		 		contentType: false, 
-		 			               
-	        success: function (response) {   
-	           if(response.success=='true'){
-						$("#success_modal").modal('show');						
-	           	}
-	   			if (response.success == "false") {
-						$("#error-modal").modal('show');
-	    			}							                        		                      		                       		
-	         },
-	         	beforeSend: function () {
-	      $("#processing").css('display','block');
-	      },
-	      complete: function () {
-	          $("#processing").css('display','none');
-	      },
-	         error : function(response){
-	            	alert("_Error");
-	      	}              
-	  });     
-	  }      
-});    
-    
-</script>
 
 
 </body>

@@ -195,44 +195,52 @@
                         </div>
                     </div>                     
                     <div class="row">                    		
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                        <div class="col-md-4">                        
+                            <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">                            	   
                                 <input type="text" class="form-control" id="fname">
-                                <label for="bill_cycle">First Name</label>
-                            </div>
+                                <label for="fname">First Name</label>                                                                                                                             
+                            </div>        
+                            <span class="first_name_error" style="color:red;"></span>  
                         </div>                        
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="lname">
-                                <label for="route_code">Last Name</label>
+                                <label for="route_code">Last Name</label>                                                                 
                             </div>
+                            <span class="last_name_error" style="color:red;"></span> 
+
                         </div>
                          <div class="col-md-4 custom-sys-user-margin-top2">
-	                      <div class="form-group form-md-line-input has-success">
+	                      <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
 	                          <select id="city" class="form-control input-sm select2-multiple">
-                                    <!-- <option value=" "> Select City</option> -->
+                                    <option value=" "> Select City</option> 
 	                                  {% for city in city_list %}                                  		
 	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
 	                                  {% endfor %}
                              </select>
-	                          <label for="city">City</label>
+	                          <label for="city">City</label>	                          
 	                      </div>	                      
+	                      <span class="city_error" style="color:red;" ></span>
                     		</div>
                     </div>
 						  <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group form-md-line-input has-success ">
+                            <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">
                                 <textarea class="form-control" id="address" ></textarea>
                                 <label >Address</label>
+                                
                             </div>
+                            <span class="address_error" style="color:red;"></span>
                         </div>
-                    </div>                                         
+                    </div>
+                    <br>                                         
                     <div class="row">                    		                                               
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="employee_id">
                                 <label for="employee_id">Employee ID</label>
                             </div>
+                            <span class="employee_id_error" style="color:red;"></span>
                         </div>
                          <div class="col-md-6">
 	                      	<div class="form-group form-md-line-input has-success">
@@ -253,31 +261,35 @@
                      </div> 
                     <div class="row">                    
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="contact_no">
                                 <label for="contact_no">Contact No.</label>
                             </div>
+                            <span class="contact_no_error" style="color:red;"></span>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="password" >
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input type="password" class="form-control" id="password" >
                                 <label for="password">Password</label>
                             </div>
+                            <span class="password_error" style="color:red;"></span>
                         </div>  								   
-                     </div>                          
+                     </div>    
+                     <br>                      
                      <div class="row">          
                          <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
-                                <input type="password" class="form-control" id="email">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input type="text" class="form-control" id="email">
                                 <label for="email">Email Id</label>
                             </div>
+                            <span class="email_error" style="color:red;"></span>
                         </div>                                                         
                          <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="password" class="form-control" id="re_password" >
-                                <label for="re_password">Retype Password</label>
+                                <label for="re_password">Retype Password</label>                                
                             </div>
-                            <label class="error" style="color:red; "></label> 
+                            <span class="re_password_error" style="color:red;"></span>
                         </div>                        
                     </div>                                                                 
                 </div>

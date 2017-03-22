@@ -95,11 +95,7 @@ function save_branch_supervisor_details() {
 			var re_password = $('#branch_supervisor_re_password').val();
 			alert(password+''+re_password);
 			
-			if (password != re_password) {
-				$('.error').text("Password does not match");		
-				return false;
-			}
-			else {
+			if (validateBranchSupervisorData()) {
 					$.ajax({
 			       type	: "GET",
 			       url : '/save_system_user_details/',
@@ -214,3 +210,157 @@ function get_supervisor_branch(){
         });
     }
 }   
+
+
+function validateBranchSupervisorData(){
+	alert('in validateBranchAdminData');
+	if(checkFirstName("#hs_fname")&checkLastName("#hs_lname")&CheckAddress("#hs_address")
+	   &CheckCity("#hs_city")&checkEmail("#hs_email")
+	   &CheckEmployeeID("#hs_employee_id")&checkContactNo("#hs_contact_no")&checkPassword("#hs_password")
+	   &checkRePassword("#hs_re_password")
+	  ){    
+		return true;	
+	}
+	return false;
+}
+
+function checkFirstName(first_name){
+	alert('in first name');
+ 	var namePattern = /[A-Za-z]+/;  
+	first_name = $(hs_fname).val()  
+   if(namePattern.test(first_name)){
+ 	$(".hs_fname_error").css("display", "none");
+   return true;
+   }else{
+    $(".hs_fname_error").css("display", "block");
+    $(".hs_fname_error").text("Please enter valid first Name");
+   return false; 
+   }
+}
+
+function checkLastName(last_name){
+ 	var namePattern = /[A-Za-z]+/;  
+	last_name = $(hs_lname).val()  
+   if(namePattern.test(last_name)){
+ 	$(".hs_lname_error").css("display", "none");
+   return true;
+   }else{
+    $(".hs_lname_error").css("display", "block");
+    $(".hs_lname_error").text("Please enter valid last Name");
+   return false; 
+   }
+}
+
+function CheckEmployeeID(employee_id){
+	employee_id = $(hs_employee_id).val()  
+   if($(hs_employee_id).val()!=' ' && $(hs_employee_id).val()!=null)
+   {
+    $(".hs_employee_id_error").css("display", "none");
+    return true;
+   }else{
+    $(".hs_employee_id_error").css("display", "block");
+    $(".hs_employee_id_error").text("Please enter valid employee ID");
+   return false; 
+   }
+}
+
+function CheckAddress(address){
+ 	var namePattern = /[A-Za-z]+/;  
+	address = $(hs_address).val()  
+   if(namePattern.test(address)){
+ 	$(".hs_address_error").css("display", "none");
+   return true;
+   }else{
+    $(".hs_address_error").css("display", "block");
+    $(".hs_address_error").text("Please enter valid Address");
+   return false; 
+   }
+}
+
+function CheckCity(city){
+	if($(hs_city).val()!=' ' && $(hs_city).val()!=null)
+   {
+    $(".hs_city_error").css("display", "none");
+    return true;
+   }else{
+    $(".hs_city_error").css("display", "block");
+    $(".hs_city_error").text("Please select City");
+   return false; 
+   }
+}
+
+function checkBranch(branch){
+	if($(hs_name).val()!=' ' && $(hs_name).val()!=null)
+   {
+    $(".hs_name_error").css("display", "none");
+    return true;
+   }else{
+    $(".hs_name_error").css("display", "block");
+    $(".hs_name_error").text("Please select Branch");
+   return false; 
+   }
+}
+
+function checkEmail(email){
+	Email = $(hs_email).val()
+   var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
+   if(Email=='')
+	{ 
+	$(".hs_email_error").css("display", "none");
+	return true;	
+	}  
+   else if(namePattern.test(Email)){
+      $(".hs_email_error").css("display", "none");
+   return true;
+   }else{
+ 	$(".hs_email_error").css("display", "block");
+   $(".hs_email_error").text("Please enter valid email");
+   return false; 
+   }
+}
+
+function checkContactNo(contact_no){
+    contact_no = $(hs_contact_no).val()     
+   var phoneNumberPattern = /^[789]\d{9}$/; 
+  
+   if(phoneNumberPattern.test(contact_no)){
+    $(".hs_contact_no_error").parent().children('.error').css("display", "none");
+   return true;
+   }else if($(contact_no).val()==' ' && $(contact_no).val()==null){
+    $(".hs_contact_no_error").css("display", "block");
+    $(".hs_contact_no_error").text("Please enter valid employee ID");
+   return false; 
+   }
+   else{
+    $(".hs_contact_no_error").css("display", "block");
+    $(".hs_contact_no_error").text("Please enter valid Contact Number");
+   return false; 
+   }
+}
+
+function checkPassword(password){
+    password = $(hs_password).val()     
+    re_password = $(hs_re_password).val()   
+   if (password == ' ' && password==null) {		
+		$(".hs_password_error").css("display", "block");
+    	$(".hs_password_error").text("Password does not match");
+    	return false;
+   }
+   else{
+   	return true; 
+   }
+}
+
+function checkRePassword(re_password){
+    password = $(hs_password).val()  
+    re_password = $(hs_re_password).val()     
+   if (password == re_password) {		
+		return true;
+   }
+   else{   	 
+   	$(".hs_re_password_error").css("display", "block");
+    	$(".hs_re_password_error").text("Password does not match");
+    	return false;
+   }
+}
+
