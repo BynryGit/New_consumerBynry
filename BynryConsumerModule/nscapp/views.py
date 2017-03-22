@@ -77,13 +77,13 @@ def get_nsc_data(request):
             else:
                 closed_date = ''
             if nsc.status == 'Registered':
-                other_action = '&nbsp;<a> <i class="fa icon-user-following" aria-hidden="true" onclick="KYC_verify(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="KYC"> <i class="fa icon-user-following" aria-hidden="true" onclick="KYC_verify(' + str(nsc.id) + ')"></i> </a>'
             elif nsc.status == 'KYC':
-                other_action = '&nbsp;<a> <i class="fa icon-wrench" aria-hidden="true" onclick="Technical_verify(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="Technical"> <i class="fa icon-wrench" aria-hidden="true" onclick="Technical_verify(' + str(nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Technical':
-                other_action = '&nbsp;<a> <i class="fa icon-wallet" aria-hidden="true" onclick="Payment_verify(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="Payment"> <i class="fa icon-wallet" aria-hidden="true" onclick="Payment_verify(' + str(nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Payment':
-                other_action = '&nbsp;<a> <i class="fa icon-user-follow" aria-hidden="true" onclick="consumer_details(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="Meter Details"> <i class="fa icon-user-follow" aria-hidden="true" onclick="consumer_details(' + str(nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Closed':
                 other_action = ''
             nsc_data = {
