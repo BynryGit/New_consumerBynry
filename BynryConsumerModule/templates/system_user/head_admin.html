@@ -2,7 +2,7 @@
        <div class="portlet-title">
                <div class="caption font-dark">
            <i class="icon-settings font-dark"></i>
-           <span class="caption-subject bold uppercase"> H.O. Admin</span>
+           <span class="caption-subject bold uppercase"> Users</span>
        </div>
     
          <div class="actions">                                                                                               
@@ -12,7 +12,7 @@
 			        <span class="custom-sys-user-width">
 			        	<input type="button" onclick="add_admin();"
                         class="btn btn-transparent dark btn-outline btn-circle btn-sm custom-sys-user-width"
-                        value="Add Admin">
+                        value="Add User">
                   
 			        </span>
                  
@@ -47,6 +47,7 @@
                  <th> Name</th>
                  <th> Contact</th>                                            
                  <th> Email</th>
+                 <th> Role</th>
                  <th> Status</th>
                  <th style="text-align:center"> Actions</th>
              </tr>
@@ -80,48 +81,71 @@
                 	  </div>
                     <div class="row">                    		 
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_first_name">
                                 <label for="user_first_name">First Name</label>
                             </div>
+									<span class="user_first_name_error" style="color:red;"></span> 
                         </div>                        
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_last_name">
                                 <label for="user_last_name">Last Name</label>
                             </div>
+                            <span class="user_last_name_error" style="color:red;"></span> 
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input type="text" class="form-control" id="user_emp_id">
+                                <label for="route_code">Employee ID</label>
+                            </div>
+                            <span class="user_emp_id_error" style="color:red;"></span> 
+                        </div>
+                        
+                    </div>
+						  <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">
+                                <textarea class="form-control" id="user_address" ></textarea>
+                                <label >Address</label>
+                            </div>
+                            <span class="user_address_error" style="color:red;"></span> 
+                        </div>
+                    </div>        
+                    <br>    
+                    <div class="row">                    		                                               
                         <div class="col-md-4 custom-sys-user-margin-top2">
-	                      <div class="form-group form-md-line-input has-success">
-	                          <select id="user_city" class="form-control input-sm select2-multiple">
+	                      <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+	                          <select id="user_city" class="form-control input-sm select2-multiple" onchange="get_branch_list();">
+												<option value=" "> Select City</option>                                       
                                     {% for city in city_list %}                                  		
 	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
 	                                  {% endfor %}
                              </select>
 	                          <label for="consumer_zone">City</label>
-	                      </div>	                      
+	                      </div>	
+	                      <span class="user_city_error" style="color:red;"></span>                       
                     		</div>
-                    </div>
-						  <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group form-md-line-input has-success ">
-                                <textarea class="form-control" id="user_address" ></textarea>
-                                <label >Address</label>
-                            </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+	                          <select id="user_branch_name" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
+                                  <option value=" "> Select Branch</option>                                  
+                             </select>
+	                          <label for="city">Branch</label>
+	                      	</div>
+									<span class="user_branch_name_error" style="color:red;" ></span>	
                         </div>
-                    </div>            
-                    <div class="row">                    		                                               
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="user_emp_id">
-                                <label for="route_code">Employee ID</label>
+                         <div class="col-md-4">
+	                      	<div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <select id="user_role" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
+                                  <option value=" "> Select Role</option>
+                                   {% for role in role_list %}                                  		
+                                  <option value="{{ role.role }}"> {{ role.role }}</option>
+                                  {% endfor %}
+                             		</select>
+											<label for="city">Role</label>
                             </div>
-                        </div>
-                         <div class="col-md-6">
-	                      	<div class="form-group form-md-line-input has-success">
-                                <input type="text" readonly="" value="H.O.Admin" class="form-control" id="user_role">
-                                <label for="user_role">Role</label>
-                            </div>	                      
+                            <span class="user_role_error" style="color:red;"></span> 	                      
                     		</div>
                     </div>                        
                     <div class="row">
@@ -134,41 +158,43 @@
                     </div>
                     <div class="row">
                     		<div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_contact_no">
                                 <label for="user_contact_no">Contact No.</label>
                             </div>
+                            <span class="user_contact_no_error" style="color:red;"></span> 
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
-                                <input type="password" class="form-control"  id="user_password" >
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input type="password" class="form-control"  id="user_pass" >
                                 <label for="bill_cycle">Password</label>
                             </div>
+                            <span class="user_password_error" style="color:red;"></span> 
                         </div>
                     </div>
-							<div class="row">
-                          
-                     </div>                        
+							<br>                       
                       <div class="row">                
                         
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_email">
                                 <label for="user_email">Email Id</label>
                             </div>
+                            <span class="user_email_error" style="color:red;"></span> 
                         </div>                                                                                   
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
-                                <input type="password" class="form-control"  id="user_re_password" >
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input type="password" class="form-control"  id="user_re_pass" >
                                 <label for="route_code">Retype Password</label>
                             </div>
+                            <span class="user_re_password_error" style="color:red;"></span> 
                         </div>                        
                     </div>                                                     
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                <button onclick="update_head_admin_details();" type="button" data-dismiss="modal" class="btn dark btn-outline">Save</button>
+                <button onclick="update_head_admin_details();" type="button" class="btn dark btn-outline">Save</button>
             </div>
         </div>
     </div>
@@ -179,7 +205,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add H.O. Admin</h4></div>
+                <h4 class="modal-title">Add User</h4></div>
             <div class="modal-body">
             	<div id="clear_div">
                 <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
@@ -190,7 +216,7 @@
 								<div class="col-md-4 custom-sys-user-margin-top1">
                             <div class="form-group form-md-line-input has-success">
                             		<label for="user_status">Status : </label>
-                                <input type="checkbox" id="user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+                                <input type="checkbox" id="user_status" class="make-switch" data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
                             </div>
                         </div>
                     </div>                     
@@ -210,18 +236,14 @@
                             <span class="last_name_error" style="color:red;"></span> 
 
                         </div>
-                         <div class="col-md-4 custom-sys-user-margin-top2">
-	                      <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
-	                          <select id="city" class="form-control input-sm select2-multiple">
-                                    <option value=" "> Select City</option> 
-	                                  {% for city in city_list %}                                  		
-	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
-	                                  {% endfor %}
-                             </select>
-	                          <label for="city">City</label>	                          
-	                      </div>	                      
-	                      <span class="city_error" style="color:red;" ></span>
-                    		</div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input type="text" class="form-control" id="employee_ID">
+                                <label for="employee_id">Employee ID</label>
+                            </div>
+                            <span class="employee_id_error" style="color:red;"></span>
+                        </div>
+                         
                     </div>
 						  <div class="row">
                         <div class="col-md-12">
@@ -235,18 +257,38 @@
                     </div>
                     <br>                                         
                     <div class="row">                    		                                               
-                        <div class="col-md-6">
+                        <div class="col-md-4 custom-sys-user-margin-top2">
+	                      <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+	                          <select id="city" class="form-control input-sm select2-multiple" onchange="get_branch();">
+                                    <option value=" "> Select City</option> 
+	                                  {% for city in city_list %}                                  		
+	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
+	                                  {% endfor %}
+                             </select>
+	                          <label for="city">City</label>	                          
+	                      </div>	                      
+	                      <span class="city_error" style="color:red;" ></span>
+                    		</div>
+                        <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
-                                <input type="text" class="form-control" id="employee_id">
-                                <label for="employee_id">Employee ID</label>
-                            </div>
-                            <span class="employee_id_error" style="color:red;"></span>
+	                          <select id="branch_name" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
+                                  <option value=" "> Select Branch</option>                                  
+                             </select>
+	                          <label for="city">Branch</label>
+	                      	</div>
+									<span class="branch_name_error" style="color:red;" ></span>	
                         </div>
-                         <div class="col-md-6">
-	                      	<div class="form-group form-md-line-input has-success">
-                                <input type="text" readonly="" value="H.O.Admin" class="form-control" id="role">
-                                <label for="role">Role</label>
-                            </div>	                      
+                         <div class="col-md-4">
+	                      	<div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">                                
+                                <select id="role" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
+                                  <option value=" "> Select Role</option>
+                                   {% for role in role_list %}                                  		
+                                  <option value="{{ role.role }}"> {{ role.role }}</option>
+                                  {% endfor %}
+                             </select>
+                             <label for="city">Role</label>
+                            </div>
+                            <span class="role_error" style="color:red;" ></span>		                      
                     		</div>
                     </div>            
 
@@ -307,7 +349,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">H.O. Admin Details</h4></div>
+                <h4 class="modal-title">System User Details</h4></div>
             <div class="modal-body">
                 <div class="scroller custom-modal-height4" data-always-visible="1" data-rail-visible1="1">
                      <label>Data Saved Successfully</label>           

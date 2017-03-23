@@ -6,7 +6,7 @@ import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from paymentapp.models import PaymentDetail
-from BynryConsumerModuleapp.models import Zone,BillCycle,RouteDetail, Branch
+from BynryConsumerModuleapp.models import Zone, BillCycle, RouteDetail, Branch
 from consumerapp.models import ConsumerDetails,MeterReadingDetail
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
@@ -14,25 +14,22 @@ from django.views.decorators.csrf import csrf_exempt
 # To view payment page
 def payments(request):
     print 'paymentapp|views.py|payments'
-    data={'branch_list' : Branch.objects.filter(is_deleted=False), # Branch List
-          #'zone' : Zone.objects.filter(is_deleted=False), # Zone List
-          #'billcycle':BillCycle.objects.all(), # bill cycle list
-          #'routeDetail':RouteDetail.objects.all() # route list
+    data={'branch_list' : Branch.objects.filter(is_deleted=False) # Branch List
           }
-    return render(request, 'payments.html',data)
+    return render(request, 'payments.html', data)
 
 # To get online payments list
 def online_payments(request):
-    online_payment_list=[]
-    payment_details_list=[]
+    online_payment_list = []
+    payment_details_list = []
     try:
         print 'paymentapp|views.py|online_payments'
-        filter_branch  	= request.GET.get('filter_branch')
-        filter_zone  	= request.GET.get('filter_zone')
-        filter_bill  	= request.GET.get('filter_bill')
-        filter_route 	= request.GET.get('filter_route')
-        filter_from 	= request.GET.get('filter_from')
-        filter_to 		= request.GET.get('filter_to')
+        filter_branch = request.GET.get('filter_branch')
+        filter_zone = request.GET.get('filter_zone')
+        filter_bill = request.GET.get('filter_bill')
+        filter_route = request.GET.get('filter_route')
+        filter_from = request.GET.get('filter_from')
+        filter_to = request.GET.get('filter_to')
 
         try:
             payment_details_list = PaymentDetail.objects.all()
@@ -64,7 +61,7 @@ def online_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Online Payment':
-                    online_data ={'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
+                    online_data = {'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
                                   'bill_amount_paid':str(i.bill_amount_paid),
                                   'transaction_id':str(i.transaction_id),
                                   'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -86,15 +83,15 @@ def online_payments(request):
 def paytm_payments(request):
     try:
         print 'paymentapp|views.py|paytm_payments'
-        payment_wallet_list=[]
-        payment_details_list=[]
+        payment_wallet_list = []
+        payment_details_list = []
 
-        filter_branch  	= request.GET.get('filter_branch')
-        filter_zone  	= request.GET.get('filter_zone')
-        filter_bill  	= request.GET.get('filter_bill')
-        filter_route 	= request.GET.get('filter_route')
-        filter_from 	= request.GET.get('filter_from')
-        filter_to 		= request.GET.get('filter_to')
+        filter_branch = request.GET.get('filter_branch')
+        filter_zone	= request.GET.get('filter_zone')
+        filter_bill	= request.GET.get('filter_bill')
+        filter_route = request.GET.get('filter_route')
+        filter_from	= request.GET.get('filter_from')
+        filter_to = request.GET.get('filter_to')
         try:
             payment_details_list = PaymentDetail.objects.all()
             # filter payment data by barnch
@@ -125,7 +122,7 @@ def paytm_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Paytm Wallet':
-                    paytm_data ={'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
+                    paytm_data = {'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
                                  'bill_amount_paid':str(i.bill_amount_paid),
                                  'transaction_id':str(i.transaction_id),
                                  'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -150,14 +147,14 @@ def paytm_payments(request):
 def cash_payments(request):
     try:
         print 'paymentapp|views.py|cash_payments'
-        cash_payment_list=[]
-        payment_details_list=[]
-        filter_branch  	= request.GET.get('filter_branch')
-        filter_zone  	= request.GET.get('filter_zone')
-        filter_bill  	= request.GET.get('filter_bill')
-        filter_route 	= request.GET.get('filter_route')
-        filter_from 	= request.GET.get('filter_from')
-        filter_to 		= request.GET.get('filter_to')
+        cash_payment_list = []
+        payment_details_list = []
+        filter_branch = request.GET.get('filter_branch')
+        filter_zone	= request.GET.get('filter_zone')
+        filter_bill	= request.GET.get('filter_bill')
+        filter_route = request.GET.get('filter_route')
+        filter_from = request.GET.get('filter_from')
+        filter_to = request.GET.get('filter_to')
 
         try:
             payment_details_list = PaymentDetail.objects.all()
@@ -189,7 +186,7 @@ def cash_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Cash Payment':
-                    cash_data ={'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
+                    cash_data = {'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
                                 'bill_amount_paid':str(i.bill_amount_paid),
                                 'transaction_id':str(i.transaction_id),
                                 'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -242,7 +239,7 @@ def payments_get_payment_details(request):
         meter_reading_obj = MeterReadingDetail.objects.get(consumer_id__in=consumer_no,bill_month=bill_month)
         # filter payment details by meter reading object
         consumer_obj = PaymentDetail.objects.get(meter_reading_id=meter_reading_obj)
-        payment_data={'consumer_no':consumer_no,
+        payment_data = {'consumer_no':consumer_no,
                       'meter_no':str(consumer_obj.consumer_id.meter_no),
                       'bill_month':str(consumer_obj.meter_reading_id.bill_month),
                       'consumption':str(consumer_obj.meter_reading_id.unit_consumed),

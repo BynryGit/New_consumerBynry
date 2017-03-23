@@ -192,7 +192,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add Branch Admin</h4></div>
+                <h4 class="modal-title">Add Branch Supervisor</h4></div>
             <div class="modal-body">
             	<div id="clear_div">
                 <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
@@ -209,35 +209,40 @@
                     </div>                     
                     <div class="row">                    		
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="branch_supervisor_fname">
                                 <label for="bill_cycle">First Name</label>
                             </div>
+                            <span class="branch_supervisor_fname_error" style="color:red;"></span>
                         </div>                        
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="branch_supervisor_lname">
                                 <label for="route_code">Last Name</label>
                             </div>
+                            <span class="branch_supervisor_lname_error" style="color:red;"></span> 
                         </div>
                          <div class="col-md-4">
-                         	<div class="form-group form-md-line-input has-success">
+                         	<div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="branch_supervisor_employee_id">
                                 <label for="employee_id">Employee ID</label>
-                            </div>	                                            
+                            </div>	 
+                            <span class="branch_supervisor_employee_id_error" style="color:red;"></span>                                                                      
                     		</div>
                     </div>
 						  <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group form-md-line-input has-success ">
+                            <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">
                                 <textarea class="form-control" id="branch_supervisor_address" ></textarea>
                                 <label >Address</label>
                             </div>
+                            <span class="branch_supervisor_address_error" style="color:red;"></span>
                         </div>
-                    </div>                                         
+                    </div>    
+                    <br>                                     
                     <div class="row">                    		                                               
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
 	                          <select id="branch_supervisor_city" class="form-control input-sm select2-multiple custom-sys-user-margin-top2" onchange="get_supervisor_branch();">
                                   <option value=" "> Select City</option> 
                                   {% for city in city_list %}                                  		
@@ -245,10 +250,11 @@
                                   {% endfor %}
                              </select>
 	                          <label for="city">City</label>
-	                      	</div>	
+	                      	</div>
+	                      	<span class="branch_supervisor_city_error" style="color:red;" ></span>  	
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
 	                          <select id="branch_supervisor_name" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
                                   <option value=" "> Select Branch</option>
                                   <!-- {% for branch in branch_list %}                                  		
@@ -256,7 +262,8 @@
                                   {% endfor %} -->
                              </select>
 	                          <label for="city">Branch</label>
-	                      	</div>	
+	                      	</div>
+									<span class="branch_supervisor_name_error" style="color:red;" ></span>	
                         </div>
                          <div class="col-md-4">
 	                      	<div class="form-group form-md-line-input has-success">
@@ -277,31 +284,35 @@
                      </div> 
                     <div class="row">                    
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="branch_supervisor_contact_no">
                                 <label for="contact_no">Contact No.</label>
                             </div>
+                            <span class="branch_supervisor_contact_no_error" style="color:red;"></span>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="password" class="form-control" id="branch_supervisor_password" >
                                 <label for="password">Password</label>
                             </div>
+                            <span class="branch_supervisor_password_error" style="color:red;"></span>
                         </div>  								   
-                     </div>                          
+                     </div>   
+                     <br>                       
                      <div class="row">          
                          <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="branch_supervisor_email">
                                 <label for="email">Email Id</label>
                             </div>
+                            <span class="branch_supervisor_email_error" style="color:red;"></span>
                         </div>                                                         
                          <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="password" class="form-control" id="branch_supervisor_re_password" >
                                 <label for="re_password">Retype Password</label>
                             </div>
-                            <label class="error" style="color:red; "></label> 
+                            <span class="branch_supervisor_re_password_error" style="color:red;"></span>
                         </div>                        
                     </div>                                                                 
                 </div>

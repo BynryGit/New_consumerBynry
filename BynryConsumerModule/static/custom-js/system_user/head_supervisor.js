@@ -75,9 +75,6 @@
 	}          
 
 function save_head_supervisor_details() {
-	alert('in supervisor');
-	alert($('#hs_fname').val());
-	alert($('#hs_lname').val());
 			var first_name = $('#hs_fname').val();
 			var last_name = $('#hs_lname').val();
 			var city = $('#hs_city').val();
@@ -89,7 +86,6 @@ function save_head_supervisor_details() {
 			var user_status = $('#hs_user_status').val();
 			var password = $('#hs_password').val();
 			var re_password = $('#hs_re_password').val();
-			alert(password+''+re_password);
 			
 			if (validateHeadSupervisorData()) {
 					$.ajax({
@@ -183,10 +179,9 @@ function edit_supervisor_modal(user_id) {
 
 
 function validateHeadSupervisorData(){
-	alert('in validateBranchAdminData');
 	if(checkFirstName("#hs_fname")&checkLastName("#hs_lname")&CheckAddress("#hs_address")
 	   &CheckCity("#hs_city")&checkEmail("#hs_email")
-	   &CheckEmployeeID("#hs_employee_id")&checkContactNo("#hs_contact_no")&checkPassword("#hs_password")
+	   &checkEmployeeID("#hs_employee_id")&checkContactNo("#hs_contact_no")&checkpassword("#hs_password")
 	   &checkRePassword("#hs_re_password")
 	  ){    
 		return true;	
@@ -195,7 +190,6 @@ function validateHeadSupervisorData(){
 }
 
 function checkFirstName(first_name){
-	alert('in first name');
  	var namePattern = /[A-Za-z]+/;  
 	first_name = $(hs_fname).val()  
    if(namePattern.test(first_name)){
@@ -221,9 +215,8 @@ function checkLastName(last_name){
    }
 }
 
-function CheckEmployeeID(employee_id){
-	employee_id = $(hs_employee_id).val()  
-   if($(hs_employee_id).val()!=' ' && $(hs_employee_id).val()!=null)
+function checkEmployeeID(hs_employee_id){
+   if($(hs_employee_id).val()!='' && $(hs_employee_id).val()!=null)
    {
     $(".hs_employee_id_error").css("display", "none");
     return true;
@@ -259,17 +252,6 @@ function CheckCity(city){
    }
 }
 
-function checkBranch(branch){
-	if($(hs_name).val()!=' ' && $(hs_name).val()!=null)
-   {
-    $(".hs_name_error").css("display", "none");
-    return true;
-   }else{
-    $(".hs_name_error").css("display", "block");
-    $(".hs_name_error").text("Please select Branch");
-   return false; 
-   }
-}
 
 function checkEmail(email){
 	Email = $(hs_email).val()
@@ -308,15 +290,16 @@ function checkContactNo(contact_no){
    }
 }
 
-function checkPassword(password){
-    password = $(hs_password).val()     
-    re_password = $(hs_re_password).val()   
-   if (password == ' ' && password==null) {		
+function checkpassword(hs_password){
+	alert('in password');
+    //password = $(hs_password).val();     
+   if ($(hs_password).val() == '' && $(hs_password).val()==null) {		
 		$(".hs_password_error").css("display", "block");
     	$(".hs_password_error").text("Password does not match");
     	return false;
    }
    else{
+   	alert('in true');
    	return true; 
    }
 }

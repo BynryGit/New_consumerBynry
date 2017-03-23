@@ -82,10 +82,7 @@
                             <div class="form-group form-md-line-input has-success">
                                 <input type="text" class="form-control" id="branch_agent_first_name">
                                 <label for="user_first_name">First Name</label>
-                            </div>
-                            <span class="branch_agent_first_name_error" style="color:red;"></span>  
-
-                        
+                            </div>                                                      
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success">
@@ -197,7 +194,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add Branch Admin</h4></div>
+                <h4 class="modal-title">Add Branch Desk Agent</h4></div>
             <div class="modal-body">
             	<div id="clear_div">
                 <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
@@ -214,35 +211,43 @@
                     </div>                     
                     <div class="row">                    		
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="agent_fname">
                                 <label for="bill_cycle">First Name</label>
                             </div>
+                            <span class="agent_fname_error" style="color:red;"></span>
+
                         </div>                        
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="agent_lname">
                                 <label for="route_code">Last Name</label>
                             </div>
+                            <span class="agent_lname_error" style="color:red;"></span> 
+
                         </div>
                          <div class="col-md-4">
-                         	<div class="form-group form-md-line-input has-success">
+                         	<div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="agent_employee_id">
                                 <label for="employee_id">Employee ID</label>
-                            </div>	                                            
+                            </div>
+                            <span class="agent_employee_id_error" style="color:red;"></span>
+	                                            
                     		</div>
                     </div>
 						  <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group form-md-line-input has-success ">
+                            <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">
                                 <textarea class="form-control" id="agent_address" ></textarea>
                                 <label >Address</label>
-                            </div>
+                            </div>                            
+									<span class="agent_address_error" style="color:red;"></span>
                         </div>
-                    </div>                                         
+                    </div>           
+                    <br>                              
                     <div class="row">                    		                                               
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
 	                          <select id="agent_city" class="form-control input-sm select2-multiple custom-sys-user-margin-top2" onchange="get_agent_branch();">
                                   <option value=" "> Select City</option> 
                                   {% for city in city_list %}                                  		
@@ -250,10 +255,11 @@
                                   {% endfor %}
                              </select>
 	                          <label for="city">City</label>
-	                      	</div>	
+	                      	</div>
+	                      	<span class="agent_city_error" style="color:red;" ></span>	
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
 	                          <select id="agent_branch_name" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
                                   <option value=" "> Select Branch</option>
                                   <!-- {% for branch in branch_list %}                                  		
@@ -262,6 +268,8 @@
                              </select>
 	                          <label for="city">Branch</label>
 	                      	</div>	
+	                      	<span class="agent_branch_name_error" style="color:red;" ></span>
+
                         </div>
                          <div class="col-md-4">
 	                      	<div class="form-group form-md-line-input has-success">
@@ -282,31 +290,38 @@
                      </div> 
                     <div class="row">                    
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="agent_contact_no">
                                 <label for="contact_no">Contact No.</label>
                             </div>
+                            <span class="agent_contact_no_error" style="color:red;"></span>
+                            
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="password" class="form-control" id="agent_password" >
                                 <label for="password">Password</label>
                             </div>
+                            <span class="agent_password_error" style="color:red;"></span>
+
                         </div>  								   
-                     </div>                          
+                     </div>   
+                     <br>                       
                      <div class="row">          
                          <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="agent_email">
                                 <label for="email">Email Id</label>
                             </div>
+                            <span class="agent_email_error" style="color:red;"></span>
+
                         </div>                                                         
                          <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-success">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="password" class="form-control" id="agent_re_password" >
                                 <label for="re_password">Retype Password</label>
                             </div>
-                            <label class="error" style="color:red; "></label> 
+                            <span class="agent_re_password_error" style="color:red;"></span>  
                         </div>                        
                     </div>                                                                 
                 </div>

@@ -28,6 +28,7 @@
                 {"data": "name"}, 
                 {"data": "contact"}, 
                 {"data" : "email"},      
+                {"data" : "role"},      
                 {"data" : "status"},      
                 {"data" : "actions"}                             
 		            ],				
@@ -64,7 +65,7 @@
  
  function add_admin() {	
 		//$( "#clear_div" ).load(" #clear_div" );
-		$("#city").append('<option value="">Select City</option>');
+		//$("#city").append('<option value="">Select City</option>');
 		$('#first_name').val('');  	
 		$('#last_name').val('');  	
 		$('#address').val('');  	
@@ -81,23 +82,24 @@ function save_head_admin_details() {
 			var last_name = $('#lname').val();
 			var city = $('#city').val();
 			var address = $('#address').val();
-			var emp_id = $('#employee_id').val();
+			var emp_id = $('#employee_ID').val();
 			var role = $('#role').val();
+			var branch = $('#branch_name').val();
 			var contact_no = $('#contact_no').val();
 			var email = $('#email').val();
 			var user_status = $('#user_status').val();
 			var password = $('#password').val();
 			var re_password = $('#re_password').val();
-			alert(password+''+re_password);
+			alert(user_status);
 			
 			if (validateData()) {
 					$.ajax({
 			       type	: "GET",
 			       url : '/save_system_user_details/',
-			       data : {'user_status':user_status,'first_name':first_name,'last_name':last_name,'city':city,'address':address,'emp_id':emp_id,'role':role,'contact_no':contact_no,'email':email,'password':password},       
+			       data : {'user_status':user_status,'first_name':first_name,'last_name':last_name,'branch':branch,'city':city,'address':address,'emp_id':emp_id,'role':role,'contact_no':contact_no,'email':email,'password':password},       
 			       success: function (response) {			  
 			     		  if(response.success=='True'){
-			     		  initTable1();
+			     		   initTable1();
 			     		  	$('#add_admin_model').modal('hide');
 			     		  	$('#success_modal').modal('show');
 			     		  }
@@ -122,6 +124,8 @@ function edit_admin_modal(user_id) {
 						$("#user_last_name").val(response.user_data.last_name); 
 						$("#user_address").val(response.user_data.address); 
 						$("#user_email").val(response.user_data.email); 
+						$("#user_role").val(response.user_data.role); 
+						$("#user_branch_name").val(response.user_data.branch); 
 						$("#user_emp_id").val(response.user_data.employee_id); 
 						$("#user_contact_no").val(response.user_data.contact_no); 
 						$("#user_city").val(response.user_data.city); 
@@ -150,21 +154,21 @@ function update_head_admin_details() {
 			var address = $('#user_address').val();
 			var emp_id = $('#user_emp_id').val();
 			var role = $('#user_role').val();
+			var branch = $('#user_branch').val();
 			var contact_no = $('#user_contact_no').val();
 			var email = $('#user_email').val();
 			var user_status = $('#update_user_status').val();
 			var password = $('#user_password').val();
 			var re_password = $('#user_re_password').val();
-			alert(password+''+re_password);
-			
-			
+
+			if (validateEditData()) {
 					$.ajax({
 			       type	: "GET",
 			       url : '/update_system_user_details/',
-			       data : {'user_id':user_id,'user_status':user_status,'first_name':first_name,'last_name':last_name,'city':city,'address':address,'emp_id':emp_id,'role':role,'contact_no':contact_no,'email':email,'password':password},       
+			       data : {'user_id':user_id,'user_status':user_status,'first_name':first_name,'last_name':last_name,'branch':branch,'city':city,'address':address,'emp_id':emp_id,'role':role,'contact_no':contact_no,'email':email,'password':password},       
 			       success: function (response) {			  
 			     		  if(response.success=='True'){
-			     		  initTable1();
+			     		  	initTable1();
 			     		  	$('#edit_admin_modal').modal('hide');
 			     		  	$('#success_modal').modal('show');
 			     		  }
@@ -174,14 +178,163 @@ function update_head_admin_details() {
 			       }
 			   });					
 		}
+	}
 
+function validateEditData(){
+	if(check_firstname("#user_first_name")&check_lastname("#user_last_name")&check_address("#user_address")
+	   &check_city("#user_city")&check_email("#user_email")&check_role("#user_role")
+	   &check_employee_id("#user_emp_id")&check_contactno("#user_contact_no")&check_repassword("#user_re_pass")
+	  ){    
+		return true;	
+	}
+	return false;
+}
+
+function check_firstname(user_first_name){
+ 	var namePattern = /[A-Za-z]+/;  
+	first_name = $(user_first_name).val()  
+   if(namePattern.test(first_name)){
+ 	$(".user_first_name_error").css("display", "none");
+   return true;
+   }else{
+    $(".user_first_name_error").css("display", "block");
+    $(".user_first_name_error").text("Please enter valid first Name");
+   return false; 
+   }
+}
+
+function check_lastname(user_last_name){
+ 	var namePattern = /[A-Za-z]+/;  
+	last_name = $(user_last_name).val()  
+   if(namePattern.test(last_name)){
+ 	$(".user_last_name_error").css("display", "none");
+   return true;
+   }else{
+    $(".user_last_name_error").css("display", "block");
+    $(".user_last_name_error").text("Please enter valid last Name");
+   return false; 
+   }
+}
+
+function check_employee_id(user_emp_id){
+	employee_id = $(user_emp_id).val()  
+   if($(user_emp_id).val()!=' ' && $(user_emp_id).val()!=null)
+   {
+    $(".user_emp_id_error").css("display", "none");
+    return true;
+   }else{
+    $(".user_emp_id_error").css("display", "block");
+    $(".user_emp_id_error").text("Please enter valid employee ID");
+   return false; 
+   }
+}
+
+function check_address(user_address){
+ 	var namePattern = /[A-Za-z]+/;  
+	address = $(user_address).val()  
+   if(namePattern.test(address)){
+ 	$(".user_address_error").css("display", "none");
+   return true;
+   }else{
+    $(".user_address_error").css("display", "block");
+    $(".user_address_error").text("Please enter valid Address");
+   return false; 
+   }
+}
+
+function check_city(user_city){
+	if($(user_city).val()!=' ' && $(user_city).val()!=null)
+   {
+    $(".user_city_error").css("display", "none");
+    return true;
+   }else{
+    $(".user_city_error").css("display", "block");
+    $(".user_city_error").text("Please select City");
+   return false; 
+   }
+}
+
+function check_role(user_role){
+	if($(user_role).val()!=' ' && $(user_role).val()!=null)
+   {
+    $(".user_role_error").css("display", "none");
+    return true;
+   }else{
+    $(".user_role_error").css("display", "block");
+    $(".user_role_error").text("Please select Role");
+   return false; 
+   }
+}
+
+function check_email(user_email){
+	Email = $(user_email).val()
+   var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
+   if(Email=='')
+	{ 
+	$(".user_email_error").css("display", "none");
+	return true;	
+	}  
+   else if(namePattern.test(Email)){
+      $(".user_email_error").css("display", "none");
+   return true;
+   }else{
+ 	$(".user_email_error").css("display", "block");
+   $(".user_email_error").text("Please enter valid email");
+   return false; 
+   }
+}
+
+function check_contactno(user_contact_no){
+    contact_no = $(user_contact_no).val()    
+   var phoneNumberPattern = /^[789]\d{9}$/; 
+  
+   if(phoneNumberPattern.test(contact_no)){
+    $(".user_contact_no_error").parent().children('.error').css("display", "none");
+   return true;
+   }else if($(contact_no).val()==' ' && $(contact_no).val()==null){
+    $(".user_contact_no_error").css("display", "block");
+    $(".user_contact_no_error").text("Please enter valid employee ID");
+   return false; 
+   }
+   else{
+    $(".user_contact_no_error").css("display", "block");
+    $(".user_contact_no_error").text("Please enter valid Contact Number");
+   return false; 
+   }
+}
+/*
+function check_password(user_pass){
+	alert('inn password');
+    password = $(user_pass).val()     
+    re_password = $(user_re_pass).val()   
+   if (password == ' ' && password==null) {		
+		$(".user_password_error").css("display", "block");
+    	$(".user_password_error").text("Password does not match");
+    	return false;
+   }
+   else{
+   	return true; 
+   }
+}*/
+
+function check_repassword(user_re_pass){
+    password = $(user_pass).val();  
+    re_password = $(user_re_pass).val();
+   if (password == re_password) {		
+		return true;
+   }
+   else{   	 
+   	$(".user_re_password_error").css("display", "block");
+    	$(".user_re_password_error").text("Password does not match");
+    	return false;
+   }
+}
 	
 	
 function validateData(){
-	alert('in validate');
 	if(checkFirstName("#fname")&checkLastName("#lname")&CheckAddress("#address")
-	   &CheckCity("#city")&checkEmail("#email")
-	   &CheckEmployeeID("#employee_id")&checkContactNo("#contact_no")&checkPassword("#password")
+	   &CheckCity("#city")&checkEmail("#email")&checkRole("#role")&checkBranch("#branch_name")
+	   &CheckEmployee_ID("#employee_ID")&checkContactNo("#contact_no")&checkPassword("#password")
 	   &checkRePassword("#re_password")
 	  ){    
 		return true;	
@@ -190,7 +343,6 @@ function validateData(){
 }
 
 function checkFirstName(first_name){
-	alert('in first name');
  	var namePattern = /[A-Za-z]+/;  
 	first_name = $(fname).val()  
    if(namePattern.test(first_name)){
@@ -218,9 +370,9 @@ function checkLastName(last_name){
    }
 }
 
-function CheckEmployeeID(employee_id){
-	employee_id = $(employee_id).val()  
-   if($(employee_id).val()!=' ' && $(employee_id).val()!=null)
+function CheckEmployee_ID(employee_ID){
+	employee_id = $(employee_ID).val()  
+   if($(employee_ID).val()!=' ' && $(employee_ID).val()!=null)
    {
     $(".employee_id_error").css("display", "none");
     return true;
@@ -256,6 +408,30 @@ function CheckCity(city){
    }
 }
 
+function checkBranch(branch_name){
+	if($(branch_name).val()!=' ' && $(branch_name).val()!=null)
+   {
+    $(".branch_name_error").css("display", "none");
+    return true;
+   }else{
+    $(".branch_name_error").css("display", "block");
+    $(".branch_name_error").text("Please select Branch");
+   return false; 
+   }
+}
+
+function checkRole(role){
+	if($(role).val()!=' ' && $(role).val()!=null)
+   {
+    $(".role_error").css("display", "none");
+    return true;
+   }else{
+    $(".role_error").css("display", "block");
+    $(".role_error").text("Please select Role");
+   return false; 
+   }
+}
+
 function checkEmail(email){
 	Email = $(email).val()
    var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
@@ -275,7 +451,7 @@ function checkEmail(email){
 }
 
 function checkContactNo(contact_no){
-    contact_no = $(contact_no).val()     
+    contact_no = $(contact_no).val()    
    var phoneNumberPattern = /^[789]\d{9}$/; 
   
    if(phoneNumberPattern.test(contact_no)){
@@ -307,8 +483,8 @@ function checkPassword(password){
 }
 
 function checkRePassword(re_password){
-    password = $(password).val()  
-    re_password = $(re_password).val()     
+    password = $(password).val();  
+    re_password = $(re_password).val();
    if (password == re_password) {		
 		return true;
    }
@@ -319,4 +495,52 @@ function checkRePassword(re_password){
    }
 }
 
+
+function get_branch_list(){
+    city = $("#user_city").val();
+    $("#user_branch_name").html('');
+    $("#user_branch_name").append('<option value="">Select Branch</option>');
+    //$("#branch_name").val("all").change();
+    if(city != ""){
+        $.ajax({
+            type : "GET",
+            url : '/get-branch/',
+            data : {'city':city},
+            success: function (response) {
+                if(response.success =='true'){
+                    $.each(response.branch_list, function (index, item) {
+                        $("#user_branch_name").append('<option value="'+item.branch_id+'">'+item.branch+'</option>')
+                    });
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+    }
+}  
+
+function get_branch(){
+    city = $("#city").val();
+    $("#branch_name").html('');
+    $("#branch_name").append('<option value="">Select Branch</option>');
+    //$("#branch_name").val("all").change();
+    if(city != ""){
+        $.ajax({
+            type : "GET",
+            url : '/get-branch/',
+            data : {'city':city},
+            success: function (response) {
+                if(response.success =='true'){
+                    $.each(response.branch_list, function (index, item) {
+                        $("#branch_name").append('<option value="'+item.branch_id+'">'+item.branch+'</option>')
+                    });
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+    }
+}  
 

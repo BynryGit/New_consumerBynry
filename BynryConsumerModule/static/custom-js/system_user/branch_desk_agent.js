@@ -75,9 +75,6 @@
 	}          
 
 function save_branch_agent_details() {
-	alert('in branch admin');
-	alert($('#agent_fname').val());
-	alert($('#agent_lname').val());
 			var first_name = $('#agent_fname').val();
 			var last_name = $('#agent_lname').val();
 			var city = $('#agent_city').val();
@@ -90,7 +87,6 @@ function save_branch_agent_details() {
 			var user_status = $('#agent_user_status').val();
 			var password = $('#agent_password').val();
 			var re_password = $('#agent_re_password').val();
-			alert(password+''+re_password);
 			
 			if (validateAgentData()) {
 					$.ajax({
@@ -157,7 +153,6 @@ function edit_branch_agent_modal(user_id) {
 			var user_status = $('#branch_agent_status').val();
 			var password = $('#branch_agent_password').val();
 			var re_password = $('#branch_agent_re_password').val();
-			alert(password+''+re_password);
 			
 			if (password != re_password) {
 				$('.error').text("Password does not match");		
@@ -185,7 +180,6 @@ function edit_branch_agent_modal(user_id) {
 
 function get_agent_branch(){
     city = $("#agent_city").val();
-    alert(city);
     $("#agent_branch_name").html('');
     $("#agent_branch_name").append('<option value="">Select Branch</option>');
     //$("#branch_name").val("all").change();
@@ -212,10 +206,10 @@ function get_agent_branch(){
 
 function validateAgentData(){
 	alert('in validateBranchAdminData');
-	if(checkFirstName("#hs_fname")&checkLastName("#hs_lname")&CheckAddress("#hs_address")
-	   &CheckCity("#hs_city")&checkEmail("#hs_email")
-	   &CheckEmployeeID("#hs_employee_id")&checkContactNo("#hs_contact_no")&checkPassword("#hs_password")
-	   &checkRePassword("#hs_re_password")
+	if(checkFirstName("#agent_fname")&checkLastName("#agent_lname")&CheckAddress("#agent_address")
+	   &CheckCity("#agent_city")&checkEmail("#agent_email")&checkBranch("#agent_branch_name")
+	   &CheckEmployeeID("#agent_employee_id")&checkContactNo("#agent_contact_no")&checkPassword("#agent_password")
+	   &checkRePassword("#agent_re_password")
 	  ){    
 		return true;	
 	}
@@ -223,125 +217,124 @@ function validateAgentData(){
 }
 
 function checkFirstName(first_name){
-	alert('in first name');
  	var namePattern = /[A-Za-z]+/;  
-	first_name = $(hs_fname).val()  
+	first_name = $(agent_fname).val()  
    if(namePattern.test(first_name)){
- 	$(".hs_fname_error").css("display", "none");
+ 	$(".agent_fname_error").css("display", "none");
    return true;
    }else{
-    $(".hs_fname_error").css("display", "block");
-    $(".hs_fname_error").text("Please enter valid first Name");
+    $(".agent_fname_error").css("display", "block");
+    $(".agent_fname_error").text("Please enter valid first Name");
    return false; 
    }
 }
 
 function checkLastName(last_name){
  	var namePattern = /[A-Za-z]+/;  
-	last_name = $(hs_lname).val()  
+	last_name = $(agent_lname).val()  
    if(namePattern.test(last_name)){
- 	$(".hs_lname_error").css("display", "none");
+ 	$(".agent_lname_error").css("display", "none");
    return true;
    }else{
-    $(".hs_lname_error").css("display", "block");
-    $(".hs_lname_error").text("Please enter valid last Name");
+    $(".agent_lname_error").css("display", "block");
+    $(".agent_lname_error").text("Please enter valid last Name");
    return false; 
    }
 }
 
 function CheckEmployeeID(employee_id){
-	employee_id = $(hs_employee_id).val()  
-   if($(hs_employee_id).val()!=' ' && $(hs_employee_id).val()!=null)
+	employee_id = $(agent_employee_id).val()  
+   if($(agent_employee_id).val()!='' && $(agent_employee_id).val()!=null)
    {
-    $(".hs_employee_id_error").css("display", "none");
+    $(".agent_employee_id_error").css("display", "none");
     return true;
    }else{
-    $(".hs_employee_id_error").css("display", "block");
-    $(".hs_employee_id_error").text("Please enter valid employee ID");
+    $(".agent_employee_id_error").css("display", "block");
+    $(".agent_employee_id_error").text("Please enter valid employee ID");
    return false; 
    }
 }
 
 function CheckAddress(address){
  	var namePattern = /[A-Za-z]+/;  
-	address = $(hs_address).val()  
+	address = $(agent_address).val()  
    if(namePattern.test(address)){
- 	$(".hs_address_error").css("display", "none");
+ 	$(".agent_address_error").css("display", "none");
    return true;
    }else{
-    $(".hs_address_error").css("display", "block");
-    $(".hs_address_error").text("Please enter valid Address");
+    $(".agent_address_error").css("display", "block");
+    $(".agent_address_error").text("Please enter valid Address");
    return false; 
    }
 }
 
 function CheckCity(city){
-	if($(hs_city).val()!=' ' && $(hs_city).val()!=null)
+	if($(agent_city).val()!=' ' && $(agent_city).val()!=null)
    {
-    $(".hs_city_error").css("display", "none");
+    $(".agent_city_error").css("display", "none");
     return true;
    }else{
-    $(".hs_city_error").css("display", "block");
-    $(".hs_city_error").text("Please select City");
+    $(".agent_city_error").css("display", "block");
+    $(".agent_city_error").text("Please select City");
    return false; 
    }
 }
 
-function checkBranch(branch){
-	if($(hs_name).val()!=' ' && $(hs_name).val()!=null)
+function checkBranch(agent_branch_name){
+	if($(agent_branch_name).val()!=' ' && $(agent_branch_name).val()!=null)
    {
-    $(".hs_name_error").css("display", "none");
+    $(".agent_branch_name_error").css("display", "none");
     return true;
    }else{
-    $(".hs_name_error").css("display", "block");
-    $(".hs_name_error").text("Please select Branch");
+    $(".agent_branch_name_error").css("display", "block");
+    $(".agent_branch_name_error").text("Please select Branch");
    return false; 
    }
 }
 
 function checkEmail(email){
-	Email = $(hs_email).val()
+	Email = $(agent_email).val()
    var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
    if(Email=='')
 	{ 
-	$(".hs_email_error").css("display", "none");
+	$(".agent_email_error").css("display", "none");
 	return true;	
 	}  
    else if(namePattern.test(Email)){
-      $(".hs_email_error").css("display", "none");
+      $(".agent_email_error").css("display", "none");
    return true;
    }else{
- 	$(".hs_email_error").css("display", "block");
-   $(".hs_email_error").text("Please enter valid email");
+ 	$(".agent_email_error").css("display", "block");
+   $(".agent_email_error").text("Please enter valid email");
    return false; 
    }
 }
 
 function checkContactNo(contact_no){
-    contact_no = $(hs_contact_no).val()     
+    contact_no = $(agent_contact_no).val()     
    var phoneNumberPattern = /^[789]\d{9}$/; 
   
    if(phoneNumberPattern.test(contact_no)){
-    $(".hs_contact_no_error").parent().children('.error').css("display", "none");
+    $(".agent_contact_no_error").parent().children('.error').css("display", "none");
    return true;
    }else if($(contact_no).val()==' ' && $(contact_no).val()==null){
-    $(".hs_contact_no_error").css("display", "block");
-    $(".hs_contact_no_error").text("Please enter valid employee ID");
+    $(".agent_contact_no_error").css("display", "block");
+    $(".agent_contact_no_error").text("Please enter valid employee ID");
    return false; 
    }
    else{
-    $(".hs_contact_no_error").css("display", "block");
-    $(".hs_contact_no_error").text("Please enter valid Contact Number");
+    $(".agent_contact_no_error").css("display", "block");
+    $(".agent_contact_no_error").text("Please enter valid Contact Number");
    return false; 
    }
 }
 
 function checkPassword(password){
-    password = $(hs_password).val()     
-    re_password = $(hs_re_password).val()   
+    password = $(agent_password).val()     
+    re_password = $(agent_re_password).val()   
    if (password == ' ' && password==null) {		
-		$(".hs_password_error").css("display", "block");
-    	$(".hs_password_error").text("Password does not match");
+		$(".agent_password_error").css("display", "block");
+    	$(".agent_password_error").text("Password does not match");
     	return false;
    }
    else{
@@ -350,14 +343,14 @@ function checkPassword(password){
 }
 
 function checkRePassword(re_password){
-    password = $(hs_password).val()  
-    re_password = $(hs_re_password).val()     
+    password = $(agent_password).val()  
+    re_password = $(agent_re_password).val()     
    if (password == re_password) {		
 		return true;
    }
    else{   	 
-   	$(".hs_re_password_error").css("display", "block");
-    	$(".hs_re_password_error").text("Password does not match");
+   	$(".agent_re_password_error").css("display", "block");
+    	$(".agent_re_password_error").text("Password does not match");
     	return false;
    }
 }

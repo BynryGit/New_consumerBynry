@@ -76,9 +76,6 @@
 	}          
 
 function save_branch_admin_details() {
-	alert('in branch admin');
-	alert($('#branch_fname').val());
-	alert($('#branch_lname').val());
 			var first_name = $('#branch_fname').val();
 			var last_name = $('#branch_lname').val();
 			var city = $('#branch_city').val();
@@ -91,7 +88,6 @@ function save_branch_admin_details() {
 			var user_status = $('#branch_user_status').val();
 			var password = $('#branch_password').val();
 			var re_password = $('#branch_re_password').val();
-			alert(password+''+re_password);
 			
 			if (validateBranchAdminData()) {
 					$.ajax({
@@ -158,7 +154,6 @@ function edit_branch_admin_modal(user_id) {
 			var user_status = $('#ba_update_user_status').val();
 			var password = $('#ba_user_password').val();
 			var re_password = $('#ba_user_re_password').val();
-			alert(password+''+re_password);
 			
 			if (password != re_password) {
 				$('.error').text("Password does not match");		
@@ -186,7 +181,6 @@ function edit_branch_admin_modal(user_id) {
 
 function get_branch(){
     city = $("#branch_city").val();
-    alert(city);
     $("#branch_name").html('');
     $("#branch_name").append('<option value="">Select Branch</option>');
     //$("#branch_name").val("all").change();
@@ -213,18 +207,17 @@ function get_branch(){
 
 function validateBranchAdminData(){
 	alert('in validateBranchAdminData');
-	if(checkFirstName("#branch_fname")&checkLastName("#branch_lname")&CheckAddress("#branch_address")
-	   &CheckCity("#branch_city")&checkEmail("#branch_email")&checkBranch("#branch_name")
-	   &CheckEmployeeID("#branch_employee_id")&checkContactNo("#branch_contact_no")&checkPassword("#branch_password")
-	   &checkRePassword("#branch_re_password")
+	if(check_FirstName("#branch_fname")&check_LastName("#branch_lname")&check_Address("#branch_address")
+	   &check_City("#branch_city")&check_Email("#branch_email")&check_Branch("#branch_name")
+	   &check_EmployeeID("#branch_employee_id")&check_ContactNo("#branch_contact_no")&check_Password("#branch_password")
+	   &check_RePassword("#branch_re_password")
 	  ){    
 		return true;	
 	}
 	return false;
 }
 
-function checkFirstName(first_name){
-	alert('in first name');
+function check_FirstName(first_name){
  	var namePattern = /[A-Za-z]+/;  
 	first_name = $(branch_fname).val()  
    if(namePattern.test(first_name)){
@@ -237,7 +230,7 @@ function checkFirstName(first_name){
    }
 }
 
-function checkLastName(last_name){
+function check_LastName(last_name){
  	var namePattern = /[A-Za-z]+/;  
 	last_name = $(branch_lname).val()  
    if(namePattern.test(last_name)){
@@ -250,9 +243,9 @@ function checkLastName(last_name){
    }
 }
 
-function CheckEmployeeID(employee_id){
+function check_EmployeeID(branch_employee_id){
 	employee_id = $(branch_employee_id).val()  
-   if($(branch_employee_id).val()!=' ' && $(branch_employee_id).val()!=null)
+   if($(branch_employee_id).val()!='' && $(branch_employee_id).val()!=null)
    {
     $(".branch_employee_id_error").css("display", "none");
     return true;
@@ -263,7 +256,7 @@ function CheckEmployeeID(employee_id){
    }
 }
 
-function CheckAddress(address){
+function check_Address(address){
  	var namePattern = /[A-Za-z]+/;  
 	address = $(branch_address).val()  
    if(namePattern.test(address)){
@@ -276,7 +269,7 @@ function CheckAddress(address){
    }
 }
 
-function CheckCity(city){
+function check_City(city){
 	if($(branch_city).val()!=' ' && $(branch_city).val()!=null)
    {
     $(".branch_city_error").css("display", "none");
@@ -288,7 +281,7 @@ function CheckCity(city){
    }
 }
 
-function checkBranch(branch){
+function check_Branch(branch){
 	if($(branch_name).val()!=' ' && $(branch_name).val()!=null)
    {
     $(".branch_name_error").css("display", "none");
@@ -300,7 +293,7 @@ function checkBranch(branch){
    }
 }
 
-function checkEmail(email){
+function check_Email(email){
 	Email = $(branch_email).val()
    var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
    if(Email=='')
@@ -318,7 +311,7 @@ function checkEmail(email){
    }
 }
 
-function checkContactNo(contact_no){
+function check_ContactNo(contact_no){
     contact_no = $(branch_contact_no).val()     
    var phoneNumberPattern = /^[789]\d{9}$/; 
   
@@ -337,7 +330,7 @@ function checkContactNo(contact_no){
    }
 }
 
-function checkPassword(password){
+function check_Password(password){
     password = $(branch_password).val()     
     re_password = $(branch_re_password).val()   
    if (password == ' ' && password==null) {		
@@ -350,7 +343,7 @@ function checkPassword(password){
    }
 }
 
-function checkRePassword(re_password){
+function check_RePassword(re_password){
     password = $(branch_password).val()  
     re_password = $(branch_re_password).val()     
    if (password == re_password) {		
