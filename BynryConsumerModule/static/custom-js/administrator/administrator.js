@@ -153,18 +153,22 @@ function edit_role_modal(role_id) {
 		$("#edit_role_modal").modal('show');  
 		   $.ajax({
 		       type	: "GET",
-		       url : '/get-role-details/',
+		       url  : '/get-role-details/',
 		       data : {'role_id':role_id},       
 		       success: function (response) {			  
 		     		  if(response.success=='true'){
 		     		  	$("#role_name").text(response.user_data.role);
 		     		  	$("#roleid").val(response.user_data.role_id);
 		     		  	$("#role_desc").text(response.user_data.role_description);
-		     		  	$("#role_append").html(response.user_data.final_list);	
-		     		  	document.getElementById('status_switch').checked = true;			
-		     		  	
-		     		  	$('label[for="' + $("#status_switch") + '"]').html								
-						
+		     		  	$("#role_append").html(response.user_data.final_list);
+		     		  	if (response.user_data.status == 'Active') {
+			     		 	$("#status_switch").attr("checked", true).change();
+						}
+						else {
+							$("#status_switch").attr("checked", false).change();
+						}
+
+		     		  							
 						$("#edit_role_modal").modal('show');   
 		     		  }
 		     		  if(response.success=='false'){

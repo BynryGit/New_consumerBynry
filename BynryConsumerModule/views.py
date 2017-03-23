@@ -292,7 +292,6 @@ def save_new_role(request):
     try:
         print 'views.py|save_new_role'
         privilege_list = request.POST.get('privilege_list')
-        print '--------privilages-0-------',privilege_list
         privilege_list = privilege_list.split(',')
         new_role_obj = UserRole(
             role=request.POST.get('roll_name'),
@@ -387,7 +386,7 @@ def get_role_details(request):
 
             user_data = {
                          'role' : role_obj.role, 'role_description' : role_obj.description,
-                         'final_list':final_list,'role_id':role_obj.id
+                         'final_list':final_list,'role_id':role_obj.id,'status':role_obj.status
                         }
             data = {'success' : 'true', 'user_data' : user_data}
         except Exception as e:
