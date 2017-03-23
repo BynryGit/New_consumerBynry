@@ -160,7 +160,7 @@ def get_consumer_list(request):
                 consumer_obj_list = consumer_obj_list.filter(bill_cycle=filter_bill)
             if filter_route != 'all':
                 consumer_obj_list = consumer_obj_list.filter(route=filter_route)
-            if filter_category:
+            if filter_category != 'all':
                 consumer_obj_list = consumer_obj_list.filter(meter_category=filter_category)
             if filter_service:
                 consumer_obj_list = consumer_obj_list.filter(connection_status=filter_service)

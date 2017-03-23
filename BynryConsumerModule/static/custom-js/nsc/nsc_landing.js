@@ -47,14 +47,11 @@ var initTable1 = function () {
         "columns": [
             {"data": "registration_id"},
             {"data": "applicant_name"},
-            {"data": "aadhar_no"},
-            {"data": "contact_no"},
             {"data": "category"},
             {"data": "sub_category"},
             {"data": "supply_type"},
             {"data": "registration_date"},
             {"data": "status"},
-            {"data": "closed_date"},
             {"data": "actions"},
         ],
 
@@ -494,7 +491,7 @@ function clear_filter(){
                     $('#connection_category').val(response.consumer_category);
                     $('#connection_sub_category').val(response.consumer_sub_category);
                     $('#connection_supply_type').val(response.supply_type);
-                    $('#connection_address').val(response.address)
+                    $('#connection_address').val(response.address);
                     $("#Meter_Detail_model").modal('show');
                 }
                 if (response.success == 'false') {
@@ -509,12 +506,51 @@ function clear_filter(){
 
 	function save_meter_details(){
 	    if(validate_meter_details()){
-            console.log($("#meter_detail_form").serialize());
+            meter_status = $('#meter_status').val();
+            meter_no = $('#meter_no').val();
+            meter_date = $('#meter_date').val();
+            meter_route = $('#meter_route').val();
+            tech_name = $('#tech_name').val();
+            tech_contact = $('#tech_contact').val();
+            consumer_id = $('#meter_consumer_id').val();
+            $.ajax({
+				type	: "POST",
+				url : '/nscapp/save-meter-details/',
+ 				data : {
+ 			        'meter_status' : $('#meter_status').val(),
+                    'meter_no' : $('#meter_no').val(),
+                    'meter_date' : $('#meter_date').val(),
+                    'meter_route' : $('#meter_route').val(),
+                    'consumer_id' : $('#meter_consumer_id').val(),
+                    'meter_digit' : $('#meter_digit').val(),
+                    'meter_make' : $('#meter_make').val(),
+                    'meter_type' : $('#meter_type').val(),
+ 				},
+                success: function (response) {
+	                if(response.success=='true'){
+	                    $("#Meter_Detail_model").modal('hide');
+	           	  		$("#success_modal").modal('show');
+	              	}
+	      			if (response.success == "false") {
+					    $("#error-model").modal('show');
+	       		    }
+                },
+               	beforeSend: function () {
+            		$("#processing").css('display','block');
+                },
+                complete: function () {
+                    $("#processing").css('display','none');
+                },
+                error : function(response){
+                    alert("_Error");
+            	}
+            });
 	    }
 	}
 
+
     function validate_meter_details() {
-        if(validate_meter_data("meter_status","error_meter_status") & validate_meter_data("meter_no","error_meter_no") & validate_meter_data("meter_date","error_meter_date") & validate_meter_data("meter_route","error_meter_route") & CheckTechName() & checkTechNo()){
+        if(validate_meter_data("meter_route","error_meter_route") & validate_meter_data("meter_no","error_meter_no") & validate_meter_data("meter_date","error_meter_date") & validate_meter_data("meter_digit","error_meter_digit") & validate_meter_data("meter_make","error_meter_make") & validate_meter_data("meter_type","error_meter_type") & validate_meter_data("meter_status","error_meter_status")){
             return true;
         }
     }

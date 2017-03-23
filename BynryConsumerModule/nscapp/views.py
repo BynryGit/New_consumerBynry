@@ -16,14 +16,14 @@ from nscapp.models import *
 def new_connection_list(request):
     try:
         print 'nscapp|views.py|new_connection'
-        status_list = ['Registered','KYC','Technical','Payment']
-        data = {            
+        status_list = ['Registered', 'KYC', 'Technical', 'Payment']
+        data = {
             'total': NewConsumerRequest.objects.all().count(),
             'open': NewConsumerRequest.objects.filter(status__in=status_list).count(),
             'closed': NewConsumerRequest.objects.filter(status='Closed').count(),
-            'route_list':RouteDetail.objects.filter(is_deleted=False)
+            'route_list': RouteDetail.objects.filter(is_deleted=False)
         }
-        
+
     except Exception, e:
         data = {}
         print 'Exception|nscapp|views.py|new_connection', e
@@ -77,13 +77,17 @@ def get_nsc_data(request):
             else:
                 closed_date = ''
             if nsc.status == 'Registered':
-                other_action = '&nbsp;<a title="KYC"> <i class="fa icon-user-following" aria-hidden="true" onclick="KYC_verify(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="KYC"> <i class="fa icon-user-following" aria-hidden="true" onclick="KYC_verify(' + str(
+                    nsc.id) + ')"></i> </a>'
             elif nsc.status == 'KYC':
-                other_action = '&nbsp;<a title="Technical"> <i class="fa icon-wrench" aria-hidden="true" onclick="Technical_verify(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="Technical"> <i class="fa icon-wrench" aria-hidden="true" onclick="Technical_verify(' + str(
+                    nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Technical':
-                other_action = '&nbsp;<a title="Payment"> <i class="fa icon-wallet" aria-hidden="true" onclick="Payment_verify(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="Payment"> <i class="fa icon-wallet" aria-hidden="true" onclick="Payment_verify(' + str(
+                    nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Payment':
-                other_action = '&nbsp;<a title="Meter Details"> <i class="fa icon-user-follow" aria-hidden="true" onclick="consumer_details(' + str(nsc.id) + ')"></i> </a>'
+                other_action = '&nbsp;<a title="Meter Details"> <i class="fa icon-user-follow" aria-hidden="true" onclick="consumer_details(' + str(
+                    nsc.id) + ')"></i> </a>'
             elif nsc.status == 'Closed':
                 other_action = ''
             nsc_data = {
@@ -98,8 +102,9 @@ def get_nsc_data(request):
                 'status': nsc.status,
                 'closed_date': closed_date,
                 'actions': '<a class="icon-note" title="Review" href="/nscapp/review-consumer-form/?nsc_id=' + str(
-                    nsc.id) + '"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/?nsc_id='+str(nsc.id)+'" target="_blank" class="fa fa-print" title="Print"></a>&nbsp;'
-                    + other_action
+                    nsc.id) + '"></a>&nbsp;' + '&nbsp;<a href="/nscapp/nsc-form/?nsc_id=' + str(
+                    nsc.id) + '" target="_blank" class="fa fa-print" title="Print"></a>&nbsp;'
+                           + other_action
             }
             nsc_list.append(nsc_data)
         print 'nscapp|views.py|get_nsc_data'
@@ -238,7 +243,7 @@ def save_new_consumer(request):
             contarct_demand_type=request.POST.get('contract_demand_type'),
             address_proof_list=request.POST.getlist('address_proof'),
             identity_proof_list=request.POST.getlist('id_proof'),
-            status = 'Registered',
+            status='Registered',
             created_on=datetime.now(),
             # created_by=request.session['login_user'],
         );
@@ -274,7 +279,7 @@ def nsc_form(request):
     address = ''
     billing_address = ''
 
-    address = address + nsc_obj.meter_building_name + ', '+ nsc_obj.meter_address_line_1
+    address = address + nsc_obj.meter_building_name + ', ' + nsc_obj.meter_address_line_1
     if nsc_obj.meter_address_line_2:
         address = address + ', ' + nsc_obj.meter_address_line_2
     if nsc_obj.meter_landmark:
@@ -291,7 +296,7 @@ def nsc_form(request):
         address_proof_list = [str(x) for x in eval(nsc_obj.address_proof_list)]
         for address_proof in address_proof_list:
             docs = {
-                'document':address_proof,
+                'document': address_proof,
             }
             document_list.append(docs)
 
@@ -344,6 +349,7 @@ def nsc_form(request):
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 
+
 @csrf_exempt
 def upload_consumer_docs(request):
     try:
@@ -395,23 +401,24 @@ def save_attachments(attachment_list, consumer_id):
         print 'Exception|nscapp|views.py|save_attachments', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 def get_verification_data(request):
     try:
         print 'nscapp|views.py|get_verification_data'
         data = {}
         final_list = []
         try:
-            consumer_obj = NewConsumerRequest.objects.get(id=request.GET.get('registration_id'))        
+            consumer_obj = NewConsumerRequest.objects.get(id=request.GET.get('registration_id'))
             meter_address_line_1 = consumer_obj.meter_address_line_1
             meter_address_line_2 = consumer_obj.meter_address_line_2
             if meter_address_line_2:
-                address = meter_address_line_1 + ', ' +meter_address_line_2
+                address = meter_address_line_1 + ', ' + meter_address_line_2
             else:
                 address = meter_address_line_1
 
             consumer_data = {
-                'consumer_id':consumer_obj.id,
-                'registration_no':consumer_obj.registration_no,
+                'consumer_id': consumer_obj.id,
+                'registration_no': consumer_obj.registration_no,
                 'applicant_name': consumer_obj.applicant_name,
                 'meter_mobile_no': consumer_obj.meter_mobile_no,
                 'address': address,
@@ -419,8 +426,8 @@ def get_verification_data(request):
                 'consumer_subcategory': consumer_obj.consumer_subcategory,
                 'supply_type': consumer_obj.supply_type,
                 'type_of_premises': consumer_obj.type_of_premises,
-                'pincode' : str(consumer_obj.meter_pin_code.pincode),
-                'city_name' : str(consumer_obj.meter_city.city),
+                'pincode': str(consumer_obj.meter_pin_code.pincode),
+                'city_name': str(consumer_obj.meter_city.city),
                 'meter_email_id': consumer_obj.meter_email_id
             }
 
@@ -439,20 +446,20 @@ def get_verification_data(request):
 def save_consumer_kyc(request):
     try:
         print 'nscapp|views.py|save_consumer_kyc'
-        new_KYC_obj = KycVerification(            
+        new_KYC_obj = KycVerification(
             consumer_id=NewConsumerRequest.objects.get(
                 id=request.POST.get('consumer_id')) if request.POST.get(
                 'consumer_id') else None,
-            status =request.POST.get('verify_KYC_status'),
-            remark =request.POST.get('KYC_remark'),
-            creation_date =datetime.now(),
+            status=request.POST.get('verify_KYC_status'),
+            remark=request.POST.get('KYC_remark'),
+            creation_date=datetime.now(),
             # created_by=request.session['login_user'],
         );
         new_KYC_obj.save();
 
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('consumer_id'))
         consumer_obj.status = 'KYC'
-        consumer_obj.save();    
+        consumer_obj.save();
 
         data = {
             'success': 'true',
@@ -466,40 +473,41 @@ def save_consumer_kyc(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 @csrf_exempt
 def save_consumer_technical(request):
     try:
         print 'nscapp|views.py|save_consumer_technical'
-        checkbox1_1=False
-        checkbox1_2=False
-        checkbox1_3=False
-        checkbox1_4=False
-        if request.POST.get('checkbox1_1') :
+        checkbox1_1 = False
+        checkbox1_2 = False
+        checkbox1_3 = False
+        checkbox1_4 = False
+        if request.POST.get('checkbox1_1'):
             checkbox1_1 = True
-        if request.POST.get('checkbox1_2') :
+        if request.POST.get('checkbox1_2'):
             checkbox1_2 = True
-        if request.POST.get('checkbox1_3') :
+        if request.POST.get('checkbox1_3'):
             checkbox1_3 = True
-        if request.POST.get('checkbox1_4') :
+        if request.POST.get('checkbox1_4'):
             checkbox1_4 = True
 
-        new_Technical_obj = TechnicalVerification(            
+        new_Technical_obj = TechnicalVerification(
             consumer_id=NewConsumerRequest.objects.get(
                 id=request.POST.get('tech_consumerid')) if request.POST.get(
                 'tech_consumerid') else None,
-            checkbox =request.POST.getlist('Checklist'),
-            technician_mobile_no =request.POST.get('tech_contact_no'),
-            status =request.POST.get('verify_technical'),
-            remark =request.POST.get('tech_remark'),
-            technician_name =request.POST.get('technician_name'),
-            creation_date =datetime.now(),
+            checkbox=request.POST.getlist('Checklist'),
+            technician_mobile_no=request.POST.get('tech_contact_no'),
+            status=request.POST.get('verify_technical'),
+            remark=request.POST.get('tech_remark'),
+            technician_name=request.POST.get('technician_name'),
+            creation_date=datetime.now(),
             # created_by=request.session['login_user'],
         );
         new_Technical_obj.save();
 
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('tech_consumerid'))
         consumer_obj.status = 'Technical'
-        consumer_obj.save();    
+        consumer_obj.save();
 
         data = {
             'success': 'true',
@@ -513,48 +521,49 @@ def save_consumer_technical(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 @csrf_exempt
 def save_consumer_payment(request):
     try:
-        print 'nscapp|views.py|save_consumer_payment',request.POST.get('pay_amount_paid')
+        print 'nscapp|views.py|save_consumer_payment', request.POST.get('pay_amount_paid')
 
-        new_Payment_obj = PaymentVerification(            
+        new_Payment_obj = PaymentVerification(
             consumer_id=NewConsumerRequest.objects.get(
                 id=request.POST.get('pay_consumerid')) if request.POST.get(
                 'pay_consumerid') else None,
-            amount_paid =request.POST.get('pay_amount_paid'),
-            payment_mode =request.POST.get('payment_mode'),
-            cheque_no =request.POST.get('pay_cheque_no'),
-            name_on_cheque =request.POST.get('pay_cheque_name'),
-            DD_no =request.POST.get('pay_DD_no'),
-            DD =request.POST.get('pay_DD'),
-            creation_date =datetime.now(),
+            amount_paid=request.POST.get('pay_amount_paid'),
+            payment_mode=request.POST.get('payment_mode'),
+            cheque_no=request.POST.get('pay_cheque_no'),
+            name_on_cheque=request.POST.get('pay_cheque_name'),
+            DD_no=request.POST.get('pay_DD_no'),
+            DD=request.POST.get('pay_DD'),
+            creation_date=datetime.now(),
             # created_by=request.session['login_user'],
         );
         new_Payment_obj.save();
 
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('pay_consumerid'))
         consumer_obj.status = 'Payment'
-        consumer_obj.save();    
+        consumer_obj.save();
 
-        new_Consumer_obj = ConsumerDetails(            
+        new_Consumer_obj = ConsumerDetails(
             consumer_id=NewConsumerRequest.objects.get(
                 id=request.POST.get('pay_consumerid')) if request.POST.get(
                 'pay_consumerid') else None,
-            name =consumer_obj.applicant_name,
-            email_id =consumer_obj.meter_email_id,
-            contact_no =consumer_obj.meter_mobile_no,
-            address_line_1 =consumer_obj.meter_address_line_1,
-            address_line_2 =consumer_obj.meter_address_line_2,
-            consumer_no ='CONS123456',
+            name=consumer_obj.applicant_name,
+            email_id=consumer_obj.meter_email_id,
+            contact_no=consumer_obj.meter_mobile_no,
+            address_line_1=consumer_obj.meter_address_line_1,
+            address_line_2=consumer_obj.meter_address_line_2,
+            consumer_no='CONS123456',
 
             city=City.objects.get(
                 id=consumer_obj.meter_city.id) if consumer_obj.meter_city.id else None,
             pin_code=Pincode.objects.get(
                 id=consumer_obj.meter_pin_code.id) if consumer_obj.meter_pin_code.id else None,
 
-            aadhar_no =consumer_obj.aadhar_no,            
-            created_on =datetime.now(),
+            aadhar_no=consumer_obj.aadhar_no,
+            created_on=datetime.now(),
             # created_by=request.session['login_user'],
         );
         new_Consumer_obj.save();
@@ -578,7 +587,7 @@ def get_consumer_data(request):
         nsc_obj = NewConsumerRequest.objects.get(id=nsc_id)
         consumer_obj = ConsumerDetails.objects.get(consumer_id=nsc_id)
         address = ''
-        address = address + nsc_obj.meter_building_name + ', '+ nsc_obj.meter_address_line_1
+        address = address + nsc_obj.meter_building_name + ', ' + nsc_obj.meter_address_line_1
         if nsc_obj.meter_address_line_2:
             address = address + ', ' + nsc_obj.meter_address_line_2
         if nsc_obj.meter_landmark:
@@ -590,7 +599,7 @@ def get_consumer_data(request):
 
         data = {
             'consumer_no': consumer_obj.consumer_no,
-            'consumer_id': str(consumer_obj.id),
+            'consumer_id': str(nsc_obj.id),
             'consumer_category': nsc_obj.consumer_category,
             'supply_type': nsc_obj.supply_type,
             'consumer_sub_category': nsc_obj.consumer_subcategory,
@@ -609,58 +618,44 @@ def get_consumer_data(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 @csrf_exempt
 def save_meter_details(request):
     try:
-        print 'nscapp|views.py|save_consumer_payment',request.POST.get('pay_amount_paid')
+        print 'nscapp|views.py|save_meter_details', request.POST
 
-        new_Payment_obj = PaymentVerification(
-            consumer_id=NewConsumerRequest.objects.get(
-                id=request.POST.get('pay_consumerid')) if request.POST.get(
-                'pay_consumerid') else None,
-            amount_paid =request.POST.get('pay_amount_paid'),
-            payment_mode =request.POST.get('payment_mode'),
-            cheque_no =request.POST.get('pay_cheque_no'),
-            name_on_cheque =request.POST.get('pay_cheque_name'),
-            DD_no =request.POST.get('pay_DD_no'),
-            DD =request.POST.get('pay_DD'),
-            creation_date =datetime.now(),
-            # created_by=request.session['login_user'],
-        );
-        new_Payment_obj.save();
+        route_obj = RouteDetail.objects.get(id=request.POST.get('meter_route'))
+        bill_cycle_obj = BillCycle.objects.get(id=route_obj.billcycle.id)
+        zone_obj = Zone.objects.get(id=bill_cycle_obj.zone.id)
+        branch_obj = Branch.objects.get(id=zone_obj.branch.id)
+        consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('consumer_id'))
 
-        consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('pay_consumerid'))
-        consumer_obj.status = 'Payment'
-        consumer_obj.save();
+        new_Consumer_obj = ConsumerDetails.objects.get(consumer_id=request.POST.get('consumer_id'))
+        new_Consumer_obj.route = route_obj
+        new_Consumer_obj.bill_cycle = bill_cycle_obj
+        new_Consumer_obj.zone = zone_obj
+        new_Consumer_obj.branch = branch_obj
+        new_Consumer_obj.meter_no = request.POST.get('meter_no')
+        new_Consumer_obj.meter_category = consumer_obj.consumer_category
+        new_Consumer_obj.meter_connection_date = datetime.strptime(request.POST.get('meter_date'), '%d/%m/%Y')
+        new_Consumer_obj.meter_digit = request.POST.get('meter_digit')
+        new_Consumer_obj.meter_phase = consumer_obj.supply_type
+        new_Consumer_obj.meter_make = request.POST.get('meter_make')
+        new_Consumer_obj.meter_type = request.POST.get('meter_type')
 
-        new_Consumer_obj = ConsumerDetails(
-            consumer_id=NewConsumerRequest.objects.get(
-                id=request.POST.get('pay_consumerid')) if request.POST.get(
-                'pay_consumerid') else None,
-            name =consumer_obj.applicant_name,
-            email_id =consumer_obj.meter_email_id,
-            contact_no =consumer_obj.meter_mobile_no,
-            address_line_1 =consumer_obj.meter_address_line_1,
-            address_line_2 =consumer_obj.meter_address_line_2,
-            consumer_no ='CONS123456',
+        if request.POST.get('meter_status') == "Done":
+            new_Consumer_obj.connection_status = 'Connected'
 
-            city=City.objects.get(
-                id=consumer_obj.meter_city.id) if consumer_obj.meter_city.id else None,
-            pin_code=Pincode.objects.get(
-                id=consumer_obj.meter_pin_code.id) if consumer_obj.meter_pin_code.id else None,
-
-            aadhar_no =consumer_obj.aadhar_no,
-            created_on =datetime.now(),
-            # created_by=request.session['login_user'],
-        );
-        new_Consumer_obj.save();
+        new_Consumer_obj.save()
+        consumer_obj.status = 'Closed'
+        consumer_obj.save()
 
         data = {
             'success': 'true',
-            'message': 'Payment created successfully.'
+            'message': 'Meter details saved successfully.'
         }
     except Exception, e:
-        print 'Exception|nscapp|views.py|save_consumer_payment', e
+        print 'Exception|nscapp|views.py|save_meter_details', e
         data = {
             'success': 'false',
             'message': str(e)
