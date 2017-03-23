@@ -21,18 +21,19 @@ def service_request(request):
         closed = ServiceRequest.objects.filter(status='Closed', is_deleted=False).count()
 
         serviceType = ServiceRequestType.objects.filter(is_deleted=False) # Service Types
-        branch = Branch.objects.filter(is_deleted=False) # Branch List
-        #zone = Zone.objects.filter(is_deleted=False) # Zone List
-        #billCycle = BillCycle.objects.filter(is_deleted=False) # BillCycle List
-        #routes = RouteDetail.objects.filter(is_deleted=False) # Route List
+        branch_list = Branch.objects.filter(is_deleted=False) # Branch List
+        if request.session['branch_id']:
+            branch_obj = Branch.objects.get(id=request.session['branch_id'])
+            zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
+        else:
+            zones = ''
         data = {
             'total': total,
             'open': open,
             'closed': closed,
             'ServiceType': serviceType,
-            'branch_list': branch,
-            #'billCycle': billCycle,
-            #routes': routes,
+            'branch_list': branch_list,
+            'zones': zones
         }
     except Exception, e:
         print 'exception ', str(traceback.print_exc())

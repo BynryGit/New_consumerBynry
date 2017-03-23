@@ -22,13 +22,20 @@ def complaint(request):
         closed = ComplaintDetail.objects.filter(
             complaint_status='Closed', is_deleted=False).count()
         complaint_type = ComplaintType.objects.filter(is_deleted=False)
-        branch = Branch.objects.filter(is_deleted=False)
+        branch_list = Branch.objects.filter(is_deleted=False)
+
+        if request.session['branch_id']:
+            branch_obj = Branch.objects.get(id = request.session['branch_id'])
+            zones = Zone.objects.filter(is_deleted=False,branch = branch_obj)
+        else:
+            zones = ''
         data = {
             'total' : total,
             'open' : open_case,
             'closed' : closed,
             'complaintType' : complaint_type,
-            'branch_list' : branch
+            'branch_list' : branch_list,
+            'zones' : zones
         }
     except Exception as exe:
         print 'Exception|comlpaintapp|views.py|complaint', exe

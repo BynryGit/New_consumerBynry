@@ -314,11 +314,7 @@
                     <div class="row">
                     		 <input type="hidden" hidden="" class="form-control" id="roleid">
                         <div class="col-md-6">
-                            <!-- <h4><b><span id="role_name"></span></b></h4> -->
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" id="role_name">
-                                <label for="update_role_name">Role </label>                                                                 
-                            </div>
+                             <h4><b><span id="role_name"></span></b></h4>                           
                         </div>
                         <div class="col-md-6" style="text-align: right;">
                            <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">
@@ -341,115 +337,33 @@
                         </div>
                         <br>
                         <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-4">                                            
-                                           <div class="md-checkbox">
-                                            <input type="checkbox" value="Dashboard" id="checkbox1_441"
-                                                   class="md-check privillages"  >
-                                            <label for="checkbox1_441">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Dashboard </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Consumer List" id="checkbox1_11"
-                                                   class="md-check privillages"  >
-                                            <label for="checkbox1_11">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Cosnsumer List </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Payments" id="checkbox1_21"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_21">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Payments </label>
-                                           </div>
-                                        </div>                                                                                
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                    	 <div class="col-md-4">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Complaints" id="checkbox1_31"
-                                                   class="md-check privillages">
-                                            <label for="checkbox1_31">
-                                                <span></span>
-                                                <span class="check privillages"></span>
-                                                <span class="box"></span> Complaints </label>
-                                           </div>
-                                        </div>
-                                    	 <div class="col-md-4">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Services" id="checkbox1_41"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_41">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Services </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Vigilance Cases" id="checkbox1_51"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_51">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Vigilance Cases </label>
-                                           </div>
-                                        </div>                                                                                
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                    	<div class="col-md-4">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="NSC" id="checkbox1_61"
-                                                   class="md-check privillages">
-                                            <label for="checkbox1_61">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> NSC </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-4">                                    
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="System User" id="checkbox1_71"
-                                                   class="md-check privillages">
-                                            <label for="checkbox1_71">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> System User </label>
-                                           </div>
-                                        </div>                                        
-                                        <div class="col-md-4">                                            
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Administration" id="checkbox1_81"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_81">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Administration </label>
-                                           </div>
-                                        </div>
-                                    </div>
-                                </div>                                                                    
+                             <div class="col-md-12" id="role_append">
+                                                                                                                       
+                             </div>
+                         </div>                                                                                                                               
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
                 <button type="button" onclick="update_role_details();" class="btn dark btn-outline">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="edit_success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Role edited successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/administrator/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
             </div>
         </div>
     </div>
