@@ -23,10 +23,17 @@ def login(request):
 def system_user(request):
     role_list = []
     role_objs = UserRole.objects.filter(is_deleted=False)
+    total_role_count = UserRole.objects.filter(is_deleted=False).count()
+    active_role_count = UserRole.objects.filter(is_deleted=False,status='Active').count()
+    inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inctive').count()
     for role in role_objs:
         role_data = {'role_id':role.id, 'role':role.role}
         role_list.append(role_data)
-    data = {'city_list':get_city(request), 'role_list':role_list}
+    data = {'city_list':get_city(request), 'role_list':role_list,
+            'active_role_count':active_role_count,
+            'inactive_role_count':inactive_role_count,
+            'total_role_count':total_role_count
+            }
     return render(request, 'system_user.html', data)
 
 def administrator(request):
@@ -278,6 +285,7 @@ def save_new_role(request):
     try:
         print 'views.py|save_new_role'
         privilege_list = request.POST.get('privilege_list')
+        print '--------privilages-0-------',privilege_list
         privilege_list = privilege_list.split(',')
         new_role_obj = UserRole(
             role=request.POST.get('roll_name'),
@@ -373,6 +381,23 @@ def get_role_details(request):
             data = {'success':'false', 'message':'Error in  loading page. Please try after some time'}
     except MySQLdb.OperationalError, e:
         print 'Exception|views.py|get_role_details', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def update_role_details(request):
+    try:
+        print 'views.py|update_role_details'
+        role_obj = UserRole.objects.get(id=request.GET.get('role_id'))
+
+        role_obj.role = request.GET.get('email')
+        role_obj.description = request.GET.get('password')
+        role_obj.contact_no = request.GET.get('contact_no')
+        role_obj.save()
+
+        data = {'success':'True'}
+    except Exception, e:
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|views.py|update_role_details', e
+        data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 # to get branch wrt city

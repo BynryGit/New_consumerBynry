@@ -168,7 +168,7 @@
                                     <div class="col-md-12">
                                         <div class="col-md-2">                                            
                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Admin" id="checkbox1_44"
+                                            <input type="checkbox" value="Dashboard" id="checkbox1_44"
                                                    class="md-check privillages"  >
                                             <label for="checkbox1_44">
                                                 <span></span>
@@ -312,10 +312,15 @@
             <div class="modal-body">
                 <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
-                        <div class="col-md-9">
-                            <h4><b><span id="role_name"></span></b></h4>
+                    		 <input type="hidden" hidden="" class="form-control" id="roleid">
+                        <div class="col-md-6">
+                            <!-- <h4><b><span id="role_name"></span></b></h4> -->
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" id="role_name">
+                                <label for="update_role_name">Role </label>                                                                 
+                            </div>
                         </div>
-                        <div class="col-md-3" style="text-align: right;">
+                        <div class="col-md-6" style="text-align: right;">
                            <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">
                         </div>
                     </div>
@@ -323,7 +328,7 @@
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info">
                                 <textarea class="form-control" id="role_desc" rows="1">System Administrator</textarea>
-                                <label for="route_code">Description </label>
+                                <label for="update_role_description">Description </label>
                             </div>
                         </div>
                         <br>
@@ -339,7 +344,7 @@
                                     <div class="col-md-12">
                                         <div class="col-md-4">                                            
                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Admin" id="checkbox1_441"
+                                            <input type="checkbox" value="Dashboard" id="checkbox1_441"
                                                    class="md-check privillages"  >
                                             <label for="checkbox1_441">
                                                 <span></span>
