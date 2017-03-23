@@ -108,11 +108,11 @@
                        data-close-others="true">
                         <img alt="" class="img-circle"
                              src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
-                        <span class="username username-hide-on-mobile"> shubhamS@bynry.com </span>
+                        <span class="username username-hide-on-mobile"> {{request.session.login_user}} </span>
                     </a>
                 </li>
                 <li title="Log Out" class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle">
+                    <a href="/log-out/" class="dropdown-toggle">
                         <i class="icon-logout"></i>
                     </a>
                 </li>
