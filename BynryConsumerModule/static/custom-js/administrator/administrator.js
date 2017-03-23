@@ -158,7 +158,9 @@ function edit_role_modal(role_id) {
 		       success: function (response) {			  
 		     		  if(response.success=='true'){
 		     		  	$("#role_name").text(response.user_data.role);
-		     		  	$("#role_desc").val(response.user_data.role_description);												
+		     		  	$("#roleid").val(response.user_data.role_id);
+		     		  	$("#role_desc").val(response.user_data.role_description);
+		     		  	$("#role_append").html(response.user_data.final_list);												
 						
 						$("#edit_role_modal").modal('show');   
 		     		  }
@@ -177,17 +179,30 @@ function edit_role_modal(role_id) {
 		
 		
 function update_role_details() {
-			var user_id = $('#user_id').val();
-			
-			$.ajax({
-	       type	: "GET",
-	       url : '/update_role_details/',
-	       data : {'user_id':user_id},       
-	       success: function (response) {			  
+
+		var checkboxValues = []
+		checkboxValues = $('.privillagesModel:checked').map(function() {
+			    return $(this).val();
+			}).get(); 
+		var formData= new FormData();
+
+		formData.append("roleid",$('#roleid').val());
+		formData.append("description",$('#update_role_description').val());				
+		formData.append("privilege_list",checkboxValues);
+				
+			$.ajax({				
+			   type	: "POST",
+			   url : '/update-role-details/',
+	 			data : formData,
+				cache: false,
+		      processData: false,
+		 		contentType: false, 
+		 		
+		      success: function (response) {			  
 	     		  if(response.success=='True'){
-	     		  initTable2();
-	     		  	$('#edit_branch_supervisor_modal').modal('hide');
-	     		  	$('#branch_supervisor_success_modal').modal('show');
+
+	     		  	$('#edit_role_modal').modal('hide');
+	     		  	$('#edit_success_modal').modal('show');
 	     		  }
 	       },       
 	       error : function(response){

@@ -43,7 +43,7 @@ class PaymentDetail(models.Model):
     bill_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     bill_amount_paid = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     due_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
-    arriers =models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
+    arrears =models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     payment_date = models.DateField(blank=True, null=True)
     prompt_date = models.DateField(blank=True, null=True)
     due_date =models.DateField(blank=True, null=True)

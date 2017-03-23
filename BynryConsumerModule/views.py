@@ -23,10 +23,17 @@ def login(request):
 def system_user(request):
     role_list = []
     role_objs = UserRole.objects.filter(is_deleted=False)
+    total_role_count = UserRole.objects.filter(is_deleted=False).count()
+    active_role_count = UserRole.objects.filter(is_deleted=False,status='Active').count()
+    inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inctive').count()
     for role in role_objs:
         role_data = {'role_id':role.id, 'role':role.role}
         role_list.append(role_data)
-    data = {'city_list':get_city(request), 'role_list':role_list}
+    data = {'city_list':get_city(request), 'role_list':role_list,
+            'active_role_count':active_role_count,
+            'inactive_role_count':inactive_role_count,
+            'total_role_count':total_role_count
+            }
     return render(request, 'system_user.html', data)
 
 def administrator(request):
@@ -278,6 +285,7 @@ def save_new_role(request):
     try:
         print 'views.py|save_new_role'
         privilege_list = request.POST.get('privilege_list')
+        print '--------privilages-0-------',privilege_list
         privilege_list = privilege_list.split(',')
         new_role_obj = UserRole(
             role=request.POST.get('roll_name'),
@@ -340,10 +348,35 @@ def get_role_details(request):
     try:
         print 'views.py|get_role_details'
         data = {}
+        final_list = []
         try:
+            i = 11
+            plist = []
+            # Particular User privileges list
             role_obj = UserRole.objects.get(id=request.GET.get('role_id'))
-            user_data = {'role' : role_obj.role, 'role_description' : role_obj.description
-                   }
+            privilege_obj = role_obj.privilege.all()             
+            for obj_p in privilege_obj:            
+                plist.append(obj_p.privilege)
+            # All privileges list
+            privilege_list = UserPrivilege.objects.all()
+            for pri_obj in privilege_list :                    
+                if pri_obj.privilege in plist:
+                    ss1 = "<div class='col-md-4'><div class='md-checkbox'><input type='checkbox' value='"+pri_obj.privilege+"' id='checkbox1_"+str(i)+"' class='md-check privillagesModel' checked>"
+                    ss2 = "<label for='checkbox1_"+str(i)+"'> <span></span> <span class='check privillages'></span>"
+                    ss3 = "<span class='box'></span>"+pri_obj.privilege+" </label>  </div> </div>"
+                    ss = ss1 + ss2 + ss3
+                else:
+                    ss1 = "<div class='col-md-4'><div class='md-checkbox'><input type='checkbox' value='"+pri_obj.privilege+"' id='checkbox1_"+str(i)+"' class='md-check privillagesModel'>"
+                    ss2 = "<label for='checkbox1_"+str(i)+"'> <span></span> <span class='check privillages'></span>"
+                    ss3 = "<span class='box'></span>"+pri_obj.privilege+" </label>  </div> </div>"
+                    ss = ss1 + ss2 + ss3
+                i = i + 1
+                final_list.append(ss)
+
+            user_data = {
+                         'role' : role_obj.role, 'role_description' : role_obj.description,
+                         'final_list':final_list,'role_id':role_obj.id
+                        }
             data = {'success' : 'true', 'user_data' : user_data}
         except Exception as e:
             print 'Exception|views.py|get_role_details', e
@@ -351,6 +384,28 @@ def get_role_details(request):
     except MySQLdb.OperationalError, e:
         print 'Exception|views.py|get_role_details', e
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def update_role_details(request):
+    try:
+        print 'views.py|update_role_details'
+        privilege_list = request.POST.get('privilege_list')
+        privilege_list = privilege_list.split(',')
+
+        role_obj = UserRole.objects.get(id=request.POST.get('roleid'))
+        role_obj.privilege.clear()
+        for list_obj in privilege_list:
+            obj = UserPrivilege.objects.get(privilege=list_obj)
+            role_obj.privilege.add(obj)
+            role_obj.save()
+
+        data = {'success':'True'}
+    except Exception, e:
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|views.py|update_role_details', e
+        data = {'success': 'false', 'error': 'Exception ' + str(e)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 # to get branch wrt city
 def get_branch(request):

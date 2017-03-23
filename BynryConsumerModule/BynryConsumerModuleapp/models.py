@@ -161,7 +161,7 @@ class RouteDetail(models.Model):
 
 class UserPrivilege(models.Model):
     privilege = models.CharField(max_length=500, blank=False, null=False)
-    parent = models.ForeignKey('self', blank=True, null=True)
+    #parent = models.ForeignKey('self', blank=True, null=True)
     created_by = models.CharField(max_length=50, blank=False, null=False)
     updated_by = models.CharField(max_length=50, blank=True, null=True)
     created_on = models.DateTimeField(default=django.utils.timezone.now)

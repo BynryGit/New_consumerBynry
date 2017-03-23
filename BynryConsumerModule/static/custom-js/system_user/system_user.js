@@ -6,7 +6,7 @@
      var table = $('#head_admin_table');
 
      var oTable = table.dataTable({
-
+			"bDestroy" : true,
          // Internationalisation. For more info refer to http://datatables.net/manual/i18n
          "language": {
              "aria": {
@@ -24,13 +24,13 @@
          
          "ajax": "/head_admin/",
                   "columns": [
-                {"data": "id"},
-                {"data": "name"}, 
-                {"data": "contact"}, 
-                {"data" : "email"},      
-                {"data" : "role"},      
-                {"data" : "status"},      
-                {"data" : "actions"}                             
+                {"data": "id","sClass": "text-center"},
+                {"data": "name","sClass": "text-center"}, 
+                {"data": "contact","sClass": "text-center"}, 
+                {"data" : "email","sClass": "text-center"},      
+                {"data" : "role","sClass": "text-center"},      
+                {"data" : "status","sClass": "text-center"},      
+                {"data" : "actions","sClass": "text-center"}                             
 		            ],				
 
          buttons: [
@@ -66,6 +66,18 @@
  function add_admin() {	
 		//$( "#clear_div" ).load(" #clear_div" );
 		//$("#city").append('<option value="">Select City</option>');
+			$(".first_name_error").css("display", "none");			
+			$(".last_name_error").css("display", "none");			
+			$(".address_error").css("display", "none");			
+			$(".email_error").css("display", "none");			
+			$(".role_error").css("display", "none");			
+			$(".branch_name_error").css("display", "none");			
+			$(".employee_id_error").css("display", "none");			
+			$(".contact_no_error").css("display", "none");			
+			$(".city_error").css("display", "none");			
+			$(".password_error").css("display", "none");			
+			$(".re_password_error").css("display", "none");			
+		
 		$('#first_name').val('');  	
 		$('#last_name').val('');  	
 		$('#address').val('');  	
@@ -87,10 +99,15 @@ function save_head_admin_details() {
 			var branch = $('#branch_name').val();
 			var contact_no = $('#contact_no').val();
 			var email = $('#email').val();
-			var user_status = $('#user_status').val();
+			//var user_status = $('#user_status').val();
 			var password = $('#password').val();
 			var re_password = $('#re_password').val();
-			alert(user_status);
+					
+			if (document.getElementById('user_status1').checked) {
+			  user_status = document.getElementById('user_status1').value;
+			}else {
+			  user_status = document.getElementById('user_status2').value;				
+			}
 			
 			if (validateData()) {
 					$.ajax({
@@ -103,6 +120,9 @@ function save_head_admin_details() {
 			     		  	$('#add_admin_model').modal('hide');
 			     		  	$('#success_modal').modal('show');
 			     		  }
+			     		  if (response.success == "false") {
+								$("#error-modal").modal('show');
+			    		  }	
 			       },       
 			       error : function(response){
 			       alert("_Error");
@@ -111,8 +131,19 @@ function save_head_admin_details() {
 			}
 	}
 
-
 function edit_admin_modal(user_id) {
+			$(".user_first_name_error").css("display", "none");			
+			$(".user_last_name_error").css("display", "none");			
+			$(".user_address_error").css("display", "none");			
+			$(".user_email_error").css("display", "none");			
+			$(".user_role_error").css("display", "none");			
+			$(".user_branch_name_error").css("display", "none");			
+			$(".user_emp_id_error").css("display", "none");			
+			$(".user_contact_no_error").css("display", "none");			
+			$(".user_city_error").css("display", "none");			
+			$(".user_password_error").css("display", "none");			
+			$(".user_re_password_error").css("display", "none");			
+			
 		   $.ajax({
 		       type	: "GET",
 		       url : '/get_system_user_details/',
@@ -129,15 +160,18 @@ function edit_admin_modal(user_id) {
 						$("#user_emp_id").val(response.user_data.employee_id); 
 						$("#user_contact_no").val(response.user_data.contact_no); 
 						$("#user_city").val(response.user_data.city); 
-						$("#user_status").val(response.user_data.user_status); 						
-						
+
+						if (response.user_data.user_status=='Active') {						
+							document.getElementById("update_user_status1").checked = true;										
+						}	
+						else {							
+							document.getElementById("update_user_status2").checked = true;	
+						}															
 						$("#edit_admin_modal").modal('show');   
 		     		  }
-		     		  if(response.success=='false'){
-							$('.error').text("");												    
-							$('.error1').text("");												    
-							$('.error2').text("No Data Available");												    
-		     		  }
+		     		  if (response.success == "false") {
+								$("#error-modal").modal('show');
+			    		  }	
 		       },
 		       
 		       error : function(response){
@@ -157,9 +191,15 @@ function update_head_admin_details() {
 			var branch = $('#user_branch').val();
 			var contact_no = $('#user_contact_no').val();
 			var email = $('#user_email').val();
-			var user_status = $('#update_user_status').val();
+			//var user_status = $('#update_user_status').val();
 			var password = $('#user_password').val();
 			var re_password = $('#user_re_password').val();
+			
+			if (document.getElementById('update_user_status1').checked) {
+			  user_status = document.getElementById('update_user_status1').value;
+			}else {
+			  user_status = document.getElementById('update_user_status2').value;				
+			}
 
 			if (validateEditData()) {
 					$.ajax({
@@ -170,8 +210,11 @@ function update_head_admin_details() {
 			     		  if(response.success=='True'){
 			     		  	initTable1();
 			     		  	$('#edit_admin_modal').modal('hide');
-			     		  	$('#success_modal').modal('show');
+			     		  	$('#success_update_modal').modal('show');
 			     		  }
+			     		  if (response.success == "false") {
+								$("#error-modal").modal('show');
+			    		  }	
 			       },       
 			       error : function(response){
 			       alert("_Error");
@@ -271,7 +314,8 @@ function check_email(user_email){
    var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
    if(Email=='')
 	{ 
-	$(".user_email_error").css("display", "none");
+	$(".user_email_error").css("display", "block");
+   $(".user_email_error").text("Please enter valid email");
 	return true;	
 	}  
    else if(namePattern.test(Email)){
@@ -349,8 +393,6 @@ function checkFirstName(first_name){
  	$(".first_name_error").css("display", "none");
    return true;
    }else{
-    $("#fname").addClass("has-error");
-    //$(".first_name_error").text("Please enter valid first Name");
     $(".first_name_error").css("display", "block");
     $(".first_name_error").text("Please enter valid first Name");
    return false; 
@@ -437,8 +479,9 @@ function checkEmail(email){
    var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
    if(Email=='')
 	{ 
-	$(".email_error").css("display", "none");
-	return true;	
+	$(".email_error").css("display", "block");
+   $(".email_error").text("Please enter valid email");
+	return false;	
 	}  
    else if(namePattern.test(Email)){
       $(".email_error").css("display", "none");
@@ -500,7 +543,6 @@ function get_branch_list(){
     city = $("#user_city").val();
     $("#user_branch_name").html('');
     $("#user_branch_name").append('<option value="">Select Branch</option>');
-    //$("#branch_name").val("all").change();
     if(city != ""){
         $.ajax({
             type : "GET",
@@ -524,7 +566,6 @@ function get_branch(){
     city = $("#city").val();
     $("#branch_name").html('');
     $("#branch_name").append('<option value="">Select Branch</option>');
-    //$("#branch_name").val("all").change();
     if(city != ""){
         $.ajax({
             type : "GET",
