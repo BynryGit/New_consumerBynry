@@ -42,7 +42,14 @@ def system_user(request):
     return render(request, 'system_user.html', data)
 
 def administrator(request):
-    return render(request, 'administrator.html')
+    try:
+        print 'views.py|administrator'
+        privilege_list =  UserPrivilege.objects.filter(is_deleted=False)
+        data={'privilege_list':privilege_list}
+        
+    except Exception, e:
+        print 'views.py|administrator'
+    return render(request, 'administrator.html',data)
 
 def complaints(request):
     return render(request, 'complaints.html')
@@ -328,7 +335,12 @@ def get_role_list(request):
                 role = role_obj.role
                 description = role_obj.description
                 created_on = role_obj.created_on.strftime("%Y-%m-%d")
-                associated_user = '--'
+
+                associated_user_obj = SystemUserProfile.objects.filter(role=role_obj.id)  
+                users_name_list=''                
+                for users in associated_user_obj: 
+                    users_name_list = str(users.first_name)+', '+str(users_name_list)
+
                 if role_obj.status == 'Active':
                     status = '<span style = "cursor : default;" class = "btn btn-success">Active</span>'
                 else:
@@ -338,7 +350,7 @@ def get_role_list(request):
                     'role' : role,
                     'description' : description,
                     'created_on' : created_on,
-                    'associated_user' : associated_user,
+                    'associated_user' : users_name_list,
                     'status' : status,
                     'action' : action
                 }
@@ -397,11 +409,18 @@ def get_role_details(request):
 @csrf_exempt
 def update_role_details(request):
     try:
-        print 'views.py|update_role_details'
+        print 'views.py|update_role_details\n\n\n\n\n\n'
         privilege_list = request.POST.get('privilege_list')
         privilege_list = privilege_list.split(',')
 
         role_obj = UserRole.objects.get(id=request.POST.get('roleid'))
+        role_obj.description = request.POST.get('description')
+        if request.POST.get('status') == 'True':
+            role_obj.status = 'Active'
+        else:
+            role_obj.status = 'Inactive'
+        role_obj.save()
+
         role_obj.privilege.clear()
         for list_obj in privilege_list:
             obj = UserPrivilege.objects.get(privilege=list_obj)
