@@ -57,6 +57,7 @@ def signin(request):
             password = request.POST['password']
             try:
                 user_obj = SystemUserProfile.objects.get(username=username)
+                print '---------username-----',user_obj
                 try:
                     user = authenticate(username=username, password=password)
                     if user:

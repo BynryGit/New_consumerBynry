@@ -64,7 +64,7 @@ def save_system_user_details(request):
         role_obj = UserRole.objects.get(role=request.GET.get('role'))
         user_obj = SystemUserProfile(
             username=request.GET.get('email'),
-            password=request.GET.get('password'),
+            #password=request.GET.get('password'),
             contact_no=request.GET.get('contact_no'),
             address=request.GET.get('address'),
             first_name=request.GET.get('first_name'),
@@ -76,6 +76,10 @@ def save_system_user_details(request):
             status=request.GET.get('user_status')
             )
         user_obj.save()
+
+        user_obj.set_password(request.GET.get('password'))
+        user_obj.save()
+
         if request.GET.get('branch'):
             branch_obj = Branch.objects.get(id=request.GET.get('branch'))
             user_obj.branch = branch_obj

@@ -78,10 +78,16 @@
 			$(".password_error").css("display", "none");			
 			$(".re_password_error").css("display", "none");			
 		
-		$('#first_name').val('');  	
-		$('#last_name').val('');  	
+		$('#password').html('');  	
+		$('#re_password').html('');
+		$('#contact_no').html('');  
+		$('#fname').val('');  	
+		$('#lname').val('');  	
 		$('#address').val('');  	
-		$('#emp_id').val('');  	
+		$('#employee_ID').val('');  	
+		$('#city').val('');  	
+		$('#branch_name').val('');  	
+		$('#role').val('');  	
 		$('#contact_no').val('');  	
 		$('#email').val('');  	
 		$('#password').val('');  	
@@ -163,10 +169,12 @@ function edit_admin_modal(user_id) {
 						$("#user_city").val(response.user_data.city); 
 
 						if (response.user_data.user_status=='Active') {						
-							document.getElementById("update_user_status1").checked = true;										
+							//document.getElementById("update_user_status1").checked = true;	
+							$("#update_user_status1").attr("checked","true"); 									
 						}	
 						else {							
-							document.getElementById("update_user_status2").checked = true;	
+							//document.getElementById("update_user_status2").checked = true;	
+							$("#update_user_status2").attr("checked","false");
 						}										
 						if (response.user_data.role.match(/H.O./g)) {
 							$("#user_branch_name").prop("disabled", true);
