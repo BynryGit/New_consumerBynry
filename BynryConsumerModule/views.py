@@ -338,10 +338,33 @@ def get_role_list(request):
 
 def get_role_details(request):
     try:
-        print 'views.py|get_role_details'
+        print 'views.py|get_role_details\n\n\nSSSSSSS'
         data = {}
+        final_list = []
         try:
-            role_obj = UserRole.objects.get(id=request.GET.get('role_id'))
+            privilege_list = UserPrivilege.objects.all()
+            for pri_obj in privilege_list :
+                role_obj = UserRole.objects.get(id=request.GET.get('role_id'))
+                privilege_obj = role_obj.privilege.all()
+                
+                for pri_obj1 in privilege_obj :
+                    if pri_obj1.privilege == pri_obj.privilege :
+                        ss1 = "<div class='col-md-4'><div class='md-checkbox'><input type='checkbox' value='Complaints' id='checkbox1_31' class='md-check privillages' checked>"
+                        ss2 = "<label for='checkbox1_31'> <span></span> <span class='check privillages'></span>"
+                        ss3 = "<span class='box'></span>"+pri_obj.privilege+" </label>  </div> </div>"
+                        ss = ss1 + ss2 + ss3
+                    else:
+                        ss1 = "<div class='col-md-4'><div class='md-checkbox'><input type='checkbox' value='Complaints' id='checkbox1_31' class='md-check privillages'>"
+                        ss2 = "<label for='checkbox1_31'> <span></span> <span class='check privillages'></span>"
+                        ss3 = "<span class='box'></span>"+pri_obj.privilege+" </label>  </div> </div>"
+                        ss = ss1 + ss2 + ss3
+                final_list.append(ss)
+                print '.........\n\n\n\n\nLAST',final_list
+                print '\n\n\n\n\nlast.........'
+
+
+
+
             user_data = {'role' : role_obj.role, 'role_description' : role_obj.description
                    }
             data = {'success' : 'true', 'user_data' : user_data}
