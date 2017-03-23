@@ -210,7 +210,8 @@ function update_head_admin_details() {
 			
 			if (document.getElementById('update_user_status1').checked) {
 			  user_status = document.getElementById('update_user_status1').value;
-			}else {
+			}
+			if (document.getElementById('update_user_status2').checked) {
 			  user_status = document.getElementById('update_user_status2').value;				
 			}
 
