@@ -119,7 +119,7 @@ $("#save-role").click(function(event)  {
 	formData.append("roll_name",$('#roll_name').val());
 	formData.append("description",$('#description').val());				
 	formData.append("privilege_list",checkboxValues);												
-	
+	console.log(checkboxValues)
 	 $.ajax({  				  
 			  type	: "POST",
 			   url : '/save-new-role/',
@@ -159,8 +159,11 @@ function edit_role_modal(role_id) {
 		     		  if(response.success=='true'){
 		     		  	$("#role_name").text(response.user_data.role);
 		     		  	$("#roleid").val(response.user_data.role_id);
-		     		  	$("#role_desc").val(response.user_data.role_description);
-		     		  	$("#role_append").html(response.user_data.final_list);												
+		     		  	$("#role_desc").text(response.user_data.role_description);
+		     		  	$("#role_append").html(response.user_data.final_list);	
+		     		  	document.getElementById('status_switch').checked = true;			
+		     		  	
+		     		  	$('label[for="' + $("#status_switch") + '"]').html								
 						
 						$("#edit_role_modal").modal('show');   
 		     		  }
@@ -187,8 +190,9 @@ function update_role_details() {
 		var formData= new FormData();
 
 		formData.append("roleid",$('#roleid').val());
-		formData.append("description",$('#update_role_description').val());				
+		formData.append("description",$('#role_desc').val());				
 		formData.append("privilege_list",checkboxValues);
+		formData.append("status",document.getElementById('status_switch').checked);
 				
 			$.ajax({				
 			   type	: "POST",

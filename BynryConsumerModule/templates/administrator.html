@@ -166,103 +166,26 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">
+                                      {% for priv in privilege_list%}
                                         <div class="col-md-2">                                            
                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Dashboard" id="checkbox1_44"
+                                            <input type="checkbox" value="{{priv.privilege}}" id="checkbox1_{{ forloop.counter }}"
                                                    class="md-check privillages"  >
-                                            <label for="checkbox1_44">
+                                            <label for="checkbox1_{{ forloop.counter }}">
                                                 <span></span>
                                                 <span class="check"></span>
-                                                <span class="box"></span> Dashboard </label>
+                                                <span class="box"></span> {{priv.privilege}} </label>
                                            </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Consumer List" id="checkbox1_1"
-                                                   class="md-check privillages"  >
-                                            <label for="checkbox1_1">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Cosnsumer List </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Payments" id="checkbox1_2"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_2">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Payments </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Complaints" id="checkbox1_3"
-                                                   class="md-check privillages">
-                                            <label for="checkbox1_3">
-                                                <span></span>
-                                                <span class="check privillages"></span>
-                                                <span class="box"></span> Complaints </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Services" id="checkbox1_4"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_4">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Services </label>
-                                           </div>
-                                        </div>
+                                       {% endfor%}
+                                       
+                                     
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-2">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Vigilance Cases" id="checkbox1_5"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_5">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Vigilance Cases </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="NSC" id="checkbox1_6"
-                                                   class="md-check privillages">
-                                            <label for="checkbox1_6">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> NSC </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-2">                                    
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="System User" id="checkbox1_7"
-                                                   class="md-check privillages">
-                                            <label for="checkbox1_7">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> System User </label>
-                                           </div>
-                                        </div>
-                                        
-                                        <div class="col-md-2">                                            
-                                            <div class="md-checkbox">
-                                            <input type="checkbox" value="Administration" id="checkbox1_8"
-                                                   class="md-check privillages" >
-                                            <label for="checkbox1_8">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Administration </label>
-                                           </div>
-                                        </div>
-                                        <div class="col-md-4" style="text-align:right;margin-top: -1%;">
+                                    <div class="col-md-12">                                                                                                                                                           
+                                        <div class="col-md-12" style="text-align:right;margin-top: -1%;">
                                             <button type="button" id="save-role"
                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm">
                                                 <i class="fa fa-plus"></i> Add
@@ -317,7 +240,7 @@
                              <h4><b><span id="role_name"></span></b></h4>                           
                         </div>
                         <div class="col-md-6" style="text-align: right;">
-                           <input type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">
+                           <input id="status_switch" type="checkbox" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">
                         </div>
                     </div>
                     <div class="row">
