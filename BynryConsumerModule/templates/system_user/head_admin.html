@@ -68,15 +68,22 @@
             <div class="modal-body">
                 <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
                 	  <div class="row">
-                	     	<div class="col-md-8">
+                	     	<div class="col-md-4">
                             <h4><b>Basic Details </b></h4>
                         </div>
-                        <div class="col-md-4 custom-sys-user-margin-top1" >
+                        <!-- <div class="col-md-4 custom-sys-user-margin-top1" >
                             <div class="form-group form-md-line-input has-success">
                             		<label for="bill_cycle">Status : </label>
                                 <input type="checkbox" id="update_user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
                             </div>
-                        </div>
+                        </div> -->
+                        <div class="col-md-8 custom-sys-user-margin-top1" >
+                        <div class="form-group form-md-line-input has-success" style="text-align: right;">
+                            		<label for="user_status">Status : </label>
+                                <input type="radio" id="update_user_status1" name="update_user_status1" value="Active"> Active
+  										  <input type="radio" id="update_user_status2" name="update_user_status2" value="Inactive"> Inactive                                
+                            </div>
+                            </div>
                         <input type="hidden" class="form-control" id="user_id"> 
                 	  </div>
                     <div class="row">                    		 
@@ -210,13 +217,15 @@
             	<div id="clear_div">
                 <div class="scroller custom-sys-user-modal-height1" data-always-visible="1" data-rail-visible1="1">
                 	 <div class="row">
-                	 		<div class="col-md-8">
+                	 		<div class="col-md-4">
                             <h4><b>Basic Details :</b></h4>
                         </div>
-								<div class="col-md-4 custom-sys-user-margin-top1">
-                            <div class="form-group form-md-line-input has-success">
+								<div class="col-md-8 custom-sys-user-margin-top1">
+                            <div class="form-group form-md-line-input has-success" style="text-align: right;">
                             		<label for="user_status">Status : </label>
-                                <input type="checkbox" id="user_status" class="make-switch" data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+                                <!-- <input type="checkbox" id="user_status" class="make-switch" data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>"> -->
+                                <input type="radio" id="user_status1" name="user_status" value="Active" checked> Active
+  										  <input type="radio" id="user_status2" name="user_status" value="Inactive"> Inactive                                
                             </div>
                         </div>
                     </div>                     
@@ -344,19 +353,53 @@
         </div>
     </div>
 </div>
-<div id="success_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">System User added successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/system-user/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade draggable-modal" id="success_update_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">System User updated successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/system-user/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">System User Details</h4></div>
             <div class="modal-body">
-                <div class="scroller custom-modal-height4" data-always-visible="1" data-rail-visible1="1">
-                     <label>Data Saved Successfully</label>           
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">System User already exists</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+                    </div>
             </div>
         </div>
     </div>

@@ -270,6 +270,7 @@ function add_payment() {
     }
 
 	function save_payment_details() {
+			$(".error2").css("display", "none");	
 			var paid_amount = $('#paid_amt').val();
 			if (paid_amount == '') {
 				$('.error2').text("Please enter amount");		
@@ -295,6 +296,9 @@ function add_payment() {
 	}
 
 	function get_payment_details() {
+		$(".error2").css("display", "none");	
+		$(".error").css("display", "none");	
+		$(".error1").css("display", "none");	
 		var consumer_number = $('#consumer_no').val(); 
 		var bill_month = $('#bill_month').val(); 
 		
