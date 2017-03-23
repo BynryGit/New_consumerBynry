@@ -75,11 +75,11 @@
                        data-close-others="true">
                         <img alt="" class="img-circle"
                              src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
-                        <span class="username username-hide-on-mobile"> swapnil@bynry.com </span>
+                        <span class="username username-hide-on-mobile"> {{request.session.login_user}} </span>
                     </a>                    
                 </li>                        
                 <li title="Log Out" class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle">
+                    <a href="/log-out/" class="dropdown-toggle">
                         <i class="icon-logout"></i>
                     </a>
                 </li>
@@ -144,10 +144,18 @@
                         </div>
                         <div class="col-md-3 custom-width">
                             <label class="control-label">Branch</label>
-                            <select id="select_branch" class="form-control select2" onchange="get_zone()">
+                            {% if request.session.branch_id %}
+                                <select id="select_branch" disabled class="form-control select2" onchange="get_zone()">
+                            {% else %}
+                                <select id="select_branch" class="form-control select2" onchange="get_zone()">
+                            {%endif%}
                                 <option value="all">All</option>
-                                {% for branch in branch_list %}		                                		
-                            	  		<option value="{{branch.id}}">{{branch}}</option>	
+                                {% for branch in branch_list %}
+                                    {% if request.session.branch_id == branch.id %}
+                                        <option selected value="{{branch.id}}">{{branch}}</option>
+                                    {%else%}
+                                        <option value="{{branch.id}}">{{branch}}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -158,9 +166,9 @@
                             <label class="control-label">Zone</label>
                             <select id="select_zone" class="form-control select2" onchange="get_bill_cycle()">
                                 <option value="all">All</option>
-                                <!-- {% for zone in zones%}
+                                {% for zone in zones%}
                                     <option value="{{zone.id}}">{{zone.zone_name}}</option>
-                                {% endfor %} -->
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-2">

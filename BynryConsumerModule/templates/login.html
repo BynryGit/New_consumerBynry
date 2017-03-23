@@ -32,6 +32,10 @@
 			.custom-label{
 				color:#fff;font-size: 25px;			
 			}
+			.forget-password {
+                border-top: 1px dotted #eee;
+                margin-top: 15px;
+            }
         </style>	  
         
     </head>
@@ -42,23 +46,23 @@
             	 <label style="color:#fff;font-size: 25px;">Bynry CRM</label>
         </div>
         <div class="content">
-            <form class="login-form" action="/dashboard/" method="post">
+            <form id="login-form" class="login-form">
                 <h3 class="form-title">Login to your account</h3>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    <span> Enter any username and password. </span>
+                    <span id="error_msg"> Enter any username and password. </span>
                 </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
                     <div class="input-icon">
                         <i class="fa fa-user"></i>
-                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" /> </div>
+                        <input class="form-control placeholder-no-fix" type="email" autocomplete="off" placeholder="Username" name="username" id="username"/> </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
                     <div class="input-icon">
                         <i class="fa fa-lock"></i>
-                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" /> </div>
+                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" id="password"/> </div>
                 </div>
                 <div class="form-actions">
                     <label class="checkbox">
@@ -69,11 +73,6 @@
                     <h4>Forgot your password ?</h4>
                     <p> no worries, click
                         <a href="javascript:;" id="forget-password"> here </a> to reset your password. </p>
-                </div>
-                <div class="create-account">
-                    <p> Don't have an account yet ?&nbsp;
-                        <label id="register-btn"> Please Contact Your Admin </label>
-                    </p>
                 </div>
             </form>
 
@@ -119,7 +118,8 @@
 	            rules: {username: {required: !0}, password: {required: !0}, remember: {required: !1}},
 	            messages: {username: {required: "Username is required."}, password: {required: "Password is required."}},
 	            invalidHandler: function (e, r) {
-	                $(".alert-danger", $(".login-form")).show()
+	                $("#error_msg").text("Please enter username and password");
+	                $(".alert-danger", $(".login-form")).show();
 	            },
 	            highlight: function (e) {
 	                $(e).closest(".form-group").addClass("has-error")
@@ -131,7 +131,31 @@
 	                e.insertAfter(r.closest(".input-icon"))
 	            },
 	            submitHandler: function (e) {
-	                e.submit()
+	                //console.log($("#login_form").serialize());
+	                $.ajax({
+                        type : 'POST',
+                        url : '/log-in/',
+                        data : {
+                            'username':$("#username").val(),
+                            'password':$("#password").val()
+                        },
+                        success: function(response) {
+                            if(response.success=='true'){
+                                location.href='/dashboard/';
+                            }
+                            if(response.message=='Invalid Username'){
+                                $("#error_msg").text("Please enter valid username");
+                                $(".alert-danger", $(".login-form")).show()
+                            }
+                            if(response.message=='Invalid Password'){
+                                $("#error_msg").text("Please enter valid password");
+                                $(".alert-danger", $(".login-form")).show()
+                            }
+                        },
+                        error: function(response){
+                            captcha_reload()
+                        },
+                    });
 	            }
 	        }), $(".login-form input").keypress(function (e) {
 	            return 13 == e.which ? ($(".login-form").validate().form() && $(".login-form").submit(), !1) : void 0
@@ -156,7 +180,9 @@
 	                e.insertAfter(r.closest(".input-icon"))
 	            },
 	            submitHandler: function (e) {
+
 	                e.submit()
+
 	            }
 	        }), $(".forget-form input").keypress(function (e) {
 	            return 13 == e.which ? ($(".forget-form").validate().form() && $(".forget-form").submit(), !1) : void 0
