@@ -85,21 +85,18 @@
 
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                        data-close-others="true">
                         <img alt="" class="img-circle"
                              src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
-                        <span class="username username-hide-on-mobile"> swapnil@bynry.com </span>
-                        <i class="fa fa-angle-down"></i>
+                        <span class="username username-hide-on-mobile"> {{request.session.login_user}} </span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-default">
-                        <li>
-                           <a href="/login">
-                                <i class="icon-key"></i> Log Out </a>
-                        </li>
-                    </ul>
+                </li>
+                <li title="Log Out" class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="/log-out/" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
+                    </a>
                 </li>
             </ul>
         </div>

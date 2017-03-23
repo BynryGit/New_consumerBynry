@@ -78,10 +78,16 @@
 			$(".password_error").css("display", "none");			
 			$(".re_password_error").css("display", "none");			
 		
-		$('#first_name').val('');  	
-		$('#last_name').val('');  	
+		$('#password').html('');  	
+		$('#re_password').html('');
+		$('#contact_no').html('');  
+		$('#fname').val('');  	
+		$('#lname').val('');  	
 		$('#address').val('');  	
-		$('#emp_id').val('');  	
+		$('#employee_ID').val('');  	
+		$('#city').val('');  	
+		$('#branch_name').val('');  	
+		$('#role').val('');  	
 		$('#contact_no').val('');  	
 		$('#email').val('');  	
 		$('#password').val('');  	
@@ -142,7 +148,8 @@ function edit_admin_modal(user_id) {
 			$(".user_contact_no_error").css("display", "none");			
 			$(".user_city_error").css("display", "none");			
 			$(".user_password_error").css("display", "none");			
-			$(".user_re_password_error").css("display", "none");			
+			$(".user_re_password_error").css("display", "none");		
+			$("#user_branch_name").prop("disabled", false);	
 			
 		   $.ajax({
 		       type	: "GET",
@@ -162,11 +169,17 @@ function edit_admin_modal(user_id) {
 						$("#user_city").val(response.user_data.city); 
 
 						if (response.user_data.user_status=='Active') {						
-							document.getElementById("update_user_status1").checked = true;										
+							//document.getElementById("update_user_status1").checked = true;	
+							$("#update_user_status1").attr("checked","true"); 									
 						}	
 						else {							
-							document.getElementById("update_user_status2").checked = true;	
-						}															
+							//document.getElementById("update_user_status2").checked = true;	
+							$("#update_user_status2").attr("checked","false");
+						}										
+						if (response.user_data.role.match(/H.O./g)) {
+							$("#user_branch_name").prop("disabled", true);
+						}							
+							
 						$("#edit_admin_modal").modal('show');   
 		     		  }
 		     		  if (response.success == "false") {
@@ -188,7 +201,7 @@ function update_head_admin_details() {
 			var address = $('#user_address').val();
 			var emp_id = $('#user_emp_id').val();
 			var role = $('#user_role').val();
-			var branch = $('#user_branch').val();
+			var branch = $('#user_branch_name').val();
 			var contact_no = $('#user_contact_no').val();
 			var email = $('#user_email').val();
 			//var user_status = $('#update_user_status').val();
@@ -197,7 +210,8 @@ function update_head_admin_details() {
 			
 			if (document.getElementById('update_user_status1').checked) {
 			  user_status = document.getElementById('update_user_status1').value;
-			}else {
+			}
+			if (document.getElementById('update_user_status2').checked) {
 			  user_status = document.getElementById('update_user_status2').value;				
 			}
 
@@ -224,6 +238,7 @@ function update_head_admin_details() {
 	}
 
 function validateEditData(){
+	$(".user_branch_name_error").css("display", "none");
 	if(check_firstname("#user_first_name")&check_lastname("#user_last_name")&check_address("#user_address")
 	   &check_city("#user_city")&check_email("#user_email")&check_role("#user_role")
 	   &check_employee_id("#user_emp_id")&check_contactno("#user_contact_no")&check_repassword("#user_re_pass")
@@ -376,8 +391,9 @@ function check_repassword(user_re_pass){
 	
 	
 function validateData(){
+	$(".branch_name_error").css("display", "none");
 	if(checkFirstName("#fname")&checkLastName("#lname")&CheckAddress("#address")
-	   &CheckCity("#city")&checkEmail("#email")&checkRole("#role")&checkBranch("#branch_name")
+	   &CheckCity("#city")&checkEmail("#email")&checkRole("#role")//&checkBranch("#branch_name")
 	   &CheckEmployee_ID("#employee_ID")&checkContactNo("#contact_no")&checkPassword("#password")
 	   &checkRePassword("#re_password")
 	  ){    
@@ -450,7 +466,7 @@ function CheckCity(city){
    }
 }
 
-function checkBranch(branch_name){
+/*function checkBranch(branch_name){
 	if($(branch_name).val()!=' ' && $(branch_name).val()!=null)
    {
     $(".branch_name_error").css("display", "none");
@@ -460,7 +476,7 @@ function checkBranch(branch_name){
     $(".branch_name_error").text("Please select Branch");
    return false; 
    }
-}
+}*/
 
 function checkRole(role){
 	if($(role).val()!=' ' && $(role).val()!=null)
@@ -583,5 +599,35 @@ function get_branch(){
             }
         });
     }
+}  
+
+function check_branch_data(){
+	var role = $('#role').val();
+	$("#branch_name").prop("disabled", false);  
+	if (role.match(/H.O./g)) {
+			$("#branch_name").prop("disabled", true);
+			$(".branch_name_error").css("display", "none");
+	    	return true;
+		}	
+		else {
+			$(".branch_name_error").css("display", "block");
+	    	$(".branch_name_error").text("Please select Branch");
+	    	return false;
+		}    
+}  
+
+function check_edit_branch_data(){
+	var role = $('#user_role').val();
+	$("#user_branch_name").prop("disabled", false);  
+	if (role.match(/H.O./g)) {
+			$("#user_branch_name").prop("disabled", true);
+			$(".user_branch_name_error").css("display", "none");
+	    	return true;
+		}	
+		else {
+			$(".user_branch_name_error").css("display", "block");
+	    	$(".user_branch_name_error").text("Please select Branch");
+	    	return false;
+		}    
 }  
 
