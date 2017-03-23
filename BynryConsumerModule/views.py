@@ -22,14 +22,19 @@ def login(request):
 
 def system_user(request):
     role_list = []
+    branch_list = []
     role_objs = UserRole.objects.filter(is_deleted=False)
     total_role_count = UserRole.objects.filter(is_deleted=False).count()
     active_role_count = UserRole.objects.filter(is_deleted=False,status='Active').count()
     inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inctive').count()
+    branch_obj = Branch.objects.filter(is_deleted=False)
+    for branch in branch_obj:
+        branch_data = {'branch_id':branch.id, 'branch':branch.branch_name}
+        branch_list.append(branch_data)
     for role in role_objs:
         role_data = {'role_id':role.id, 'role':role.role}
         role_list.append(role_data)
-    data = {'city_list':get_city(request), 'role_list':role_list,
+    data = {'city_list':get_city(request), 'role_list':role_list, 'branch_list':branch_list,
             'active_role_count':active_role_count,
             'inactive_role_count':inactive_role_count,
             'total_role_count':total_role_count
