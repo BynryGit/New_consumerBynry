@@ -37,12 +37,19 @@ SERVER_URL = "http://192.168.10.102:8080"
 def consumer_list(request):
     try:
         print 'consumerapp|views.py|consumer_list'
-        data = {'city_list': get_city(request),
-                'zone_list': get_zone(request),
-                'branch_list': get_branch(request),
-                'billcycle_list': get_billcycle(request),
-                'route_list': get_RouteDetail(request),
-                'pincode_list': get_pincode(request)}
+        if request.session['branch_id']:
+            branch_obj = Branch.objects.get(id=request.session['branch_id'])
+            zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
+        else:
+            zones = ''
+        data = {
+            'city_list': get_city(request),
+            'zone_list': zones,
+            'branch_list': get_branch(request),
+            'billcycle_list': get_billcycle(request),
+            'route_list': get_RouteDetail(request),
+            'pincode_list': get_pincode(request)
+        }
     except Exception, e:
         print 'Exception|consumerapp|views.py|consumer_list', e
     return render(request, 'consumer_list.html', data)

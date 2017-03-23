@@ -66,7 +66,10 @@ def signin(request):
                             try:
                                 request.session['login_user'] = user_profile_obj.username
                                 request.session['user_id'] = int(user_profile_obj.id)
-                                request.session['branch_id'] = int(user_profile_obj.branch.id)
+                                if user_profile_obj.branch:
+                                    request.session['branch_id'] = int(user_profile_obj.branch.id)
+                                else:
+                                    request.session['branch_id'] = ''
                                 request.session[
                                     'first_name'] = user_profile_obj.user_first_name
                                 login(request, user)
