@@ -89,7 +89,7 @@ function service_details(service_id){
                     serviceDetail = response.serviceDetail;
                     $("#request_id").val(serviceDetail.serviceID);
                     $("#request_type").val(serviceDetail.serviceType);
-                    $("#service_request").val(serviceDetail.serviceRequest);
+                    $("#text_service_request").val(serviceDetail.serviceRequest);
                     $("#c_name").text(serviceDetail.serviceConsumerName);
                     $("#c_no").text(serviceDetail.serviceConsumerNo);
                 }
