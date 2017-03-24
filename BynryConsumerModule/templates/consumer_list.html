@@ -140,11 +140,11 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label for="select2-single-input-sm" class="control-label">Zone :</label>
+                            <label for="select2-single-input-sm" class="control-label">Zone :</label>                            
                             <select id="filter_zone" class="form-control input-sm select2-multiple" onchange="get_bill_cycle();">
                                   <option value="all"> All</option>
                                   {% for zone in zone_list %}
-                                    <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
+                                    <option value="{{ zone.id }}"> {{ zone.zone_name }}</option>
                                   {% endfor %}
                             </select>
                         </div>

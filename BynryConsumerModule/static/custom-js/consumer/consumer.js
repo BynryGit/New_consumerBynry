@@ -9,7 +9,7 @@
  	  		filter_zone 	 = $("#filter_zone").val('all').change();
 			filter_bill 	 = $("#filter_bill").val('all').change();
 			filter_route 	 = $("#filter_route").val('all').change();
-			filter_category = $("#filter_category").val('HT').change();
+			filter_category = $("#filter_category").val('all').change();
 			filter_service  = $("#filter_service").val('Connected').change();
 			filter_from 	 = $("#filter_from").val('');
 			filter_to 		 = $("#filter_to").val('');		  
@@ -214,7 +214,6 @@ $("#save-consumer").click(function(event)  {
 }
     
 function get_bill_cycle(){
-	alert('hi');
     zone = $("#filter_zone").val();
     $("#filter_bill").html('');
     $("#filter_bill").append('<option value="all">All</option>');

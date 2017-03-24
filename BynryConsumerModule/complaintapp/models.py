@@ -12,7 +12,7 @@ IS_DELETED = (
     (False, False),
 )
 
-IMAGES_PATH = 'media/complaints/'
+IMAGES_PATH = 'complaints/'
 
 class ComplaintType (models.Model):
     complaint_type = models.CharField(max_length=500,blank = True, null = True)
