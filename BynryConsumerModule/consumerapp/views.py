@@ -51,6 +51,7 @@ def consumer_list(request):
             'pincode_list': get_pincode(request)
         }
     except Exception, e:
+        data = {}
         print 'Exception|consumerapp|views.py|consumer_list', e
     return render(request, 'consumer_list.html', data)
 
