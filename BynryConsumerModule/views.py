@@ -408,7 +408,7 @@ def get_role_details(request):
 @csrf_exempt
 def update_role_details(request):
     try:
-        print 'views.py|update_role_details\n\n\n\n\n\n'
+        print 'views.py|update_role_details\n\n\n\n\n\nSSSSSSSSSSSA',request.POST.get('status')
         privilege_list = request.POST.get('privilege_list')
         privilege_list = privilege_list.split(',')
 
