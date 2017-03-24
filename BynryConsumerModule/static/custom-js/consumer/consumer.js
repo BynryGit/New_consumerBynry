@@ -214,7 +214,6 @@ $("#save-consumer").click(function(event)  {
 }
     
 function get_bill_cycle(){
-	alert('hi');
     zone = $("#filter_zone").val();
     $("#filter_bill").html('');
     $("#filter_bill").append('<option value="all">All</option>');
