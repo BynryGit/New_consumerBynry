@@ -178,7 +178,7 @@ def head_admin(request):
             head_admin_list = SystemUserProfile.objects.all()
             # get head admin data list
             for h in head_admin_list:
-                head_admin_data = {'id' : str(h.id),
+                head_admin_data = {'id' : str(h.employee_id),
                                    'name' : str(h.first_name)+' '+str(h.last_name),
                                    'contact' : str(h.contact_no),
                                    'email' : str(h.email),
