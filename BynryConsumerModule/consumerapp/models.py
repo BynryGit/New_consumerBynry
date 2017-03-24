@@ -20,7 +20,7 @@ METER_CATEGORY = (
     ('2-HT-SUPPLY', '2-HT-SUPPLY'),
     ('3-EHV', '3-EHV'),
 )
-METER_IMAGES_PATH = 'static/images/meter_images/'
+METER_IMAGES_PATH = 'meter_images/'
 METER_PHASE = (
     ('SINGLE-SINGLE-PHASE', 'SINGLE-SINGLE-PHASE'),
     ('THREE-THREE-PHASE', 'THREE-THREE-PHASE'),
