@@ -169,12 +169,10 @@ function edit_admin_modal(user_id) {
 						$("#user_city").val(response.user_data.city); 
 
 						if (response.user_data.user_status=='Active') {						
-							//document.getElementById("update_user_status1").checked = true;	
-							$("#update_user_status1").attr("checked","true"); 									
+							$("#update_user_status1").prop("checked","checked"); 									
 						}	
 						else {							
-							//document.getElementById("update_user_status2").checked = true;	
-							$("#update_user_status2").attr("checked","false");
+							$("#update_user_status2").prop("checked","unchecked");
 						}										
 						if (response.user_data.role.match(/H.O./g)) {
 							$("#user_branch_name").prop("disabled", true);
