@@ -414,7 +414,7 @@ def update_role_details(request):
 
         role_obj = UserRole.objects.get(id=request.POST.get('roleid'))
         role_obj.description = request.POST.get('description')
-        if request.POST.get('status') == 'True':
+        if request.POST.get('status') == 'true':
             role_obj.status = 'Active'
         else:
             role_obj.status = 'Inactive'
