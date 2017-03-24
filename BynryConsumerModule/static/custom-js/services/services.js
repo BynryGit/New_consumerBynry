@@ -143,10 +143,12 @@
 
  function get_zone(){
     branch = $("#select_branch").val();
+    $( "#clear_bill_cycle" ).load(" #clear_bill_cycle" );
     $("#select_zone").html('');
     $("#select_zone").append('<option value="all">All</option>');
     $("#select_bill_cycle").html('');
     $("#select_bill_cycle").append('<option value="all">All</option>');
+    $("#select_bill_cycle").val("all").change();
     $("#select_route").html('');
     $("#select_route").append('<option value="all">All</option>');
     $("#select_route").val("all").change();

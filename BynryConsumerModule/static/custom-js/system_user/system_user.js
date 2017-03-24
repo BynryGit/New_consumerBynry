@@ -105,15 +105,10 @@ function save_head_admin_details() {
 			var branch = $('#branch_name').val();
 			var contact_no = $('#contact_no').val();
 			var email = $('#email').val();
-			//var user_status = $('#user_status').val();
 			var password = $('#password').val();
 			var re_password = $('#re_password').val();
 					
-			if (document.getElementById('user_status1').checked) {
-			  user_status = document.getElementById('user_status1').value;
-			}else {
-			  user_status = document.getElementById('user_status2').value;				
-			}
+			user_status = document.getElementById('user_status').checked;
 			
 			if (validateData()) {
 					$.ajax({
@@ -169,10 +164,10 @@ function edit_admin_modal(user_id) {
 						$("#user_city").val(response.user_data.city); 
 
 						if (response.user_data.user_status=='Active') {						
-							$("#update_user_status1").prop("checked","checked"); 									
+							$("#update_user_status").attr("checked",true).change(); 									
 						}	
 						else {							
-							$("#update_user_status2").prop("checked","unchecked");
+							$("#update_user_status").attr("checked",false).change();
 						}										
 						if (response.user_data.role.match(/H.O./g)) {
 							$("#user_branch_name").prop("disabled", true);
@@ -202,16 +197,10 @@ function update_head_admin_details() {
 			var branch = $('#user_branch_name').val();
 			var contact_no = $('#user_contact_no').val();
 			var email = $('#user_email').val();
-			//var user_status = $('#update_user_status').val();
 			var password = $('#user_password').val();
 			var re_password = $('#user_re_password').val();
 			
-			if (document.getElementById('update_user_status1').checked) {
-			  user_status = document.getElementById('update_user_status1').value;
-			}
-			if (document.getElementById('update_user_status2').checked) {
-			  user_status = document.getElementById('update_user_status2').value;				
-			}
+			user_status = document.getElementById('update_user_status').checked;
 
 			if (validateEditData()) {
 					$.ajax({

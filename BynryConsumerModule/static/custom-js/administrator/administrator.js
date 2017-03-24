@@ -47,7 +47,7 @@
                 {"data": "role","sClass": "text-center"},
                 {"data": "description","sClass": "text-center"},
                 {"data": "created_on","sClass": "text-center"},
-                {"data": "associated_user","sClass": "text-center"},
+                //{"data": "associated_user","sClass": "text-center"},
                 {"data": "status","sClass": "text-center"},
                 {"data": "action","sClass": "text-center"}                                                       
             ],                                                                                                                                                                  

@@ -69,6 +69,10 @@ def save_system_user_details(request):
         print 'views.py|save_system_user_details'
         city_obj = City.objects.get(city=request.GET.get('city'))
         role_obj = UserRole.objects.get(role=request.GET.get('role'))
+        if request.GET.get('user_status')=='true':
+            user_status = 'Active'
+        else:
+            user_status = 'Inactive'
         user_obj = SystemUserProfile(
             username=request.GET.get('email'),
             #password=request.GET.get('password'),
@@ -80,7 +84,7 @@ def save_system_user_details(request):
             employee_id=request.GET.get('emp_id'),
             role=role_obj,
             email=request.GET.get('email'),
-            status=request.GET.get('user_status')
+            status=user_status
             )
         user_obj.save()
 
@@ -134,6 +138,11 @@ def update_system_user_details(request):
         city_obj = City.objects.get(city=request.GET.get('city'))
         role_obj = UserRole.objects.get(role=request.GET.get('role'))
 
+        if request.GET.get('user_status')=='true':
+            user_obj.status = 'Active'
+        else:
+            user_obj.status = 'Inactive'
+
         user_obj.username = request.GET.get('email')
         user_obj.password = request.GET.get('password')
         user_obj.contact_no = request.GET.get('contact_no')
@@ -144,7 +153,7 @@ def update_system_user_details(request):
         user_obj.employee_id = request.GET.get('emp_id')
         user_obj.role = role_obj
         user_obj.email = request.GET.get('email')
-        user_obj.status = request.GET.get('user_status')
+        #user_obj.status = request.GET.get('user_status')
         user_obj.save()
 
         if request.GET.get('branch'):
