@@ -249,8 +249,8 @@ def get_bill_cycle(request):
         # bill cycle result
         for bill_cycle in bill_cycle_obj:
             bill_cycle_data = {
-                'bill_cycle_id' : bill_cycle.id,
-                'bill_cycle' : bill_cycle.bill_cycle_code
+                'bill_cycle_id' : str(bill_cycle.id),
+                'bill_cycle' : str(bill_cycle.bill_cycle_code)
             }
             bill_cycle_list.append(bill_cycle_data)
         data = {'success' : 'true', 'bill_cycle' : bill_cycle_list}
