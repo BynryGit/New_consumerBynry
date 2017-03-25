@@ -43,6 +43,7 @@ def consumer_list(request):
             if request.session['branch_id']:
                 branch_obj = Branch.objects.get(id=request.session['branch_id'])
                 zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
+                total = ConsumerDetails.objects.filter(is_deleted=False).count()
             else:
                 zones = ''
             data = {
@@ -51,7 +52,8 @@ def consumer_list(request):
                 'branch_list': get_branch(request),
                 'billcycle_list': get_billcycle(request),
                 'route_list': get_RouteDetail(request),
-                'pincode_list': get_pincode(request)
+                'pincode_list': get_pincode(request),
+                'total':total
             }
         except Exception, e:
             data = {}
@@ -312,41 +314,30 @@ def consumer_details(request):
 
                 try:
                     consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
-                    name = consumer_obj.name
-                    consumer_no = consumer_obj.consumer_no
-                    aadhar_no = consumer_obj.aadhar_no
+
                     address_line_1 = consumer_obj.address_line_1
                     address_line_2 = consumer_obj.address_line_2
                     address = address_line_1 + ', ' + address_line_2
-                    contact_no = consumer_obj.contact_no
-                    email_id = consumer_obj.email_id
-                    zone_name = str(consumer_obj.zone.zone_name)
-                    billcycle = str(consumer_obj.bill_cycle.bill_cycle_code)
-                    route = str(consumer_obj.route.route_code)
-                    utility = consumer_obj.Utility.utility
-                    meter_no = consumer_obj.meter_no
-                    meter_category = consumer_obj.meter_category
-                    sanction_load = consumer_obj.sanction_load
-
+                    
                     vigilanceType = VigilanceType.objects.filter(is_deleted=False)
                     complaintType = ComplaintType.objects.filter(is_deleted=False)
                     serviceType = ServiceRequest.objects.filter(is_deleted=False)
                     consumer_data = {
                         'consumer_id': request.GET.get('consumer_id'),
-                        'name': name,
-                        'consumer_no': consumer_no,
-                        'aadhar_no': aadhar_no,
+                        'name': consumer_obj.name,
+                        'consumer_no': consumer_obj.consumer_no,
+                        'aadhar_no': consumer_obj.aadhar_no,
                         'address': address,
-                        'aadhar_no': aadhar_no,
-                        'contact_no': contact_no,
-                        'email_id': email_id,
-                        'zone_name': zone_name,
-                        'billcycle': billcycle,
-                        'route': route,
-                        'utility': utility,
-                        'meter_no': meter_no,
-                        'meter_category': meter_category,
-                        'sanction_load': sanction_load
+                        'contact_no': consumer_obj.contact_no,
+                        'email_id': consumer_obj.email_id,
+                        'zone_name': str(consumer_obj.zone.zone_name),
+                        'billcycle': str(consumer_obj.bill_cycle.bill_cycle_code),
+                        'route': str(consumer_obj.route.route_code),
+                        'utility': consumer_obj.Utility.utility,
+                        'meter_no': consumer_obj.meter_no,
+                        'meter_category': consumer_obj.meter_category,
+                        'sanction_load': consumer_obj.sanction_load,
+                        'pole_no':consumer_obj.pole_no
                     }
                 except Exception, e:
                     print 'Exception|consumerapp|views.py|consumer_details', e
@@ -355,7 +346,7 @@ def consumer_details(request):
                 try:
                     payment_obj = PaymentDetail.objects.filter(consumer_id=request.GET.get('consumer_id')).first()
                     payment_data={
-                            'consumer_no':consumer_no,
+                            'consumer_no':consumer_obj.name,
                             'address': payment_obj.consumer_id.address_line_1 +' '+ payment_obj.consumer_id.address_line_2,
                             'transaction_id':str(payment_obj.transaction_id),
                             'payment_mode':payment_obj.payment_mode,
