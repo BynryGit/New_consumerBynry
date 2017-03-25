@@ -302,19 +302,23 @@ function add_payment() {
 		var consumer_number = $('#consumer_no').val(); 
 		var bill_month = $('#bill_month').val(); 
 		
-		if (consumer_number == '' && bill_month == '') {
+		if (consumer_number == '' && bill_month == '') {			
 			$('.error').text("Please enter Consumer Number");		
-			$('.error1').text("Please select bill month");		
+			$('.error1').text("Please select bill month");
+			$(".error").css("display", "block");	
+			$(".error1").css("display", "block");			
 			return false;
 		}
 		else if (consumer_number == '') {
 			$('.error1').text("");		
-			$('.error').text("Please enter Consumer Number");		
+			$('.error').text("Please enter Consumer Number");	
+			$(".error").css("display", "block");			
 			return false;
 		}
 		else if (bill_month == '') {
 			$('.error').text("");	
-			$('.error1').text("Please select bill month");		
+			$('.error1').text("Please select bill month");	
+			$(".error1").css("display", "block");			
 			return false;
 		}
 		else {			
@@ -350,7 +354,8 @@ function add_payment() {
 		     		  if(response.success=='false'){
 							$('.error').text("");												    
 							$('.error1').text("");												    
-							$('.error').text("No Data Available");												    
+							$('.error').text("No Data Available");		
+							$(".error").css("display", "block");													    
 		     		  }
 		       },
 		       
