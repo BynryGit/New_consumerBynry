@@ -66,7 +66,7 @@ def get_complaint_data(request):
             complaint_obj = complaint_obj.filter(
                 complaint_date__range=[start_date, end_date])
         # filter complaint data by complaint type
-        elif request.GET.get('complaint_type'):
+        if request.GET.get('complaint_type'):
             if request.GET.get('complaint_type') == 'all':
                 complaint_type = ComplaintType.objects.filter(is_deleted=False)
             else:
@@ -76,20 +76,20 @@ def get_complaint_data(request):
                 complaint_type_id__in=complaint_type)
 
         # filter complaint data by complaint status
-        elif request.GET.get('complaint_status') and \
+        if request.GET.get('complaint_status') and \
                         request.GET.get('complaint_status') != "all":
             complaint_obj = complaint_obj.filter(
                 complaint_status=request.GET.get('complaint_status'))
 
         # filter complaint data by complaint source
-        elif request.GET.get('complaint_source') and \
+        if request.GET.get('complaint_source') and \
                         request.GET.get('complaint_source') != "all":
             complaint_obj = complaint_obj.filter(
                 complaint_source=request.GET.get('complaint_source'))
 
         # filter complaint data by consumer
         # if not consumer than by zone, bill cycle, route
-        elif request.GET.get('consumer_id'):
+        if request.GET.get('consumer_id'):
             complaint_obj = complaint_obj.filter(
                 consumer_id=request.GET.get('consumer_id'))
         else:
@@ -101,21 +101,21 @@ def get_complaint_data(request):
                     branch=request.GET.get('branch'))
                 complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
             # filter complaint data by zone
-            elif request.GET.get('zone') and \
+            if request.GET.get('zone') and \
                             request.GET.get('zone') != "all":
                 # filter consumer by zone
                 consumer = ConsumerDetails.objects.filter(
                     zone=request.GET.get('zone'))
                 complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
             # filter complaint data by bill cycle
-            elif request.GET.get('bill_cycle') and \
+            if request.GET.get('bill_cycle') and \
                             request.GET.get('bill_cycle') != "all":
                 # filter consumer by bill cycle
                 consumer = ConsumerDetails.objects.filter(
                     bill_cycle=request.GET.get('bill_cycle'))
                 complaint_obj = complaint_obj.filter(consumer_id__in=consumer)
             # filter complaint data by route
-            elif request.GET.get('route') and \
+            if request.GET.get('route') and \
                             request.GET.get('route') != "all":
                 # filter consumer by bill cycle
                 consumer = ConsumerDetails.objects.filter(
@@ -128,7 +128,7 @@ def get_complaint_data(request):
                 'complaint_no' : '<a onclick="complaint_details(' + str(
                     complaints.id) + ')">' + complaints.complaint_no + '</a>',
                 'complaint_type' : complaints.complaint_type_id.complaint_type,
-                'raised_date' : complaints.complaint_date.strftime('%d/%m/%Y'),
+                'raised_date' : complaints.complaint_date.strftime('%B %d, %Y %I:%M %p'),
                 'consumer_no' : '<a onclick="consumer_details(' + str(
                     complaints.consumer_id.id) + ')">' +
                                complaints.consumer_id.consumer_no + '</a>',

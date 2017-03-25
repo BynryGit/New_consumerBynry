@@ -97,7 +97,7 @@ def get_vigilance_data(request):
                 'case_id': '<a onclick="vigilance_details(' + str(
                     vigilance.id) + ')">' + vigilance.case_id + '</a>',
                 'vigilance_type': vigilance.vigilance_type_id.vigilance_type,
-                'registered_date': vigilance.registered_date.strftime('%d/%m/%Y'),
+                'registered_date': vigilance.registered_date.strftime('%B %d, %Y %I:%M %p'),
                 'consumer_no': '<a onclick="consumer_details(' + str(
                     vigilance.consumer_id.id) + ')">' + vigilance.consumer_id.consumer_no + '</a>',
                 'consumer_name': vigilance.consumer_id.name,
