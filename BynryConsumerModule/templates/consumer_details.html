@@ -247,6 +247,7 @@
                                                             <select id="monthList"
                                                                     class="form-control input-sm select2-multiple"
                                                                     name="monthList" onchange="meter_details();">
+                                                                <option value=""> Select Bill Month</option>
                                                                 {% for month in last_month_list %}
                                                                 <option value="{{ month.month2 }}"> {{ month.month1 }}
                                                                 </option>
