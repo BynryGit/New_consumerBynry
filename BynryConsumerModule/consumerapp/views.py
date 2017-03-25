@@ -87,20 +87,6 @@ def get_branch(request):
         data = {'branch_list': 'none', 'message': 'No branch available'}
         return data
 
-def get_zone(request):
-    zone_list = []
-    try:
-        print 'consumerapp|views.py|get_zone'
-        zone_objs = Zone.objects.filter(is_deleted=False)
-        for zone in zone_objs:
-            zone_list.append({'zone_id': zone.id, 'zone_name': zone.zone_name})
-        data = zone_list
-        return data
-    except Exception, e:
-        print 'Exception|consumerapp|views.py|get_zone', e
-        data = {'zone_list': 'none', 'message': 'No zone available'}
-        return data
-
 
 def get_billcycle(request):
     billcycle_list = []
@@ -173,7 +159,7 @@ def get_consumer_list(request):
                 consumer_obj_list = consumer_obj_list.filter(route=filter_route)
             if filter_category != 'all':
                 consumer_obj_list = consumer_obj_list.filter(meter_category=filter_category)
-            if filter_service:
+            if filter_service != 'all':
                 consumer_obj_list = consumer_obj_list.filter(connection_status=filter_service)
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
@@ -411,7 +397,7 @@ def consumer_details(request):
 @csrf_exempt
 def get_meter_details(request):
     try:
-        print 'consumerapp|views.py|get_meter_details'
+        print '\n\n\n\nconsumerapp|views.py|get_meter_details'
         data = {}
         final_list = []
         try:
@@ -430,7 +416,7 @@ def get_meter_details(request):
                 current_reading_date = current_reading_date.strftime("%b %d,%Y")
                 previous_month_reading_date = previous_month_reading_date.strftime("%b %d,%Y")
                 if reading_obj.meter_reading_image:
-                    meter_reading_image = "http://" + get_current_site(request).domain + "/" + reading_obj.meter_reading_image.url
+                    meter_reading_image = "http://" + get_current_site(request).domain + reading_obj.meter_reading_image.url
                 else:
                     meter_reading_image = ""              
 
