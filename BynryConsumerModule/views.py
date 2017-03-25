@@ -15,41 +15,50 @@ import MySQLdb
 from django.http import HttpResponse
 
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    else:
+        return render(request, 'dashboard.html')
 
 def login(request):
     return render(request, 'login.html')
 
 def system_user(request):
-    role_list = []
-    branch_list = []
-    role_objs = UserRole.objects.filter(is_deleted=False)
-    total_role_count = UserRole.objects.filter(is_deleted=False).count()
-    active_role_count = UserRole.objects.filter(is_deleted=False,status='Active').count()
-    inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inctive').count()
-    branch_obj = Branch.objects.filter(is_deleted=False)
-    for branch in branch_obj:
-        branch_data = {'branch_id':branch.id, 'branch':branch.branch_name}
-        branch_list.append(branch_data)
-    for role in role_objs:
-        role_data = {'role_id':role.id, 'role':role.role}
-        role_list.append(role_data)
-    data = {'city_list':get_city(request), 'role_list':role_list, 'branch_list':branch_list,
-            'active_role_count':active_role_count,
-            'inactive_role_count':inactive_role_count,
-            'total_role_count':total_role_count
-            }
-    return render(request, 'system_user.html', data)
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    else:
+        role_list = []
+        branch_list = []
+        role_objs = UserRole.objects.filter(is_deleted=False)
+        total_role_count = UserRole.objects.filter(is_deleted=False).count()
+        active_role_count = UserRole.objects.filter(is_deleted=False,status='Active').count()
+        inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inctive').count()
+        branch_obj = Branch.objects.filter(is_deleted=False)
+        for branch in branch_obj:
+            branch_data = {'branch_id':branch.id, 'branch':branch.branch_name}
+            branch_list.append(branch_data)
+        for role in role_objs:
+            role_data = {'role_id':role.id, 'role':role.role}
+            role_list.append(role_data)
+        data = {'city_list':get_city(request), 'role_list':role_list, 'branch_list':branch_list,
+                'active_role_count':active_role_count,
+                'inactive_role_count':inactive_role_count,
+                'total_role_count':total_role_count
+                }
+        return render(request, 'system_user.html', data)
 
 def administrator(request):
-    try:
-        print 'views.py|administrator'
-        privilege_list =  UserPrivilege.objects.filter(is_deleted=False)
-        data={'privilege_list':privilege_list}
-        
-    except Exception, e:
-        print 'views.py|administrator'
-    return render(request, 'administrator.html',data)
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    else:
+        try:
+            print 'views.py|administrator'
+            privilege_list =  UserPrivilege.objects.filter(is_deleted=False)
+            data={'privilege_list':privilege_list}
+
+        except Exception, e:
+            print 'views.py|administrator'
+        return render(request, 'administrator.html',data)
 
 def complaints(request):
     return render(request, 'complaints.html')

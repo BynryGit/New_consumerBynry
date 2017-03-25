@@ -13,29 +13,31 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 # To view service page
 def service_request(request):
-
-    print 'serviceapp|views.py|service_request'
-    # total, open and closed service details count
-    total = ServiceRequest.objects.filter(is_deleted=False).count()
-    open = ServiceRequest.objects.filter(status='Open', is_deleted=False).count()
-    closed = ServiceRequest.objects.filter(status='Closed', is_deleted=False).count()
-
-    serviceType = ServiceRequestType.objects.filter(is_deleted=False) # Service Types
-    branch_list = Branch.objects.filter(is_deleted=False) # Branch List
-    if request.session['branch_id']:
-        branch_obj = Branch.objects.get(id=request.session['branch_id'])
-        zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
     else:
-        zones = ''
-    data = {
-        'total': total,
-        'open': open,
-        'closed': closed,
-        'ServiceType': serviceType,
-        'branch_list': branch_list,
-        'zones': zones
-    }
-    return render(request, 'services.html', data)
+        print 'serviceapp|views.py|service_request'
+        # total, open and closed service details count
+        total = ServiceRequest.objects.filter(is_deleted=False).count()
+        open = ServiceRequest.objects.filter(status='Open', is_deleted=False).count()
+        closed = ServiceRequest.objects.filter(status='Closed', is_deleted=False).count()
+
+        serviceType = ServiceRequestType.objects.filter(is_deleted=False) # Service Types
+        branch_list = Branch.objects.filter(is_deleted=False) # Branch List
+        if request.session['branch_id']:
+            branch_obj = Branch.objects.get(id=request.session['branch_id'])
+            zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
+        else:
+            zones = ''
+        data = {
+            'total': total,
+            'open': open,
+            'closed': closed,
+            'ServiceType': serviceType,
+            'branch_list': branch_list,
+            'zones': zones
+        }
+        return render(request, 'services.html', data)
 
 # To get service data (filter parameters: service type, status, source, zone, bill cycle, route, consumer)
 def get_service_data(request):
