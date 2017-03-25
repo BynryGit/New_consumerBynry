@@ -375,7 +375,7 @@ def consumer_details(request):
                     'last_month_list': last_month_list,
                     'vigilanceType':vigilanceType,
                     'complaintType':complaintType,
-                    'serviceType':serviceType,
+                    'serviceType':ServiceRequestType.objects.filter(is_deleted=False),
                     'payment_data': payment_data
                 }
             except Exception as e:

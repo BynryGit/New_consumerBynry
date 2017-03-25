@@ -5,7 +5,7 @@
 {% load staticfiles %}
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | New User Profile | Account</title>
+    <title> Consumer Details | Bynry</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
@@ -798,7 +798,7 @@
                                                         <select id="select_service_type" class="form-control select2">
                                                             <option value="all">All</option>
                                                             {% for type in serviceType%}
-                                                            <option value="{{type.id}}">{{type.service_type}}</option>
+                                                            <option value="{{type.id}}">{{type.request_type}}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
