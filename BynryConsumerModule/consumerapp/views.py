@@ -321,7 +321,7 @@ def consumer_details(request):
                     
                     vigilanceType = VigilanceType.objects.filter(is_deleted=False)
                     complaintType = ComplaintType.objects.filter(is_deleted=False)
-                    serviceType = ServiceRequest.objects.filter(is_deleted=False)
+                    serviceType = ServiceRequestType.objects.filter(is_deleted=False)
                     consumer_data = {
                         'consumer_id': request.GET.get('consumer_id'),
                         'name': consumer_obj.name,
