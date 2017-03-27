@@ -144,8 +144,9 @@ function reload_complaints(){
     branch = $("#select_branch").val();
     $("#select_zone").html('');
     $("#select_zone").append('<option value="all">All</option>');
-    $("#select_bill").html('');
-    $("#select_bill").append('<option value="all">All</option>');
+    $("#select_bill_cycle").html('');
+    $("#select_bill_cycle").append('<option value="all">All</option>');
+    $("#select_bill_cycle").val("all").change();
     $("#select_route").html('');
     $("#select_route").append('<option value="all">All</option>');
     $("#select_route").val("all").change();
@@ -172,6 +173,7 @@ function get_bill_cycle(){
     zone = $("#select_zone").val();
     $("#select_bill_cycle").html('');
     $("#select_bill_cycle").append('<option value="all">All</option>');
+    $("#select_bill_cycle").val("all").change();
     $("#select_route").html('');
     $("#select_route").append('<option value="all">All</option>');
     $("#select_route").val("all").change();

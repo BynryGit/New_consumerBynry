@@ -5,7 +5,7 @@
 {% load staticfiles %}
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | New User Profile | Account</title>
+    <title> Consumer Details | Bynry</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
@@ -38,6 +38,7 @@
     <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
           type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet" type="text/css"/>
 </head>
 <!-- END HEAD -->
 
@@ -247,6 +248,7 @@
                                                             <select id="monthList"
                                                                     class="form-control input-sm select2-multiple"
                                                                     name="monthList" onchange="meter_details();">
+                                                                <option value=""> Select Bill Month</option>
                                                                 {% for month in last_month_list %}
                                                                 <option value="{{ month.month2 }}"> {{ month.month1 }}
                                                                 </option>
@@ -379,14 +381,14 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="panel_no" readonly value="{{data.meter_no}}">
+                                                                       id="panel_no" readonly value="{{data.pole_no}}">
                                                                 <label >Panel :</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="latitude" readonly value="{{data.meter_no}}">
+                                                                       id="latitude" readonly value="">
                                                                 <label >latitude :</label>
                                                             </div>
                                                         </div>
@@ -394,7 +396,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
                                                                        id="longitude" readonly
-                                                                       value="{{data.meter_no}}">
+                                                                       value="">
                                                                 <label >Longitude :</label>
                                                             </div>
                                                         </div>
@@ -411,7 +413,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
                                                                        id="special_instru" readonly
-                                                                       value="Right Bhusari">
+                                                                       value="">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -797,7 +799,7 @@
                                                         <select id="select_service_type" class="form-control select2">
                                                             <option value="all">All</option>
                                                             {% for type in serviceType%}
-                                                            <option value="{{type.id}}">{{type.service_type}}</option>
+                                                            <option value="{{type.id}}">{{type.request_type}}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
@@ -1099,7 +1101,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea readonly id="text_service_request" rows="4"></textarea>
+                                <textarea class="form-control" id="text_service_request" readonly rows="4"></textarea>
                                 <label>Service Request</label>
                             </div>
                         </div>
@@ -1408,206 +1410,7 @@ else {
 }	
 }   
 
-  var initTable1 = function () {
-        var table = $('#complaints');
-
-        var oTable = table.dataTable({
-
-            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            // Or you can use remote translation file
-            //"language": {
-            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
-            //},
-
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'copy', className: 'btn red btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
-                { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
-            ],
-
-            // setup responsive extension: http://datatables.net/extensions/responsive/
-            responsive: true,
-
-            //"ordering": false, disable column ordering
-            //"paging": false, disable pagination
-
-            "order": [
-                [0, 'asc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            // set the initial value
-            "pageLength": 10,
-
-            //"dom": "<'row' <'col-md-12'>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-
-            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
-            // So when dropdowns used the scrollable div should be removed.
-            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-        });
-
-        // handle datatable custom tools
-        $('#complaints_tools > li > a.tool-action').on('click', function() {
-            var action = $(this).attr('data-action');
-            oTable.DataTable().button(action).trigger();
-        });
-    }
-    
-    var initTable2 = function () {
-        var table = $('#service_request');
-
-        var oTable = table.dataTable({
-
-            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            // Or you can use remote translation file
-            //"language": {
-            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
-            //},
-
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'copy', className: 'btn red btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
-                { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
-            ],
-
-            // setup responsive extension: http://datatables.net/extensions/responsive/
-            responsive: true,
-
-            //"ordering": false, disable column ordering
-            //"paging": false, disable pagination
-
-            "order": [
-                [0, 'asc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            // set the initial value
-            "pageLength": 10,
-
-            //"dom": "<'row' <'col-md-12'>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-
-            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
-            // So when dropdowns used the scrollable div should be removed.
-            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-        });
-
-        // handle datatable custom tools
-        $('#service_tools > li > a.tool-action').on('click', function() {
-            var action = $(this).attr('data-action');
-            oTable.DataTable().button(action).trigger();
-        });
-    }
-    
-    var initTable3 = function () {
-        var table = $('#vigilance');
-
-        var oTable = table.dataTable({
-
-            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            // Or you can use remote translation file
-            //"language": {
-            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
-            //},
-
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'copy', className: 'btn red btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
-                { extend: 'colvis', className: 'btn dark btn-outline', text: 'Columns'}
-            ],
-
-            // setup responsive extension: http://datatables.net/extensions/responsive/
-            responsive: true,
-
-            //"ordering": false, disable column ordering
-            //"paging": false, disable pagination
-
-            "order": [
-                [0, 'asc']
-            ],
-
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            // set the initial value
-            "pageLength": 10,
-
-            //"dom": "<'row' <'col-md-12'>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-
-            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
-            // So when dropdowns used the scrollable div should be removed.
-            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-        });
-
-        // handle datatable custom tools
-        $('#vigilance_tools > li > a.tool-action').on('click', function() {
-            var action = $(this).attr('data-action');
-            oTable.DataTable().button(action).trigger();
-        });
-    }            
-initTable1();
-initTable2();
-initTable3();
+  
 
 
 </script>

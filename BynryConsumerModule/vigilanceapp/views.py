@@ -10,33 +10,36 @@ import datetime
 
 # To view vigilance page
 def vigilance(request):
-    try:
-        print 'vigilanceapp|views.py|complaint'
-        # total, open and closed vigilance count
-        total = VigilanceDetail.objects.filter(is_deleted=False).count()
-        open = VigilanceDetail.objects.filter(vigilance_status='Open', is_deleted=False).count()
-        closed = VigilanceDetail.objects.filter(vigilance_status='Closed', is_deleted=False).count()
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    else:
+        try:
+            print 'vigilanceapp|views.py|complaint'
+            # total, open and closed vigilance count
+            total = VigilanceDetail.objects.filter(is_deleted=False).count()
+            open = VigilanceDetail.objects.filter(vigilance_status='Open', is_deleted=False).count()
+            closed = VigilanceDetail.objects.filter(vigilance_status='Closed', is_deleted=False).count()
 
-        vigilanceType = VigilanceType.objects.filter(is_deleted=False) # vigilance type
-        branch_list = Branch.objects.filter(is_deleted=False) # branch list
-        if request.session['branch_id']:
-            branch_obj = Branch.objects.get(id=request.session['branch_id'])
-            zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
-        else:
-            zones = ''
+            vigilanceType = VigilanceType.objects.filter(is_deleted=False) # vigilance type
+            branch_list = Branch.objects.filter(is_deleted=False) # branch list
+            if request.session['branch_id']:
+                branch_obj = Branch.objects.get(id=request.session['branch_id'])
+                zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
+            else:
+                zones = ''
 
-        data = {
-            'total': total,
-            'open': open,
-            'closed': closed,
-            'vigilanceType': vigilanceType,
-            'branch_list': branch_list,
-            'zones': zones
-        }
-    except Exception, e:
-        print 'Exception|vigilanceapp|views.py|vigilance', e
-        data = {}
-    return render(request, 'vigilance_cases.html', data)
+            data = {
+                'total': total,
+                'open': open,
+                'closed': closed,
+                'vigilanceType': vigilanceType,
+                'branch_list': branch_list,
+                'zones': zones
+            }
+        except Exception, e:
+            print 'Exception|vigilanceapp|views.py|vigilance', e
+            data = {}
+        return render(request, 'vigilance_cases.html', data)
 
 # To get vigilance data (filter parameters: vigilance type, status, source, zone, bill cycle, route, consumer)
 def get_vigilance_data(request):
@@ -94,7 +97,7 @@ def get_vigilance_data(request):
                 'case_id': '<a onclick="vigilance_details(' + str(
                     vigilance.id) + ')">' + vigilance.case_id + '</a>',
                 'vigilance_type': vigilance.vigilance_type_id.vigilance_type,
-                'registered_date': vigilance.registered_date.strftime('%d/%m/%Y'),
+                'registered_date': vigilance.registered_date.strftime('%B %d, %Y %I:%M %p'),
                 'consumer_no': '<a onclick="consumer_details(' + str(
                     vigilance.consumer_id.id) + ')">' + vigilance.consumer_id.consumer_no + '</a>',
                 'consumer_name': vigilance.consumer_id.name,

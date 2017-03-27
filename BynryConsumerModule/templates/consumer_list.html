@@ -172,7 +172,7 @@
                        <div class="row">
                         <div class="col-md-12">
                          <div class="col-md-3">
-                            <label for="select2-single-input-sm" class="control-label">Category :</label>
+                            <label for="select2-single-input-sm" class="control-label"> Meter Category :</label>
                             <select id="filter_category" class="form-control input-sm select2-multiple">
                                 <option value="all"> All</option>
                                 <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
@@ -183,6 +183,7 @@
                          <div class="col-md-3">
                             <label for="select2-single-input-sm" class="control-label">Service Status :</label>
                             <select id="filter_service" class="form-control input-sm select2-multiple">
+                                <option value="all"> All</option>
                                 <option value="Connected">Connected</option>
                                 <option value="Disconnected">Disconnected</option>
                             </select>
@@ -229,15 +230,20 @@
                                     <div class="caption font-dark">
                                         <i class="icon-settings font-dark"></i>
                                         <span class="caption-subject bold uppercase">Consumers :</span>
-                                        <span class="caption-subject">1251</span>
+                                        <span class="caption-subject">{{total}}</span>
                                     </div>
-                                    <!-- <div class="actions">
-                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                    <div class="actions">
+                                        <!-- <div class="btn-group btn-group-devided" data-toggle="buttons">
                                             <a type="button"
 						                        class="btn btn-transparent dark btn-outline btn-circle btn-sm"
 						                        href="#adduser_model" data-toggle="modal" >Add Consumer</a>
-                                        </div>                                                        
-												    <div class="btn-group">
+                                        </div>  -->  
+                                       <div class="btn-group btn-group-devided">
+                                         <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="search_consumer()">
+                                            <i class="fa fa-refresh"></i> Reload
+                                         </button>
+                                			</div>                                                     
+												   <div class="btn-group">
 		                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
 		                                        <i class="fa fa-share"></i>
 		                                        <span class="hidden-xs"> Tools </span>
@@ -248,31 +254,24 @@
 		                                            <a href="javascript:;" data-action="0" class="tool-action">
 		                                                <i class="icon-printer"></i> Print</a>
 		                                        </li>
+		
 		                                        <li>
 		                                            <a href="javascript:;" data-action="1" class="tool-action">
-		                                                <i class="icon-check"></i> Copy</a>
-		                                        </li>
-		                                        <li>
-		                                            <a href="javascript:;" data-action="2" class="tool-action">
 		                                                <i class="icon-doc"></i> PDF</a>
 		                                        </li>
 		                                        <li>
-		                                            <a href="javascript:;" data-action="3" class="tool-action">
+		                                            <a href="javascript:;" data-action="2" class="tool-action">
 		                                                <i class="icon-paper-clip"></i> Excel</a>
 		                                        </li>
 		                                        <li>
-		                                            <a href="javascript:;" data-action="4" class="tool-action">
+		                                            <a href="javascript:;" data-action="3" class="tool-action">
 		                                                <i class="icon-cloud-upload"></i> CSV</a>
 		                                        </li>
-		                                        <li class="divider"> </li>
-		                                        <li>
-		                                            <a href="javascript:;" data-action="5" class="tool-action">
-		                                                <i class="icon-refresh"></i> Reload</a>
-		                                        </li>
+		
 		                                        </li>
 		                                    </ul>
 		                                </div>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="portlet-body">
                                     <table class="table table-striped table-bordered table-hover table-header-fixed"
@@ -380,7 +379,7 @@
 					                      <div class="form-group form-md-line-input has-success">
 					                          <select id="edit_zone" class="form-control input-sm select2-multiple">
 				                                  {% for zone in zone_list %}
-				                                   <option value="{{ zone.zone_id }}"> {{ zone.zone_name }}</option>
+				                                   <option value="{{ zone.id }}"> {{ zone.zone_name }}</option>
 				                                  {% endfor %}
 				                             </select>
 					                          <label for="consumer_zone">Zone</label>

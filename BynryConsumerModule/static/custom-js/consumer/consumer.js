@@ -12,7 +12,8 @@
 			filter_category = $("#filter_category").val('all').change();
 			filter_service  = $("#filter_service").val('Connected').change();
 			filter_from 	 = $("#filter_from").val('');
-			filter_to 		 = $("#filter_to").val('');		  
+			filter_to 		 = $("#filter_to").val('');	
+			initTable1();	  
     }
     
    // Edit Consumer From Edit button click
@@ -57,7 +58,6 @@
 
  // Save edited consumer on edit button click 
 $("#save-consumer").click(function(event)  {
-
 	event.preventDefault();  
 													
 	   var formData= new FormData();
@@ -168,10 +168,12 @@ $("#save-consumer").click(function(event)  {
                 {"data": "action","sClass": "text-center"}                                                       
             ],                                                    
                                                         
-            buttons: [
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-            ],
+	        buttons: [
+	            { extend: 'print', className: 'btn dark btn-outline' },
+	            { extend: 'pdf', className: 'btn green btn-outline' },
+	            { extend: 'excel', className: 'btn yellow btn-outline ' },
+	            { extend: 'csv', className: 'btn purple btn-outline ' },
+	        ],
 
             "lengthMenu": [
                 [5, 10, 15, 20, -1],
@@ -180,7 +182,11 @@ $("#save-consumer").click(function(event)  {
             // set the initial value
             "pageLength": 20,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable            
+    });
+    $('#consumer_table_tools > li > a.tool-action').on('click', function() {
+        var action = $(this).attr('data-action');
+        oTable.DataTable().button(action).trigger();
       });
     }
     initTable1();
