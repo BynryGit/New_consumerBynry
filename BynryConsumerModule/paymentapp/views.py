@@ -223,11 +223,11 @@ def payments_get_consumer_details(request):
         consumer_data = {
                 'billCycle': consumer_obj.bill_cycle.bill_cycle_code,
                 'consumerCity': consumer_obj.city.city,
-                'consumerRoute': consumer_obj.bill_cycle.bill_cycle_code,
+                'consumerRoute': consumer_obj.route.route_code,
                 'consumerZone': consumer_obj.bill_cycle.zone.zone_name,
                 'consumerNo': consumer_obj.consumer_no,
                 'consumerName': consumer_obj.name,
-                'consumerAddress': consumer_obj.address_line_1 + '  ' + consumer_obj.address_line_2
+                'consumerAddress': consumer_obj.address_line_1 + '  ' + consumer_obj.address_line_2 + '-' +consumer_obj.pin_code.pincode
             }
         data = {'success': 'true', 'consumerData': consumer_data}
 
