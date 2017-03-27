@@ -40,10 +40,10 @@ def consumer_list(request):
     else:
         try:
             print 'consumerapp|views.py|consumer_list'
+            total = ConsumerDetails.objects.filter(is_deleted=False).count()
             if request.session['branch_id']:
                 branch_obj = Branch.objects.get(id=request.session['branch_id'])
                 zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
-                total = ConsumerDetails.objects.filter(is_deleted=False).count()
             else:
                 zones = ''
             data = {
