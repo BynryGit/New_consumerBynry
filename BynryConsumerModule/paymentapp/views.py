@@ -315,7 +315,7 @@ def get_bills_details(request):
                 }
             except Exception, e:
                 print '....................Exception',e
-                consumer_data ={}
+                payment_data ={}
             
             data = {'success': 'true', 'data': payment_data}
         except Exception as e:
