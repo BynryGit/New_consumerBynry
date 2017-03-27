@@ -70,7 +70,7 @@ def online_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Online Payment':
-                    online_data = {'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
+                    online_data = {'payment_date':str(i.payment_date.strftime('%B %d, %Y %I:%M %p')),
                                   'bill_amount_paid':str(i.bill_amount_paid),
                                   'transaction_id':str(i.transaction_id),
                                   'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -131,7 +131,7 @@ def paytm_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Paytm Wallet':
-                    paytm_data = {'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
+                    paytm_data = {'payment_date':str(i.payment_date.strftime('%B %d, %Y %I:%M %p')),
                                  'bill_amount_paid':str(i.bill_amount_paid),
                                  'transaction_id':str(i.transaction_id),
                                  'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -195,7 +195,7 @@ def cash_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Cash Payment':
-                    cash_data = {'payment_date':str(i.payment_date.strftime("%d/%m/%Y")),
+                    cash_data = {'payment_date':str(i.payment_date.strftime('%B %d, %Y %I:%M %p')),
                                 'bill_amount_paid':str(i.bill_amount_paid),
                                 'transaction_id':str(i.transaction_id),
                                 'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -223,11 +223,11 @@ def payments_get_consumer_details(request):
         consumer_data = {
                 'billCycle': consumer_obj.bill_cycle.bill_cycle_code,
                 'consumerCity': consumer_obj.city.city,
-                'consumerRoute': consumer_obj.bill_cycle.bill_cycle_code,
+                'consumerRoute': consumer_obj.route.route_code,
                 'consumerZone': consumer_obj.bill_cycle.zone.zone_name,
                 'consumerNo': consumer_obj.consumer_no,
                 'consumerName': consumer_obj.name,
-                'consumerAddress': consumer_obj.address_line_1 + '  ' + consumer_obj.address_line_2
+                'consumerAddress': consumer_obj.address_line_1 + '  ' + consumer_obj.address_line_2 + '-' +consumer_obj.pin_code.pincode
             }
         data = {'success': 'true', 'consumerData': consumer_data}
 
