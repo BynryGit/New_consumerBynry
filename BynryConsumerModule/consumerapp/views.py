@@ -152,7 +152,7 @@ def get_consumer_list(request):
         try:
             consumer_obj_list = ConsumerDetails.objects.all()
             if filter_branch != 'all':
-                consumer_obj_list = consumer_obj_list.filter(zone=filter_branch)
+                consumer_obj_list = consumer_obj_list.filter(branch=filter_branch)
             if filter_zone != 'all':
                 consumer_obj_list = consumer_obj_list.filter(zone=filter_zone)
             if filter_bill != 'all':

@@ -192,6 +192,7 @@ $("#save-consumer").click(function(event)  {
     initTable1();
     
     function get_zone(){
+    	alert($("#filter_branch").val())
     branch = $("#filter_branch").val();
     $("#filter_zone").html('');
     $("#filter_zone").append('<option value="all">All</option>');
