@@ -12,10 +12,21 @@ from django.shortcuts import render
 def home_screen(request):
     """To view complaints page"""
     try:
-        print 'complaintapp|views.py|complaint'
+        print 'selfserviceapp|views.py|home_screen'
         data = {
         }
     except Exception as exe:
-        print 'Exception|comlpaintapp|views.py|complaint', exe
+        print 'Exception|selfserviceapp|views.py|home_screen', exe
         data = {}
     return render(request, 'self_service/home_screen.html', data)
+
+def register_new_user(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|register_new_user'
+        data = {
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|register_new_user', exe
+        data = {}
+    return render(request, 'self_service/register_new_user.html', data)    
