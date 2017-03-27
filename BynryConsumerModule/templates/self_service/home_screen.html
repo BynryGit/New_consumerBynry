@@ -46,6 +46,40 @@
     <link href="{% static 'assets/layouts/layout3/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
+
+    <style>
+        .feature-item {
+            margin-top: 50px;
+
+        }
+
+        .feature-item>i {
+            font-size: 32px;
+            line-height: 100px !important;
+            height: 100px;
+            width: 100px;
+            padding: 0;
+            border-radius: 50%;
+            border: 2px solid #999;
+        }
+
+        .feature-item .desc {
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #999;
+        }
+
+        .box-text{
+            color:#999;
+        }
+
+        h3 {
+            color:#000;
+        }
+
+    </style>
+
 </head>
 <!-- END HEAD -->
 
@@ -57,7 +91,7 @@
         <div class="container">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="index.html">
+                <a >
                     <img src="{% static 'assets/layouts/layout3/img/logo-default.jpg' %}" alt="logo"
                          class="logo-default">
                 </a>
@@ -403,122 +437,81 @@
                         </div>
                         <div class="col-md-12 col-sm-12">
                             <div class="portlet light ">
-                                <div class="portlet-title">
-                                    <div class="caption caption-md">
-                                        <i class="icon-bar-chart font-red"></i>
-                                        <span class="caption-subject font-red bold uppercase">Member Activity</span>
-                                        <span class="caption-helper">weekly stats...</span>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                            <label class="btn btn-transparent green btn-outline btn-circle btn-sm active">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option1">Today</label>
-                                            <label class="btn btn-transparent green btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Week</label>
-                                            <label class="btn btn-transparent green btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Month</label>
+                                <div class="row">
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-wallet"></i>
+                                            <h3>Quick Pay</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-bulb"></i>
+                                            <h3>My Bills</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="fa fa-arrows-alt"></i>
+                                            <h3>My Accounts</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-layers"></i>
+                                            <h3>Payment History</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="portlet-body">
-                                    <div class="row number-stats margin-bottom-30">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-left">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar"></div>
-                                                </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> Total</div>
-                                                    <div class="number"> 2460</div>
-                                                </div>
+                                <div class="row">
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-calculator"></i>
+                                            <h3>My Tariff</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-right">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar2"></div>
-                                                </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> New</div>
-                                                    <div class="number"> 719</div>
-                                                </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="fa fa-arrows-alt"></i>
+                                            <h3>Request Services</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="table-scrollable table-scrollable-borderless">
-                                        <table class="table table-hover table-light">
-                                            <thead>
-                                            <tr class="uppercase">
-                                                <th colspan="2"> MEMBER</th>
-                                                <th> Earnings</th>
-                                                <th> CASES</th>
-                                                <th> CLOSED</th>
-                                                <th> RATE</th>
-                                            </tr>
-                                            </thead>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar4.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Brain</a>
-                                                </td>
-                                                <td> $345</td>
-                                                <td> 45</td>
-                                                <td> 124</td>
-                                                <td>
-                                                    <span class="bold theme-font">80%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar5.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Nick</a>
-                                                </td>
-                                                <td> $560</td>
-                                                <td> 12</td>
-                                                <td> 24</td>
-                                                <td>
-                                                    <span class="bold theme-font">67%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar6.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Tim</a>
-                                                </td>
-                                                <td> $1,345</td>
-                                                <td> 450</td>
-                                                <td> 46</td>
-                                                <td>
-                                                    <span class="bold theme-font">98%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar7.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Tom</a>
-                                                </td>
-                                                <td> $645</td>
-                                                <td> 50</td>
-                                                <td> 89</td>
-                                                <td>
-                                                    <span class="bold theme-font">58%</span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="fa fa-arrows-alt"></i>
+                                            <h3>Register Complaints</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="fa fa-arrows-alt"></i>
+                                            <h3>Vigilance</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
