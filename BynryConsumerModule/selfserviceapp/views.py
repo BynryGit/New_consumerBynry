@@ -30,3 +30,7 @@ def register_new_user(request):
         print 'Exception|selfserviceapp|views.py|register_new_user', exe
         data = {}
     return render(request, 'self_service/register_new_user.html', data)    
+
+def login(request):
+	print 'selfserviceapp|views.py|login'
+	return render(request, 'login.html')    
