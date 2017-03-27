@@ -132,7 +132,7 @@ function save_head_admin_details() {
 			}
 	}
 
-function edit_admin_modal(user_id) {
+function edit_admin_modal(user_id) {			
 			$(".user_first_name_error").css("display", "none");			
 			$(".user_last_name_error").css("display", "none");			
 			$(".user_address_error").css("display", "none");			
