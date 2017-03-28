@@ -58,6 +58,7 @@ def consumer_list(request):
         except Exception, e:
             data = {}
             print 'Exception|consumerapp|views.py|consumer_list', e
+        print '..........\n\n\n\n......SSSSSSSSSSSSS',data
         return render(request, 'consumer_list.html', data)
 
 
@@ -68,8 +69,8 @@ def get_city(request):
         city_objs = City.objects.filter(is_deleted=False)
         for city in city_objs:
             city_list.append({'city_id': city.id, 'city': city.city})
-            data = city_list
-            return data
+        data = city_list
+        return data
     except Exception, e:
         print 'Exception|consumerapp|views.py|get_city', e
         data = {'city_list': 'none', 'message': 'No city available'}
