@@ -85,7 +85,6 @@ function complaint_details(complaint_id){
         data : {'complaint_id':complaint_id},
         success: function (response) {
             if(response.success =='true'){
-            	alert('1')
                 complaintDetail = response.complaintDetail;
                 $("#complaint_id").val(complaintDetail.complaintID);
                 $("#complaint_type").val(complaintDetail.complaintType);
@@ -99,7 +98,7 @@ function complaint_details(complaint_id){
                 $("#complaint_id").val('');
                 $("#complaint_type").val('');
                 $("#complaint_status").val('');
-                $("#complaint_image").attr('');
+                $("#complaint_image").attr("src",'');
                 $("#complaint_remark").text('');
                 $("#cons_name").text('');
                 $("#cons_no").text('');}
