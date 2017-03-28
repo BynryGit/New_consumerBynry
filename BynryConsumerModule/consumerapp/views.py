@@ -45,7 +45,7 @@ def consumer_list(request):
                 branch_obj = Branch.objects.get(id=request.session['branch_id'])
                 zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
             else:
-                zones = ''
+                zones = Zone.objects.filter(is_deleted=False)
             data = {
                 'city_list': get_city(request),
                 'zone_list': zones,
