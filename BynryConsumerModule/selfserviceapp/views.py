@@ -35,4 +35,8 @@ def register_new_user(request):
 
 def login(request):
 	print 'selfserviceapp|views.py|login'
-	return render(request, 'self_service/login.html')    
+	return render(request, 'self_service/login.html')   
+
+def contact_us(request):
+    print 'selfserviceapp|views.py|contact_us'
+    return render(request, 'self_service/contact_us.html')    
