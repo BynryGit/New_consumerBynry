@@ -1309,7 +1309,12 @@ function meter_details() {
 						$('#billed_days').val(response.data.billed_days)
 						$('#current_reading_date').val(response.data.current_reading_date)
 						$('#previous_reading_date').val(response.data.previous_month_reading_date)
-						$("#meter_image").attr("src",response.data.meter_reading_image);									
+						if (response.data.meter_reading_image) {
+							$("#meter_image").attr("src",response.data.meter_reading_image);	
+						}
+						else {
+							$("#meter_image").attr("src",'');
+						}														
                 }
                 if (response.success == 'false') {
                     //alert(response.message);
