@@ -10,6 +10,7 @@ import json
 from django.shortcuts import render
 from consumerapp.views import get_city, get_billcycle
 from consumerapp.models import *
+from complaintapp.models import ComplaintType, ComplaintDetail
 
 
 def home_screen(request):
@@ -77,13 +78,66 @@ def complaints(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|complaints'
-        data = {
-        }
+        complaint_type =  ComplaintType.objects.filter(is_deleted=False)
+        data={'complaint_type':complaint_type}
+
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|complaints', exe
         data = {}
     return render(request, 'self_service/complaints.html', data)
 
+
+
+@login_required(login_url='/')
+def save_consumer_complaint_details(request):
+    """to get complaint details"""
+    try:
+        print 'selfserviceapp|views.py|get_complaint_details'
+        # filter complaint by complaint id
+        complaints = ComplaintDetail.objects.get(
+            id=request.GET.get('complaint_id'))
+        # complaint image path with server url
+        image_address = "http://" + get_current_site(request).domain \
+                        + "/" + complaints.complaint_img.url
+
+        # complaint detail result
+        complaint_detail = {
+            'complaintID' : complaints.complaint_no,
+            'complaintType' : complaints.complaint_type_id.complaint_type,
+            'complaintConsumerName' : complaints.consumer_id.name,
+            'complaintConsumerNo' : complaints.consumer_id.consumer_no,
+            'complaintStatus' : complaints.complaint_status,
+            'consumerRemark' : complaints.remark,
+            'closureRemark' : complaints.closure_remark,
+            'complaint_img' : image_address,
+        }
+        data = {'success' : 'true', 'complaintDetail' : complaint_detail}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_complaint_details', exe
+        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def get_consumer_complaint_details(request):
+    """to get complaint details"""
+    try:
+        print 'selfserviceapp|views.py|get_consumer_complaint_details'
+        # filter complaint by complaint id
+        complaints = ComplaintDetail.objects.get(consumer_id=request.GET.get('consumer_id'))
+
+        # complaint detail result
+        complaint_detail = {
+            'complaintID' : complaints.complaint_no,
+            'complaintType' : complaints.complaint_type_id.complaint_type,
+            'complaintStatus' : complaints.complaint_status,
+            'complaintDate' : complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
+            'closureRemark' : complaints.closure_remark,
+        }
+        data = {'success' : 'true', 'complaintDetail' : complaint_detail}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_consumer_complaint_details', exe
+        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 def services(request):
     """To view services page"""

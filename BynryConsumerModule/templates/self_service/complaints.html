@@ -187,7 +187,9 @@
                                                         <select id="complaint_type" style="margin-top: 4px;"
                                                                 class="form-control input-sm select2-multiple">
                                                             <option value=""> Select Complaint Type</option>
-
+																				{% for type in complaint_type%}
+										                                    <option value="{{type.id}}">{{type.complaint_type}}</option>
+										                                {% endfor %}
                                                         </select>
                                                         <label>Complaint Type :</label>
                                                     </div>
