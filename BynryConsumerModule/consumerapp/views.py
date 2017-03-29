@@ -45,7 +45,7 @@ def consumer_list(request):
                 branch_obj = Branch.objects.get(id=request.session['branch_id'])
                 zones = Zone.objects.filter(is_deleted=False, branch=branch_obj)
             else:
-                zones = ''
+                zones = Zone.objects.filter(is_deleted=False)
             data = {
                 'city_list': get_city(request),
                 'zone_list': zones,
@@ -58,6 +58,7 @@ def consumer_list(request):
         except Exception, e:
             data = {}
             print 'Exception|consumerapp|views.py|consumer_list', e
+        print '..........\n\n\n\n......SSSSSSSSSSSSS',data
         return render(request, 'consumer_list.html', data)
 
 
@@ -68,8 +69,8 @@ def get_city(request):
         city_objs = City.objects.filter(is_deleted=False)
         for city in city_objs:
             city_list.append({'city_id': city.id, 'city': city.city})
-            data = city_list
-            return data
+        data = city_list
+        return data
     except Exception, e:
         print 'Exception|consumerapp|views.py|get_city', e
         data = {'city_list': 'none', 'message': 'No city available'}
@@ -152,7 +153,7 @@ def get_consumer_list(request):
         try:
             consumer_obj_list = ConsumerDetails.objects.all()
             if filter_branch != 'all':
-                consumer_obj_list = consumer_obj_list.filter(zone=filter_branch)
+                consumer_obj_list = consumer_obj_list.filter(branch=filter_branch)
             if filter_zone != 'all':
                 consumer_obj_list = consumer_obj_list.filter(zone=filter_zone)
             if filter_bill != 'all':

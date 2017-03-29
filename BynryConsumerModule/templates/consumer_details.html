@@ -452,6 +452,7 @@
                                                                     class="form-control input-sm select2-multiple"
                                                                     name="bills_monthList"
                                                                     onchange="bills_meter_details();">
+                                                                <option value=""> Select Bill Month</option>
                                                                 {% for month in last_month_list %}
                                                                 <option value="{{ month.month2 }}"> {{ month.month1 }}
                                                                 </option>
@@ -468,8 +469,7 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control" readonly
-                                                                               id="transaction_id"
-                                                                               value="{{payment_data.transaction_id}}">
+                                                                               id="transaction_id">
                                                                         <label >Transaction Id
                                                                             :</label>
                                                                     </div>
@@ -479,8 +479,7 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               readonly="" id="amt_paid"
-                                                                               value="{{payment_data.bill_amount_paid}}">
+                                                                               readonly="" id="amt_paid">
                                                                         <label >Amount Paid
                                                                             :</label>
                                                                     </div>
@@ -490,8 +489,7 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               readonly="" id="payment_mode"
-                                                                               value="{{payment_data.payment_mode}}">
+                                                                               readonly="" id="payment_mode">
                                                                         <label >Payment Method
                                                                             :</label>
                                                                     </div>
@@ -501,8 +499,7 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
-                                                                               readonly="" id="payment_date"
-                                                                               value="{{payment_data.payment_date}}">
+                                                                               readonly="" id="payment_date">
                                                                         <label >Payment Date
                                                                             :</label>
                                                                     </div>
@@ -1312,7 +1309,12 @@ function meter_details() {
 						$('#billed_days').val(response.data.billed_days)
 						$('#current_reading_date').val(response.data.current_reading_date)
 						$('#previous_reading_date').val(response.data.previous_month_reading_date)
-						$("#meter_image").attr("src",response.data.meter_reading_image);									
+						if (response.data.meter_reading_image) {
+							$("#meter_image").attr("src",response.data.meter_reading_image);	
+						}
+						else {
+							$("#meter_image").attr("src",'');
+						}														
                 }
                 if (response.success == 'false') {
                     //alert(response.message);

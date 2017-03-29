@@ -94,6 +94,14 @@ function complaint_details(complaint_id){
                 $("#cons_name").text(complaintDetail.complaintConsumerName);
                 $("#cons_no").text(complaintDetail.complaintConsumerNo);
             }
+            else {
+                $("#complaint_id").val('');
+                $("#complaint_type").val('');
+                $("#complaint_status").val('');
+                $("#complaint_image").attr("src",'');
+                $("#complaint_remark").text('');
+                $("#cons_name").text('');
+                $("#cons_no").text('');}
         },
         error : function(response){
             alert("_Error");

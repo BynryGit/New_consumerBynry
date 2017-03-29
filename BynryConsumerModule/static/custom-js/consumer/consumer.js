@@ -10,7 +10,7 @@
 			filter_bill 	 = $("#filter_bill").val('all').change();
 			filter_route 	 = $("#filter_route").val('all').change();
 			filter_category = $("#filter_category").val('all').change();
-			filter_service  = $("#filter_service").val('Connected').change();
+			filter_service  = $("#filter_service").val('all').change();
 			filter_from 	 = $("#filter_from").val('');
 			filter_to 		 = $("#filter_to").val('');	
 			initTable1();	  
@@ -137,7 +137,7 @@ $("#save-consumer").click(function(event)  {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
+                "emptyTable": "No matching records found",
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "No entries found",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",

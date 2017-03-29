@@ -46,6 +46,40 @@
     <link href="{% static 'assets/layouts/layout3/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
+
+    <style>
+        .feature-item {
+            margin-top: 50px;
+
+        }
+
+        .feature-item>i {
+            font-size: 30px;
+            line-height: 80px !important;
+            height: 80px;
+            width: 80px;
+            padding: 0;
+            border-radius: 50%;
+            border: 2px solid #999;
+        }
+
+        .feature-item .desc {
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #999;
+        }
+
+        .box-text{
+            color:#999;
+        }
+
+        h3 {
+            color:#000;
+        }
+
+    </style>
+
 </head>
 <!-- END HEAD -->
 
@@ -57,8 +91,8 @@
         <div class="container">
             <!-- BEGIN LOGO -->
             <div class="page-logo">
-                <a href="index.html">
-                    <img src="{% static 'assets/layouts/layout3/img/logo-default.jpg' %}" alt="logo"
+                <a href="/self-service/index/">
+                    <img style="width: 101px; margin-top: 9px;" src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo"
                          class="logo-default">
                 </a>
             </div>
@@ -107,42 +141,46 @@
             <div class="hor-menu  ">
                 <ul class="nav navbar-nav">
                     <li class=" active">
-                        <a href="/self-service/index/" class="nav-link  active">
+                        <a href="/self-service/index/" class="nav-link active">
                              Home
                         </a>
                     </li>
                     <li>
-                        <a href="/self-service/index/" class="nav-link  active">
+                        <a href="/self-service/quick-pay/" class="nav-link">
                              Quick Pay
                         </a>
                     </li>
                     <li>
+<<<<<<< HEAD
                         <a href="/self-service/my-bills/" class="nav-link  active">
+=======
+                        <a href="/self-service/index/" class="nav-link">
+>>>>>>> e749739555d357e7fdd0ac9d32bd65fb05809104
                              My Bill
                         </a>
                     </li>
                     <li>
-                        <a href="/self-service/index/" class="nav-link  active">
+                        <a href="/self-service/index/" class="nav-link">
                              Complaints
                         </a>
                     </li>
                     <li>
-                        <a href="/self-service/index/" class="nav-link  active">
+                        <a href="/self-service/index/" class="nav-link">
                              Services
                         </a>
                     </li>
                     <li>
-                        <a href="/self-service/index/" class="nav-link  active">
+                        <a href="/self-service/index/" class="nav-link">
                              Vigilance
                         </a>
                     </li>
                     <li>
-                        <a href="/self-service/index/" class="nav-link  active">
+                        <a href="/self-service/index/" class="nav-link">
                              Contact Us
                         </a>
                     </li>
                     <li>
-                        <a href="/self-service/index/" class="nav-link  active">
+                        <a href="/self-service/index/" class="nav-link">
                              FAQ's
                         </a>
                     </li>
@@ -162,142 +200,11 @@
         <!-- BEGIN PAGE HEAD-->
         <div class="page-head">
             <div class="container">
-                <!-- BEGIN PAGE TITLE -->
                 <div class="page-title">
-                    <h1>Dashboard
-                        <small>dashboard & statistics</small>
+                    <h1>Home
+                        <!--<small>dashboard & statistics</small>-->
                     </h1>
                 </div>
-                <!-- END PAGE TITLE -->
-                <!-- BEGIN PAGE TOOLBAR -->
-                <div class="page-toolbar">
-                    <!-- BEGIN THEME PANEL -->
-                    <div class="btn-group btn-theme-panel">
-                        <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-settings"></i>
-                        </a>
-                        <div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <h3>THEME COLORS</h3>
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <ul class="theme-colors">
-                                                <li class="theme-color theme-color-default" data-theme="default">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Default</span>
-                                                </li>
-                                                <li class="theme-color theme-color-blue-hoki" data-theme="blue-hoki">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Blue Hoki</span>
-                                                </li>
-                                                <li class="theme-color theme-color-blue-steel" data-theme="blue-steel">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Blue Steel</span>
-                                                </li>
-                                                <li class="theme-color theme-color-yellow-orange"
-                                                    data-theme="yellow-orange">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Orange</span>
-                                                </li>
-                                                <li class="theme-color theme-color-yellow-crusta"
-                                                    data-theme="yellow-crusta">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Yellow Crusta</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <ul class="theme-colors">
-                                                <li class="theme-color theme-color-green-haze" data-theme="green-haze">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Green Haze</span>
-                                                </li>
-                                                <li class="theme-color theme-color-red-sunglo" data-theme="red-sunglo">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Red Sunglo</span>
-                                                </li>
-                                                <li class="theme-color theme-color-red-intense"
-                                                    data-theme="red-intense">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Red Intense</span>
-                                                </li>
-                                                <li class="theme-color theme-color-purple-plum"
-                                                    data-theme="purple-plum">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Purple Plum</span>
-                                                </li>
-                                                <li class="theme-color theme-color-purple-studio"
-                                                    data-theme="purple-studio">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Purple Studio</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 seperator">
-                                    <h3>LAYOUT</h3>
-                                    <ul class="theme-settings">
-                                        <li> Theme Style
-                                            <select class="theme-setting theme-setting-style form-control input-sm input-small input-inline tooltips"
-                                                    data-original-title="Change theme style" data-container="body"
-                                                    data-placement="left">
-                                                <option value="boxed" selected="selected">Square corners</option>
-                                                <option value="rounded">Rounded corners</option>
-                                            </select>
-                                        </li>
-                                        <li> Layout
-                                            <select class="theme-setting theme-setting-layout form-control input-sm input-small input-inline tooltips"
-                                                    data-original-title="Change layout type" data-container="body"
-                                                    data-placement="left">
-                                                <option value="boxed" selected="selected">Boxed</option>
-                                                <option value="fluid">Fluid</option>
-                                            </select>
-                                        </li>
-                                        <li> Top Menu Style
-                                            <select class="theme-setting theme-setting-top-menu-style form-control input-sm input-small input-inline tooltips"
-                                                    data-original-title="Change top menu dropdowns style"
-                                                    data-container="body"
-                                                    data-placement="left">
-                                                <option value="dark" selected="selected">Dark</option>
-                                                <option value="light">Light</option>
-                                            </select>
-                                        </li>
-                                        <li> Top Menu Mode
-                                            <select class="theme-setting theme-setting-top-menu-mode form-control input-sm input-small input-inline tooltips"
-                                                    data-original-title="Enable fixed(sticky) top menu"
-                                                    data-container="body" data-placement="left">
-                                                <option value="fixed">Fixed</option>
-                                                <option value="not-fixed" selected="selected">Not Fixed</option>
-                                            </select>
-                                        </li>
-                                        <li> Mega Menu Style
-                                            <select class="theme-setting theme-setting-mega-menu-style form-control input-sm input-small input-inline tooltips"
-                                                    data-original-title="Change mega menu dropdowns style"
-                                                    data-container="body"
-                                                    data-placement="left">
-                                                <option value="dark" selected="selected">Dark</option>
-                                                <option value="light">Light</option>
-                                            </select>
-                                        </li>
-                                        <li> Mega Menu Mode
-                                            <select class="theme-setting theme-setting-mega-menu-mode form-control input-sm input-small input-inline tooltips"
-                                                    data-original-title="Enable fixed(sticky) mega menu"
-                                                    data-container="body"
-                                                    data-placement="left">
-                                                <option value="fixed" selected="selected">Fixed</option>
-                                                <option value="not-fixed">Not Fixed</option>
-                                            </select>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END THEME PANEL -->
-                </div>
-                <!-- END PAGE TOOLBAR -->
             </div>
         </div>
         <!-- END PAGE HEAD-->
@@ -305,220 +212,102 @@
         <div class="page-content">
             <div class="container">
                 <!-- BEGIN PAGE BREADCRUMBS -->
-                <ul class="page-breadcrumb breadcrumb">
-                    <li>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-circle"></i>
-                    </li>
-                    <li>
-                        <span>Dashboard</span>
-                    </li>
-                </ul>
+                <!--<ul class="page-breadcrumb breadcrumb">-->
+                    <!--<li>-->
+                        <!--<a href="/self-service/index/">Home</a>-->
+                        <!--<i class="fa fa-circle"></i>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span>Dashboard</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
                 <!-- END PAGE BREADCRUMBS -->
                 <!-- BEGIN PAGE CONTENT INNER -->
                 <div class="page-content-inner">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <div class="portlet light ">
-                                <div class="portlet-title">
-                                    <div class="caption caption-md">
-                                        <i class="icon-bar-chart font-green"></i>
-                                        <span class="caption-subject font-green uppercase bold">Sales Summary</span>
-                                        <span class="caption-helper hide">weekly stats...</span>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                            <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm active">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option1">Today</label>
-                                            <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Week</label>
-                                            <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Month</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="row list-separated">
-                                        <div class="col-md-3 col-sm-3 col-xs-6">
-                                            <div class="font-grey-mint font-sm"> Total Sales</div>
-                                            <div class="uppercase font-hg font-red-flamingo"> 13,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-6">
-                                            <div class="font-grey-mint font-sm"> Revenue</div>
-                                            <div class="uppercase font-hg theme-font"> 4,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-6">
-                                            <div class="font-grey-mint font-sm"> Expenses</div>
-                                            <div class="uppercase font-hg font-purple"> 11,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-6">
-                                            <div class="font-grey-mint font-sm"> Growth</div>
-                                            <div class="uppercase font-hg font-blue-sharp"> 9,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ul class="list-separated list-inline-xs hide">
-                                        <li>
-                                            <div class="font-grey-mint font-sm"> Total Sales</div>
-                                            <div class="uppercase font-hg font-red-flamingo"> 13,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </li>
-                                        <li></li>
-                                        <li class="border">
-                                            <div class="font-grey-mint font-sm"> Revenue</div>
-                                            <div class="uppercase font-hg theme-font"> 4,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <div class="font-grey-mint font-sm"> Expenses</div>
-                                            <div class="uppercase font-hg font-purple"> 11,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <div class="font-grey-mint font-sm"> Growth</div>
-                                            <div class="uppercase font-hg font-blue-sharp"> 9,760
-                                                <span class="font-lg font-grey-mint">$</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div id="sales_statistics" class="portlet-body-morris-fit morris-chart"
-                                         style="height: 267px"></div>
-                                </div>
+                            <div class="portlet light text-center">
+                                <img src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo"
+                                    class="logo-default">
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12">
                             <div class="portlet light ">
-                                <div class="portlet-title">
-                                    <div class="caption caption-md">
-                                        <i class="icon-bar-chart font-red"></i>
-                                        <span class="caption-subject font-red bold uppercase">Member Activity</span>
-                                        <span class="caption-helper">weekly stats...</span>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                            <label class="btn btn-transparent green btn-outline btn-circle btn-sm active">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option1">Today</label>
-                                            <label class="btn btn-transparent green btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Week</label>
-                                            <label class="btn btn-transparent green btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Month</label>
+                                <div class="row">
+                                    <a href="/self-service/quick-pay/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-wallet"></i>
+                                            <h3>Quick Pay</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-bulb"></i>
+                                            <h3>My Bills</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-user"></i>
+                                            <h3>My Accounts</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-layers"></i>
+                                            <h3>Payment History</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="portlet-body">
-                                    <div class="row number-stats margin-bottom-30">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-left">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar"></div>
-                                                </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> Total</div>
-                                                    <div class="number"> 2460</div>
-                                                </div>
+                                <div class="row">
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-calculator"></i>
+                                            <h3>My Tariff</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-right">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar2"></div>
-                                                </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> New</div>
-                                                    <div class="number"> 719</div>
-                                                </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-energy"></i>
+                                            <h3>Request Services</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="table-scrollable table-scrollable-borderless">
-                                        <table class="table table-hover table-light">
-                                            <thead>
-                                            <tr class="uppercase">
-                                                <th colspan="2"> MEMBER</th>
-                                                <th> Earnings</th>
-                                                <th> CASES</th>
-                                                <th> CLOSED</th>
-                                                <th> RATE</th>
-                                            </tr>
-                                            </thead>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar4.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Brain</a>
-                                                </td>
-                                                <td> $345</td>
-                                                <td> 45</td>
-                                                <td> 124</td>
-                                                <td>
-                                                    <span class="bold theme-font">80%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar5.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Nick</a>
-                                                </td>
-                                                <td> $560</td>
-                                                <td> 12</td>
-                                                <td> 24</td>
-                                                <td>
-                                                    <span class="bold theme-font">67%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar6.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Tim</a>
-                                                </td>
-                                                <td> $1,345</td>
-                                                <td> 450</td>
-                                                <td> 46</td>
-                                                <td>
-                                                    <span class="bold theme-font">98%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic rounded"
-                                                         src="{% static 'assets/pages/media/users/avatar7.jpg' %}"></td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Tom</a>
-                                                </td>
-                                                <td> $645</td>
-                                                <td> 50</td>
-                                                <td> 89</td>
-                                                <td>
-                                                    <span class="bold theme-font">58%</span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="fa fa-arrows-alt"></i>
+                                            <h3>Register Complaints</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-fire"></i>
+                                            <h3>Vigilance</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -538,10 +327,7 @@
 <!-- BEGIN FOOTER -->
 <!-- BEGIN INNER FOOTER -->
 <div class="page-footer">
-    <div class="container"> 2014 &copy; Metronic by keenthemes.
-        <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes"
-           title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase
-            Metronic!</a>
+    <div class="container"> 2017 &copy; Bynry Technologies India Pvt. Ltd.
     </div>
 </div>
 <div class="scroll-to-top">

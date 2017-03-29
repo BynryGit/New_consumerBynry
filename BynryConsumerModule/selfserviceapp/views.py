@@ -8,6 +8,8 @@ import datetime
 from django.http import HttpResponse
 import json
 from django.shortcuts import render
+from consumerapp.views import get_city
+
 
 def home_screen(request):
     """To view complaints page"""
@@ -20,20 +22,18 @@ def home_screen(request):
         data = {}
     return render(request, 'self_service/home_screen.html', data)
 
+
 def register_new_user(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|register_new_user'
         data = {
+            'city_list': get_city(request)
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|register_new_user', exe
         data = {}
-    return render(request, 'self_service/register_new_user.html', data)    
-
-def login(request):
-	print 'selfserviceapp|views.py|login'
-	return render(request, 'login.html')
+    return render(request, 'self_service/register_new_user.html', data)
 
 
 def my_bills(request):
@@ -92,3 +92,17 @@ def services(request):
         print 'Exception|selfserviceapp|views.py|services', exe
         data = {}
     return render(request, 'self_service/services.html', data)
+
+
+def login(request):
+    print 'selfserviceapp|views.py|login'
+    return render(request, 'self_service/login.html')
+
+
+def contact_us(request):
+    print 'selfserviceapp|views.py|contact_us'
+    return render(request, 'self_service/contact_us.html')
+
+def quick_pay(request):
+    print 'selfserviceapp|views.py|quick_pay'
+    return render(request, 'self_service/quick_pay.html')
