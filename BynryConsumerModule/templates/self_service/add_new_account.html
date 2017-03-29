@@ -105,48 +105,7 @@
             <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
             <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
             <div class="hor-menu  ">
-                <ul class="nav navbar-nav">
-                    <li >
-                        <a href="/self-service/index/" class="nav-link  active">
-                             Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link  active">
-                             Quick Pay
-                        </a>
-                    </li>
-                    <li class=" active">
-                        <a href="/self-service/my-bills/" class="nav-link  active">
-                             My Bill
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/complaints/" class="nav-link  active">
-                             Complaints
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/services/" class="nav-link  active">
-                             Services
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link  active">
-                             Vigilance
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link  active">
-                             Contact Us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link  active">
-                             FAQ's
-                        </a>
-                    </li>
-                </ul>
+                {% include 'self_service/side-panel.html' %}
             </div>
             <!-- END MEGA MENU -->
         </div>
@@ -161,24 +120,16 @@
         <!-- BEGIN CONTENT BODY -->
         <!-- BEGIN PAGE HEAD-->
         <div class="page-head">
-            
+            <div class="container">
+                <div class="page-title">
+                    <h1>Add New Account</h1>
+                </div>
+            </div>
         </div>
         <!-- END PAGE HEAD-->
         <!-- BEGIN PAGE CONTENT BODY -->
         <div class="page-content">
             <div class="container">
-                <!-- BEGIN PAGE BREADCRUMBS -->
-                <ul class="page-breadcrumb breadcrumb">
-                    <li>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-circle"></i>
-                    </li>
-                    <li>
-                        <span>Add Account</span>
-                    </li>
-                </ul>
-                <!-- END PAGE BREADCRUMBS -->
-                <!-- BEGIN PAGE CONTENT INNER -->
                 <div class="page-content-inner">
                     <div class="row">
                         <div class="portlet light bordered">
@@ -452,6 +403,7 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script type="text/javascript">
+	//$("#consumer_menu").addClass("active open");
 	function check_consumer(){
 		document.getElementById("check_otp").removeAttribute("hidden");
 	//document.getElementById("counter_form_footer").removeAttribute("hidden");              
