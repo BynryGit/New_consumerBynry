@@ -169,21 +169,32 @@
                                             <div class="portlet-body">
                                                 <div class="caption caption-md">
                                                     <i class="icon-globe theme-font hide"></i>
-                                                    <span class="caption-subject font-blue-madison bold uppercase">Register New User</span>
+                                                    <span class="caption-subject font-blue-madison bold uppercase">Quick Pay</span>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="col-md-3">
                                                             <div class="form-group form-md-line-input has-success">
-                                                                <label for="bill_city">City<span
+                                                                <label for="consumer_number">Consumer No <span
+                                                                        class="required"> *  </span>
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="consumer_number"
+                                                                       name="consumer_number">
+                                                                <label for="consumer_number" class="error"
+                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-success">
+                                                                <label for="consumer_type">Consumer Type<span
                                                                         class="required"> *</span></label>
-                                                                <select id="bill_city"
+                                                                <select id="consumer_type"
                                                                         class="form-control input-sm select2-multiple">
-                                                                    <option value=" "> Select City</option>
-                                                                    {% for city in city_list %}
-                                                                    <option value="{{city.city_id}}"> {{ city.city }}
-                                                                    </option>
-                                                                    {% endfor %}
+                                                                    <option value=" "> Select Consumer Type</option>
+                                                                    <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
+                                                                    <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
+                                                                    <option value="3-EHV">3-EHV</option>
                                                                 </select>
                                                                 <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
@@ -191,23 +202,31 @@
                                                         </div>
                                                         <div class="col-md-3">
                                                             <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Consumer No <span
-                                                                        class="required"> *  </span>
-                                                                    <small> (12 digits)</small>
-                                                                </label>
-                                                                <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
+                                                                <label for="bill_cycle">Bill Cycle<span
+                                                                        class="required"> *</span></label>
+                                                                <select id="bill_cycle"
+                                                                        class="form-control input-sm select2-multiple">
+                                                                    <option value=" "> Select Bill Cycle</option>
+                                                                    {% for bill_cycle in bill_cycle_list %}
+                                                                        <option value="{{bill_cycle.id}}"> {{ bill_cycle.bill_cycle_code }}
+                                                                        </option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                                <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6"
-                                                             style="text-align: right;margin-top: 36px;">
+                                                        <div class="col-md-3"
+                                                             style="text-align: right; margin-top: 48px;">
                                                             <button type="button"
                                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                    id="save-consumer" style="width: 89px;">
-                                                                Verify
+                                                                    id="search-bill" style="width: 89px;">
+                                                                Submit
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                    id="clear-search" style="width: 89px;">
+                                                                Clear
                                                             </button>
                                                         </div>
                                                     </div>
@@ -215,133 +234,107 @@
                                                 <br>
                                                 <div class="caption caption-md">
                                                     <i class="icon-globe theme-font hide"></i>
-                                                    <span class="caption-subject font-blue-madison bold uppercase">Consumer Details</span>
+                                                    <span class="caption-subject font-blue-madison bold uppercase">Bill Details</span>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Consumer Name </label>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_number">Consumer Number </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
+                                                                       id="con_number"
+                                                                       name="con_number">
+                                                                <label id="con_number_error" class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Consumer
-                                                                    Category </label>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_name">Consumer
+                                                                    Name </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
+                                                                       id="con_name"
+                                                                       name="con_name">
+                                                                <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Billing Unit
-                                                                    (BU) </label>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_bill_cycle">Bill Cycle</label>
                                                                 <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
+                                                                       id="con_bill_cycle"
+                                                                       name="con_bill_cycle">
+                                                                <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_bill_month">Bill Month </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="con_bill_month"
+                                                                       name="con_bill_month">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Address Line 1 </label>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="current_amount">Current Amount </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
+                                                                       id="current_amount"
+                                                                       name="current_amount">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="prev_due">Previous Due
+                                                                    <small>(Arrears)</small>
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="prev_due"
+                                                                       name="prev_due">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="net_amount">Net Amount </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="net_amount"
+                                                                       name="net_amount">
+                                                                <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Address Line 2 </label>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="due_date">Due Date </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">City </label>
-                                                                <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Pincode </label>
-                                                                <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Mobile No </label>
-                                                                <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Email </label>
-                                                                <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                                       id="due_date"
+                                                                       name="due_date">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Password </label>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="prompt_date">Prompt Date </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                                       id="prompt_date"
+                                                                       name="prompt_date">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <label for="applicant_aadhar_no">Confirm
-                                                                    Password </label>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="prompt_amount">Prompt Amount </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="applicant_aadhar_no"
-                                                                       name="applicant_aadhar_no">
-                                                                <label id="applicant_aadhar_no_error" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                                       id="prompt_amount"
+                                                                       name="prompt_amount">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -351,7 +344,7 @@
                                                         <button type="button"
                                                                 class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                                                 id="save-consumer" style="width: 89px;">
-                                                            Register
+                                                            Pay Now
                                                         </button>
                                                     </div>
                                                 </div>

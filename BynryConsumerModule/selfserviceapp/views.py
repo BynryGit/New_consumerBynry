@@ -8,7 +8,7 @@ import datetime
 from django.http import HttpResponse
 import json
 from django.shortcuts import render
-from consumerapp.views import get_city
+from consumerapp.views import get_city, get_billcycle
 
 
 def home_screen(request):
@@ -47,4 +47,7 @@ def contact_us(request):
 
 def quick_pay(request):
     print 'selfserviceapp|views.py|quick_pay'
-    return render(request, 'self_service/quick_pay.html')
+    data = {
+        'bill_cycle_list': get_billcycle(request)
+    }
+    return render(request, 'self_service/quick_pay.html',data)
