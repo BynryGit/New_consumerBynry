@@ -42,6 +42,7 @@ def my_bills(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|my_bills'
+        
         data = {
         }
     except Exception as exe:
