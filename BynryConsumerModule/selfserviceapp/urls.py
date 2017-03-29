@@ -15,5 +15,6 @@ urlpatterns = [
     # url(r'^my-bills/', views.my_bills, name='my_bills'),
     url(r'^quick-pay/', views.quick_pay, name='quick_pay'),
     url(r'^my-tariff/', views.my_tariff, name='my_tariff'),
+    url(r'^get-consumer-bill-data/', views.get_consumer_bill_data, name='get_consumer_bill_data'),
 
 ]

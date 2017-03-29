@@ -9,6 +9,7 @@ from django.http import HttpResponse
 import json
 from django.shortcuts import render
 from consumerapp.views import get_city, get_billcycle
+from consumerapp.models import *
 
 
 def home_screen(request):
@@ -117,3 +118,29 @@ def quick_pay(request):
 def my_tariff(request):
     print 'selfserviceapp|views.py|my_tariff'
     return render(request, 'self_service/my_tariff.html')
+
+
+def get_consumer_bill_data(request):
+    try:
+        consumer_no = request.GET.get('consumer_number')
+        #consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
+        data = {
+            'con_number': request.GET.get('consumer_number'),
+            'con_name': 'Vikas Kumawat',
+            'con_bill_cycle': 'BC 001',
+            'con_bill_month': 'March 2017',
+            'current_amount': '500.00',
+            'prev_due': '0.00',
+            'net_amount': '500',
+            'due_date': '26/03/2017',
+            'prompt_date': '23/03/2017',
+            'prompt_amount': '490.00',
+            'success': 'true',
+        }
+    except Exception, e:
+        print 'Exception|nscapp|views.py|save_consumer_payment', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
