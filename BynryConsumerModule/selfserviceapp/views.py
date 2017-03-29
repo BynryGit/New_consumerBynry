@@ -8,7 +8,7 @@ import datetime
 from django.http import HttpResponse
 import json
 from django.shortcuts import render
-from consumerapp.views import get_city
+from consumerapp.views import get_city, get_billcycle
 
 
 def home_screen(request):
@@ -47,6 +47,7 @@ def my_bills(request):
         data = {}
     return render(request, 'self_service/my_bills.html', data)
 
+
 def manage_accounts(request):
     """To view complaints page"""
     try:
@@ -57,6 +58,7 @@ def manage_accounts(request):
         print 'Exception|selfserviceapp|views.py|manage_accounts', exe
         data = {}
     return render(request, 'self_service/manage_accounts.html', data)
+
 
 def add_new_account(request):
     """To view complaints page"""
@@ -103,6 +105,15 @@ def contact_us(request):
     print 'selfserviceapp|views.py|contact_us'
     return render(request, 'self_service/contact_us.html')
 
+
 def quick_pay(request):
     print 'selfserviceapp|views.py|quick_pay'
-    return render(request, 'self_service/quick_pay.html')
+    data = {
+        'bill_cycle_list': get_billcycle(request)
+    }
+    return render(request, 'self_service/quick_pay.html', data)
+
+
+def my_tariff(request):
+    print 'selfserviceapp|views.py|my_tariff'
+    return render(request, 'self_service/my_tariff.html')
