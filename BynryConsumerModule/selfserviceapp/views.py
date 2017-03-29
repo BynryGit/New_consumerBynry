@@ -123,11 +123,13 @@ def my_tariff(request):
 def get_consumer_bill_data(request):
     try:
         consumer_no = request.GET.get('consumer_number')
-        #consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
+        consumer_type = request.GET.get('consumer_type')
+        bill_cycle = BillCycle.objects.get(id = request.GET.get('bill_cycle'))
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no,bill_cycle=bill_cycle,meter_category=consumer_type)
         data = {
-            'con_number': request.GET.get('consumer_number'),
-            'con_name': 'Vikas Kumawat',
-            'con_bill_cycle': 'BC 001',
+            'con_number': consumer_obj.consumer_no,
+            'con_name': consumer_obj.name,
+            'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
             'con_bill_month': 'March 2017',
             'current_amount': '500.00',
             'prev_due': '0.00',
@@ -138,7 +140,7 @@ def get_consumer_bill_data(request):
             'success': 'true',
         }
     except Exception, e:
-        print 'Exception|nscapp|views.py|save_consumer_payment', e
+        print 'Exception|selfserviceapp|views.py|get_consumer_bill_data', e
         data = {
             'success': 'false',
             'message': str(e)
