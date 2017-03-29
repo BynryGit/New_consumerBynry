@@ -198,3 +198,14 @@ def get_consumer_bill_data(request):
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+def FAQS(request):
+    """To view FAQS page"""
+    try:
+        print 'selfserviceapp|views.py|FAQS'
+        data = {
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|FAQS', exe
+        data = {}
+    return render(request, 'self_service/FAQS.html', data)
