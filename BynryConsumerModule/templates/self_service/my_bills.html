@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 8]>
-<html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]>
-<html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
+
 <html lang="en">
 {% load staticfiles %}
 
@@ -25,21 +21,15 @@
     <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet"
           type="text/css"/>
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css' %}" rel="stylesheet"
           type="text/css"/>
     <link href="{% static 'assets/global/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.css' %}" rel="stylesheet"
           type="text/css"/>
     <link href="{% static 'assets/global/plugins/jqvmap/jqvmap/jqvmap.css' %}" rel="stylesheet" type="text/css"/>
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
           type="text/css"/>
     <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
-    <!-- END THEME GLOBAL STYLES -->
-    <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="{% static 'assets/layouts/layout3/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/layouts/layout3/css/themes/default.min.css' %}" rel="stylesheet" type="text/css"
           id="style_color"/>
@@ -58,10 +48,10 @@
             <!-- BEGIN LOGO -->
             <div class="page-logo">
                 <a href="index.html">
-                    <img src="{% static 'assets/layouts/layout3/img/logo-default.jpg' %}" alt="logo"
+                    <img style="width: 101px; margin-top: 9px" src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo"
                          class="logo-default">
                 </a>
-            </div>
+			   </div>
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
             <a href="javascript:;" class="menu-toggler"></a>
@@ -77,7 +67,7 @@
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
                             <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
-                            <span class="username username-hide-mobile">Nick</span>
+                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -249,18 +239,14 @@
                                                	  <input type="button"
                                                          class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                                          value="View & Pay">									           			   
-                                            </div>
-                                          
-                                      </div>
-                                      
-                                      
+                                            </div>                                          
+                                      </div>                                      
                                   </div>
                               </div>
                           </div>
-                      </div>
-                        
+                      </div>                        
                     </div>
-                     <div class="page-content-inner">
+                    <div class="page-content-inner">
                     <div class="row">
                         <div class="portlet light bordered">
                           <div class="portlet-body">
