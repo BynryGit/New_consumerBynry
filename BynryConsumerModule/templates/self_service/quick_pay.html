@@ -197,7 +197,12 @@
                                                                 Clear
                                                             </button>
                                                         </div>
+                                                        <div class="col-md-12">
+                                                            <span id="error_bill_data" class="error"
+                                                                style="color:red; display:none;">No record found</span>
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +218,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="con_number">Consumer Number </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="con_number"
+                                                                       id="con_number" readonly
                                                                        name="con_number">
                                                                 <label id="con_number_error" class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
@@ -224,7 +229,7 @@
                                                                 <label for="con_name">Consumer
                                                                     Name </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="con_name"
+                                                                       id="con_name" readonly
                                                                        name="con_name">
                                                                 <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
@@ -234,7 +239,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="con_bill_cycle">Bill Cycle</label>
                                                                 <input type="text" class="form-control"
-                                                                       id="con_bill_cycle"
+                                                                       id="con_bill_cycle" readonly
                                                                        name="con_bill_cycle">
                                                                 <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
@@ -244,7 +249,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="con_bill_month">Bill Month </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="con_bill_month"
+                                                                       id="con_bill_month" readonly
                                                                        name="con_bill_month">
                                                             </div>
                                                         </div>
@@ -256,7 +261,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="current_amount">Current Amount </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="current_amount"
+                                                                       id="current_amount" readonly
                                                                        name="current_amount">
                                                             </div>
                                                         </div>
@@ -266,7 +271,7 @@
                                                                     <small>(Arrears)</small>
                                                                 </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="prev_due"
+                                                                       id="prev_due" readonly
                                                                        name="prev_due">
                                                             </div>
                                                         </div>
@@ -274,7 +279,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="net_amount">Net Amount </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="net_amount"
+                                                                       id="net_amount" readonly
                                                                        name="net_amount">
                                                                 <label class="error"
                                                                        style="color:red; display:none; font-size: 12px;"></label>
@@ -284,7 +289,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="due_date">Due Date </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="due_date"
+                                                                       id="due_date" readonly
                                                                        name="due_date">
                                                             </div>
                                                         </div>
@@ -296,7 +301,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="prompt_date">Prompt Date </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="prompt_date"
+                                                                       id="prompt_date" readonly
                                                                        name="prompt_date">
                                                             </div>
                                                         </div>
@@ -304,14 +309,14 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <label for="prompt_amount">Prompt Amount </label>
                                                                 <input type="text" class="form-control"
-                                                                       id="prompt_amount"
+                                                                       id="prompt_amount" readonly
                                                                        name="prompt_amount">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12" style="text-align: right;margin-top: 36px;">
+                                                    <div class="col-md-12" style="text-align: right;">
                                                         <button type="button"
                                                                 class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                                                 id="save-consumer" style="width: 89px;">
@@ -380,7 +385,11 @@
             $.ajax({
                 type: 'GET',
                 url: '/self-service/get-consumer-bill-data/',
-                data: {'consumer_number': $("#consumer_number").val()},
+                data: {
+                    'consumer_number': $("#consumer_number").val(),
+                    'consumer_type': $("#consumer_type").val(),
+                    'bill_cycle': $("#bill_cycle").val(),
+                },
                 success: function (response) {
                 console.log(response);
                     if (response.success == 'true') {
@@ -394,10 +403,12 @@
                         $('#due_date').val(response.due_date);
                         $('#prompt_date').val(response.prompt_date);
                         $('#prompt_amount').val(response.prompt_amount);
+                        $("#error_bill_data").css("display","none");
                         $("#bill_details_div").removeClass("display-none");
                     }
                     if (response.success == 'false') {
                         $("#bill_details_div").addClass("display-none");
+                        $("#error_bill_data").css("display","block");
                     }
                 },
                 error: function (response) {
@@ -416,6 +427,7 @@
         $("#consumer_type").val("").change();
         $("#bill_cycle").val("").change();
         $(".error").css("display","none");
+        $("#error_bill_data").css("display","none");
         $("#bill_details_div").addClass("display-none");
     }
 
