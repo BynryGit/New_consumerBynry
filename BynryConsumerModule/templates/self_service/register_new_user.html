@@ -168,7 +168,7 @@
 						                                            <div class="form-group form-md-line-input has-success">
 						                                                <label for="bill_city">City<span
 						                                                        class="required"> *</span></label>
-						                                                <select id="bill_city" class="form-control input-sm select2-multiple">
+						                                                <select id="verify_city" class="form-control input-sm select2-multiple">
 						                                                    <option value=" "> Select City</option>
 						                                                    {% for city in city_list %}
 						                                                    <option value="{{city.city_id}}"> {{ city.city }}</option>
@@ -182,21 +182,72 @@
 								                                        <div class="form-group form-md-line-input has-success">
 								                                            <label for="applicant_aadhar_no">Consumer No <span
 								                                                    class="required"> *  </span> <small> (12 digits)</small> </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no">
-								                                            <label id="applicant_aadhar_no_error" class="error"
+								                                            <input type="text" class="form-control" id="verify_consumer_no"
+								                                                   name="verify_consumer_no">
+								                                            <label id="verify_consumer_no_error" class="error"
 								                                                   style="color:red; display:none; font-size: 12px;"></label>
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-6" style="text-align: right;margin-top: 36px;">
 											                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-											                                        id="save-consumer" style="width: 89px;">
+											                                        id="verify-consumer" style="width: 89px;">
 											                                    Verify
 											                                </button>											                               
 											                         </div>
 						                                       </div>
 						                                    </div>
 						                                    <br>
+						                                   <div class="row" id="check_otp" >
+							                                    <div class="col-md-offset-2 portlet light bordered"
+							                                         style="height: 150px !important;width: 670px !important;">
+							                                        <div class="portlet-body">
+							                                            <div class="row" style="margin-top: -15px;!important">
+							                                                <div class="col-md-offset-1 col-md-11">
+							                                                    <div class="form-group">
+							                                                        <div class="form-group form-md-line-input has-info">
+							                                                            <label>We have sent a verification code on your registered
+							                                                                mobile no. 99xxxxxxxx</label>
+							                                                        </div>
+							                                                    </div>
+							                                                </div>
+							                                            </div>
+							                                            <div class="row">
+							                                                <div class="col-md-12">
+							                                                    <div class="col-md-offset-2 col-md-3">
+							                                                        <div class="form-group">
+							                                                            <div class="form-group form-md-line-input has-success">
+							                                                                <input id="otp_no" type="text" class="form-control">
+							                                                                <label>Enter OTP :</label>
+							                                                            </div>
+							                                                            <span class="otp_error" style="margin-top: -30px;color:red;"></span>
+							                                                        </div>
+							                                                    </div>
+							                                                    <div class="col-md-1">
+							                                                        <div class="btn-group btn-group-devided">
+							                                                            <button type="button" style="margin-top: 25px;"
+							                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+							                                                                    onclick="check_otp()">
+							                                                                Submit
+							                                                            </button>
+							                                                        </div>
+							                                                    </div>
+							                                                    <div class="col-md-1">
+							                                                        <div class="btn-group btn-group-devided">
+							                                                            <button type="button"
+							                                                                    style="margin-left: 15px;margin-top: 25px;"
+							                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+							                                                                    onclick="">
+							                                                                Resend OTP?
+							                                                            </button>
+							                                                        </div>
+							                                                    </div>
+							                                                </div>
+							                                            </div>
+							                                        </div>
+							                                    </div>
+							                                </div>
+                                
+						                                   <div class="row" style="display:none" id="display_details_div">
 						                                    <div class="caption caption-md">
                                                             <i class="icon-globe theme-font hide"></i>
                                                             <span class="caption-subject font-blue-madison bold uppercase">Consumer Details</span>
@@ -205,60 +256,48 @@
                                                        <div class="col-md-12">                                                     		
 						                                        <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Consumer Name </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="consumer_name">Consumer Name </label>
+								                                            <input type="text" class="form-control" id="consumer_name"
+								                                                   name="consumer_name" readonly="">
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Consumer Category </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="consumer_cate">Consumer Category </label>
+								                                            <input type="text" class="form-control" id="consumer_cate"
+								                                                   name="consumer_cate" readonly="">
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Billing Unit (BU) </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="billing_unit">Billing Unit (BU) </label>
+								                                            <input type="text" class="form-control" id="billing_unit"
+								                                                   name="billing_unit" readonly="">
 								                                        </div>
 								                                  </div>
 								                                 </div>
-								                              </div>
+								                              </div>								                             
 								                              <div class="row">
                                                        <div class="col-md-12"> 								                                 
 								                                  <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Address Line 1 </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="address_line1">Address Line 1 </label>
+								                                            <input type="text" class="form-control" id="address_line1"
+								                                                   name="address_line1" readonly="">
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Address Line 2 </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="address_line2">Address Line 2 </label>
+								                                            <input type="text" class="form-control" id="address_line2"
+								                                                   name="address_line2" readonly="">
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">City </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="consumer_city">City </label>
+								                                            <input type="text" class="form-control" id="consumer_city"
+								                                                   name="consumer_city" readonly="">
 								                                        </div>
 								                                  </div>								                                  		
 								                                 </div>
@@ -267,29 +306,23 @@
                                                        <div class="col-md-12"> 
                                                          <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Pincode </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="consumer_pincode">Pincode </label>
+								                                            <input type="text" class="form-control" id="consumer_pincode"
+								                                                   name="consumer_pincode" readonly="">
 								                                        </div>
 								                                 </div>	
 								                                	<div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Mobile No </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="consumer_mobile">Mobile No </label>
+								                                            <input type="text" class="form-control" id="consumer_mobile"
+								                                                   name="consumer_mobile" readonly="">
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
-								                                            <label for="applicant_aadhar_no">Email </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no" readonly="">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="email_id">Email </label>
+								                                            <input type="text" class="form-control" id="email_id"
+								                                                   name="email_id" readonly="">
 								                                        </div>
 								                                  </div>								                                  
 								                                 </div>
@@ -298,20 +331,16 @@
                                                        <div class="col-md-12"> 
                                                           <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-success">
-								                                            <label for="applicant_aadhar_no">Password </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="password">Password </label>
+								                                            <input type="text" class="form-control" id="password"
+								                                                   name="password">
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-success">
-								                                            <label for="applicant_aadhar_no">Confirm Password </label>
-								                                            <input type="text" class="form-control" id="applicant_aadhar_no"
-								                                                   name="applicant_aadhar_no">
-								                                            <label id="applicant_aadhar_no_error" class="error"
-								                                                   style="color:red; display:none; font-size: 12px;"></label>
+								                                            <label for="confirm_password">Confirm Password </label>
+								                                            <input type="text" class="form-control" id="confirm_password"
+								                                                   name="confirm_password">
 								                                        </div>
 								                                  </div>
 								                                 </div>
@@ -323,7 +352,8 @@
 											                                    Register
 											                                </button>											                               
 											                        </div>
-											                      </div>								                                  								                                  
+											                      </div>		
+											                     </div>						                                  								                                  
 						                                    </div>
 						                                   </div>                                                            
 						                                  </div>                                                            
@@ -373,6 +403,88 @@
 		  <script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
 		  <script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>        
         <!-- END THEME LAYOUT SCRIPTS -->
-    </body>
 
+<script type="text/javascript">
+
+$("#verify-consumer").click(function(event)  {
+ 
+ if(validate_verify()){	
+	event.preventDefault(); 
+	 
+	var formData= new FormData();
+	formData.append("city_id",$("#verify_city").val());
+	formData.append("consumer_no",$("#verify_consumer_no").val());				
+
+	 $.ajax({  				  
+			  type	: "POST",
+			   url : '/self-service/verify-new-consumer/',
+	 			data : formData,
+				cache: false,
+		      processData: false,
+		 		contentType: false, 
+		 			               
+	        success: function (response) {   
+	           if(response.success=='true'){
+	           		$("#consumer_name").val(response.consumer_data.name);
+		     		  	$("#consumer_cate").val(response.consumer_data.meter_category);
+		     		   //$("#billing_unit").text(response.consumer_data.role_description);
+		     		  	$("#address_line1").val(response.consumer_data.address_line_1);
+		     		  	$("#address_line2").val(response.consumer_data.address_line_2);
+		     		  	$("#consumer_city").val(response.consumer_data.city);
+		     		  	$("#consumer_pincode").val(response.consumer_data.pin_code);
+		     		  	$("#consumer_mobile").val(response.consumer_data.contact_no);
+		     		  	$("#email_id").val(response.consumer_data.email_id);
+
+	           	}
+	   			if (response.success == "false") {
+	   			
+	    			}							                        		                      		                       		
+	         },
+	         	beforeSend: function () {
+	      $("#processing").css('display','block');
+	      },
+	      complete: function () {
+	          $("#processing").css('display','none');
+	      },
+	         error : function(response){
+	            	alert("_Error");
+	      	}              
+	  });     
+	  }      
+});    
+
+function validate_verify() {
+	if (CheckCity("#verify_city")&CheckConsumerNo("#verify_consumer_no")) {	
+	return true
+	}
+	return false		
+}
+function CheckCity(city){
+	if($(city).val()!=' ' && $(city).val()!=null)
+   {
+    $(verify_city).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+    $(verify_city).parent().children('.error').css("display", "block");
+    $(verify_city).parent().children('.error').text("Please select City");
+   return false; 
+   }
+}
+function CheckConsumerNo(consumer_no){
+   consumer_no = $(consumer_no).val()     
+   var Pattern = /^\d{12}$/; 
+ 
+   if(Pattern.test(consumer_no)){
+    $(verify_consumer_no_error).css("display", "none");
+   return true;
+   }
+   else{
+    $(verify_consumer_no_error).css("display", "block");
+    $(verify_consumer_no_error).text("Please enter valid Consumer Number");
+   return false; 
+   }
+ }
+
+</script>       
+</body>
 </html>

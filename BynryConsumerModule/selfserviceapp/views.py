@@ -11,6 +11,7 @@ from django.shortcuts import render
 from consumerapp.views import get_city, get_billcycle
 from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail
+from django.views.decorators.csrf import csrf_exempt
 
 
 def home_screen(request):
@@ -210,3 +211,27 @@ def FAQS(request):
         print 'Exception|selfserviceapp|views.py|FAQS', exe
         data = {}
     return render(request, 'self_service/FAQS.html', data)
+
+@csrf_exempt
+def verify_new_consumer(request):
+    """to get verify_new_consumer"""
+    try:
+        print 'selfserviceapp|views.py|verify_new_consumer'
+
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'),city=request.POST.get('city_id'))
+        if consumer_obj:
+            consumer_data = {
+                'name' : consumer_obj.name,
+                'meter_category' : consumer_obj.meter_category,
+                'address_line_1' : consumer_obj.address_line_1,
+                'address_line_2' : consumer_obj.address_line_2,
+                'city' : consumer_obj.city.city,
+                'pin_code' : consumer_obj.pin_code.pincode,
+                'contact_no' : consumer_obj.contact_no,
+                'email_id' : consumer_obj.email_id,
+            }
+            data = {'success' : 'true','consumer_data':consumer_data}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|verify_new_consumer', exe
+        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')

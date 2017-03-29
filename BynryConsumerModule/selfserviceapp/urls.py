@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^my-tariff/', views.my_tariff, name='my_tariff'),
     url(r'^get-consumer-bill-data/', views.get_consumer_bill_data, name='get_consumer_bill_data'),
     url(r'^FAQS/', views.FAQS, name='FAQS'),
+    url(r'^verify-new-consumer/', views.verify_new_consumer, name='verify_new_consumer'),
 
 ]
