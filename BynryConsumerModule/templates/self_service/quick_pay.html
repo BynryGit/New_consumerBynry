@@ -88,48 +88,7 @@
         <div class="container">
             <!-- BEGIN MEGA MENU -->
             <div class="hor-menu  ">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="/self-service/index/" class="nav-link">
-                            Home
-                        </a>
-                    </li>
-                    <li class=" active">
-                        <a href="/self-service/quick-pay/" class="nav-link active">
-                            Quick Pay
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/my-bills/" class="nav-link">
-                            My Bill
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link">
-                            Complaints
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link">
-                            Services
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link">
-                            Vigilance
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link">
-                            Contact Us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/self-service/index/" class="nav-link">
-                            FAQ's
-                        </a>
-                    </li>
-                </ul>
+                {% include 'self_service/side-panel.html' %}
             </div>
             <!-- END MEGA MENU -->
         </div>
@@ -158,6 +117,15 @@
         <div class="page-content">
             <div class="container">
                 <!-- BEGIN PAGE CONTENT INNER -->
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <a href="/self-service/index/">Home</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>Quick Pay</span>
+                    </li>
+                </ul>
                 <div class="page-content-inner">
                     <div class="row">
                         <div class="col-md-12">
@@ -181,8 +149,8 @@
                                                                 <input type="text" class="form-control"
                                                                        id="consumer_number"
                                                                        name="consumer_number">
-                                                                <label for="consumer_number" class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                                <span id="error_consumer_number" class="error"
+                                                                      style="color:red; display:none;">Please enter Consumer No</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
@@ -191,13 +159,13 @@
                                                                         class="required"> *</span></label>
                                                                 <select id="consumer_type"
                                                                         class="form-control input-sm select2-multiple">
-                                                                    <option value=" "> Select Consumer Type</option>
+                                                                    <option value=""> Select Consumer Type</option>
                                                                     <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
                                                                     <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
                                                                     <option value="3-EHV">3-EHV</option>
                                                                 </select>
-                                                                <label class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                                <span id="error_consumer_type" class="error"
+                                                                      style="color:red; display:none;">Please select Consumer Type</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
@@ -206,36 +174,39 @@
                                                                         class="required"> *</span></label>
                                                                 <select id="bill_cycle"
                                                                         class="form-control input-sm select2-multiple">
-                                                                    <option value=" "> Select Bill Cycle</option>
+                                                                    <option value=""> Select Bill Cycle</option>
                                                                     {% for bill_cycle in bill_cycle_list %}
-                                                                        <option value="{{bill_cycle.id}}"> {{ bill_cycle.bill_cycle_code }}
+                                                                        <option value="{{bill_cycle.bill_cycle_id}}"> {{ bill_cycle.bill_cycle_code }}
                                                                         </option>
                                                                     {% endfor %}
                                                                 </select>
-                                                                <label class="error"
-                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                                <span id="error_bill_cycle" class="error"
+                                                                       style="color:red; display:none;">Please select Bill Cycle</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3"
                                                              style="text-align: right; margin-top: 48px;">
                                                             <button type="button"
                                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                    id="search-bill" style="width: 89px;">
+                                                                    onclick="search_bill()" style="width: 89px;">
                                                                 Submit
                                                             </button>
                                                             <button type="button"
                                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                    id="clear-search" style="width: 89px;">
+                                                                    onclick="clear_search()" style="width: 89px;">
                                                                 Clear
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <br>
+                                            </div>
+                                        </div>
+                                        <div class="portlet light display-none" id="bill_details_div">
+                                            <div class="portlet-body">
                                                 <div class="caption caption-md">
-                                                    <i class="icon-globe theme-font hide"></i>
-                                                    <span class="caption-subject font-blue-madison bold uppercase">Bill Details</span>
-                                                </div>
+                                                        <i class="icon-globe theme-font hide"></i>
+                                                        <span class="caption-subject font-blue-madison bold uppercase">Bill Details</span>
+                                                    </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="col-md-3">
@@ -401,6 +372,72 @@
 <script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
+<script>
+    $("#quick_pay").addClass("active");
+
+    function search_bill(){
+        if(validate_bill_data()){
+            $.ajax({
+                type: 'GET',
+                url: '/self-service/get-consumer-bill-data/',
+                data: {'consumer_number': $("#consumer_number").val()},
+                success: function (response) {
+                console.log(response);
+                    if (response.success == 'true') {
+                        $('#con_number').val(response.con_number);
+                        $('#con_name').val(response.con_name);
+                        $('#con_bill_cycle').val(response.con_bill_cycle);
+                        $('#con_bill_month').val(response.con_bill_month);
+                        $('#current_amount').val(response.current_amount);
+                        $('#prev_due').val(response.prev_due);
+                        $('#net_amount').val(response.net_amount);
+                        $('#due_date').val(response.due_date);
+                        $('#prompt_date').val(response.prompt_date);
+                        $('#prompt_amount').val(response.prompt_amount);
+                        $("#bill_details_div").removeClass("display-none");
+                    }
+                    if (response.success == 'false') {
+                        $("#bill_details_div").addClass("display-none");
+                    }
+                },
+                error: function (response) {
+                    $("#bill_details_div").addClass("display-none");
+                },
+            });
+
+        }
+        else{
+            $("#bill_details_div").addClass("display-none");
+        }
+    }
+
+    function clear_search(){
+        $("#consumer_number").val("");
+        $("#consumer_type").val("").change();
+        $("#bill_cycle").val("").change();
+        $(".error").css("display","none");
+        $("#bill_details_div").addClass("display-none");
+    }
+
+    function validate_bill_data() {
+        if(validate_data("consumer_number","error_consumer_number") & validate_data("consumer_type","error_consumer_type") & validate_data("bill_cycle","error_bill_cycle")){
+            return true;
+        }
+    }
+
+    function validate_data(id,error) {
+	 	if ($("#"+id).val()) {
+            $("#"+error).css("display","none");
+			return true;
+		}
+		else {
+			$("#"+error).css("display","block");
+            $("#"+error).css("color","red");
+			return false;
+		}
+	}
+
+</script>
 </body>
 
 </html>
