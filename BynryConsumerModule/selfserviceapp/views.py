@@ -290,3 +290,28 @@ def consumer_registration_sms(consumer_obj, OTP):
     # output = response.read()
     # print output
     return 1
+
+@csrf_exempt
+def verify_OTP(request):
+    """to verify_OTP"""
+    try:
+        print 'selfserviceapp|views.py|verify_OTP'
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
+        if consumer_obj.consumer_otp == request.POST.get('otp_no'):
+            consumer_data = {
+                'name' : consumer_obj.name,
+                'meter_category' : consumer_obj.meter_category,
+                'address_line_1' : consumer_obj.address_line_1,
+                'address_line_2' : consumer_obj.address_line_2,
+                'city' : consumer_obj.city.city,
+                'pin_code' : consumer_obj.pin_code.pincode,
+                'contact_no' : consumer_obj.contact_no,
+                'email_id' : consumer_obj.email_id,
+            }
+            data = {'success' : 'true','consumer_data':consumer_data}
+        else :
+            data = {'success' : 'false'}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|verify_OTP', exe
+        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')

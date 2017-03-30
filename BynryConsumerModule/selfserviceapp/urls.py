@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^get-consumer-complaint-details/', views.get_consumer_complaint_details, name='get_consumer_complaint_details'),
     url(r'^FAQS/', views.FAQS, name='FAQS'),
     url(r'^verify-new-consumer/', views.verify_new_consumer, name='verify_new_consumer'),
+    url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
 ]
