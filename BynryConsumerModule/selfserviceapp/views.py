@@ -12,6 +12,8 @@ from consumerapp.views import get_city, get_billcycle
 from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail
 from django.views.decorators.csrf import csrf_exempt
+import urllib2
+import random
 
 
 def home_screen(request):
@@ -223,19 +225,48 @@ def verify_new_consumer(request):
 
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'),city=request.POST.get('city_id'))
         if consumer_obj:
-            consumer_data = {
-                'name' : consumer_obj.name,
-                'meter_category' : consumer_obj.meter_category,
-                'address_line_1' : consumer_obj.address_line_1,
-                'address_line_2' : consumer_obj.address_line_2,
-                'city' : consumer_obj.city.city,
-                'pin_code' : consumer_obj.pin_code.pincode,
-                'contact_no' : consumer_obj.contact_no,
-                'email_id' : consumer_obj.email_id,
-            }
-            data = {'success' : 'true','consumer_data':consumer_data}
+            ret = u''
+            ret = ''.join(random.choice('0123456789ABCDEF') for i in range(6))
+            OTP = ret
+            consumer_registration_sms(consumer_obj, OTP)
+
+            consumer_obj.consumer_otp = OTP
+            consumer_obj.save()
+            data = {'success': 'true', 'message': 'SMS Sent Successfully'}
+        else:
+            data = {'success': 'false', 'message': 'Invalid Username'}
+
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_new_consumer', exe
         data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+def consumer_registration_sms(consumer_obj, OTP):
+    # pdb.set_trace()
+
+    # authkey = "118994AIG5vJOpg157989f23"
+
+    # mobiles = str(consumer_obj.user_contact_no)
+
+    # message = "Dear " + str(
+    #     consumer_obj.user_first_name) + ", \n\n" + "Greetings from CityHoopla !!! \n\n" + "Click on the link below to reset your password!!!" + "\n" + SERVER_URL + "/reset-password/?user_id=" + str(
+    #     consumer_obj.user_id) + "\n\n" + "Best Wishes," + '\n' + "Team CityHoopla "
+    # sender = "CTHPLA"
+    # route = "4"
+    # country = "91"
+    # values = {
+    #     'authkey': authkey,
+    #     'mobiles': mobiles,
+    #     'message': message,
+    #     'sender': sender,
+    #     'route': route,
+    #     'country': country
+    # }
+
+    # url = "http://api.msg91.com/api/sendhttp.php"
+    # postdata = urllib.urlencode(values)
+    # req = urllib2.Request(url, postdata)
+    # response = urllib2.urlopen(req)
+    # output = response.read()
+    # print output
+    return 1
