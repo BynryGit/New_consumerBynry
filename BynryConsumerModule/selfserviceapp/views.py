@@ -12,6 +12,9 @@ from consumerapp.views import get_city, get_billcycle
 from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail
 from serviceapp.models import ServiceRequestType, ServiceRequest
+from django.views.decorators.csrf import csrf_exempt
+import urllib2
+import random
 
 
 def home_screen(request):
@@ -43,6 +46,7 @@ def my_bills(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|my_bills'
+        
         data = {
         }
     except Exception as exe:
@@ -197,11 +201,13 @@ def my_tariff(request):
 def get_consumer_bill_data(request):
     try:
         consumer_no = request.GET.get('consumer_number')
-        #consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
+        consumer_type = request.GET.get('consumer_type')
+        bill_cycle = BillCycle.objects.get(id = request.GET.get('bill_cycle'))
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no,bill_cycle=bill_cycle,meter_category=consumer_type)
         data = {
-            'con_number': request.GET.get('consumer_number'),
-            'con_name': 'Vikas Kumawat',
-            'con_bill_cycle': 'BC 001',
+            'con_number': consumer_obj.consumer_no,
+            'con_name': consumer_obj.name,
+            'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
             'con_bill_month': 'March 2017',
             'current_amount': '500.00',
             'prev_due': '0.00',
@@ -212,9 +218,75 @@ def get_consumer_bill_data(request):
             'success': 'true',
         }
     except Exception, e:
-        print 'Exception|nscapp|views.py|save_consumer_payment', e
+        print 'Exception|selfserviceapp|views.py|get_consumer_bill_data', e
         data = {
             'success': 'false',
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+def FAQS(request):
+    """To view FAQS page"""
+    try:
+        print 'selfserviceapp|views.py|FAQS'
+        data = {
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|FAQS', exe
+        data = {}
+    return render(request, 'self_service/FAQS.html', data)
+
+
+@csrf_exempt
+def verify_new_consumer(request):
+    """to get verify_new_consumer"""
+    try:
+        print 'selfserviceapp|views.py|verify_new_consumer'
+
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'),city=request.POST.get('city_id'))
+        if consumer_obj:
+            ret = u''
+            ret = ''.join(random.choice('0123456789ABCDEF') for i in range(6))
+            OTP = ret
+            consumer_registration_sms(consumer_obj, OTP)
+
+            consumer_obj.consumer_otp = OTP
+            consumer_obj.save()
+            data = {'success': 'true', 'message': 'SMS Sent Successfully','contact_no':consumer_obj.contact_no}
+        else:
+            data = {'success': 'false', 'message': 'Invalid Username'}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|verify_new_consumer', exe
+        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def consumer_registration_sms(consumer_obj, OTP):
+    # pdb.set_trace()
+
+    # authkey = "118994AIG5vJOpg157989f23"
+
+    # mobiles = str(consumer_obj.user_contact_no)
+
+    # message = "Dear " + str(
+    #     consumer_obj.user_first_name) + ", \n\n" + "Greetings from CityHoopla !!! \n\n" + "Click on the link below to reset your password!!!" + "\n" + SERVER_URL + "/reset-password/?user_id=" + str(
+    #     consumer_obj.user_id) + "\n\n" + "Best Wishes," + '\n' + "Team CityHoopla "
+    # sender = "CTHPLA"
+    # route = "4"
+    # country = "91"
+    # values = {
+    #     'authkey': authkey,
+    #     'mobiles': mobiles,
+    #     'message': message,
+    #     'sender': sender,
+    #     'route': route,
+    #     'country': country
+    # }
+
+    # url = "http://api.msg91.com/api/sendhttp.php"
+    # postdata = urllib.urlencode(values)
+    # req = urllib2.Request(url, postdata)
+    # response = urllib2.urlopen(req)
+    # output = response.read()
+    # print output
+    return 1

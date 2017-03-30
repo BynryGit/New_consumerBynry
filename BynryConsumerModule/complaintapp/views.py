@@ -154,8 +154,11 @@ def get_complaint_details(request):
         complaints = ComplaintDetail.objects.get(
             id=request.GET.get('complaint_id'))
         # complaint image path with server url
-        image_address = "http://" + get_current_site(request).domain \
+        if complaints.complaint_img:
+            image_address = "http://" + get_current_site(request).domain \
                         + "/" + complaints.complaint_img.url
+        else:
+            image_address = ''
 
         # complaint detail result
         complaint_detail = {

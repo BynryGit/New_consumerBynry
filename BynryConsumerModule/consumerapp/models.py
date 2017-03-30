@@ -66,11 +66,11 @@ class ConsumerDetails(models.Model):
     is_new = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
+    consumer_otp = models.CharField(max_length=100, null=True, blank=True)
     created_by = models.CharField(max_length=500, blank=False, null=True)
     updated_by = models.CharField(max_length=500, blank=True, null=True)
     created_on = models.DateTimeField(default=django.utils.timezone.now)
     updated_on = models.DateTimeField(blank=True, null=True)
-
     def __unicode__(self):
         return unicode(str(self.consumer_no))
 

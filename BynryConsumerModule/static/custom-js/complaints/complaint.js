@@ -97,13 +97,14 @@ function complaint_details(complaint_id){
                 $("#complaint_remark").text(complaintDetail.consumerRemark);
                 $("#cons_name").text(complaintDetail.complaintConsumerName);
                 $("#cons_no").text(complaintDetail.complaintConsumerNo);
+                $("#complaint_details").modal('show');
             }
         },
         error : function(response){
             alert("_Error");
+            $("#complaint_details").modal('hide');
         }
     });
-    $("#complaint_details").modal('show');
 }
 
 function consumer_details(consumer_id){
@@ -137,10 +138,11 @@ function filter_complaints(){
 }
 
 function reload_complaints(){
-    initTable1();
+    location.reload();
+    //initTable1();
 }
 
- function get_zone(){
+function get_zone(){
     branch = $("#select_branch").val();
     $("#select_zone").html('');
     $("#select_zone").append('<option value="all">All</option>');
@@ -160,6 +162,7 @@ function reload_complaints(){
                     $.each(response.zone, function (index, item) {
                         $("#select_zone").append('<option value="'+item.zone_id+'">'+item.zone_name+'</option>')
                     });
+                    $("#select_zone").val("all").change();
                 }
             },
             error : function(response){
