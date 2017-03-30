@@ -70,7 +70,7 @@ def online_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Online Payment':
-                    online_data = {'payment_date':str(i.payment_date.strftime('%B %d, %Y %I:%M %p')),
+                    online_data = {'payment_date':str(i.created_on.strftime('%B %d, %Y %I:%M %p')),
                                   'bill_amount_paid':str(i.bill_amount_paid),
                                   'transaction_id':str(i.transaction_id),
                                   'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -131,7 +131,7 @@ def paytm_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Paytm Wallet':
-                    paytm_data = {'payment_date':str(i.payment_date.strftime('%B %d, %Y %I:%M %p')),
+                    paytm_data = {'payment_date':str(i.created_on.strftime('%B %d, %Y %I:%M %p')),
                                  'bill_amount_paid':str(i.bill_amount_paid),
                                  'transaction_id':str(i.transaction_id),
                                  'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
@@ -195,7 +195,7 @@ def cash_payments(request):
             for i in payment_details_list:
                 payment_mode = i.payment_mode
                 if payment_mode == 'Cash Payment':
-                    cash_data = {'payment_date':str(i.payment_date.strftime('%B %d, %Y %I:%M %p')),
+                    cash_data = {'payment_date':str(i.created_on.strftime('%B %d, %Y %I:%M %p')),
                                 'bill_amount_paid':str(i.bill_amount_paid),
                                 'transaction_id':str(i.transaction_id),
                                 'consumer_id':'<a onclick="consumer_details_modal('+ str(i.consumer_id) +');">' + str(i.consumer_id) + '</a>',
