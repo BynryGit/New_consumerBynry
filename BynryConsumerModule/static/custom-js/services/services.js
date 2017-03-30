@@ -135,7 +135,8 @@
     }
     
     function reload_complaints(){
-        initTable1();
+			location.reload();        
+        //initTable1();
     }
 
     initTable1();
@@ -143,6 +144,7 @@
 
  function get_zone(){
     branch = $("#select_branch").val();
+    $( "#clear_zone_list" ).load(" #clear_zone_list" );
     $( "#clear_bill_cycle" ).load(" #clear_bill_cycle" );
     $("#select_zone").html('');
     $("#select_zone").append('<option value="all">All</option>');
