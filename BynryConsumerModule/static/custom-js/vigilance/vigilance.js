@@ -141,7 +141,8 @@ function filter_vigilance(){
 }
 
 function reload_vigilance(){
-    initTable1();
+    location.reload()
+    //initTable1();
 }
 
 
@@ -165,6 +166,7 @@ function reload_vigilance(){
                     $.each(response.zone, function (index, item) {
                         $("#select_zone").append('<option value="'+item.zone_id+'">'+item.zone_name+'</option>')
                     });
+                    $("#select_zone").val("all").change();
                 }
             },
             error : function(response){
