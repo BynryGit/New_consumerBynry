@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^FAQS/', views.FAQS, name='FAQS'),
     url(r'^verify-new-consumer/', views.verify_new_consumer, name='verify_new_consumer'),
     url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
+    url(r'^save-consumer/', views.save_consumer, name='save_consumer'),
 ]

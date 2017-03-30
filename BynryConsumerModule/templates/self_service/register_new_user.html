@@ -209,7 +209,7 @@
 								                                  </div>
 								                                  <div class="col-md-6" style="text-align: right;margin-top: 36px;">
 											                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-											                                        id="verify-consumer" style="width: 89px;">
+											                                        style="width: 89px;" onclick="verify_consumer();">
 											                                    Verify
 											                                </button>											                               
 											                         </div>
@@ -256,7 +256,7 @@
 							                                                            <button type="button"
 							                                                                    style="margin-left: 15px;margin-top: 25px;"
 							                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-							                                                                    onclick="">
+							                                                                    onclick="verify_consumer();">
 							                                                                Resend OTP?
 							                                                            </button>
 							                                                        </div>
@@ -349,7 +349,7 @@
 								                                 </div>
 								                             </div>
 								                             <div class="row">
-                                                       <div class="col-md-12"> 
+                                                       <div class="col-md-12">                                                          
                                                           <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-success">
 								                                            <label for="password">Password </label>
@@ -364,6 +364,12 @@
 								                                                   name="confirm_password">
 								                                        </div>
 								                                  </div>
+								                                 </div>
+								                                 <div class="col-md-12"> 
+								                                   <div class="col-md-6">
+						                                  				<label id="password_error" class="error"
+						                                                   style="color:red; display:none; font-size: 12px;"></label>
+						                                          </div>								                                                   								                                 
 								                                 </div>
 								                              </div>
 								                              <div class="row">
@@ -397,6 +403,53 @@
             <!-- END CONTENT -->            
         </div>
         <!-- END CONTAINER -->
+        
+	     <div class="modal fade draggable-modal" id="success_modal" tabindex="-1" role="basic" aria-hidden="true">
+	                <div class="modal-dialog" style="width:35%;">
+	                    <div class="modal-content"> 
+	                    <div class="modal-header text-center">
+	
+	                <img style="width: 18%;"
+	                     src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo" class="logo-default">
+	
+	            </div>                                               
+	                        <div class="modal-body">
+	                            <form action="index.html" class="form-horizontal form-row-seperated">
+	                <div class="form-body">
+	                    <h4 class="text-center">User added successfully</h4>
+	                        </div>
+	                        <div style="text-align:center !important;" class="modal-footer">
+	                        <a type="button"  href="/self-service/" class="btn green" >OK</a>
+	                            
+	                        </div>
+	                    </div>
+	                    <!-- /.modal-content -->
+	                </div>
+	                <!-- /.modal-dialog -->
+	            </div>
+	        </div>
+	    
+	      <div style="overflow-y:hidden;" id="error-modal" class="modal fade" role="dialog">
+	        <div class="modal-dialog">
+	            <!-- Modal content-->
+	            <div class="modal-content">
+	            <div class="modal-header">
+	                    		<img style="width: 100px; height: 29px; margin-top: -11px; margin-left: 236px;" src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo" class="logo-default">
+	
+	                </div>
+	                <div class="modal-body">
+	                <div class="form-body">
+	                    <h4 class="text-center">User name is already exist</h4>
+	                        </div>
+	                         <div style="text-align:center !important;" class="modal-footer">
+								    <input data-dismiss="modal" type="submit" value="OK"
+	                                   class="btn btn-primary" id="btn-loading-demo">
+	                         </div>   
+	                </div>        
+	            </div>	
+	        </div>
+	    </div>	
+        
         <!-- BEGIN FOOTER -->
 		  <div class="page-footer">
 			    <div class="page-footer-inner">  2017 © Bynry Technologies Pvt. Ltd.
@@ -428,9 +481,8 @@
 
 <script type="text/javascript">
 
-$("#verify-consumer").click(function(event)  {
- 
- if(validate_verify()){	
+function verify_consumer() {
+	if(validate_verify()){	
 	event.preventDefault(); 
 	 
 	var formData= new FormData();
@@ -467,8 +519,8 @@ $("#verify-consumer").click(function(event)  {
 	            	alert("_Error");
 	      	}              
 	  });     
-	  }      
-});    
+	  }  
+}
 
 function validate_verify() {
 	if (CheckCity("#verify_city")&CheckConsumerNo("#verify_consumer_no")) {	
@@ -549,7 +601,69 @@ $("#submit-otp").click(function(event)  {
 	            	alert("_Error");
 	      	}              
 	  });         
+});  
+
+$("#save-consumer").click(function(event)  {
+
+  if (checkpassword("#password")) {
+	
+		event.preventDefault(); 
+		var password = $('#password').val();
+ 		var re_password = $('#confirm_password').val();
+	   if (password != re_password) {
+	 			 $('#password_error').css("display", "block");
+             $('#password_error').text("Password don't match");
+ 				 return false;	
+	 		 }
+	 			 
+		var formData= new FormData();
+		formData.append("password",$("#password").val());
+		formData.append("consumer_no",$("#verify_consumer_no").val());				
+
+	 	$.ajax({  				  
+			  type	: "POST",
+			   url : '/self-service/save-consumer/',
+	 			data : formData,
+				cache: false,
+		      processData: false,
+		 		contentType: false, 
+		 			               
+	        success: function (response) {   
+	           if(response.success=='true'){
+						$("#success_modal").modal('show');
+	           	}
+	   			if (response.success == "false") {	   		
+						$("#error-modal").modal('show');
+	    			}							                        		                      		                       		
+	         },
+	         	beforeSend: function () {
+	          $("#processing").css('display','block');
+	      },
+	      complete: function () {
+	          $("#processing").css('display','none');
+	      },
+	         error : function(response){
+	            	alert("_Error");
+	      	}              
+	  });  
+	}       
 });     
+
+function checkpassword(password){
+ passw = $(password).val()
+ var paswd=  /^[a-zA-Z0-9!@#$%^&*]{6,15}$/;
+
+	if($(password).val()!='' && paswd.test(passw))
+   {
+    $("#password_error").css("display", "none");
+  	 return true;
+   }
+   else{
+     $("#password_error").css("display", "block");
+     $("#password_error").text("Enter valid Password");
+     return false; 
+   }
+}
 
 </script>       
 </body>

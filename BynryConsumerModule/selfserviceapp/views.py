@@ -4,13 +4,14 @@ from django.core.serializers.json import DjangoJSONEncoder
 from BynryConsumerModuleapp.models import Zone, BillCycle, RouteDetail, Branch
 from consumerapp.models import ConsumerDetails
 from django.contrib.sites.shortcuts import get_current_site
-import datetime
+from datetime import datetime
 from django.http import HttpResponse
 import json
 from django.shortcuts import render
 from consumerapp.views import get_city, get_billcycle
 from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail
+from selfserviceapp.models import WebUserProfile
 from serviceapp.models import ServiceRequestType, ServiceRequest
 from django.views.decorators.csrf import csrf_exempt
 import urllib2
@@ -314,4 +315,33 @@ def verify_OTP(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_OTP', exe
         data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_consumer(request):
+    try:
+        print 'selfserviceapp|views.py|save_consumer'
+
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
+        new_consumer_obj = WebUserProfile(
+            consumer_id=ConsumerDetails.objects.get(
+                consumer_no=request.POST.get('consumer_no')) if request.POST.get('consumer_no') else None,            
+            username=request.POST.get('consumer_no'),
+            status='Active',
+            created_on=datetime.now(),
+        );
+        new_consumer_obj.save();
+        new_consumer_obj.set_password(request.GET.get('password'))
+        new_consumer_obj.save();
+
+        data = {
+            'success': 'true',
+            'message': 'Consumer created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|save_consumer', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
     return HttpResponse(json.dumps(data), content_type='application/json')
