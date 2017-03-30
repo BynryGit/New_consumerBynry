@@ -162,7 +162,7 @@
                                                             <i class="icon-globe theme-font hide"></i>
                                                             <span class="caption-subject font-blue-madison bold uppercase">Register New User</span>
                                                      </div> 
-                                                     <div class="row">
+                                                     <div class="row" id="div1">
                                                        <div class="col-md-12">
                                                      		<div class="col-md-3">
 						                                            <div class="form-group form-md-line-input has-success">
@@ -197,7 +197,7 @@
 						                                       </div>
 						                                    </div>
 						                                    <br>
-						                                   <div class="row" id="check_otp" >
+						                                   <div class="row" id="check_otp" style="display:none">
 							                                    <div class="col-md-offset-2 portlet light bordered"
 							                                         style="height: 150px !important;width: 670px !important;">
 							                                        <div class="portlet-body">
@@ -205,8 +205,8 @@
 							                                                <div class="col-md-offset-1 col-md-11">
 							                                                    <div class="form-group">
 							                                                        <div class="form-group form-md-line-input has-info">
-							                                                            <label>We have sent a verification code on your registered
-							                                                                mobile no. 99xxxxxxxx</label>
+							                                                            <label> We have sent a verification code on your registered
+							                                                                mobile no.  </label> <label id="contactno_id"> </label>
 							                                                        </div>
 							                                                    </div>
 							                                                </div>
@@ -425,15 +425,9 @@ $("#verify-consumer").click(function(event)  {
 		 			               
 	        success: function (response) {   
 	           if(response.success=='true'){
-	           		$("#consumer_name").val(response.consumer_data.name);
-		     		  	$("#consumer_cate").val(response.consumer_data.meter_category);
-		     		   //$("#billing_unit").text(response.consumer_data.role_description);
-		     		  	$("#address_line1").val(response.consumer_data.address_line_1);
-		     		  	$("#address_line2").val(response.consumer_data.address_line_2);
-		     		  	$("#consumer_city").val(response.consumer_data.city);
-		     		  	$("#consumer_pincode").val(response.consumer_data.pin_code);
-		     		  	$("#consumer_mobile").val(response.consumer_data.contact_no);
-		     		  	$("#email_id").val(response.consumer_data.email_id);
+		     		  	$("#div1").css('display','none');
+		     		  	$("#contactno_id").text(response.contact_no);
+		     		  	$("#check_otp").css('display','block');
 
 	           	}
 	   			if (response.success == "false") {

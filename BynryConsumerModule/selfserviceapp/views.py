@@ -232,7 +232,7 @@ def verify_new_consumer(request):
 
             consumer_obj.consumer_otp = OTP
             consumer_obj.save()
-            data = {'success': 'true', 'message': 'SMS Sent Successfully'}
+            data = {'success': 'true', 'message': 'SMS Sent Successfully','contact_no':consumer_obj.contact_no}
         else:
             data = {'success': 'false', 'message': 'Invalid Username'}
 
