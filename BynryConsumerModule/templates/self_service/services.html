@@ -143,32 +143,33 @@
                                       <div class="col-md-12">
 		                                        <div class="col-md-4">
 	                                              <div class="form-group form-md-line-input has-success" >                                         
-		                                             <select id="monthList" style="margin-top: 4px;" class="form-control input-sm select2-multiple" >
+		                                             <select id="service_type" style="margin-top: 4px;" class="form-control input-sm select2-multiple" >
 		                                                 <option value=""> Select Service Type</option>
-		                                                 {% for month in last_month_list %}
-		                                                 	<option value="{{ month.month2 }}"> {{ month.month1 }} </option>
+		                                                 {% for type in serviceType %}
+		                                                 	<option value="{{ type.id }}"> {{ type.request_type }} </option>
 		                                                 {% endfor %}
 		                                             </select>
 		                                             <label >Service Type :</label>
 		                                         </div>
+		                                         <span class="service_type_error" style="margin-top: -29px;color:red;"></span>
 	                                          </div>
 			                                          <div class="col-md-6">
 			                                              <div class="form-group">
 			                                                  <div class="form-group form-md-line-input has-success">
-			                                                      <textarea style="height: 35px;" type="text" class="form-control"></textarea>
+			                                                      <textarea id="service_remark" style="height: 35px;" type="text" class="form-control"></textarea>
 			                                                      <label >Remark :</label>
 			                                                  </div>
 			                                              </div>
+			                                              <span class="service_remark_error" style="margin-top: -15px;color:red;"></span>
 		                                          	</div>
 		                                          	<div class="col-md-2" style="text-align:right;">
 			                                         	  <div class="btn-group btn-group-devided">
-					                                        <button type="button" style="margin-top: 27px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="confirm_service()">
+					                                        <button type="button" style="margin-top: 27px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="service_request();">
 					                                            Submit
 					                                        </button>
 							                                </div>
 				                                			</div>                                
-                                          	                               
-                                      
+                                          	                                                                     
                                       </div>
                                       </div>                                                                                                                                               
                                   </div>
@@ -189,7 +190,7 @@
                                               <div class="form-group">
                                                   <div class="form-group form-md-line-input has-info">                                                     
                                                       <p >Thanks for interest in our service. Kindly note the reference no. for future.</p>
-                                                      <p >Service ID : 5698574</p>
+                                                      <p >Service ID : <span id="service_ID"></span></p>
                                                       <p >Please download the service form from your registered email id and submit it at nearest CSD center with supporting documents.</p>
                                                   </div>
                                               </div>
@@ -199,15 +200,15 @@
                                           	                                         			
                                          			<div class="col-md-offset-9 col-md-3">
 			                                         	  <div class="btn-group btn-group-devided">
-					                                        <button type="button" style="margin-top: 25px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="check_otp()">
-					                                            Continue
-					                                        </button>
+					                                        <a type="button" href="/self-service/index/" style="margin-top: 25px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="check_otp()">
+					                                            Home
+					                                        </a>
 							                                </div>
 						                                
 			                                         	  <div class="btn-group btn-group-devided">
-					                                        <button type="button" style="margin-left: 15px;margin-top: 25px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="">
+					                                        <a type="button" href="/self-service/contact-us/" style="margin-left: 15px;margin-top: 25px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="">
 					                                            Locate CSD Centers
-					                                        </button>
+					                                        </a>
 							                                </div>
 						                                </div>
                                          		
@@ -329,6 +330,50 @@
 		document.getElementById("confirm_service_msg").removeAttribute("hidden");
 	//document.getElementById("counter_form_footer").removeAttribute("hidden");              
   }
+  
+      function service_request() {
+			$(".service_type_error").css("display", "none");
+			$(".service_type_error").css("display", "none");
+        if ($(service_type).val() != '' && $(service_type).val() != null) {          
+        		if ($(service_remark).text() == ' ' && $(service_remark).text() == null) {
+	            return true;
+   	      }
+   	      else {
+   	      	$(".service_remark_error").css("display", "block");
+            	$(".service_remark_error").text("Please enter valid remark");
+            	return false;
+   	      }  
+            return true;
+        } 
+        else{
+            $(".service_type_error").css("display", "block");
+            $(".service_type_error").text("Please select service type");
+            return false;
+        }
+        if ($(service_type).val() != '' && $(service_type).val() != null && $(service_remark).text() == ' ' && $(service_remark).text()) {
+					$.ajax({
+	            type : "GET",
+	            url : '/self-service/service-request/',
+	            data : {'consumer_id':consumer_id},
+	            success: function (response) {
+	                if(response.success =='true'){
+	                	  $("#service_ID").val(response.service_no);
+	                    document.getElementById("confirm_service_msg").removeAttribute("hidden");
+	                }
+	            },
+	            error : function(response){
+	                alert("_Error");
+	            }
+	        });        	
+        }
+        else {
+        		$(".service_type_error").css("display", "block");
+            $(".service_type_error").text("Please select service type");
+            $(".service_remark_error").css("display", "block");
+            	$(".service_remark_error").text("Please enter valid remark");
+        }
+        
+    }
      
 </script>
 
