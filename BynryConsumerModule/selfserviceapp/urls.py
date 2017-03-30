@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^get-consumer-bill-data/', views.get_consumer_bill_data, name='get_consumer_bill_data'),
     url(r'^FAQS/', views.FAQS, name='FAQS'),
     url(r'^verify-new-consumer/', views.verify_new_consumer, name='verify_new_consumer'),
+    url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
 
 ]

@@ -28,8 +28,27 @@
 	          type="text/css"/>        
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
-
+	<style>
+		#loading{
+		    width: 36%;
+		    height: 44px;
+		    position: absolute;
+		    top: 26%;
+		    left: 32%;
+		    margin: -28px 0px 0px -25px;
+		    text-align: center;
+		    font-size: 13px;
+		    font-weight: 500;
+		    color: #000;
+		}		
+	 </style>
     <body class="page-container-bg-solid page-boxed">
+	    <div id="processing" style="display:none;">
+		    <div id="loading">
+		        <img src="{% static 'assets/loading-bars.gif' %}" style="height : 100px;">
+		
+		    </div>
+		</div>
         <!-- BEGIN HEADER -->
         <div class="page-header">
             <!-- BEGIN HEADER TOP -->
@@ -199,7 +218,7 @@
 						                                    <br>
 						                                   <div class="row" id="check_otp" style="display:none">
 							                                    <div class="col-md-offset-2 portlet light bordered"
-							                                         style="height: 150px !important;width: 670px !important;">
+							                                         style="height: 200px !important;width: 670px !important;">
 							                                        <div class="portlet-body">
 							                                            <div class="row" style="margin-top: -15px;!important">
 							                                                <div class="col-md-offset-1 col-md-11">
@@ -213,20 +232,21 @@
 							                                            </div>
 							                                            <div class="row">
 							                                                <div class="col-md-12">
-							                                                    <div class="col-md-offset-2 col-md-3">
+							                                                    <div class="col-md-offset-1 col-md-5">
+							                                                        <label id="otp_no_error"
+                                                   												style="color:red; display:none; font-size: 12px;"></label>
 							                                                        <div class="form-group">
 							                                                            <div class="form-group form-md-line-input has-success">
 							                                                                <input id="otp_no" type="text" class="form-control">
 							                                                                <label>Enter OTP :</label>
-							                                                            </div>
-							                                                            <span class="otp_error" style="margin-top: -30px;color:red;"></span>
+							                                                            </div>									                                                            					                                                            
 							                                                        </div>
 							                                                    </div>
 							                                                    <div class="col-md-1">
 							                                                        <div class="btn-group btn-group-devided">
 							                                                            <button type="button" style="margin-top: 25px;"
 							                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-							                                                                    onclick="check_otp()">
+							                                                                    id="submit-otp">
 							                                                                Submit
 							                                                            </button>
 							                                                        </div>
@@ -248,12 +268,13 @@
 							                                </div>
                                 
 						                                   <div class="row" style="display:none" id="display_details_div">
-						                                    <div class="caption caption-md">
+						                                    <div class="col-md-12">
+						                                     <div class="caption caption-md">
                                                             <i class="icon-globe theme-font hide"></i>
                                                             <span class="caption-subject font-blue-madison bold uppercase">Consumer Details</span>
-                                                      </div>
-                                                      <div class="row">
-                                                       <div class="col-md-12">                                                     		
+                                                       </div>
+                                                       <div class="row">
+                                                        <div class="col-md-12">                                                     		
 						                                        <div class="col-md-4">
 								                                        <div class="form-group form-md-line-input has-info">
 								                                            <label for="consumer_name">Consumer Name </label>
@@ -353,6 +374,7 @@
 											                                </button>											                               
 											                        </div>
 											                      </div>		
+											                      </div>
 											                     </div>						                                  								                                  
 						                                    </div>
 						                                   </div>                                                            
@@ -431,7 +453,8 @@ $("#verify-consumer").click(function(event)  {
 
 	           	}
 	   			if (response.success == "false") {
-	   			
+    					$(verify_consumer_no_error).css("display", "block");
+    					$(verify_consumer_no_error).text("Consumer Number does not exit");	   			
 	    			}							                        		                      		                       		
 	         },
 	         	beforeSend: function () {
@@ -478,6 +501,55 @@ function CheckConsumerNo(consumer_no){
    return false; 
    }
  }
+ 
+$("#submit-otp").click(function(event)  {
+	$("#otp_no_error").css("display", "none");
+	event.preventDefault(); 
+	 
+	var formData= new FormData();
+	formData.append("otp_no",$("#otp_no").val());
+	formData.append("consumer_no",$("#verify_consumer_no").val());				
+
+	 $.ajax({  				  
+			  type	: "POST",
+			   url : '/self-service/verify-OTP/',
+	 			data : formData,
+				cache: false,
+		      processData: false,
+		 		contentType: false, 
+		 			               
+	        success: function (response) {   
+	           if(response.success=='true'){
+	           		$("#consumer_name").val(response.consumer_data.name);
+		     		  	$("#consumer_cate").val(response.consumer_data.meter_category);
+		     		   //$("#billing_unit").text(response.consumer_data.role_description);
+		     		  	$("#address_line1").val(response.consumer_data.address_line_1);
+		     		  	$("#address_line2").val(response.consumer_data.address_line_2);
+		     		  	$("#consumer_city").val(response.consumer_data.city);
+		     		  	$("#consumer_pincode").val(response.consumer_data.pin_code);
+		     		  	$("#consumer_mobile").val(response.consumer_data.contact_no);
+		     		  	$("#email_id").val(response.consumer_data.email_id);
+		     		  	
+		     		  	$("#check_otp").css('display','none');
+		     		  	$("#display_details_div").css('display','block');
+
+	           	}
+	   			if (response.success == "false") {	   		
+    					$("#otp_no_error").css("display", "block");
+    					$("#otp_no_error").text("Please Enter Valid OTP");   			
+	    			}							                        		                      		                       		
+	         },
+	         	beforeSend: function () {
+	      $("#processing").css('display','block');
+	      },
+	      complete: function () {
+	          $("#processing").css('display','none');
+	      },
+	         error : function(response){
+	            	alert("_Error");
+	      	}              
+	  });         
+});     
 
 </script>       
 </body>
