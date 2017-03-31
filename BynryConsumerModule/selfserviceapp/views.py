@@ -28,6 +28,7 @@ from django.shortcuts import *
 # importing mysqldb and system packages
 import MySQLdb, sys
 from .models import *
+from paymentapp.models import *
 
 
 def home_screen(request):
@@ -283,19 +284,26 @@ def get_consumer_bill_data(request):
         bill_cycle = BillCycle.objects.get(id=request.GET.get('bill_cycle'))
         consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no, bill_cycle=bill_cycle,
                                                    meter_category=consumer_type)
-        data = {
-            'con_number': consumer_obj.consumer_no,
-            'con_name': consumer_obj.name,
-            'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
-            'con_bill_month': 'March 2017',
-            'current_amount': '500.00',
-            'prev_due': '0.00',
-            'net_amount': '500',
-            'due_date': '26/03/2017',
-            'prompt_date': '23/03/2017',
-            'prompt_amount': '490.00',
-            'success': 'true',
-        }
+        meter_obj = MeterReadingDetail.objects.filter(consumer_id = consumer_obj).last()
+        try:
+            meter_payment_obj = PaymentDetail.objects.get(meter_reading_id = meter_obj,bill_status = 'Unpaid')
+            data = {
+                'con_number': consumer_obj.consumer_no,
+                'con_name': consumer_obj.name,
+                'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
+                'con_bill_month': meter_obj.bill_month + ' ' + str(meter_obj.bill_months_year),
+                'current_amount': str(meter_payment_obj.bill_amount),
+                'prev_due': str(meter_payment_obj.due_amount),
+                'net_amount': str(meter_payment_obj.net_amount),
+                'due_date': meter_payment_obj.due_date.strftime('%B %d, %Y'),
+                'prompt_date': meter_payment_obj.prompt_date.strftime('%B %d, %Y'),
+                'prompt_amount': str(meter_payment_obj.prompt_amount),
+                'success': 'true',
+            }
+        except:
+            data = {
+                'success':'no bill',
+            }
     except Exception, e:
         print 'Exception|selfserviceapp|views.py|get_consumer_bill_data', e
         data = {
