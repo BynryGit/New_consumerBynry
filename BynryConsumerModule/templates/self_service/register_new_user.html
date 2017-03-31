@@ -541,7 +541,7 @@ function CheckCity(city){
 }
 function CheckConsumerNo(consumer_no){
    consumer_no = $(consumer_no).val()     
-   var Pattern = /^\d{12}$/; 
+   var Pattern = /^[a-zA-Z0-9!@#$%^&*]{12}$/;
  
    if(Pattern.test(consumer_no)){
     $(verify_consumer_no_error).css("display", "none");
@@ -553,6 +553,9 @@ function CheckConsumerNo(consumer_no){
    return false; 
    }
  }
+
+
+
  
 $("#submit-otp").click(function(event)  {
 	$("#otp_no_error").css("display", "none");
