@@ -406,8 +406,14 @@
                         $("#error_bill_data").css("display","none");
                         $("#bill_details_div").removeClass("display-none");
                     }
+                    if (response.success == 'no bill') {
+                        $("#bill_details_div").addClass("display-none");
+                        $("#error_bill_data").text("No pending bills");
+                        $("#error_bill_data").css("display","block");
+                    }
                     if (response.success == 'false') {
                         $("#bill_details_div").addClass("display-none");
+                        $("#error_bill_data").text("No record found");
                         $("#error_bill_data").css("display","block");
                     }
                 },
