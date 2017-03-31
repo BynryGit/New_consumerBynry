@@ -13,7 +13,7 @@ from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail, ComplaintImages
 from selfserviceapp.models import WebUserProfile
 from serviceapp.models import ServiceRequestType, ServiceRequest
-from vigilanceapp.models import VigilanceType
+from vigilanceapp.models import VigilanceType, VigilanceDetail, ConsumerVigilanceImage
 from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import random
@@ -29,7 +29,7 @@ from django.shortcuts import *
 import MySQLdb, sys
 from .models import *
 from paymentapp.models import *
-
+import string
 
 def home_screen(request):
     """To view complaints page"""
@@ -287,7 +287,7 @@ def signin(request):
                             # request.session['user_role'] = user_profile_obj.user_role.role_name
                             try:
                                 request.session['login_user'] = user_profile_obj.consumer_id.name
-                                request.session['user_id'] = int(user_profile_obj.id)
+                                request.session['consumer_id'] = int(user_profile_obj.consumer_id.id)
                                 request.session['consumer_no'] = user_profile_obj.consumer_id.consumer_no
                                 login(request, user)
                             except Exception as e:
@@ -470,7 +470,7 @@ def verify_OTP(request):
 @csrf_exempt
 def save_consumer(request):
     try:
-        print 'selfserviceapp|views.py|save_consumer\n\n\n\nSSSSSS', request.POST.get('password')
+        print 'selfserviceapp|views.py|save_consumer'
 
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
         new_consumer_obj = WebUserProfile(
@@ -495,3 +495,83 @@ def save_consumer(request):
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_vigilance_complaint(request):
+    try:
+        print 'selfserviceapp|views.py|save_vigilance_complaint'
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
+
+        new_vigilance_obj = VigilanceDetail(
+            case_id= "CASE" + str(password),
+            consumer_id=ConsumerDetails.objects.get(
+                id=request.session['consumer_id']) if request.session['consumer_id'] else None,            
+            vigilance_type_id=VigilanceType.objects.get(
+                id=request.POST.get('vigilance_type')) if request.POST.get(
+                'vigilance_type') else None,
+            theft_name=request.POST.get('consumer_name'),
+            address=request.POST.get('consumer_address'),
+            city=City.objects.get(
+                id=request.POST.get('city')) if request.POST.get(
+                'city') else None,
+            pin_code=Pincode.objects.get(
+                id=request.POST.get('pincode')) if request.POST.get(
+                'pincode') else None,      
+            vigilance_remark=request.POST.get('vigilance_remark'),  # Need to change logic
+            created_on=datetime.now(),
+            created_by=request.session['login_user'],
+        );
+        new_vigilance_obj.save();
+
+        attachment_list = request.POST.get('attachments')
+        save_attachments(attachment_list, new_vigilance_obj)
+
+        data = {
+            'success': 'true',
+            'message': 'Consumer created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|save_vigilance_complaint', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def upload_vigilance_image(request):
+    try:
+        print 'selfserviceapp|views.py|upload_vigilance_image'
+        if request.method == 'POST':
+            attachment_file = ConsumerVigilanceImage()
+            attachment_file.save()
+
+            request.FILES['file[]'].name = 'consumerDocsID_' + str(attachment_file.id) + '_' + request.FILES[
+                'file[]'].name
+            attachment_file.document_files = request.FILES['file[]']
+            attachment_file.save()
+            data = {'success': 'true', 'attachid': attachment_file.id}
+        else:
+            data = {'success': 'false'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|selfserviceapp|views.py|upload_vigilance_image', e
+        data = {'success': 'invalid request'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def save_attachments(attachment_list, vigilance_id):
+    try:
+        print 'selfserviceapp|views.py|save_attachments'
+        attachment_list = attachment_list.split(',')
+        attachment_list = filter(None, attachment_list)
+        for attached_id in attachment_list:
+            attachment_obj = ConsumerVigilanceImage.objects.get(id=attached_id)
+            attachment_obj.vigilance_id = vigilance_id
+            attachment_obj.save()
+
+        data = {'success': 'true'}
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|save_attachments', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+1

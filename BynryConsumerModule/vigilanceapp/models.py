@@ -6,6 +6,7 @@ from consumerapp.models import ConsumerDetails
 from BynryConsumerModuleapp.models import *
 
 # Create your models here.
+VIGILANCE_IMAGE_PATH ='images/consumer_vigilance_img/'
 
 IS_DELETED = (
     (True, True),
@@ -47,6 +48,10 @@ class VigilanceDetail(models.Model):
     case_id = models.CharField(max_length=200, blank=False, null=True)
     vigilance_type_id = models.ForeignKey(VigilanceType, blank = False, null = True)
     consumer_id = models.ForeignKey(ConsumerDetails, blank = False, null = True)
+    theft_name = models.CharField(max_length = 200,blank = True, null = True)
+    address = models.CharField(max_length=500, blank=True, null=True)
+    city = models.ForeignKey(City, blank=False, null=True)
+    pin_code = models.ForeignKey(Pincode, blank=False, null=True)
     vigilance_remark = models.CharField(max_length = 200,blank = True, null = True)
     vigilance_status = models.CharField(max_length = 50, choices = VIGILANCE_STATUS)
     vigilance_source = models.CharField(max_length = 50, choices = VIGILANCE_SOURCE)
@@ -108,3 +113,14 @@ class CourtCaseDetail(models.Model):
 
     def __unicode__(self):
         return unicode(self.id)
+
+class ConsumerVigilanceImage(models.Model):
+    vigilance_id    = models.ForeignKey(VigilanceDetail, blank=True, null=True)
+    document_files  = models.FileField(upload_to=VIGILANCE_IMAGE_PATH, max_length=500, null=True, blank=True)
+    creation_date   = models.DateTimeField(null=True,blank=True)
+    created_by      = models.CharField(max_length=500,null=True,blank=True)
+    updated_by      = models.CharField(max_length=500,null=True,blank= True)
+    updation_date   = models.DateTimeField(null=True,blank=True)
+    
+    def __unicode__(self):
+        return unicode(self.id)         

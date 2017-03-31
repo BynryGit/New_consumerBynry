@@ -103,11 +103,11 @@
             <a href="javascript:;" class="menu-toggler"></a>
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
-                    <li class="dropdown dropdown-user dropdown-dark">
+                   <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
                             <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
-                            <span class="username username-hide-mobile">Nick</span>
+                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -115,7 +115,7 @@
                                     <i class="icon-user"></i> My Profile </a>
                             </li>
                             <li>
-                                <a href="page_user_login_1.html">
+                                <a href="/self-service/">
                                     <i class="icon-key"></i> Log Out </a>
                             </li>
                         </ul>
@@ -147,6 +147,7 @@
                     <div class="row">
                         <div class="portlet light bordered">
                             <div class="portlet-body">
+                               <form id="vigilance_form" method="POST">
                                 <div class="row">                                   
                                     <div class="col-md-12">
                                         <div class="col-md-4">
@@ -154,15 +155,15 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group form-md-line-input has-success" >                                                    
                                                         <select id="vigilance_type"
-                                                                class="form-control input-sm select2-multiple">
-                                                            <option value=""> Select Vigilance Type</option>
+                                                                class="form-control input-sm select2-multiple" name="vigilance_type">
+                                                            <option value=" "> Select Vigilance Type</option>
 																				{% for type in vigilance_type%}
 										                                    <option value="{{type.id}}">{{type.vigilance_type}}</option>
 										                                {% endfor %}
                                                         </select>
                                                         <label>Vigilance Type <span class="required">*</span></label>                                                        
                                                     </div>
-                                                    <span class="vigilance_type_error" style="margin-top: -30px;color:red; font-size: 12px;"></span> 
+                                                    <span id="vigilance_type_error" style="margin-top: -30px;color:red; font-size: 12px;"></span> 
                                                 </div>                                              
                                             </div>
                                             <br>
@@ -192,10 +193,10 @@
 					                                        <div class="form-group form-md-line-input has-success">					                                            
 					                                            <input type="text" class="form-control" id="consumer_name"
 					                                                   name="consumer_name">
-					                                                   <label for="consumer_name"> Name (One who is doing Vigilance/ Theft) <span class="required">*</span></label>
+					                                            <label for="consumer_name"> Name (One who is doing Vigilance/ Theft) <span class="required">*</span></label>
 					                                        </div>
 					                                      </div>
-					                                      <span class="consumer_name_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+					                                      <span id="consumer_name_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
 					                                  </div>
 					                                  <div class="col-md-6">
 			                                            <div class="form-group">
@@ -205,45 +206,45 @@
 					                                                   <label for="consumer_address"> Address <span class="required">*</span></label>
 					                                        </div>
 					                                      </div>
-					                                      <span class="consumer_address_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+					                                      <span id="consumer_address_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
 					                                  </div>
+					                                 </div>
+					                                 <div class="col-md-12">  
 					                                  <div class="col-md-6">
 			                                            <div class="form-group form-md-line-input has-success">
 			                                                <label>City/ Village <span class="required">*</span></label>
 			                                                <select id="city" class="form-control input-sm select2-multiple"
-			                                                        onchange="make_same()" name="city">
+			                                                        name="city">
 			                                                    <option value=" "> Select City</option>
 			                                                    {% for city in city_list %}
 			                                                    <option value="{{ city.city_id }}"> {{ city.city }}</option>
 			                                                    {% endfor %}
 			                                                </select>
-			                                                <label class="error"
-			                                                       style="color:red; display:none; font-size: 12px;"></label>
 			                                            </div>
+			                                            <span id="city_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
 			                                        </div>
 			                                        <div class="col-md-6">
 			                                            <div class="form-group form-md-line-input has-success">
 			                                                <label>PinCode <span class="required">*</span></label>
 			                                                <select id="pincode" class="form-control input-sm select2-multiple"
-			                                                        onchange="make_same()" name="pincode">
+			                                                         name="pincode">
 			                                                    <option value=" "> Select Pincode</option>
 			                                                    {% for pincode in pincode_list %}
 			                                                    <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}
 			                                                    </option>
 			                                                    {% endfor %}
 			                                                </select>
-			                                                <label class="error"
-			                                                       style="color:red; display:none; font-size: 12px;"></label>
 			                                            </div>
+			                                            <span id="pincode_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
 			                                        </div>	
 			                                         <div class="col-md-12">
                                                     <div class="form-group">
                                                         <div class="form-group form-md-line-input has-success" >                                                            
                                                             <textarea id="vigilance_remark" style="height: 118px;" type="text"
-                                                                      class="form-control"></textarea> 
+                                                                      class="form-control" name="vigilance_remark"></textarea> 
                                                             <label>Description <span class="required">*</span></label>                                                           
                                                         </div>
-                                                        <span class="vigilance_remark_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+                                                        <span id="vigilance_remark_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                                     </div>
                                                   </div>				                               					                                 
 					                                 </div>
@@ -261,6 +262,7 @@
                                     </div> 
                                 </div>                                
                             </div>
+                           </form>
                         </div>
                     </div>
                 </div>                
@@ -269,17 +271,34 @@
     </div>
 </div>
 
-<div id="vigilance_register_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Your vigilance Case is successfully registered </h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/self-service/vigilance/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-body">
-                    <label class="bold">Your vigilance ID - 2787566 is successfully registered with us. We will contact
-                        you soon.</label>
-                </div>
-                <div class="modal-footer" style="text-align:center;">
-                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">OK</button>
-                </div>
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Error</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+                    </div>
             </div>
         </div>
     </div>
@@ -344,31 +363,37 @@
     $("#vigilance").addClass("active ");
 
     function register_vigilance() {
-			alert('1')
-			if (validate_vigilance()) {
-			alert('2')
-			return false
-			}
-			
-        /*if ($(vigilance_type).val() != '' && $(vigilance_type).val() != null) {
-            $("#vigilance_register_modal").modal('show');
-            return true;
-        } else if ($(vigilance_remark).val() == ' ' && $(vigilance_remark).val() == null) {
-            $("#vigilance_register_modal").modal('show');
-            return true;
-        }
-        else{
-            $(".vigilance_type_error").css("display", "block");
-            $(".vigilance_type_error").text("Please select vigilance type");
-            $(".vigilance_remark_error").css("display", "block");
-            $(".vigilance_remark_error").text("Please enter valid remark");
-            return false;
-        } */
+       if (validate_vigilance()) {
+			event.preventDefault();  													
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/self-service/save-vigilance-complaint/',
+ 					data : $("#vigilance_form").serialize(),
+                     
+              success: function (response) {   
+	              if(response.success=='true'){
+							$("#success_modal").modal('show');
+	              	}
+	      			if (response.success == "false") {
+							$("#error-modal").modal('show');
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            $("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });         	
+		}		
     }
 
 	function validate_vigilance() {
-			if (CheckCity("#city")&CheckVigilanceType("#vigilance_type")) {	
-			alert('s')
+			if (CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")&checkName("#consumer_name")
+			     &CheckAddress("#consumer_address")&CheckRemark("#vigilance_remark")) {	
 			return true
 			}
 			return false		
@@ -377,18 +402,17 @@
 	function CheckCity(city){
 			if($(city).val()!=' ' && $(city).val()!=null)
 		   {
-		    $(city).parent().children('.error').css("display", "none");
+		    $("#city_error").css("display", "none");
 		   return true;
 		   }else{
-		    $(city).parent().children('.error').css("display", "block");
-		    $(city	).parent().children('.error').text("Please select City");
+		   $("#city_error").css("display", "block");
+		   $("#city_error").text("Please select City");
 		   return false; 
 		   }
 	}   
 	function CheckVigilanceType(vigilance_type){
-			if($(vigilance_type).val()!='' && $(vigilance_type).val()!=null)
+			if($(vigilance_type).val()!=' ' && $(vigilance_type).val()!=null)
 		   {
-		   alert('ww')
 		    $("#vigilance_type_error").css("display", "none");
 		   return true;
 		   }else{
@@ -397,7 +421,52 @@
 		   return false; 
 		   }
 	}   	
-
+	function CheckPincode(pincode){
+			if($(pincode).val()!=' ' && $(pincode).val()!=null)
+		   {
+		    $("#pincode_error").css("display", "none");
+		   return true;
+		   }else{
+		   $("#pincode_error").css("display", "block");
+		   $("#pincode_error").text("Please select Pincode");
+		   return false; 
+		   }
+	}   	
+	function checkName(applicant_name){
+	 	var namePattern = /[A-Za-z]+/;  
+		applicant_name = $(applicant_name).val()  
+	   if(namePattern.test(applicant_name)){
+	 	$(consumer_name_error).css("display", "none");
+	   return true;
+	   }else{
+	    $(consumer_name_error).css("display", "block");
+	    $(consumer_name_error).text("Please enter valid Name");
+	   return false; 
+	   }
+	}	
+	function CheckAddress(address_line){
+	 	var namePattern = /[A-Za-z]+/;  
+		address_line = $(address_line).val()  
+	   if(namePattern.test(address_line)){
+	 	$(consumer_address_error).css("display", "none");
+	   return true;
+	   }else{
+	    $(consumer_address_error).css("display", "block");
+	    $(consumer_address_error).text("Please enter valid Address");
+	   return false; 
+	   }
+	}	
+	function CheckRemark(vigilance_remark){
+			if($(vigilance_remark).val()!='')
+		   {
+		    $("#vigilance_remark_error").css("display", "none");
+		   return true;
+		   }else{
+		   $("#vigilance_remark_error").css("display", "block");
+		   $("#vigilance_remark_error").text("Please select Description");
+		   return false; 
+		   }
+	}   
     ////////////////////////////////// NEW DROPZONE ///////////////////////////
     var uploaded_file_mb = 0;
     var uploaded_file1_mb = 0;
@@ -410,7 +479,7 @@
         //maxFilesize: 2,
         method: 'post',
         parallelUploads: 1,
-        url: '/nscapp/upload-consumer-docs/',
+        url: '/self-service/upload-vigilance-image/',
         dictDefaultMessage: "Drop or Browse up to 10 images (1MB or higher in size)",
         addRemoveLinks: true,
         acceptedFiles: "",
