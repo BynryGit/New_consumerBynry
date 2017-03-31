@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
     url(r'^save-consumer/', views.save_consumer, name='save_consumer'),
     url(r'^save-vigilance-complaint/', views.save_vigilance_complaint, name='save_vigilance_complaint'),
+    url(r'^upload-vigilance-image/', views.upload_vigilance_image,name='upload_vigilance_image'),
 ]

@@ -13,7 +13,7 @@ from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail, ComplaintImages
 from selfserviceapp.models import WebUserProfile
 from serviceapp.models import ServiceRequestType, ServiceRequest
-from vigilanceapp.models import VigilanceType, VigilanceDetail
+from vigilanceapp.models import VigilanceType, VigilanceDetail, ConsumerVigilanceImage
 from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import random
@@ -523,8 +523,8 @@ def save_vigilance_complaint(request):
         );
         new_vigilance_obj.save();
 
-        #attachment_list = request.POST.get('attachments')
-        #save_attachments(attachment_list, new_vigilance_obj)
+        attachment_list = request.POST.get('attachments')
+        save_attachments(attachment_list, new_vigilance_obj)
 
         data = {
             'success': 'true',
@@ -538,3 +538,38 @@ def save_vigilance_complaint(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+@csrf_exempt
+def upload_vigilance_image(request):
+    try:
+        print 'selfserviceapp|views.py|upload_vigilance_image'
+        if request.method == 'POST':
+            attachment_file = ConsumerVigilanceImage()
+            attachment_file.save()
+
+            request.FILES['file[]'].name = 'consumerDocsID_' + str(attachment_file.id) + '_' + request.FILES[
+                'file[]'].name
+            attachment_file.document_files = request.FILES['file[]']
+            attachment_file.save()
+            data = {'success': 'true', 'attachid': attachment_file.id}
+        else:
+            data = {'success': 'false'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|selfserviceapp|views.py|upload_vigilance_image', e
+        data = {'success': 'invalid request'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def save_attachments(attachment_list, vigilance_id):
+    try:
+        print 'selfserviceapp|views.py|save_attachments'
+        attachment_list = attachment_list.split(',')
+        attachment_list = filter(None, attachment_list)
+        for attached_id in attachment_list:
+            attachment_obj = ConsumerVigilanceImage.objects.get(id=attached_id)
+            attachment_obj.vigilance_id = vigilance_id
+            attachment_obj.save()
+
+        data = {'success': 'true'}
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|save_attachments', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+1
