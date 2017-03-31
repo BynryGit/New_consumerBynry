@@ -3,7 +3,8 @@ from selfserviceapp import views
 from django.conf.urls import include, url
 
 urlpatterns = [
-    url(r'^$', views.login, name='login'),
+    url(r'^$', views.log_in, name='login'),
+    url(r'^log-in/',views.signin,name='signin'),
     url(r'^index/', views.home_screen, name='home_screen'),
     url(r'^register-new-user/', views.register_new_user, name='register_new_user'),
     url(r'^my-bills/', views.my_bills, name='my_bills'),
@@ -22,4 +23,5 @@ urlpatterns = [
     url(r'^FAQS/', views.FAQS, name='FAQS'),
     url(r'^verify-new-consumer/', views.verify_new_consumer, name='verify_new_consumer'),
     url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
+    url(r'^save-consumer/', views.save_consumer, name='save_consumer'),
 ]
