@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 from consumerapp.models import ConsumerDetails
 
-
+CONSUMER_DOCS_PATH ='images/consumer_docs_file/'
 # Create your models here.
 
 IS_DELETED = (
@@ -59,3 +59,15 @@ class ComplaintDetail(models.Model):
 
     def __unicode__(self):
         return unicode(self.complaint_no)
+
+
+class ComplaintImages(models.Model):
+    consumer_id		= models.ForeignKey(ConsumerDetails,blank=True,null=True)
+    document_files 	= models.FileField(upload_to=CONSUMER_DOCS_PATH, max_length=500, null=True, blank=True)
+    creation_date 	= models.DateTimeField(null=True,blank=True)
+    created_by 		= models.CharField(max_length=500,null=True,blank=True)
+    updated_by 		= models.CharField(max_length=500,null=True,blank= True)
+    updation_date	= models.DateTimeField(null=True,blank=True)
+
+    def __unicode__(self):
+        return unicode(self.id)

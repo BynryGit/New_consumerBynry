@@ -10,7 +10,7 @@ import json
 from django.shortcuts import render
 from consumerapp.views import get_city, get_billcycle, get_pincode
 from consumerapp.models import *
-from complaintapp.models import ComplaintType, ComplaintDetail
+from complaintapp.models import ComplaintType, ComplaintDetail, ComplaintImages
 from selfserviceapp.models import WebUserProfile
 from serviceapp.models import ServiceRequestType, ServiceRequest
 from vigilanceapp.models import VigilanceType, VigilanceDetail
@@ -122,10 +122,11 @@ def save_consumer_complaint_details(request):
     """to get complaint details"""
     try:
         print 'selfserviceapp|views.py|save_consumer_complaint_details'
+        complaint_type_obj = ComplaintType.objects.get(id=request.GET.get('complaint_type'))
         # filter complaint by complaint id
         complaint_obj = ComplaintDetail(
             complaint_no=request.GET.get('id'),
-            complaint_type_id=request.GET.get('complaint_type'),
+            complaint_type_id=complaint_type_obj,
             consumer_id=request.GET.get('consumer_id'),
             remark=request.GET.get('remark'),
             complaint_img=request.GET.get('complaint_img'),
@@ -134,8 +135,8 @@ def save_consumer_complaint_details(request):
         )
         complaint_obj.save()
 
-        attachment_list = request.POST.get('attachments')
-        save_attachments(attachment_list, new_consumer_obj)
+        attachment_list = request.GET.get('attachments')
+        save_attachments(attachment_list, complaint_obj)
 
         data = {'success' : 'true'}
     except Exception as exe:
@@ -165,6 +166,62 @@ def get_consumer_complaint_details(request):
         print 'Exception|selfserviceapp|views.py|get_consumer_complaint_details', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@csrf_exempt
+def upload_complaint_img(request):
+    try:
+        print 'selfserviceapp|views.py|upload_complaint_img'
+        if request.method == 'POST':
+            attachment_file = ComplaintImages()
+            attachment_file.save()
+
+            request.FILES['file[]'].name = 'complaintImgID_' + str(attachment_file.id) + '_' + request.FILES[
+                'file[]'].name
+            attachment_file.document_files = request.FILES['file[]']
+            attachment_file.save()
+            data = {'success': 'true', 'attachid': attachment_file.id}
+        else:
+            data = {'success': 'false'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|selfserviceapp|views.py|upload_complaint_img', e
+        data = {'success': 'invalid request'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@csrf_exempt
+def remove_complaint_img(request):
+    try:
+        print 'selfserviceapp|views.py|remove_complaint_img'
+        image_id = request.GET.get('image_id')
+        image = ComplaintImages.objects.get(id=image_id)
+        image.delete()
+
+        data = {'success': 'true'}
+    except MySQLdb.OperationalError, e:
+        print 'Exception|selfserviceapp|views.py|remove_complaint_img', e
+        data = {'success': 'false'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def save_attachments(attachment_list, complaint_obj):
+    print '--------attachment----------',attachment_list
+    print '--------complaint_obj----------',complaint_obj
+    try:
+        print 'selfserviceapp|views.py|save_attachments'
+        attachment_list = attachment_list.split(',')
+        attachment_list = filter(None, attachment_list)
+        for attached_id in attachment_list:
+            attachment_obj = ComplaintImages.objects.get(id=attached_id)
+            attachment_obj.consumer_id = complaint_obj
+            attachment_obj.save()
+
+        data = {'success': 'true'}
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|save_attachments', e
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
 
 
 def services(request):

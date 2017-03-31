@@ -111,7 +111,7 @@
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
                             <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
-                            <span class="username username-hide-mobile">Nick</span>
+                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -119,7 +119,7 @@
                                     <i class="icon-user"></i> My Profile </a>
                             </li>
                             <li>
-                                <a href="page_user_login_1.html">
+                                <a href="/self-service/">
                                     <i class="icon-key"></i> Log Out </a>
                             </li>
                         </ul>
@@ -180,7 +180,7 @@
                                         <div class="col-md-8">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="form-group form-md-line-input has-success" >
+                                                    <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;" >
                                                         <select id="complaint_type" style="margin-top: 4px;"
                                                                 class="form-control input-sm select2-multiple">
                                                             <option value=""> Select Complaint Type</option>
@@ -190,13 +190,13 @@
                                                         </select>
                                                         <label>Complaint Type :</label>
                                                     </div>
-                                                <span class="complaint_type_error" style="margin-top: -30px;color:red;"></span>
+                                                <span class="complaint_type_error" style="margin-top: 0px;color:red;"></span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <div class="form-group">
-                                                        <div class="form-group form-md-line-input has-success" >
+                                                        <div class="form-group form-md-line-input has-success" style="margin-top: 5px;">
                                                             <textarea id="complaint_remark" style="height: 105px;" type="text"
                                                                       class="form-control"></textarea>
                                                             <label>Remark :</label>
@@ -356,34 +356,22 @@
     		complaint_type = $(complaint_type).val();
     		complaint_remark = $(complaint_remark).val();
     		attachment = $(attachment).val();
-
-        if ($(complaint_type).val() != '' && $(complaint_type).val() != null) {
-            $("#complaint_register_modal").modal('show');
-            return true;
-        } else if ($(complaint_remark).val() == '' && $(complaint_remark).val() == null) {
-            $("#complaint_register_modal").modal('show');
-            return true;
-        }
-        else{
-            $(".complaint_type_error").css("display", "block");
-            $(".complaint_type_error").text("Please select complaint type");
-            $(".complaint_remark_error").css("display", "block");
-            $(".complaint_remark_error").text("Please enter valid remark");
-            return false;
-        }
+    		attachments = $(attachments).val();
+    		consumer_id = $(consumer_id).val();
+    	
         if (validateData()) {
 			event.preventDefault(); 
 	        $.ajax({
 			       type	: "GET",
 			       url : '/self-service/save-consumer-complaint-details/',
-			       data : {'complaint_type':complaint_type,'complaint_remark':complaint_remark,'attachment':attachment},       
+			       data : {'complaint_type':complaint_type,'complaint_remark':complaint_remark,'attachment':attachment,
+			       'consumer_id':consumer_id,'attachments':attachments},       
 			       success: function (response) {			  
 			     		  if(response.success=='true'){						
-							
-						  
+						  	$("#complaint_register_modal").modal('show');							  
 			     		  }
 			     		  if(response.success=='false'){
-																				    
+							return false;													    
 			     		  }
 			       },
 			       
@@ -396,14 +384,35 @@
     
     function validateData(){
 
-	if(CheckComplaintType("#consumer_category")&CheckComplaintRemark("#consumer_service")&
-	CheckSupplyType("#consumer_supply_type")
-	  ){    
+	if(CheckComplaintType("#complaint_type")&CheckComplaintRemark("#complaint_remark")){    
 		return true;	
 	}
 	return false;
 }
 
+function CheckComplaintType(complaint_type){
+	if($(complaint_type).val()!='' && $(complaint_type).val()!=null)
+   {
+    	$(".complaint_type_error").css("display", "none");
+      return true;
+   }else{
+    	$(".complaint_type_error").css("display", "block");
+      $(".complaint_type_error").text("Please select complaint type");
+   	return false; 
+   }
+}
+
+function CheckComplaintRemark(complaint_remark){
+	if($(complaint_remark).val()!='' && $(complaint_remark).val()!=null)
+   {
+   	$(".complaint_remark_error").css("display", "none");
+      return true;
+   }else{
+    	$(".complaint_remark_error").css("display", "block");
+      $(".complaint_remark_error").text("Please enter valid remark");
+   	return false; 
+   }
+}
 
     function check_otp() {
         $("check_otp").attr("hidden", "hidden");

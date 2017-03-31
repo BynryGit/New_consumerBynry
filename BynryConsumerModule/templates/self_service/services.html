@@ -80,7 +80,7 @@
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
                             <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
-                            <span class="username username-hide-mobile">Nick</span>
+                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -88,7 +88,7 @@
                                     <i class="icon-user"></i> My Profile </a>
                             </li>
                             <li>
-                                <a href="page_user_login_1.html">
+                                <a href="/self-service/">
                                     <i class="icon-key"></i> Log Out </a>
                             </li>
                         </ul>
