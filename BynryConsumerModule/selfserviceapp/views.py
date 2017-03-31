@@ -8,7 +8,7 @@ from datetime import datetime
 from django.http import HttpResponse
 import json
 from django.shortcuts import render
-from consumerapp.views import get_city, get_billcycle
+from consumerapp.views import get_city, get_billcycle, get_pincode
 from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail, ComplaintImages
 from selfserviceapp.models import WebUserProfile
@@ -110,7 +110,7 @@ def vigilance(request):
     try:
         print 'selfserviceapp|views.py|vigilance'
         vigilance_type =  VigilanceType.objects.filter(is_deleted=False)
-        data={'vigilance_type':vigilance_type}
+        data={'vigilance_type':vigilance_type,'city_list': get_city(request),'pincode_list': get_pincode(request)}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|vigilance', exe
