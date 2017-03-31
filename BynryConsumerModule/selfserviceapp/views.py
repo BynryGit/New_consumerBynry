@@ -12,6 +12,7 @@ from consumerapp.views import get_city, get_billcycle
 from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail
 from serviceapp.models import ServiceRequestType, ServiceRequest
+from vigilanceapp.models import VigilanceType
 from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import random
@@ -91,13 +92,24 @@ def complaints(request):
         data = {}
     return render(request, 'self_service/complaints.html', data)
 
+def vigilance(request):
+    """To view vigilance page"""
+    try:
+        print 'selfserviceapp|views.py|vigilance'
+        vigilance_type =  VigilanceType.objects.filter(is_deleted=False)
+        data={'vigilance_type':vigilance_type}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|vigilance', exe
+        data = {}
+    return render(request, 'self_service/vigilance.html', data)
 
 
 @login_required(login_url='/')
 def save_consumer_complaint_details(request):
     """to get complaint details"""
     try:
-        print 'selfserviceapp|views.py|get_complaint_details'
+        print 'selfserviceapp|views.py|save_consumer_complaint_details'
         # filter complaint by complaint id
         complaint_obj = ComplaintDetail(
             complaint_no=request.GET.get('id'),
@@ -110,9 +122,12 @@ def save_consumer_complaint_details(request):
             )
         complaint_obj.save()
 
+        attachment_list = request.POST.get('attachments')
+        save_attachments(attachment_list, new_consumer_obj)
+
         data = {'success' : 'true'}
     except Exception as exe:
-        print 'Exception|selfserviceapp|views.py|get_complaint_details', exe
+        print 'Exception|selfserviceapp|views.py|save_consumer_complaint_details', exe
         data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 

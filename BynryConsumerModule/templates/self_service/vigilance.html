@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
 <html lang="en">
 {% load staticfiles %}
 
 <head>
     <meta charset="utf-8"/>
-    <title>Complaints | Self Service</title>
+    <title>Vigilance | Self Service</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
@@ -141,7 +145,7 @@
         <div class="page-head">
             <div class="container">
                 <div class="page-title">
-                    <h1>Complaints</h1>
+                    <h1>Vigilance</h1>
                 </div>
             </div>
         </div>
@@ -152,9 +156,7 @@
                         <div class="portlet light bordered">
                             <div class="portlet-body">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <label class="bold">Raise Complaint :</label>
-                                    </div>
+                                    
                                     <br>
                                     <br>
                                     <div class="col-md-12">
@@ -181,27 +183,27 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group form-md-line-input has-success" >
-                                                        <select id="complaint_type" style="margin-top: 4px;"
+                                                        <select id="vigilance_type" style="margin-top: 4px;"
                                                                 class="form-control input-sm select2-multiple">
-                                                            <option value=""> Select Complaint Type</option>
-																				{% for type in complaint_type%}
-										                                    <option value="{{type.id}}">{{type.complaint_type}}</option>
+                                                            <option value=""> Select Vigilance Type</option>
+																				{% for type in vigilance_type%}
+										                                    <option value="{{type.id}}">{{type.vigilance_type}}</option>
 										                                {% endfor %}
                                                         </select>
-                                                        <label>Complaint Type :</label>
+                                                        <label>Vigilance Type :</label>
                                                     </div>
-                                                <span class="complaint_type_error" style="margin-top: -30px;color:red;"></span>
+                                                <span class="vigilance_type_error" style="margin-top: -30px;color:red;"></span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <div class="form-group">
                                                         <div class="form-group form-md-line-input has-success" >
-                                                            <textarea id="complaint_remark" style="height: 105px;" type="text"
+                                                            <textarea id="vigilance_remark" style="height: 105px;" type="text"
                                                                       class="form-control"></textarea>
                                                             <label>Remark :</label>
                                                         </div>
-                                                        <span class="complaint_remark_error" style="margin-top: -30px;color:red;"></span>
+                                                        <span class="vigilance_remark_error" style="margin-top: -30px;color:red;"></span>
                                                     </div>
                                                 </div>
                                                 <br>
@@ -210,7 +212,7 @@
                                                         <button type="button"
                                                                 style="margin-left: 15px;margin-top: 98px;"
                                                                 class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                onclick="register_complaint()">
+                                                                onclick="register_vigilance()">
                                                             Submit
                                                         </button>
                                                     </div>
@@ -224,47 +226,18 @@
                     </div>
                 </div>
 
-                <div class="page-content-inner">
-                    <div class="row">
-                        <div class="portlet light bordered">
-                            <div class="portlet-body">
-                                <label class="bold">Complaint Status :</label>
-                                <br>
-                                <div class="tab-pane fade active in" id="tab_1_1">
-                                    <div class="portlet light bordered">
-                                        <div class="portlet-body">
-                                            <table class="table table-striped table-bordered table-hover"
-                                                   id="consumer_complaint_table">
-                                                <thead>
-                                                <tr>
-                                                    <th> Complaint ID</th>
-                                                    <th> Type</th>
-                                                    <th> Remark</th>
-                                                    <th> Raised Date</th>
-                                                    <th> Status</th>
-                                                </tr>
-                                                </thead>
-                                                
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix margin-bottom-20"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
 </div>
 
-<div id="complaint_register_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="vigilance_register_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
-                    <label class="bold">Your Complaint ID - 2787566 is successfully registered with us. We will contact
+                    <label class="bold">Your vigilance ID - 2787566 is successfully registered with us. We will contact
                         you soon.</label>
                 </div>
                 <div class="modal-footer" style="text-align:center;">
@@ -347,62 +320,28 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script type="text/javascript">
-    $("#complaints").addClass("active ");
+    $("#vigilance").addClass("active ");
     function check_consumer() {
         document.getElementById("check_otp").removeAttribute("hidden");
     }
 
-    function register_complaint() {
-    		complaint_type = $(complaint_type).val();
-    		complaint_remark = $(complaint_remark).val();
-    		attachment = $(attachment).val();
-
-        if ($(complaint_type).val() != '' && $(complaint_type).val() != null) {
-            $("#complaint_register_modal").modal('show');
+    function register_vigilance() {
+			
+        if ($(vigilance_type).val() != '' && $(vigilance_type).val() != null) {
+            $("#vigilance_register_modal").modal('show');
             return true;
-        } else if ($(complaint_remark).val() == '' && $(complaint_remark).val() == null) {
-            $("#complaint_register_modal").modal('show');
+        } else if ($(vigilance_remark).val() == ' ' && $(vigilance_remark).val() == null) {
+            $("#vigilance_register_modal").modal('show');
             return true;
         }
         else{
-            $(".complaint_type_error").css("display", "block");
-            $(".complaint_type_error").text("Please select complaint type");
-            $(".complaint_remark_error").css("display", "block");
-            $(".complaint_remark_error").text("Please enter valid remark");
+            $(".vigilance_type_error").css("display", "block");
+            $(".vigilance_type_error").text("Please select vigilance type");
+            $(".vigilance_remark_error").css("display", "block");
+            $(".vigilance_remark_error").text("Please enter valid remark");
             return false;
         }
-        if (validateData()) {
-			event.preventDefault(); 
-	        $.ajax({
-			       type	: "GET",
-			       url : '/self-service/save-consumer-complaint-details/',
-			       data : {'complaint_type':complaint_type,'complaint_remark':complaint_remark,'attachment':attachment},       
-			       success: function (response) {			  
-			     		  if(response.success=='true'){						
-							
-						  
-			     		  }
-			     		  if(response.success=='false'){
-																				    
-			     		  }
-			       },
-			       
-			       error : function(response){
-			       alert("_Error");
-			       }
-			   });	
-			  }
     }
-    
-    function validateData(){
-
-	if(CheckComplaintType("#consumer_category")&CheckComplaintRemark("#consumer_service")&
-	CheckSupplyType("#consumer_supply_type")
-	  ){    
-		return true;	
-	}
-	return false;
-}
 
 
     function check_otp() {
@@ -413,7 +352,7 @@
 
 var initTable1 = function () {
 		   
-        var table = $('#consumer_complaint_table');
+        var table = $('#consumer_vigilance_table');
 
         var fixedHeaderOffset = 0;
         if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
@@ -449,12 +388,12 @@ var initTable1 = function () {
             "order": [
                 [0, 'asc']
             ],
-				"ajax": "/selfserviceapp/get-consumer-complaint-details/?consumer_id="+consumer_id+"",
+				"ajax": "/selfserviceapp/get-consumer-vigilance-details/?consumer_id="+consumer_id+"",
                   "columns": [
-                {"data": "complaintID"},
-                {"data": "complaintType"}, 
-                {"data": "complaintStatus"}, 
-                {"data" : "complaintDate"},      
+                {"data": "vigilanceID"},
+                {"data": "vigilanceType"}, 
+                {"data": "vigilanceStatus"}, 
+                {"data" : "vigilanceDate"},      
                 {"data" : "closureRemark"}
 		            ],				
 				
@@ -493,7 +432,7 @@ var initTable1 = function () {
         //maxFilesize: 2,
         method: 'post',
         parallelUploads: 1,
-        url: '/self-service/upload-complaint-img/',
+        url: '/nscapp/upload-consumer-docs/',
         dictDefaultMessage: "Drop or Browse up to 10 images (1MB or higher in size)",
         addRemoveLinks: true,
         acceptedFiles: "",
