@@ -24,6 +24,7 @@ from nscapp import nsc_urls
 from complaintapp import urls as complaint_urls
 from vigilanceapp import urls as vigilance_urls
 from selfserviceapp import urls as selfservice_urls
+from crmapp import urls as crm_urls
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 
@@ -55,4 +56,5 @@ urlpatterns = patterns('',
     url(r'^vigilanceapp/', include(vigilance_urls)),
     url(r'^nscapp/', include(nsc_urls)),
     url(r'^self-service/', include(selfservice_urls)),
+    url(r'^cti-crm/', include(crm_urls)),
 ) + static( settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

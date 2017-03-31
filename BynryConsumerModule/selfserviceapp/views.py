@@ -124,10 +124,12 @@ def save_consumer_complaint_details(request):
         print 'selfserviceapp|views.py|save_consumer_complaint_details'
         complaint_type_obj = ComplaintType.objects.get(id=request.GET.get('complaint_type'))
         # filter complaint by complaint id
+        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session['consumer_id'] else None
+
         complaint_obj = ComplaintDetail(
             complaint_no=request.GET.get('id'),
             complaint_type_id=complaint_type_obj,
-            consumer_id=request.GET.get('consumer_id'),
+            consumer_id=consumer_id,
             remark=request.GET.get('remark'),
             complaint_img=request.GET.get('complaint_img'),
             complaint_source="Web Portal",
