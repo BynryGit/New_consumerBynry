@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^verify-new-consumer/', views.verify_new_consumer, name='verify_new_consumer'),
     url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
     url(r'^save-consumer/', views.save_consumer, name='save_consumer'),
+    url(r'^save-vigilance-complaint/', views.save_vigilance_complaint, name='save_vigilance_complaint'),
 ]

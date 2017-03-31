@@ -13,7 +13,7 @@ from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail
 from selfserviceapp.models import WebUserProfile
 from serviceapp.models import ServiceRequestType, ServiceRequest
-from vigilanceapp.models import VigilanceType
+from vigilanceapp.models import VigilanceType, VigilanceDetail
 from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import random
@@ -29,7 +29,7 @@ from django.shortcuts import *
 import MySQLdb, sys
 from .models import *
 from paymentapp.models import *
-
+import string
 
 def home_screen(request):
     """To view complaints page"""
@@ -228,7 +228,7 @@ def signin(request):
                             # request.session['user_role'] = user_profile_obj.user_role.role_name
                             try:
                                 request.session['login_user'] = user_profile_obj.consumer_id.name
-                                request.session['user_id'] = int(user_profile_obj.id)
+                                request.session['consumer_id'] = int(user_profile_obj.consumer_id.id)
                                 request.session['consumer_no'] = user_profile_obj.consumer_id.consumer_no
                                 login(request, user)
                             except Exception as e:
@@ -411,7 +411,7 @@ def verify_OTP(request):
 @csrf_exempt
 def save_consumer(request):
     try:
-        print 'selfserviceapp|views.py|save_consumer\n\n\n\nSSSSSS', request.POST.get('password')
+        print 'selfserviceapp|views.py|save_consumer'
 
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
         new_consumer_obj = WebUserProfile(
@@ -436,3 +436,48 @@ def save_consumer(request):
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_vigilance_complaint(request):
+    try:
+        print 'selfserviceapp|views.py|save_vigilance_complaint'
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
+
+        new_vigilance_obj = VigilanceDetail(
+            case_id= "CASE" + str(password),
+            consumer_id=ConsumerDetails.objects.get(
+                id=request.session['consumer_id']) if request.session['consumer_id'] else None,            
+            vigilance_type_id=VigilanceType.objects.get(
+                id=request.POST.get('vigilance_type')) if request.POST.get(
+                'vigilance_type') else None,
+            theft_name=request.POST.get('consumer_name'),
+            address=request.POST.get('consumer_address'),
+            city=City.objects.get(
+                id=request.POST.get('city')) if request.POST.get(
+                'city') else None,
+            pin_code=Pincode.objects.get(
+                id=request.POST.get('pincode')) if request.POST.get(
+                'pincode') else None,      
+            vigilance_remark=request.POST.get('vigilance_remark'),  # Need to change logic
+            created_on=datetime.now(),
+            created_by=request.session['login_user'],
+        );
+        new_vigilance_obj.save();
+
+        #attachment_list = request.POST.get('attachments')
+        #save_attachments(attachment_list, new_vigilance_obj)
+
+        data = {
+            'success': 'true',
+            'message': 'Consumer created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|save_vigilance_complaint', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
