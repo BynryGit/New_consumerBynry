@@ -16,7 +16,50 @@ from serviceapp.models import ServiceRequestType, ServiceRequest
 from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import random
+from django.contrib.auth import authenticate
 
+
+################################################
+
+# Create your views here.
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from django.contrib.auth import logout
+from django.contrib.auth import login
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import cache_control
+from django.contrib import auth
+
+import urllib
+import smtplib
+from smtplib import SMTPException
+from django.shortcuts import *
+import dateutil.relativedelta
+
+# importing mysqldb and system packages
+import MySQLdb, sys
+from django.db.models import Q
+from django.db.models import F
+from django.db import transaction
+import pdb
+import csv
+import json
+# importing exceptions
+from django.db import IntegrityError
+import operator
+from django.db.models import Q
+from datetime import date, timedelta
+from django.views.decorators.cache import cache_control
+# HTTP Response
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+import dateutil.relativedelta
+from django.db.models import Count
+from datetime import date
+import calendar
+import urllib2
+import random
+from .models import *
 
 def home_screen(request):
     """To view complaints page"""
@@ -176,9 +219,58 @@ def service_request(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-def login(request):
+def log_in(request):
     print 'selfserviceapp|views.py|login'
     return render(request, 'self_service/login.html')
+
+
+@csrf_exempt
+def signin(request):
+    data = {}
+    try:
+        if request.POST:
+            print 'logs: login request with: ', request.POST
+            username = request.POST['username']
+            password = request.POST['password']
+            try:
+                user_obj = WebUserProfile.objects.get(username=username)
+                try:
+                    user = authenticate(username=username, password=password)
+                    if user:
+                        if user.is_active:
+                            user_profile_obj = WebUserProfile.objects.get(username=username)
+                            # request.session['user_role'] = user_profile_obj.user_role.role_name
+                            try:
+                                request.session['login_user'] = user_profile_obj.consumer_id.name
+                                request.session['user_id'] = int(user_profile_obj.id)
+                                request.session['consumer_no'] = user_profile_obj.consumer_id.consumer_no
+                                print '\n\n\n\n\n\n........111....',user
+                                print '\n\n...22........',request
+                                login(request,user)
+                            except Exception as e:
+                                print e
+                            data = {'success': 'true', 'username': request.session['first_name']}
+                        else:
+                            data = {'success': 'false', 'message': 'User Is Not Active'}
+                            return HttpResponse(json.dumps(data), content_type='application/json')
+                    else:
+                        data = {'success': 'Invalid Password', 'message': 'Invalid Password'}
+                        return HttpResponse(json.dumps(data), content_type='application/json')
+                except:
+                    data = {'success': 'Invalid Username', 'message': 'Invalid Username'}
+                    return HttpResponse(json.dumps(data), content_type='application/json')
+            except:
+                data = {'success': 'Invalid Username', 'message': 'Invalid Username'}
+                return HttpResponse(json.dumps(data), content_type='application/json')
+
+    except MySQLdb.OperationalError, e:
+        print e
+        data = {'success': 'false', 'message': 'Internal server'}
+        return HttpResponse(json.dumps(data), content_type='application/json')
+    except Exception, e:
+        print 'Exception ', e
+        data = {'success': 'false', 'message': 'Invalid Username or Password'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def contact_us(request):
@@ -320,7 +412,7 @@ def verify_OTP(request):
 @csrf_exempt
 def save_consumer(request):
     try:
-        print 'selfserviceapp|views.py|save_consumer'
+        print 'selfserviceapp|views.py|save_consumer\n\n\n\nSSSSSS',request.POST.get('password')
 
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
         new_consumer_obj = WebUserProfile(
@@ -331,7 +423,7 @@ def save_consumer(request):
             created_on=datetime.now(),
         );
         new_consumer_obj.save();
-        new_consumer_obj.set_password(request.GET.get('password'))
+        new_consumer_obj.set_password(request.POST.get('password'))
         new_consumer_obj.save();
 
         data = {

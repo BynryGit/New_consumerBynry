@@ -30,7 +30,7 @@ from django.conf.urls.static import static
 urlpatterns = patterns('',       
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', 'views.dashboard',name='dashboard'),
-    url(r'^$', 'views.login',name='login'),
+    url(r'^$', 'views.log_in',name='log_in'),
     url(r'^log-in/', 'BynryConsumerModuleapp.views.signin',name='signin'),
     url(r'^log-out/', 'BynryConsumerModuleapp.views.signing_out',name='signing_out'),
     url(r'^system-user/', 'views.system_user',name='system-user'),

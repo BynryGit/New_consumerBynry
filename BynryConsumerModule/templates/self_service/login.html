@@ -56,7 +56,7 @@
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
                     <div class="input-icon">
                         <i class="fa fa-user"></i>
-                        <input class="form-control placeholder-no-fix" type="email" autocomplete="off" placeholder="Consumer Number" name="username" id="username"/> </div>
+                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Consumer Number" name="username" id="username"/> </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
@@ -138,20 +138,23 @@
 	                //console.log($("#login_form").serialize());
 	                $.ajax({
                         type : 'POST',
-                        url : '/log-in/',
+                        url : '/self-service/log-in/',
                         data : {
                             'username':$("#username").val(),
                             'password':$("#password").val()
                         },
                         success: function(response) {
                             if(response.success=='true'){
+                            alert('0')
                                 location.href='/dashboard/';
                             }
                             if(response.message=='Invalid Username'){
+                            alert('1')
                                 $("#error_msg").text("Please enter valid username");
                                 $(".alert-danger", $(".login-form")).show()
                             }
                             if(response.message=='Invalid Password'){
+                            alert('2')
                                 $("#error_msg").text("Please enter valid password");
                                 $(".alert-danger", $(".login-form")).show()
                             }
@@ -263,8 +266,7 @@
 	jQuery(document).ready(function () {
 	    Login.init()
 	});
-	</script>
 
-    </body>
-
+</script>
+</body>
 </html>

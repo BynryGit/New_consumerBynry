@@ -604,7 +604,6 @@ $("#submit-otp").click(function(event)  {
 });  
 
 $("#save-consumer").click(function(event)  {
-
   if (checkpassword("#password")) {
 	
 		event.preventDefault(); 
@@ -619,7 +618,6 @@ $("#save-consumer").click(function(event)  {
 		var formData= new FormData();
 		formData.append("password",$("#password").val());
 		formData.append("consumer_no",$("#verify_consumer_no").val());				
-
 	 	$.ajax({  				  
 			  type	: "POST",
 			   url : '/self-service/save-consumer/',
