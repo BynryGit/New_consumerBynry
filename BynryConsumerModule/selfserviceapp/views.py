@@ -572,4 +572,3 @@ def save_attachments(attachment_list, vigilance_id):
     except Exception, e:
         print 'Exception|selfserviceapp|views.py|save_attachments', e
     return HttpResponse(json.dumps(data), content_type='application/json')
-1
