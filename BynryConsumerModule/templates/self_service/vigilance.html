@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 8]>
-<html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]>
-<html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
+
 <html lang="en">
 {% load staticfiles %}
 
@@ -25,24 +21,17 @@
     <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet"
           type="text/css"/>
-    <!-- END GLOBAL MANDATORY STYLES -->
     <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
           rel="stylesheet" type="text/css"/>
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css' %}" rel="stylesheet"
           type="text/css"/>
     <link href="{% static 'assets/global/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.css' %}" rel="stylesheet"
           type="text/css"/>
-    <link href="{% static 'assets/global/plugins/jqvmap/jqvmap/jqvmap.css' %}" rel="stylesheet" type="text/css"/>
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
           type="text/css"/>
     <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
-    <!-- END THEME GLOBAL STYLES -->
-    <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="{% static 'assets/layouts/layout3/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/layouts/layout3/css/themes/default.min.css' %}" rel="stylesheet" type="text/css"
           id="style_color"/>
@@ -50,7 +39,10 @@
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
     <link href="{% static 'assets/pages/css/dropzone.css' %}" rel="stylesheet" type="text/css"/>
-    <style type="text/css">
+    <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
+       type="text/css"/>      
+    <style type="text/css">    
         .dropzone .dz-default.dz-message {
             width: 283px;
             height: 159px;
@@ -155,12 +147,25 @@
                     <div class="row">
                         <div class="portlet light bordered">
                             <div class="portlet-body">
-                                <div class="row">
-                                    
-                                    <br>
-                                    <br>
+                                <div class="row">                                   
                                     <div class="col-md-12">
                                         <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group form-md-line-input has-success" >                                                    
+                                                        <select id="vigilance_type"
+                                                                class="form-control input-sm select2-multiple">
+                                                            <option value=""> Select Vigilance Type</option>
+																				{% for type in vigilance_type%}
+										                                    <option value="{{type.id}}">{{type.vigilance_type}}</option>
+										                                {% endfor %}
+                                                        </select>
+                                                        <label>Vigilance Type <span class="required">*</span></label>                                                        
+                                                    </div>
+                                                    <span class="vigilance_type_error" style="margin-top: -30px;color:red; font-size: 12px;"></span> 
+                                                </div>                                              
+                                            </div>
+                                            <br>
                                             <div class="form-group ">
                                                 <div class="dropzone"
                                                      style=" min-height: 70px; border-color: #e4e5e7 !important; "
@@ -176,57 +181,89 @@
                                                        class="form-control"
                                                        id="attachments"
                                                        name="attachment">
-                                            </div>
+                                            </div>                                                                                       
                                         </div>
                                         <input type="hidden" id="consumer_id" hidden="">
-                                        <div class="col-md-8">
+                                        <div class="col-md-8">                                            
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group form-md-line-input has-success" >
-                                                        <select id="vigilance_type" style="margin-top: 4px;"
-                                                                class="form-control input-sm select2-multiple">
-                                                            <option value=""> Select Vigilance Type</option>
-																				{% for type in vigilance_type%}
-										                                    <option value="{{type.id}}">{{type.vigilance_type}}</option>
-										                                {% endfor %}
-                                                        </select>
-                                                        <label>Vigilance Type :</label>
-                                                    </div>
-                                                <span class="vigilance_type_error" style="margin-top: -30px;color:red;"></span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-10">
+                                               <div class="col-md-12">                                                     		
+			                                        <div class="col-md-6">
+			                                            <div class="form-group">
+					                                        <div class="form-group form-md-line-input has-success">					                                            
+					                                            <input type="text" class="form-control" id="consumer_name"
+					                                                   name="consumer_name">
+					                                                   <label for="consumer_name"> Name (One who is doing Vigilance/ Theft) <span class="required">*</span></label>
+					                                        </div>
+					                                      </div>
+					                                      <span class="consumer_name_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+					                                  </div>
+					                                  <div class="col-md-6">
+			                                            <div class="form-group">
+					                                        <div class="form-group form-md-line-input has-success">					                                            
+					                                            <input type="text" class="form-control" id="consumer_address"
+					                                                   name="consumer_address">
+					                                                   <label for="consumer_address"> Address <span class="required">*</span></label>
+					                                        </div>
+					                                      </div>
+					                                      <span class="consumer_address_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+					                                  </div>
+					                                  <div class="col-md-6">
+			                                            <div class="form-group form-md-line-input has-success">
+			                                                <label>City/ Village <span class="required">*</span></label>
+			                                                <select id="city" class="form-control input-sm select2-multiple"
+			                                                        onchange="make_same()" name="city">
+			                                                    <option value=" "> Select City</option>
+			                                                    {% for city in city_list %}
+			                                                    <option value="{{ city.city_id }}"> {{ city.city }}</option>
+			                                                    {% endfor %}
+			                                                </select>
+			                                                <label class="error"
+			                                                       style="color:red; display:none; font-size: 12px;"></label>
+			                                            </div>
+			                                        </div>
+			                                        <div class="col-md-6">
+			                                            <div class="form-group form-md-line-input has-success">
+			                                                <label>PinCode <span class="required">*</span></label>
+			                                                <select id="pincode" class="form-control input-sm select2-multiple"
+			                                                        onchange="make_same()" name="pincode">
+			                                                    <option value=" "> Select Pincode</option>
+			                                                    {% for pincode in pincode_list %}
+			                                                    <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}
+			                                                    </option>
+			                                                    {% endfor %}
+			                                                </select>
+			                                                <label class="error"
+			                                                       style="color:red; display:none; font-size: 12px;"></label>
+			                                            </div>
+			                                        </div>	
+			                                         <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <div class="form-group form-md-line-input has-success" >
-                                                            <textarea id="vigilance_remark" style="height: 105px;" type="text"
-                                                                      class="form-control"></textarea>
-                                                            <label>Remark :</label>
+                                                        <div class="form-group form-md-line-input has-success" >                                                            
+                                                            <textarea id="vigilance_remark" style="height: 118px;" type="text"
+                                                                      class="form-control"></textarea> 
+                                                            <label>Description <span class="required">*</span></label>                                                           
                                                         </div>
-                                                        <span class="vigilance_remark_error" style="margin-top: -30px;color:red;"></span>
+                                                        <span class="vigilance_remark_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                                     </div>
-                                                </div>
-                                                <br>
-                                                <div class="col-md-2">
-                                                    <div class="btn-group btn-group-devided">
-                                                        <button type="button"
-                                                                style="margin-left: 15px;margin-top: 98px;"
-                                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                onclick="register_vigilance()">
-                                                            Submit
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                  </div>				                               					                                 
+					                                 </div>
+					                             </div>	                                            
                                         </div>
-                                    </div>
+                                    </div>                                                                            
                                 </div>
+                                <div class="row">
+                                	  <div class="col-md-12" style="text-align: right;">
+                                            <button type="button"                                                    
+                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                    onclick="register_vigilance()">
+                                                Submit
+                                            </button>
+                                    </div> 
+                                </div>                                
                             </div>
                         </div>
                     </div>
-                </div>
-
-                
+                </div>                
             </div>
         </div>
     </div>
@@ -251,10 +288,10 @@
 <!-- BEGIN FOOTER -->
 <!-- BEGIN INNER FOOTER -->
 <div class="page-footer">
-    <div class="container"> 2014 &copy; Metronic by keenthemes.
-        <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes"
-           title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase
-            Metronic!</a>
+    <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
     </div>
 </div>
 <div class="scroll-to-top">
@@ -262,72 +299,58 @@
 </div>
 <!-- END INNER FOOTER -->
 <!-- END FOOTER -->
-<!--[if lt IE 9]>
-<script src="{% static 'assets/global/plugins/respond.min.js' %}"></script>
-<script src="{% static 'assets/global/plugins/excanvas.min.js' %}"></script>
-<![endif]-->
+
 <!-- BEGIN CORE PLUGINS -->
-<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/morris/morris.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/morris/raphael-min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/counterup/jquery.waypoints.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/counterup/jquery.counterup.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/flot/jquery.flot.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/flot/jquery.flot.resize.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/flot/jquery.flot.categories.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jquery.sparkline.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js' %}" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<script src="{% static 'assets/global/plugins/amcharts/amcharts/amcharts.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/amcharts/amcharts/serial.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/amcharts/amcharts/pie.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/amcharts/amcharts/radar.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/light.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/patterns.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/chalk.js' %}" type="text/javascript"></script>
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
-<!-- END THEME GLOBAL SCRIPTS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{% static 'assets/pages/scripts/dashboard.min.js' %}" type="text/javascript"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
-<script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}" type="text/javascript"></script>
-<!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="{% static 'assets/layouts/layout3/scripts/layout.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/layouts/layout3/scripts/demo.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/pages/scripts/dropzone1.js' %}"></script>
+	<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/morris/morris.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/morris/raphael-min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/counterup/jquery.waypoints.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/counterup/jquery.counterup.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/flot/jquery.flot.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/flot/jquery.flot.resize.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/flot/jquery.flot.categories.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/jquery.sparkline.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/amcharts/amcharts/amcharts.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/amcharts/amcharts/serial.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/amcharts/amcharts/pie.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/amcharts/amcharts/radar.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/light.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/patterns.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/chalk.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/pages/scripts/dashboard.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/layouts/layout3/scripts/layout.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/layouts/layout3/scripts/demo.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/pages/scripts/dropzone1.js' %}"></script>
+  	<script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
+  	<script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>        
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script type="text/javascript">
     $("#vigilance").addClass("active ");
-    function check_consumer() {
-        document.getElementById("check_otp").removeAttribute("hidden");
-    }
 
     function register_vigilance() {
+			alert('1')
+			if (validate_vigilance()) {
+			alert('2')
+			return false
+			}
 			
-        if ($(vigilance_type).val() != '' && $(vigilance_type).val() != null) {
+        /*if ($(vigilance_type).val() != '' && $(vigilance_type).val() != null) {
             $("#vigilance_register_modal").modal('show');
             return true;
         } else if ($(vigilance_remark).val() == ' ' && $(vigilance_remark).val() == null) {
@@ -340,86 +363,41 @@
             $(".vigilance_remark_error").css("display", "block");
             $(".vigilance_remark_error").text("Please enter valid remark");
             return false;
-        }
+        } */
     }
 
+	function validate_vigilance() {
+			if (CheckCity("#city")&CheckVigilanceType("#vigilance_type")) {	
+			alert('s')
+			return true
+			}
+			return false		
+	}
+		
+	function CheckCity(city){
+			if($(city).val()!=' ' && $(city).val()!=null)
+		   {
+		    $(city).parent().children('.error').css("display", "none");
+		   return true;
+		   }else{
+		    $(city).parent().children('.error').css("display", "block");
+		    $(city	).parent().children('.error').text("Please select City");
+		   return false; 
+		   }
+	}   
+	function CheckVigilanceType(vigilance_type){
+			if($(vigilance_type).val()!='' && $(vigilance_type).val()!=null)
+		   {
+		   alert('ww')
+		    $("#vigilance_type_error").css("display", "none");
+		   return true;
+		   }else{
+		    $("#vigilance_type_error").css("display", "block");
+		    $("#vigilance_type_error").text("Please select Vigilance Type");
+		   return false; 
+		   }
+	}   	
 
-    function check_otp() {
-        $("check_otp").attr("hidden", "hidden");
-        document.getElementById("consumer_info").removeAttribute("hidden");
-    }
-
-
-var initTable1 = function () {
-		   
-        var table = $('#consumer_vigilance_table');
-
-        var fixedHeaderOffset = 0;
-        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
-            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
-                fixedHeaderOffset = $('.page-header').outerHeight(true);
-            }
-        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
-            fixedHeaderOffset = $('.page-header').outerHeight(true);
-        }
-
-        var oTable = table.dataTable({
-				"bDestroy" : true,
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-
-            //setup rowreorder extension: http://datatables.net/extensions/fixedheader/
-            fixedHeader: {
-                header: true,
-                headerOffset: fixedHeaderOffset
-            },
-				
-            "order": [
-                [0, 'asc']
-            ],
-				"ajax": "/selfserviceapp/get-consumer-vigilance-details/?consumer_id="+consumer_id+"",
-                  "columns": [
-                {"data": "vigilanceID"},
-                {"data": "vigilanceType"}, 
-                {"data": "vigilanceStatus"}, 
-                {"data" : "vigilanceDate"},      
-                {"data" : "closureRemark"}
-		            ],				
-				
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-                { extend: 'csv', className: 'btn purple btn-outline ' },
-            ],
-
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            // set the initial value
-            "pageLength": 20,
-
-            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-      });
-      $('#online_payment_table_tools > li > a.tool-action').on('click', function() {
-            var action = $(this).attr('data-action');
-            oTable.DataTable().button(action).trigger();
-        });
-    }
-
-	initTable1();
     ////////////////////////////////// NEW DROPZONE ///////////////////////////
     var uploaded_file_mb = 0;
     var uploaded_file1_mb = 0;
@@ -533,11 +511,7 @@ var initTable1 = function () {
             }
         }
     }
-
-
-   
+  
 </script>
-
 </body>
-
 </html>
