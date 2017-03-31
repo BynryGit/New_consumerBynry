@@ -18,7 +18,6 @@ import urllib2
 import random
 from django.contrib.auth import authenticate
 
-
 ################################################
 
 # Create your views here.
@@ -27,39 +26,17 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 from django.contrib.auth import login
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.cache import cache_control
-from django.contrib import auth
 
-import urllib
-import smtplib
-from smtplib import SMTPException
+
 from django.shortcuts import *
-import dateutil.relativedelta
 
 # importing mysqldb and system packages
 import MySQLdb, sys
-from django.db.models import Q
-from django.db.models import F
-from django.db import transaction
-import pdb
-import csv
 import json
-# importing exceptions
-from django.db import IntegrityError
-import operator
-from django.db.models import Q
-from datetime import date, timedelta
-from django.views.decorators.cache import cache_control
-# HTTP Response
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-import dateutil.relativedelta
-from django.db.models import Count
-from datetime import date
-import calendar
-import urllib2
 import random
 from .models import *
+
 
 def home_screen(request):
     """To view complaints page"""
@@ -90,7 +67,7 @@ def my_bills(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|my_bills'
-        
+
         data = {
         }
     except Exception as exe:
@@ -127,14 +104,13 @@ def complaints(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|complaints'
-        complaint_type =  ComplaintType.objects.filter(is_deleted=False)
-        data={'complaint_type':complaint_type}
+        complaint_type = ComplaintType.objects.filter(is_deleted=False)
+        data = {'complaint_type': complaint_type}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|complaints', exe
         data = {}
     return render(request, 'self_service/complaints.html', data)
-
 
 
 @login_required(login_url='/')
@@ -151,13 +127,13 @@ def save_consumer_complaint_details(request):
             complaint_img=request.GET.get('complaint_img'),
             complaint_source="Web Portal",
             complaint_date=datetime.now()
-            )
+        )
         complaint_obj.save()
 
-        data = {'success' : 'true'}
+        data = {'success': 'true'}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_complaint_details', exe
-        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -170,28 +146,30 @@ def get_consumer_complaint_details(request):
 
         # complaint detail result
         complaint_detail = {
-            'complaintID' : complaints.complaint_no,
-            'complaintType' : complaints.complaint_type_id.complaint_type,
-            'complaintStatus' : complaints.complaint_status,
-            'complaintDate' : complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
-            'closureRemark' : complaints.closure_remark,
+            'complaintID': complaints.complaint_no,
+            'complaintType': complaints.complaint_type_id.complaint_type,
+            'complaintStatus': complaints.complaint_status,
+            'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
+            'closureRemark': complaints.closure_remark,
         }
-        data = {'success' : 'true', 'complaintDetail' : complaint_detail}
+        data = {'success': 'true', 'complaintDetail': complaint_detail}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_consumer_complaint_details', exe
-        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def services(request):
     """To view services page"""
     try:
         print 'selfserviceapp|views.py|services'
-        serviceType = ServiceRequestType.objects.filter(is_deleted=False) # Service Types
-        data={'serviceType':serviceType}
+        serviceType = ServiceRequestType.objects.filter(is_deleted=False)  # Service Types
+        data = {'serviceType': serviceType}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|services', exe
         data = {}
     return render(request, 'self_service/services.html', data)
+
 
 def service_request(request):
     """to get complaint details"""
@@ -207,15 +185,15 @@ def service_request(request):
             remark=request.GET.get('remark'),
             service_source="Web Portal",
             service_date=datetime.now()
-            )
+        )
         service_obj.save()
 
         service_no = service_obj.service_no
 
-        data = {'success' : 'true', 'service_no' : service_no}
+        data = {'success': 'true', 'service_no': service_no}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|service_request', exe
-        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -244,22 +222,22 @@ def signin(request):
                                 request.session['login_user'] = user_profile_obj.consumer_id.name
                                 request.session['user_id'] = int(user_profile_obj.id)
                                 request.session['consumer_no'] = user_profile_obj.consumer_id.consumer_no
-                                print '\n\n\n\n\n\n........111....',user
-                                print '\n\n...22........',request
-                                login(request,user)
+                                login(request, user)
                             except Exception as e:
                                 print e
-                            data = {'success': 'true', 'username': request.session['first_name']}
+                            data = {'success': 'true'}
                         else:
                             data = {'success': 'false', 'message': 'User Is Not Active'}
                             return HttpResponse(json.dumps(data), content_type='application/json')
                     else:
                         data = {'success': 'Invalid Password', 'message': 'Invalid Password'}
                         return HttpResponse(json.dumps(data), content_type='application/json')
-                except:
+                except Exception as e:
+                    print e
                     data = {'success': 'Invalid Username', 'message': 'Invalid Username'}
                     return HttpResponse(json.dumps(data), content_type='application/json')
-            except:
+            except Exception as e:
+                print e
                 data = {'success': 'Invalid Username', 'message': 'Invalid Username'}
                 return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -295,8 +273,9 @@ def get_consumer_bill_data(request):
     try:
         consumer_no = request.GET.get('consumer_number')
         consumer_type = request.GET.get('consumer_type')
-        bill_cycle = BillCycle.objects.get(id = request.GET.get('bill_cycle'))
-        consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no,bill_cycle=bill_cycle,meter_category=consumer_type)
+        bill_cycle = BillCycle.objects.get(id=request.GET.get('bill_cycle'))
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no, bill_cycle=bill_cycle,
+                                                   meter_category=consumer_type)
         data = {
             'con_number': consumer_obj.consumer_no,
             'con_name': consumer_obj.name,
@@ -318,6 +297,7 @@ def get_consumer_bill_data(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 def FAQS(request):
     """To view FAQS page"""
     try:
@@ -336,7 +316,8 @@ def verify_new_consumer(request):
     try:
         print 'selfserviceapp|views.py|verify_new_consumer'
 
-        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'),city=request.POST.get('city_id'))
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'),
+                                                   city=request.POST.get('city_id'))
         if consumer_obj:
             ret = u''
             ret = ''.join(random.choice('0123456789ABCDEF') for i in range(6))
@@ -345,14 +326,15 @@ def verify_new_consumer(request):
 
             consumer_obj.consumer_otp = OTP
             consumer_obj.save()
-            data = {'success': 'true', 'message': 'SMS Sent Successfully','contact_no':consumer_obj.contact_no}
+            data = {'success': 'true', 'message': 'SMS Sent Successfully', 'contact_no': consumer_obj.contact_no}
         else:
             data = {'success': 'false', 'message': 'Invalid Username'}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_new_consumer', exe
-        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def consumer_registration_sms(consumer_obj, OTP):
     # pdb.set_trace()
@@ -384,6 +366,7 @@ def consumer_registration_sms(consumer_obj, OTP):
     # print output
     return 1
 
+
 @csrf_exempt
 def verify_OTP(request):
     """to verify_OTP"""
@@ -392,32 +375,33 @@ def verify_OTP(request):
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
         if consumer_obj.consumer_otp == request.POST.get('otp_no'):
             consumer_data = {
-                'name' : consumer_obj.name,
-                'meter_category' : consumer_obj.meter_category,
-                'address_line_1' : consumer_obj.address_line_1,
-                'address_line_2' : consumer_obj.address_line_2,
-                'city' : consumer_obj.city.city,
-                'pin_code' : consumer_obj.pin_code.pincode,
-                'contact_no' : consumer_obj.contact_no,
-                'email_id' : consumer_obj.email_id,
+                'name': consumer_obj.name,
+                'meter_category': consumer_obj.meter_category,
+                'address_line_1': consumer_obj.address_line_1,
+                'address_line_2': consumer_obj.address_line_2,
+                'city': consumer_obj.city.city,
+                'pin_code': consumer_obj.pin_code.pincode,
+                'contact_no': consumer_obj.contact_no,
+                'email_id': consumer_obj.email_id,
             }
-            data = {'success' : 'true','consumer_data':consumer_data}
-        else :
-            data = {'success' : 'false'}
+            data = {'success': 'true', 'consumer_data': consumer_data}
+        else:
+            data = {'success': 'false'}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_OTP', exe
-        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 @csrf_exempt
 def save_consumer(request):
     try:
-        print 'selfserviceapp|views.py|save_consumer\n\n\n\nSSSSSS',request.POST.get('password')
+        print 'selfserviceapp|views.py|save_consumer\n\n\n\nSSSSSS', request.POST.get('password')
 
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
         new_consumer_obj = WebUserProfile(
             consumer_id=ConsumerDetails.objects.get(
-                consumer_no=request.POST.get('consumer_no')) if request.POST.get('consumer_no') else None,            
+                consumer_no=request.POST.get('consumer_no')) if request.POST.get('consumer_no') else None,
             username=request.POST.get('consumer_no'),
             status='Active',
             created_on=datetime.now(),

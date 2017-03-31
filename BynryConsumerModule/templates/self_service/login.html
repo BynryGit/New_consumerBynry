@@ -145,11 +145,9 @@
                         },
                         success: function(response) {
                             if(response.success=='true'){
-                            alert('0')
                                 location.href='/dashboard/';
                             }
                             if(response.message=='Invalid Username'){
-                            alert('1')
                                 $("#error_msg").text("Please enter valid username");
                                 $(".alert-danger", $(".login-form")).show()
                             }

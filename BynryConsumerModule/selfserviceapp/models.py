@@ -14,15 +14,16 @@ IS_DELETED = (
     (False, False),
 )
 
+
 class WebUserProfile(User):
-	consumer_id = models.ForeignKey(ConsumerDetails,blank=True,null=True)
+    consumer_id = models.ForeignKey(ConsumerDetails, blank=True, null=True)
 
-	status = models.CharField(max_length=20, default='Active', choices=ROLE_STATUS)
-	created_by = models.CharField(max_length=500, blank=False, null=False)
-	updated_by = models.CharField(max_length=500, blank=True, null=True)
-	created_on = models.DateTimeField(default=django.utils.timezone.now)
-	updated_on = models.DateTimeField(blank=True, null=True)
-	is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
+    status = models.CharField(max_length=20, default='Active', choices=ROLE_STATUS)
+    created_by = models.CharField(max_length=500, blank=False, null=False)
+    updated_by = models.CharField(max_length=500, blank=True, null=True)
+    created_on = models.DateTimeField(default=django.utils.timezone.now)
+    updated_on = models.DateTimeField(blank=True, null=True)
+    is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
 
-	def __unicode__(self):
-		return unicode(str(self.username))
+    def __unicode__(self):
+        return unicode(str(self.username))
