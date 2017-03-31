@@ -4,3 +4,4 @@ import models
 
 admin.site.register(models.ComplaintDetail)
 admin.site.register(models.ComplaintType)
+admin.site.register(models.ComplaintImages)
