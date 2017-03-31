@@ -121,6 +121,6 @@ class ConsumerVigilanceImage(models.Model):
     created_by      = models.CharField(max_length=500,null=True,blank=True)
     updated_by      = models.CharField(max_length=500,null=True,blank= True)
     updation_date   = models.DateTimeField(null=True,blank=True)
-    
+
     def __unicode__(self):
-        return unicode(self.id)         
+        return unicode(self.id)

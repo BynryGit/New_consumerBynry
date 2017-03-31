@@ -124,23 +124,28 @@ def save_consumer_complaint_details(request):
         print 'selfserviceapp|views.py|save_consumer_complaint_details'
         complaint_type_obj = ComplaintType.objects.get(id=request.GET.get('complaint_type'))
         # filter complaint by complaint id
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
+
+        print '-----------consumer------',request.session['consumer_id']
         consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session['consumer_id'] else None
 
         complaint_obj = ComplaintDetail(
-            complaint_no=request.GET.get('id'),
+            complaint_no= "COMP" + str(password),
             complaint_type_id=complaint_type_obj,
             consumer_id=consumer_id,
             remark=request.GET.get('remark'),
             complaint_img=request.GET.get('complaint_img'),
-            complaint_source="Web Portal",
+            complaint_source="Web",
             complaint_date=datetime.now()
         )
         complaint_obj.save()
 
         attachment_list = request.GET.get('attachments')
-        save_attachments(attachment_list, complaint_obj)
+        save_attachments1(attachment_list, complaint_obj)
 
-        data = {'success' : 'true'}
+        data = {'success' : 'true','complaint_id':str(complaint_obj)}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|save_consumer_complaint_details', exe
         data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
@@ -151,19 +156,24 @@ def save_consumer_complaint_details(request):
 def get_consumer_complaint_details(request):
     """to get complaint details"""
     try:
+        complaint_list = []
         print 'selfserviceapp|views.py|get_consumer_complaint_details'
         # filter complaint by complaint id
-        complaints = ComplaintDetail.objects.get(consumer_id=request.GET.get('consumer_id'))
-
+        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session['consumer_id'] else None
+        print '---------consumer------',consumer_id
+        complaints_list = ComplaintDetail.objects.filter(consumer_id=consumer_id)
         # complaint detail result
-        complaint_detail = {
-            'complaintID': complaints.complaint_no,
-            'complaintType': complaints.complaint_type_id.complaint_type,
-            'complaintStatus': complaints.complaint_status,
-            'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
-            'closureRemark': complaints.closure_remark,
-        }
-        data = {'success': 'true', 'complaintDetail': complaint_detail}
+        for complaints in complaints_list:
+            complaint_data = {
+                'complaintID': complaints.complaint_no,
+                'complaintType': complaints.complaint_type_id.complaint_type,
+                'complaintStatus': complaints.complaint_status,
+                'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
+                'closureRemark': complaints.closure_remark,
+            }
+            complaint_list.append(complaint_data)
+        data = {'success': 'true','data':complaint_list}
+
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_consumer_complaint_details', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
@@ -206,7 +216,7 @@ def remove_complaint_img(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-def save_attachments(attachment_list, complaint_obj):
+def save_attachments1(attachment_list, complaint_obj):
     print '--------attachment----------',attachment_list
     print '--------complaint_obj----------',complaint_obj
     try:
@@ -215,7 +225,7 @@ def save_attachments(attachment_list, complaint_obj):
         attachment_list = filter(None, attachment_list)
         for attached_id in attachment_list:
             attachment_obj = ComplaintImages.objects.get(id=attached_id)
-            attachment_obj.consumer_id = complaint_obj
+            attachment_obj.consumer_id = complaint_obj.consumer_id
             attachment_obj.save()
 
         data = {'success': 'true'}
@@ -230,8 +240,9 @@ def services(request):
     """To view services page"""
     try:
         print 'selfserviceapp|views.py|services'
+        consumer_id = request.session['consumer_id']
         serviceType = ServiceRequestType.objects.filter(is_deleted=False)  # Service Types
-        data = {'serviceType': serviceType}
+        data = {'serviceType': serviceType,'consumer_id':consumer_id}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|services', exe
         data = {}
@@ -243,19 +254,25 @@ def service_request(request):
     try:
         print 'selfserviceapp|views.py|service_request'
         # filter complaint by complaint id
-        service = ServiceRequest.objects.get(consumer_id=request.GET.get('consumer_id'))
+        consumer_id = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+        print '----request-----',request.GET.get('service_type')
+        service_type = ServiceRequestType.objects.get(id=request.GET.get('service_type'))
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
 
         service_obj = ServiceRequest(
-            service_no=request.GET.get('id'),
-            service_type=request.GET.get('service_type'),
-            consumer_id=request.GET.get('consumer_id'),
-            remark=request.GET.get('remark'),
-            service_source="Web Portal",
-            service_date=datetime.now()
+            service_no="SERVICE" + str(password),
+            service_type=service_type,
+            consumer_id=consumer_id,
+            consumer_remark=request.GET.get('service_remark'),
+            source="Web",
+            request_date=datetime.now(),
+            created_date=datetime.now()
         )
         service_obj.save()
-
         service_no = service_obj.service_no
+        print '------service no-----',service_no
 
         data = {'success': 'true', 'service_no': service_no}
     except Exception as exe:
