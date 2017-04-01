@@ -60,8 +60,23 @@ def my_bills(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|my_bills'
-
+        consumer_obj = MeterReadingDetail.objects.filter(consumer_id=request.session['consumer_id']).latest('created_on')
+        print '.....SSSSSSSSSSSS.\n\n\n\n',consumer_obj
+        if consumer_obj.bill_status == 'Paid' :
+            payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
+        else :
+            payment_date = ''
         data = {
+            'consumer_no':consumer_obj.consumer_id.consumer_no,
+            'name':consumer_obj.consumer_id.name,
+            'bill_cycle':consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
+            'unit_consumed':consumer_obj.unit_consumed,
+            'bill_amount':consumer_obj.bill_amount,
+            'arrears':consumer_obj.arrears,
+            'net_amount':consumer_obj.net_amount,
+            'payment_date':payment_date,
+            'prompt_date':consumer_obj.prompt_date,
+            'due_date':consumer_obj.due_date,
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|my_bills', exe
@@ -127,8 +142,6 @@ def save_consumer_complaint_details(request):
         chars = string.digits
         pwdSize = 5
         password = ''.join(random.choice(chars) for _ in range(pwdSize))
-
-        print '-----------consumer------',request.session['consumer_id']
         consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session['consumer_id'] else None
 
         complaint_obj = ComplaintDetail(
