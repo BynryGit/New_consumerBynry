@@ -449,6 +449,7 @@ def verify_OTP(request):
             consumer_data = {
                 'name': consumer_obj.name,
                 'meter_category': consumer_obj.meter_category,
+                'bill_cycle':consumer_obj.bill_cycle.bill_cycle_name,
                 'address_line_1': consumer_obj.address_line_1,
                 'address_line_2': consumer_obj.address_line_2,
                 'city': consumer_obj.city.city,
