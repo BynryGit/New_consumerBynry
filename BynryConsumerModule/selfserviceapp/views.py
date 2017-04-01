@@ -60,8 +60,23 @@ def my_bills(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|my_bills'
+
+        last_month_list = []
+        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        pre_Date = datetime.now()
+        pre_Month = pre_Date.month
+        pre_Year = pre_Date.year
+        for i in range(6):
+            last_Year = pre_Year
+            last_Month = pre_Month - i
+            if last_Month <= 0:
+                last_Month = 12 + last_Month
+                last_Year = pre_Year -1
+            month1 = month_list1[last_Month-1] +'-'+str(last_Year)
+            last_month_list.append({'month1':month1})
+
+
         consumer_obj = MeterReadingDetail.objects.filter(consumer_id=request.session['consumer_id']).latest('created_on')
-        print '.....SSSSSSSSSSSS.\n\n\n\n',consumer_obj
         if consumer_obj.bill_status == 'Paid' :
             payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
         else :
@@ -76,12 +91,33 @@ def my_bills(request):
             'net_amount':consumer_obj.net_amount,
             'payment_date':payment_date,
             'prompt_date':consumer_obj.prompt_date,
-            'due_date':consumer_obj.due_date,
+            'due_date':consumer_obj.due_date
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|my_bills', exe
         data = {}
     return render(request, 'self_service/my_bills.html', data)
+
+def get_graph_data(request):
+    try:
+        print 'selfserviceapp|views.py|get_graph_data'
+        data_list = []
+        ss = ['Month', 'Units']
+        data_list.append(ss)
+        ss = ['Jan', 250]
+        data_list.append(ss)
+        ss = ['FEB', 360]
+        data_list.append(ss) 
+        ss = ['MAR', 300]
+        data_list.append(ss) 
+        ss = ['APR', 850]
+        data_list.append(ss)                
+        data = {'success': 'true','data_list':data_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_graph_data', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def manage_accounts(request):
