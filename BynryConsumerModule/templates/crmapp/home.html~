@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Home | CTI CRM</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/morris/morris.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/jqvmap/jqvmap/jqvmap.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="{% static 'assets/layouts/layout3/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout3/css/themes/default.min.css' %}" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="{% static 'assets/layouts/layout3/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+
+    <style>
+        .feature-item {
+            margin-top: 50px;
+
+        }
+
+        .feature-item>i {
+            font-size: 30px;
+            line-height: 80px !important;
+            height: 80px;
+            width: 80px;
+            padding: 0;
+            border-radius: 50%;
+            border: 2px solid #999;
+        }
+
+        .feature-item .desc {
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #999;
+        }
+
+        .box-text{
+            color:#999;
+        }
+
+        h3 {
+            color:#000;
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-boxed">
+<!-- BEGIN HEADER -->
+<div class="page-header">
+    <!-- BEGIN HEADER TOP -->
+    <div class="page-header-top">
+        <div class="container">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="/self-service/index/">
+                    <img style="width: 101px; margin-top: 9px;" src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo"
+                         class="logo-default">
+                </a>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler"></a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- BEGIN INBOX DROPDOWN -->
+
+                    <!-- END INBOX DROPDOWN -->
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <li class="dropdown dropdown-user dropdown-dark">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
+                            <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
+                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a href="page_user_profile_1.html">
+                                    <i class="icon-user"></i> My Profile </a>
+                            </li>
+                            <li>
+                                <a href="/self-service/">
+                                    <i class="icon-key"></i> Log Out </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+    </div>
+    <!-- END HEADER TOP -->
+    <!-- BEGIN HEADER MENU -->
+    <div class="page-header-menu">
+        <div class="container">
+            <!-- BEGIN HEADER SEARCH BOX -->
+            <!-- END HEADER SEARCH BOX -->
+            <!-- BEGIN MEGA MENU -->
+            <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
+            <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
+            <div class="hor-menu  ">
+                {% include 'self_service/side-panel.html' %}
+            </div>
+            <!-- END MEGA MENU -->
+        </div>
+    </div>
+    <!-- END HEADER MENU -->
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        <!-- BEGIN PAGE HEAD-->
+        <div class="page-head">
+            <div class="container">
+                <div class="page-title">
+                    <h1>Home
+                        <!--<small>dashboard & statistics</small>-->
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE HEAD-->
+        <!-- BEGIN PAGE CONTENT BODY -->
+        <div class="page-content">
+            <div class="container">
+                <div class="page-content-inner">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="portlet light">
+                                <div class="row" id="div1">
+                                  <div class="col-md-12">
+                                		<div class="col-md-offset-2 col-md-3">
+                                         <div class="form-group form-md-line-input has-success">
+                                             <label for="bill_city">City<span
+                                                     class="required"> *</span></label>
+                                             <select id="verify_city" class="form-control input-sm select2-multiple">
+                                                 <option value=" "> Select City</option>
+                                                 {% for city in city_list %}
+                                                 <option value="{{city.city_id}}"> {{ city.city }}</option>
+                                                 {% endfor %}
+                                             </select>
+                                             <label class="error" style="color:red; display:none; font-size: 12px;"></label>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3">
+	                                        <div class="form-group form-md-line-input has-success">
+	                                            <label for="applicant_aadhar_no">Consumer No <span
+	                                                    class="required"> *  </span> <small> (12 digits)</small> </label>
+	                                            <input type="text" class="form-control" id="verify_consumer_no"
+	                                                   name="verify_consumer_no">
+	                                            <label id="verify_consumer_no_error" class="error"
+	                                                   style="color:red; display:none; font-size: 12px;"></label>
+	                                        </div>
+	                                  </div>
+	                                  <div class="col-md-2" style="text-align: right;margin-top: 36px;">
+				                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+				                                        style="width: 89px;" onclick="verify_consumer();">
+				                                    Verify
+				                                </button>											                               
+				                         </div>
+                                    </div>
+                                 </div>
+                                 <div class="row" id="div2" style="display:none">
+                                           <div class=" portlet light bordered"
+                                         style="height: 140px !important;">
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-top: -15px;!important">
+                                                <div class="col-md-12">
+                                                <br>
+                                                <div class="col-md-12">
+					                                      <label class="bold">Consumer Details :</label>
+					                                      <a style="text-align:right;" href="/cti-crm/">Back</a>
+					                                  </div>                                     
+                                      <br>
+                                      <br>
+                                          <div class="col-md-3">
+                                              <div class="form-group">
+                                                  <div class="form-group form-md-line-input has-info">
+                                                      <input type="text" class="form-control" readonly
+
+                                                             value="{{payment_data.bill_month}}">
+                                                      <label >Consumer No. :</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="form-group">
+                                                  <div class="form-group form-md-line-input has-info">
+                                                      <input type="text" class="form-control"
+                                                             readonly=""
+                                                             value="{{payment_data.current_reading_date}}">
+                                                      <label >Consumer Name :</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="form-group">
+                                                  <div class="form-group form-md-line-input has-info">
+                                                      <input type="text" class="form-control"
+                                                             readonly=""
+                                                             value="{{payment_data.tariff_rate}}">
+                                                      <label >Mobile No. :</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="form-group">
+                                                  <div class="form-group form-md-line-input has-info">
+                                                      <input type="text" class="form-control"
+                                                             readonly=""
+                                                             value="{{payment_data.tariff_rate}}">
+                                                      <label >Email :</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>                                                                                                                                                                                                                    
+                                  </div>
+                                  <div class="row" id="div5" style="display:none">
+                                      <div class="col-md-offset-3 portlet light bordered"
+                                         style="height: 70px !important;width:315px !important;">
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-top: -15px;!important">
+                                                <div class="col-md-12">
+	                                                <br>
+	                                                <div class="col-md-12">
+						                                      <label class="bold">Unregistered Consumer ? </label>
+						                                      <a style="text-align:right;" onclick="">Continue</a>
+						                                  </div>                                     
+				                                     
+				                                      </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>                                                                                                                                                                                                                    
+                                  </div>
+                            </div>
+                        </div>
+                        <div id="div3" class="col-md-12 col-sm-12"style="display:none" >
+                            <div class="portlet light ">
+                                <div class="row">
+                                    <a href="/self-service/quick-pay/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-wallet"></i>
+                                            <h3>Complaints</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/self-service/my-bills/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-bulb"></i>
+                                            <h3>Services</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/self-service/manage-accounts/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-user"></i>
+                                            <h3>Vigilance</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-layers"></i>
+                                            <h3>Bill</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div id="div4" class="col-md-12 col-sm-12"style="display:none" >
+                            <div class="portlet light ">
+                                <div class="row">                                    
+                                    <a href="/self-service/my-bills/" class="box-text">
+                                        <div class="feature-item col-md-offset-3 col-md-3 text-center">
+                                            <i class="icon-bulb"></i>
+                                            <h3>Services</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/self-service/manage-accounts/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-user"></i>
+                                            <h3>Vigilance</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT INNER -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT BODY -->
+        <!-- END CONTENT BODY -->
+    </div>
+    <!-- END CONTENT -->
+    <!-- BEGIN QUICK SIDEBAR -->
+    <!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<!-- BEGIN INNER FOOTER -->
+<div class="page-footer">
+    <div class="container"> 2017 &copy; Bynry Technologies India Pvt. Ltd.
+    </div>
+</div>
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
+<!-- END INNER FOOTER -->
+<!-- END FOOTER -->
+<!--[if lt IE 9]>
+<script src="{% static 'assets/global/plugins/respond.min.js' %}"></script>
+<script src="{% static 'assets/global/plugins/excanvas.min.js' %}"></script>
+<![endif]-->
+<!-- BEGIN CORE PLUGINS -->
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"
+        type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/morris/morris.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/morris/raphael-min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/counterup/jquery.waypoints.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/counterup/jquery.counterup.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.resize.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.categories.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.sparkline.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js' %}"
+        type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<!-- END THEME GLOBAL SCRIPTS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="{% static 'assets/pages/scripts/dashboard.min.js' %}" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="{% static 'assets/layouts/layout3/scripts/layout.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout3/scripts/demo.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+<!-- END THEME LAYOUT SCRIPTS -->
+<script >
+   function verify_consumer() {
+	if(validate_verify()){	
+	event.preventDefault(); 
+	 
+	var formData= new FormData();
+	formData.append("city_id",$("#verify_city").val());
+	formData.append("consumer_no",$("#verify_consumer_no").val());				
+
+	 $.ajax({  				  
+			  type	: "POST",
+			   url : '/self-service/verify-new-consumer/',
+	 			data : formData,
+				cache: false,
+		      processData: false,
+		 		contentType: false, 
+		 			               
+	        success: function (response) {   
+	           if(response.success=='true'){
+		     		  	$("#div1").css('display','none');
+		     		  	$("#div2").css('display','block');
+		     		  	$("#div3").css('display','block');
+		     		  //	$("#contactno_id").text(response.contact_no);
+		     		  //	$("#check_otp").css('display','block');
+
+	           	}
+	   			if (response.success == "false") {
+    					$(verify_consumer_no_error).css("display", "block");
+    					$(verify_consumer_no_error).text("Consumer Number does not exit");
+						$("#div5").css('display','block');	     					
+    					//$("#div4").css('display','block');	   			
+	    			}							                        		                      		                       		
+	         },
+	         	beforeSend: function () {
+	      $("#processing").css('display','block');
+	      },
+	      complete: function () {
+	          $("#processing").css('display','none');
+	      },
+	         error : function(response){
+	            	alert("_Error");
+	      	}              
+	  });     
+	  }  
+}
+
+function validate_verify() {
+	if (CheckCity("#verify_city")&CheckConsumerNo("#verify_consumer_no")) {	
+	return true
+	}
+	return false		
+}
+function CheckCity(city){
+	if($(city).val()!=' ' && $(city).val()!=null)
+   {
+    $(verify_city).parent().children('.error').css("display", "none");
+   return true;
+   }else{
+    $(verify_city).parent().children('.error').css("display", "block");
+    $(verify_city).parent().children('.error').text("Please select City");
+   return false; 
+   }
+}
+function CheckConsumerNo(consumer_no){
+   consumer_no = $(consumer_no).val()     
+   var Pattern = /^[a-zA-Z0-9!@#$%^&*]{12}$/;
+ 
+   if(Pattern.test(consumer_no)){
+    $(verify_consumer_no_error).css("display", "none");
+   return true;
+   }
+   else{
+    $(verify_consumer_no_error).css("display", "block");
+    $(verify_consumer_no_error).text("Please enter valid Consumer Number");
+   return false; 
+   }
+ }
+</script>
+</body>
+
+</html>

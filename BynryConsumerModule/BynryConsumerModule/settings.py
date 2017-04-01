@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'vigilanceapp',
     'nscapp',
     'selfserviceapp',
+    'crmapp',
 )
 
 MIDDLEWARE_CLASSES = (

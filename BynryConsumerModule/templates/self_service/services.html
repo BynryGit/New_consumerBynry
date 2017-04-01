@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 8]>
-<html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]>
-<html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
+
 <html lang="en">
 {% load staticfiles %}
 
@@ -27,7 +23,8 @@
           type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
+          rel="stylesheet" type="text/css"/>
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css' %}" rel="stylesheet"
           type="text/css"/>
@@ -48,7 +45,7 @@
     <link href="{% static 'assets/layouts/layout3/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
-    
+
 </head>
 <!-- END HEAD -->
 
@@ -80,7 +77,7 @@
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
                             <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
-                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
+                            <span class="username username-hide-mobile">{{ request.session.login_user }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -133,120 +130,139 @@
         <!-- BEGIN PAGE CONTENT BODY -->
         <div class="page-content">
             <div class="container">
-                 <div class="page-content-inner" id="consumer_info" >
+                <div class="page-content-inner" id="consumer_info">
                     <div class="row">
                         <div class="portlet light bordered">
-                          <div class="portlet-body">
-                              <div class="row">
-                                      <br>
-                                      <br>                                                                            
-                                      <div class="col-md-12">
-		                                        <div class="col-md-4">
-	                                              <div class="form-group form-md-line-input has-success" >                                         
-		                                             <select id="service_type" style="margin-top: 4px;" class="form-control input-sm select2-multiple" >
-		                                                 <option value=""> Select Service Type</option>
-		                                                 {% for type in serviceType %}
-		                                                 	<option value="{{ type.id }}"> {{ type.request_type }} </option>
-		                                                 {% endfor %}
-		                                             </select>
-		                                             <label >Service Type :</label>
-		                                         </div>
-		                                         <span class="service_type_error" style="margin-top: -29px;color:red;"></span>
-	                                          </div>
-			                                          <div class="col-md-6">
-			                                              <div class="form-group">
-			                                                  <div class="form-group form-md-line-input has-success">
-			                                                      <textarea id="service_remark" style="height: 35px;" type="text" class="form-control"></textarea>
-			                                                      <label >Remark :</label>
-			                                                  </div>
-			                                              </div>
-			                                              <span class="service_remark_error" style="margin-top: -15px;color:red;"></span>
-		                                          	</div>
-		                                          	<div class="col-md-2" style="text-align:right;">
-			                                         	  <div class="btn-group btn-group-devided">
-					                                        <button type="button" style="margin-top: 27px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="service_request();">
-					                                            Submit
-					                                        </button>
-							                                </div>
-				                                			</div>                                
-                                          	                                                                     
-                                      </div>
-                                      </div>                                                                                                                                               
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      
-                      <div class="page-content-inner" id="confirm_service_msg" hidden="">
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <br>
+                                    <br>
+
+                                    <div class="col-md-12">
+                                        <input type="hidden" id="cons_id" value="{{ consumer_id }}">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group form-md-line-input has-success">
+                                                <select id="service_type" style="margin-top: 4px;"
+                                                        class="form-control input-sm select2-multiple">
+                                                    <option value=""> Select Service Type</option>
+                                                    {% for type in serviceType %}
+                                                        <option value="{{ type.id }}"> {{ type.request_type }} </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <label>Service Type :</label>
+                                            </div>
+                                            <span class="service_type_error"
+                                                  style="margin-top: -29px;color:red;"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group form-md-line-input has-success">
+                                                    <textarea id="service_remark" style="height: 35px;" type="text"
+                                                              class="form-control"></textarea>
+                                                    <label>Remark :</label>
+                                                </div>
+                                            </div>
+                                            <span class="service_remark_error"
+                                                  style="margin-top: -15px;color:red;"></span>
+                                        </div>
+                                        <div class="col-md-2" style="text-align:right;">
+                                            <div class="btn-group btn-group-devided">
+                                                <button type="button" style="margin-top: 27px;"
+                                                        class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                        onclick="service_request();">
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-content-inner" id="confirm_service_msg" hidden="">
                     <div class="row">
                         <div class="portlet light bordered">
-                          <div class="portlet-body">
-                              
-                                  <div class="row" >
-                                  <div class="portlet light bordered" >
-                                  <div class="portlet-body">
-                                  <div class="row" style="margin-top: -15px;!important">
-                                      <div class="col-md-12">                                          
-                                              <div class="form-group">
-                                                  <div class="form-group form-md-line-input has-info">                                                     
-                                                      <p >Thanks for interest in our service. Kindly note the reference no. for future.</p>
-                                                      <p >Service ID : <span id="service_ID"></span></p>
-                                                      <p >Please download the service form from your registered email id and submit it at nearest CSD center with supporting documents.</p>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          </div>
-                                          <div class="row" >
-                                          	                                         			
-                                         			<div class="col-md-offset-9 col-md-3">
-			                                         	  <div class="btn-group btn-group-devided">
-					                                        <a type="button" href="/self-service/index/" style="margin-top: 25px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="check_otp()">
-					                                            Home
-					                                        </a>
-							                                </div>
-						                                
-			                                         	  <div class="btn-group btn-group-devided">
-					                                        <a type="button" href="/self-service/contact-us/" style="margin-left: 15px;margin-top: 25px;" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="">
-					                                            Locate CSD Centers
-					                                        </a>
-							                                </div>
-						                                </div>
-                                         		
-                                         	</div>
-                                         
-                                      </div>
-                                      </div>
-                                  </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>  
-                        
-                    </div>  
-                    
-                    
-                    
-                    
-                      </div>
-                        
-                    </div>     
-                                
-                    </div>                                    				
+                            <div class="portlet-body">
+
+                                <div class="row">
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-top: -15px;!important">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group form-md-line-input has-info">
+                                                            <p>Thanks for interest in our service. Kindly note the
+                                                                reference no. for future.</p>
+
+                                                            <p>Service ID : <b><span id="service_ID"></span></b></p>
+
+                                                            <p>Please download the service form from your registered
+                                                                email id and submit it at nearest CSD center with
+                                                                supporting documents.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-offset-9 col-md-3">
+                                                    <div class="btn-group btn-group-devided">
+                                                        <a type="button" href="/self-service/index/"
+                                                           style="margin-top: 25px;"
+                                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                           onclick="check_otp()">
+                                                            Home
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="btn-group btn-group-devided">
+                                                        <a type="button" href="/self-service/contact-us/"
+                                                           style="margin-left: 15px;margin-top: 25px;"
+                                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                           onclick="">
+                                                            Locate CSD Centers
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-                
-  <div id="complaint_register_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+<div id="complaint_register_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">               
-            <div class="modal-body">                
-                     <label class="bold">Your Complaint ID - 2787566 is successfully registered with us. We will contact you soon.</label>                          
-            </div>
-            <div class="modal-footer" style="text-align:center;">
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">OK</button>
+            <div class="modal-header">
+                <div class="modal-body">
+                    <label class="bold">Your Complaint ID - 2787566 is successfully registered with us. We will contact
+                        you soon.</label>
+                </div>
+                <div class="modal-footer" style="text-align:center;">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">OK</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
@@ -263,10 +279,7 @@
 </div>
 <!-- END INNER FOOTER -->
 <!-- END FOOTER -->
-<!--[if lt IE 9]>
-<script src="{% static 'assets/global/plugins/respond.min.js' %}"></script>
-<script src="{% static 'assets/global/plugins/excanvas.min.js' %}"></script>
-<![endif]-->
+
 <!-- BEGIN CORE PLUGINS -->
 <script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -292,32 +305,15 @@
 <script src="{% static 'assets/global/plugins/flot/jquery.flot.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/flot/jquery.flot.resize.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/global/plugins/flot/jquery.flot.categories.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js' %}"
-        type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jquery.sparkline.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js' %}" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
- <script src="{% static 'assets/global/plugins/amcharts/amcharts/amcharts.js' %}" type="text/javascript"></script>
-  <script src="{% static 'assets/global/plugins/amcharts/amcharts/serial.js' %}" type="text/javascript"></script>
-  <script src="{% static 'assets/global/plugins/amcharts/amcharts/pie.js' %}" type="text/javascript"></script>
-  <script src="{% static 'assets/global/plugins/amcharts/amcharts/radar.js' %}" type="text/javascript"></script>
-  <script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/light.js' %}" type="text/javascript"></script>
-  <script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/patterns.js' %}" type="text/javascript"></script>
-  <script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/chalk.js' %}" type="text/javascript"></script>
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
+
 <script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{% static 'assets/pages/scripts/dashboard.min.js' %}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}"
+        type="text/javascript"></script>
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{% static 'assets/layouts/layout3/scripts/layout.min.js' %}" type="text/javascript"></script>
 <script src="{% static 'assets/layouts/layout3/scripts/demo.min.js' %}" type="text/javascript"></script>
@@ -325,56 +321,65 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script type="text/javascript">
-	$("#services").addClass("active");
-	function confirm_service(){
-		document.getElementById("confirm_service_msg").removeAttribute("hidden");
-	//document.getElementById("counter_form_footer").removeAttribute("hidden");              
-  }
-  
-      function service_request() {
-			$(".service_type_error").css("display", "none");
-			$(".service_type_error").css("display", "none");
-        if ($(service_type).val() != '' && $(service_type).val() != null) {          
-        		if ($(service_remark).text() == ' ' && $(service_remark).text() == null) {
-	            return true;
-   	      }
-   	      else {
-   	      	$(".service_remark_error").css("display", "block");
-            	$(".service_remark_error").text("Please enter valid remark");
-            	return false;
-   	      }  
+    $("#services").addClass("active");
+    function confirm_service() {
+        document.getElementById("confirm_service_msg").removeAttribute("hidden");
+        //document.getElementById("counter_form_footer").removeAttribute("hidden");
+    }
+
+    function service_request() {
+        consumer_id = $('#cons_id').val();
+        service_type = $('#service_type').val();
+        service_remark = $('#service_remark').val();
+        if (validateData()) {
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: '/self-service/service-request/',
+                data: {'consumer_id': consumer_id, 'service_type': service_type, 'service_remark': service_remark},
+                success: function (response) {
+                    if (response.success == 'true') {
+                        $("#service_ID").text(response.service_no);
+                        document.getElementById("confirm_service_msg").removeAttribute("hidden");
+                    }
+                },
+                error: function (response) {
+                    alert("_Error");
+                }
+            });
+        }
+    }
+
+
+    function validateData() {
+        if (CheckServiceType("#service_type") & CheckServiceRemark("#service_remark")) {
             return true;
-        } 
-        else{
+        }
+        return false;
+    }
+
+    function CheckServiceType(service_type) {
+        if ($(service_type).val() != '' && $(service_type).val() != null) {
+            $(".service_type_error").css("display", "none");
+            return true;
+        } else {
             $(".service_type_error").css("display", "block");
             $(".service_type_error").text("Please select service type");
             return false;
         }
-        if ($(service_type).val() != '' && $(service_type).val() != null && $(service_remark).text() == ' ' && $(service_remark).text()) {
-					$.ajax({
-	            type : "GET",
-	            url : '/self-service/service-request/',
-	            data : {'consumer_id':consumer_id},
-	            success: function (response) {
-	                if(response.success =='true'){
-	                	  $("#service_ID").val(response.service_no);
-	                    document.getElementById("confirm_service_msg").removeAttribute("hidden");
-	                }
-	            },
-	            error : function(response){
-	                alert("_Error");
-	            }
-	        });        	
-        }
-        else {
-        		$(".service_type_error").css("display", "block");
-            $(".service_type_error").text("Please select service type");
-            $(".service_remark_error").css("display", "block");
-            	$(".service_remark_error").text("Please enter valid remark");
-        }
-        
     }
-     
+
+    function CheckServiceRemark(service_remark) {
+        if ($(service_remark).val() != '' && $(service_remark).val() != null) {
+            $(".service_remark_error").css("display", "none");
+            return true;
+        } else {
+            $(".service_remark_error").css("display", "block");
+            $(".service_remark_error").text("Please enter valid remark");
+            return false;
+        }
+    }
+
 </script>
 
 </body>
