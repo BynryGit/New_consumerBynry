@@ -42,6 +42,17 @@ def bill_calculator(request):
         data = {}
     return render(request, 'self_service/bill_calculator.html', data)
 
+def consumption_calculator(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|consumption_calculator'
+        data = {
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|consumption_calculator', exe
+        data = {}
+    return render(request, 'self_service/consumption_calculator.html', data)
+
 def home_screen(request):
     """To view complaints page"""
     try:
@@ -175,19 +186,14 @@ def get_bill_history(request):
             pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
             for pay_obj in pay_list:
                 bill_month = pay_obj.meter_reading_id.bill_month
-                bill_month = month_list1[month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year
-                unit_consumed = pay_obj.meter_reading_id.unit_consumed
-                net_amount = pay_obj.net_amount
-                bill_amount_paid = pay_obj.bill_amount_paid
-                payment_date = pay_obj.payment_date
-                payment_date = payment_date.strftime("%Y-%m-%d")   
+                bill_month = month_list1[month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year       
                 action = '<a href="/self-service/bill_details/?consumer_id=' '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'             
                 data_list = {
                     'bill_month':bill_month,
-                    'unit_consumed':unit_consumed,
-                    'net_amount':str(net_amount),
-                    'bill_amount_paid':str(bill_amount_paid),
-                    'payment_date':payment_date,
+                    'unit_consumed':pay_obj.meter_reading_id.unit_consumed,
+                    'net_amount':str(pay_obj.net_amount),
+                    'bill_amount_paid':str(pay_obj.bill_amount_paid),
+                    'payment_date':pay_obj.payment_date.strftime("%Y-%m-%d"),
                     'action':action
                 }
                 final_list.append(data_list)
@@ -207,18 +213,13 @@ def get_pay_history(request):
         final_list = []
         try:
             pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
-            for pay_obj in pay_list:
-                
-                payment_date = pay_obj.payment_date
-                payment_date = payment_date.strftime("%Y-%m-%d")   
-                bill_amount_paid = pay_obj.bill_amount_paid
-
+            for pay_obj in pay_list:                
                 data_list = {
-                    'bill_month':'',
-                    'unit_consumed':'',
-                    'net_amount':'',                    
-                    'payment_date':payment_date,
-                    'bill_amount_paid':str(bill_amount_paid)
+                    'bank_id':pay_obj.bank_id,
+                    'reference_no':pay_obj.reference_no,
+                    'due_date':pay_obj.due_date.strftime("%Y-%m-%d"),                    
+                    'payment_date':pay_obj.payment_date.strftime("%Y-%m-%d"),
+                    'bill_amount_paid':str(pay_obj.bill_amount_paid)
                 }
                 final_list.append(data_list)
         except Exception, e:

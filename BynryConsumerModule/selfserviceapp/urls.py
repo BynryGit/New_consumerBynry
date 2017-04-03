@@ -36,5 +36,6 @@ urlpatterns = [
     url(r'^upload-vigilance-image/', views.upload_vigilance_image,name='upload_vigilance_image'),    
     # bill_calculator
     url(r'^bill-calculator/', views.bill_calculator,name='bill_calculator'),    
+    url(r'^consumption-calculator/', views.consumption_calculator,name='consumption_calculator'),    
 ]
  
