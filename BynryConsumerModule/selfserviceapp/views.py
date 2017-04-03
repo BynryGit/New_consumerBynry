@@ -61,21 +61,6 @@ def my_bills(request):
     try:
         print 'selfserviceapp|views.py|my_bills'
 
-        last_month_list = []
-        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-        pre_Date = datetime.now()
-        pre_Month = pre_Date.month
-        pre_Year = pre_Date.year
-        for i in range(6):
-            last_Year = pre_Year
-            last_Month = pre_Month - i
-            if last_Month <= 0:
-                last_Month = 12 + last_Month
-                last_Year = pre_Year -1
-            month1 = month_list1[last_Month-1] +'-'+str(last_Year)
-            last_month_list.append({'month1':month1})
-
-
         consumer_obj = MeterReadingDetail.objects.filter(consumer_id=request.session['consumer_id']).latest('created_on')
         if consumer_obj.bill_status == 'Paid' :
             payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
@@ -104,14 +89,27 @@ def get_graph_data(request):
         data_list = []
         ss = ['Month', 'Units']
         data_list.append(ss)
-        ss = ['Jan', 250]
-        data_list.append(ss)
-        ss = ['FEB', 360]
-        data_list.append(ss) 
-        ss = ['MAR', 300]
-        data_list.append(ss) 
-        ss = ['APR', 850]
-        data_list.append(ss)                
+
+        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        pre_Date = datetime.now()
+        pre_Month = pre_Date.month
+        pre_Year = pre_Date.year
+        for i in range(6):
+            last_Year = pre_Year
+            last_Month = pre_Month - i
+            if last_Month <= 0:
+                last_Month = 12 + last_Month
+                last_Year = pre_Year -1
+            try:
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],bill_month=month_list2[last_Month-1],bill_months_year=last_Year)
+                ss = [month_list1[last_Month-1], reading_obj.unit_consumed]
+                data_list.append(ss)
+            except Exception, e:
+                ss = [month_list1[last_Month-1], 0]
+                data_list.append(ss)
+                pass
+            
         data = {'success': 'true','data_list':data_list}
 
     except Exception as exe:
