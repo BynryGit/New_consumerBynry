@@ -138,8 +138,9 @@ def get_graph2_data(request):
             try:
                 reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],bill_month=month_list2[last_Month-1],bill_months_year=last_Year)
                 pay_obj = PaymentDetail.objects.get(meter_reading_id=reading_obj.id)
-                ss = [month_list1[last_Month-1], pay_obj.net_amount]
-                data_list.append(ss)
+                if pay_obj.bill_status == 'Paid':
+                    ss = [month_list1[last_Month-1], pay_obj.net_amount]
+                    data_list.append(ss)
             except Exception, e:
                 ss = [month_list1[last_Month-1], 0]
                 data_list.append(ss)
@@ -150,6 +151,42 @@ def get_graph2_data(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_graph2_data', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_bill_history(request):
+    try:
+        print 'selfserviceapp|views.py|get_bill_history'
+        final_list = []
+        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+
+        try:
+            pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
+            for pay_obj in pay_list:
+                bill_month = pay_obj.meter_reading_id.bill_month
+                bill_month = month_list1[month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year
+                unit_consumed = pay_obj.meter_reading_id.unit_consumed
+                net_amount = pay_obj.net_amount
+                bill_amount_paid = pay_obj.bill_amount_paid
+                payment_date = pay_obj.payment_date
+                payment_date = payment_date.strftime("%Y-%m-%d")                
+                data_list = {
+                    'bill_month':bill_month,
+                    'unit_consumed':unit_consumed,
+                    'net_amount':str(net_amount),
+                    'bill_amount_paid':str(bill_amount_paid),
+                    'payment_date':payment_date
+                }
+                final_list.append(data_list)
+        except Exception, e:
+            print 'Exception|selfserviceapp|views.py|get_bill_history',e
+            pass
+        data = {'success': 'true','data':final_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_bill_history', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    print 'sss',data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
