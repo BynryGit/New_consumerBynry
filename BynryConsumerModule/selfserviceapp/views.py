@@ -11,7 +11,7 @@ from django.shortcuts import render
 from consumerapp.views import get_city, get_billcycle, get_pincode
 from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail, ComplaintImages
-from selfserviceapp.models import WebUserProfile
+from selfserviceapp.models import WebUserProfile, UserAccount
 from serviceapp.models import ServiceRequestType, ServiceRequest
 from vigilanceapp.models import VigilanceType, VigilanceDetail, ConsumerVigilanceImage
 from django.views.decorators.csrf import csrf_exempt
@@ -244,12 +244,38 @@ def manage_accounts(request):
         data = {}
     return render(request, 'self_service/manage_accounts.html', data)
 
+def get_my_accounts(request):
+    """To view complaints page"""
+    try:
+        users_list = []
+        print 'selfserviceapp|views.py|get_my_accounts'
+        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id'])
+        print '-----consumer id------',consumer_id
+        parent_consumer_obj = WebUserProfile.objects.get(username=consumer_id)
+        users_obj = UserAccount.objects.filter(parent_consumer_no=parent_consumer_obj)
+        print '--------user obj---------',users_obj
+        for users in users_obj:
+            users_data = {
+                'name': users.consumer_id.name,
+                'user_no': users.consumer_no,
+                'address': users.consumer_id.address_line_1+' '+users.consumer_id.address_line_2,
+                'actions': '',
+            }
+            users_list.append(users_data)
+        data = {'success': 'true','data':users_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_my_accounts', exe
+        data = {}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def add_new_account(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|add_new_account'
         data = {
+            'bill_cycle_list': get_billcycle(request)
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|add_new_account', exe
@@ -379,8 +405,6 @@ def remove_complaint_img(request):
 
 
 def save_attachments1(attachment_list, complaint_obj):
-    print '--------attachment----------',attachment_list
-    print '--------complaint_obj----------',complaint_obj
     try:
         print 'selfserviceapp|views.py|save_attachments'
         attachment_list = attachment_list.split(',')
@@ -626,12 +650,15 @@ def verify_OTP(request):
     try:
         print 'selfserviceapp|views.py|verify_OTP'
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
+        print '---------consumer obj---------',consumer_obj
         if consumer_obj.consumer_otp == request.POST.get('otp_no'):
             consumer_data = {
                 'name': consumer_obj.name,
+                'consumer_no': consumer_obj.consumer_no,
                 'meter_category': consumer_obj.meter_category,
                 'bill_cycle':consumer_obj.bill_cycle.bill_cycle_name,
-                'address_line_1': consumer_obj.address_line_1,
+                'address': consumer_obj.address_line_1 +' '+consumer_obj.address_line_2,
+                'address_line_1': consumer_obj.address_line_1 ,
                 'address_line_2': consumer_obj.address_line_2,
                 'city': consumer_obj.city.city,
                 'pin_code': consumer_obj.pin_code.pincode,
@@ -644,6 +671,7 @@ def verify_OTP(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_OTP', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    print '------data--------',data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -755,3 +783,54 @@ def save_attachments(attachment_list, vigilance_id):
         print 'Exception|selfserviceapp|views.py|save_attachments', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+@csrf_exempt
+def verify_consumer(request):
+    """to get verify_new_consumer"""
+    try:
+        print 'selfserviceapp|views.py|verify_consumer'
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no'),
+                                                   bill_cycle=request.GET.get('bill_cycle'))
+        if consumer_obj:
+            ret = u''
+            ret = ''.join(random.choice('0123456789ABCDEF') for i in range(6))
+            OTP = ret
+            print '--------OTP---------',OTP
+            consumer_obj.consumer_otp = OTP
+            consumer_obj.save()
+            contact_no = consumer_obj.contact_no
+            contact_no = contact_no[0:2]+8*'x'
+
+            data = {'success': 'true', 'message': 'SMS Sent Successfully', 'contact_no': contact_no}
+        else:
+            data = {'success': 'false', 'message': 'Invalid Username'}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|verify_consumer', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def add_new_user(request):
+    try:
+        print 'selfserviceapp|views.py|add_new_user'
+        new_user_obj = UserAccount(
+            consumer_no = request.GET.get('consumer_no'),
+            parent_consumer_no = WebUserProfile.objects.get(username=request.session['consumer_no']),
+            consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no']),
+            created_on = datetime.now(),
+            created_by = request.session['login_user'],
+        );
+        new_user_obj.save();
+
+        data = {
+            'success': 'true',
+            'message': 'Account added successfully.'
+        }
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|add_new_user', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
