@@ -169,13 +169,15 @@ def get_bill_history(request):
                 net_amount = pay_obj.net_amount
                 bill_amount_paid = pay_obj.bill_amount_paid
                 payment_date = pay_obj.payment_date
-                payment_date = payment_date.strftime("%Y-%m-%d")                
+                payment_date = payment_date.strftime("%Y-%m-%d")   
+                action = '<a href="/self-service/bill_details/?consumer_id=' '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'             
                 data_list = {
                     'bill_month':bill_month,
                     'unit_consumed':unit_consumed,
                     'net_amount':str(net_amount),
                     'bill_amount_paid':str(bill_amount_paid),
-                    'payment_date':payment_date
+                    'payment_date':payment_date,
+                    'action':action
                 }
                 final_list.append(data_list)
         except Exception, e:
