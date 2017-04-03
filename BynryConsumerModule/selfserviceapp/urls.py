@@ -8,7 +8,10 @@ urlpatterns = [
     url(r'^index/', views.home_screen, name='home_screen'),
     url(r'^register-new-user/', views.register_new_user, name='register_new_user'),
     url(r'^my-bills/', views.my_bills, name='my_bills'),
-    url(r'^get-graph-data/', views.get_graph_data,name='get_graph_data'),
+    url(r'^get-graph1-data/', views.get_graph1_data,name='get_graph1_data'),
+    url(r'^get-graph2-data/', views.get_graph2_data,name='get_graph2_data'),
+    url(r'^get-bill-history/', views.get_bill_history,name='get_bill_history'),
+    url(r'^get-pay-history/', views.get_pay_history,name='get_pay_history'),
     url(r'^manage-accounts/', views.manage_accounts, name='manage_accounts'),
     url(r'^add-new-account/', views.add_new_account, name='add_new_account'),
     url(r'^add-new-user/', views.add_new_user, name='add_new_user'),
@@ -34,5 +37,8 @@ urlpatterns = [
     url(r'^save-consumer/', views.save_consumer, name='save_consumer'),
     url(r'^save-vigilance-complaint/', views.save_vigilance_complaint, name='save_vigilance_complaint'),
     url(r'^upload-vigilance-image/', views.upload_vigilance_image,name='upload_vigilance_image'),    
+    # bill_calculator
+    url(r'^bill-calculator/', views.bill_calculator,name='bill_calculator'),    
+    url(r'^consumption-calculator/', views.consumption_calculator,name='consumption_calculator'),    
 ]
  

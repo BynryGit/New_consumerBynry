@@ -31,6 +31,28 @@ from .models import *
 from paymentapp.models import *
 import string
 
+def bill_calculator(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|bill_calculator'
+        data = {
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|bill_calculator', exe
+        data = {}
+    return render(request, 'self_service/bill_calculator.html', data)
+
+def consumption_calculator(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|consumption_calculator'
+        data = {
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|consumption_calculator', exe
+        data = {}
+    return render(request, 'self_service/consumption_calculator.html', data)
+
 def home_screen(request):
     """To view complaints page"""
     try:
@@ -83,9 +105,9 @@ def my_bills(request):
         data = {}
     return render(request, 'self_service/my_bills.html', data)
 
-def get_graph_data(request):
+def get_graph1_data(request):
     try:
-        print 'selfserviceapp|views.py|get_graph_data'
+        print 'selfserviceapp|views.py|get_graph1_data'
         data_list = []
         ss = ['Month', 'Units']
         data_list.append(ss)
@@ -113,7 +135,100 @@ def get_graph_data(request):
         data = {'success': 'true','data_list':data_list}
 
     except Exception as exe:
-        print 'Exception|selfserviceapp|views.py|get_graph_data', exe
+        print 'Exception|selfserviceapp|views.py|get_graph1_data', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_graph2_data(request):
+    try:
+        print 'selfserviceapp|views.py|get_graph2_data'
+        data_list = []
+        ss = ['Month', 'Rs.']
+        data_list.append(ss)
+
+        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        pre_Date = datetime.now()
+        pre_Month = pre_Date.month
+        pre_Year = pre_Date.year
+        for i in range(6):
+            last_Year = pre_Year
+            last_Month = pre_Month - i
+            if last_Month <= 0:
+                last_Month = 12 + last_Month
+                last_Year = pre_Year -1
+            try:
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],bill_month=month_list2[last_Month-1],bill_months_year=last_Year)
+                pay_obj = PaymentDetail.objects.get(meter_reading_id=reading_obj.id)
+                if pay_obj.bill_status == 'Paid':
+                    ss = [month_list1[last_Month-1], pay_obj.net_amount]
+                    data_list.append(ss)
+            except Exception, e:
+                ss = [month_list1[last_Month-1], 0]
+                data_list.append(ss)
+                pass
+            
+        data = {'success': 'true','data_list':data_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_graph2_data', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_bill_history(request):
+    try:
+        print 'selfserviceapp|views.py|get_bill_history'
+        final_list = []
+        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+
+        try:
+            pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
+            for pay_obj in pay_list:
+                bill_month = pay_obj.meter_reading_id.bill_month
+                bill_month = month_list1[month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year       
+                action = '<a href="/self-service/bill_details/?consumer_id=' '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'             
+                data_list = {
+                    'bill_month':bill_month,
+                    'unit_consumed':pay_obj.meter_reading_id.unit_consumed,
+                    'net_amount':str(pay_obj.net_amount),
+                    'bill_amount_paid':str(pay_obj.bill_amount_paid),
+                    'payment_date':pay_obj.payment_date.strftime("%Y-%m-%d"),
+                    'action':action
+                }
+                final_list.append(data_list)
+        except Exception, e:
+            print 'Exception|selfserviceapp|views.py|get_bill_history',e
+            pass
+        data = {'success': 'true','data':final_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_bill_history', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_pay_history(request):
+    try:
+        print 'selfserviceapp|views.py|get_pay_history'
+        final_list = []
+        try:
+            pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
+            for pay_obj in pay_list:                
+                data_list = {
+                    'bank_id':pay_obj.bank_id,
+                    'reference_no':pay_obj.reference_no,
+                    'due_date':pay_obj.due_date.strftime("%Y-%m-%d"),                    
+                    'payment_date':pay_obj.payment_date.strftime("%Y-%m-%d"),
+                    'bill_amount_paid':str(pay_obj.bill_amount_paid)
+                }
+                final_list.append(data_list)
+        except Exception, e:
+            print 'Exception|selfserviceapp|views.py|get_pay_history',e
+            pass
+        data = {'success': 'true','data':final_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_pay_history', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 

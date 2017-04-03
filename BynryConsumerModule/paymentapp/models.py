@@ -30,7 +30,7 @@ class PaymentDetail(models.Model):
     )
 
     consumer_id = models.ForeignKey(ConsumerDetails, blank=True, null=True)
-    transaction_id = models.CharField(max_length=50, blank=False, null=True)
+    transaction_id = models.CharField(max_length=50, blank=False, null=True)    
     meter_reading_id= models.ForeignKey(MeterReadingDetail, blank=False)
     current_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
     tariff_rate = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
@@ -45,6 +45,8 @@ class PaymentDetail(models.Model):
     due_date =models.DateField(blank=True, null=True)
     payment_mode=models.CharField(max_length=200, choices=PAYMENT_MODE,blank=True, null=True)
     payment_by=models.CharField(max_length=200, choices=PAYMENT_BY,default='Register Consumer')
+    bank_id = models.CharField(max_length=50, blank=False, null=True)
+    reference_no = models.CharField(max_length=50, blank=False, null=True)
     bill_status=models.CharField(max_length=200, choices=BILL_STATUS,default='')
     created_by = models.CharField(max_length=500, blank=False, null=True)
     updated_by = models.CharField(max_length=500, blank=True, null=True)
