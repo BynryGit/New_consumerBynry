@@ -83,9 +83,9 @@ def my_bills(request):
         data = {}
     return render(request, 'self_service/my_bills.html', data)
 
-def get_graph_data(request):
+def get_graph1_data(request):
     try:
-        print 'selfserviceapp|views.py|get_graph_data'
+        print 'selfserviceapp|views.py|get_graph1_data'
         data_list = []
         ss = ['Month', 'Units']
         data_list.append(ss)
@@ -113,7 +113,42 @@ def get_graph_data(request):
         data = {'success': 'true','data_list':data_list}
 
     except Exception as exe:
-        print 'Exception|selfserviceapp|views.py|get_graph_data', exe
+        print 'Exception|selfserviceapp|views.py|get_graph1_data', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_graph2_data(request):
+    try:
+        print 'selfserviceapp|views.py|get_graph2_data'
+        data_list = []
+        ss = ['Month', 'Rs.']
+        data_list.append(ss)
+
+        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        pre_Date = datetime.now()
+        pre_Month = pre_Date.month
+        pre_Year = pre_Date.year
+        for i in range(6):
+            last_Year = pre_Year
+            last_Month = pre_Month - i
+            if last_Month <= 0:
+                last_Month = 12 + last_Month
+                last_Year = pre_Year -1
+            try:
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],bill_month=month_list2[last_Month-1],bill_months_year=last_Year)
+                pay_obj = PaymentDetail.objects.get(meter_reading_id=reading_obj.id)
+                ss = [month_list1[last_Month-1], pay_obj.net_amount]
+                data_list.append(ss)
+            except Exception, e:
+                ss = [month_list1[last_Month-1], 0]
+                data_list.append(ss)
+                pass
+            
+        data = {'success': 'true','data_list':data_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_graph2_data', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 

@@ -251,12 +251,12 @@
                                <div class="col-md-12">
 									     <div class="col-md-6">
 			                            <div class="portlet light ">
-			                                	<div id="dual_x_div" style="width: 10px; height: 500px;"></div>
+			                                	<div id="dual_x_div1" style="width: 10px; height: 500px;"></div>
 			                            </div>
 			                        </div>
 			                        <div class="col-sm-6">
 		                            <div class="portlet light">
-		                                
+		                                <div id="dual_x_div2" style="width: 10px; height: 500px;"></div>
 		                            </div>
 		                           </div>                
 		                          </div>                                                
@@ -463,10 +463,10 @@
 <script type="text/javascript">
 	$("#my_bills").addClass("active");
 
-    function get_graph_data(){
+    function get_graph_data1(){
             $.ajax({
                 type  : "GET",
-                url   : '/self-service/get-graph-data/',
+                url   : '/self-service/get-graph1-data/',
                 data : {},
                 success: function (response) {  
 								      google.charts.load('current', {'packages':['bar']});
@@ -493,7 +493,7 @@
 									          }
 									        };
 									
-									      var chart = new google.charts.Bar(document.getElementById('dual_x_div'));
+									      var chart = new google.charts.Bar(document.getElementById('dual_x_div1'));
 									      chart.draw(data, options);
 									    };
                      },
@@ -501,9 +501,48 @@
                     alert("_Error");
                 },
             });
-    }    
-    
-    get_graph_data()
+    }
+    get_graph_data1()
+    function get_graph_data2(){
+            $.ajax({
+                type  : "GET",
+                url   : '/self-service/get-graph2-data/',
+                data : {},
+                success: function (response) {  
+								      google.charts.load('current', {'packages':['bar']});
+      								google.charts.setOnLoadCallback(drawStuff);
+		                        function drawStuff() {
+									        var data = new google.visualization.arrayToDataTable(response.data_list);
+									
+									        var options = {
+									          width: 500,
+									          chart: {
+									            title: 'My Payment : ',
+									            subtitle: 'Last Six Month'
+									          },
+									          bars: 'vertical', // Required for Material Bar Charts.
+									          series: {
+									            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
+									            1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+									          },
+									          axes: {
+									            x: {
+									              distance: {label: 'parsecs'}, // Bottom x-axis.
+									              brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
+									            }
+									          }
+									        };
+									
+									      var chart = new google.charts.Bar(document.getElementById('dual_x_div2'));
+									      chart.draw(data, options);
+									    };
+                     },
+                error : function(response){
+                    alert("_Error");
+                },
+            });
+    }               
+    get_graph_data2()
     
 </script>
 </body>
