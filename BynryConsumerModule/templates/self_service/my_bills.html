@@ -334,27 +334,28 @@
                     		</div>
                     </div>
                     <div class="col-md-6">                	
-                     <div class="tab-pane fade active in" id="tab_1_1">
+                     <div class="tab-pane fade active in" id="tab_1_1">                                          
+                                                  
                          <div class="portlet light bordered">
-                             <div class="portlet-title">
-                                 <div class="caption font-dark">                                        
-                                     <span class="caption-subject bold uppercase">Online Payment History : 
-                                     </span>                                        
-                                 </div>
-                                 <div class="actions">
-		                                <div class="btn-group btn-group-devided">
-		                                        <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_online_payments()">
-		                                            <i class="fa fa-refresh"></i> Reload
-		                                        </button>
-		                                </div>
-		                                <div class="btn-group">
+                                <div class="portlet-title">
+                                    <div class="caption font-dark">
+                                        <i class="icon-settings font-dark"></i>
+                                        <span class="caption-subject bold uppercase">Online Payment History :</span>
+                                    </div>
+                                    <div class="actions">                                        
+                                       <div class="btn-group btn-group-devided">
+                                         <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_pay()">
+                                            <i class="fa fa-refresh"></i> Reload
+                                         </button>
+                                			</div>                                                     
+												   <div class="btn-group">
 		                                    <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
 		                                        <i class="fa fa-share"></i>
 		                                        <span class="hidden-xs"> Tools </span>
 		                                        <i class="fa fa-angle-down"></i>
 		                                    </a>
-		                                    <ul class="dropdown-menu pull-right" id="online_payment_table_tools">
-		                                       <li>
+		                                    <ul class="dropdown-menu pull-right" id="payment_table_tools">
+		                                        <li>
 		                                            <a href="javascript:;" data-action="0" class="tool-action">
 		                                                <i class="icon-printer"></i> Print</a>
 		                                        </li>
@@ -370,35 +371,29 @@
 		                                        <li>
 		                                            <a href="javascript:;" data-action="3" class="tool-action">
 		                                                <i class="icon-cloud-upload"></i> CSV</a>
-		                                        </li>			
+		                                        </li>
+		
+		                                        </li>
 		                                    </ul>
 		                                </div>
-		                            </div>
-                             </div>
-                             <div class="portlet-body">
-                                 <table class="table table-striped table-bordered table-hover" id="online_payment_table">
-                                     <thead>
-                                     <tr>
-                                         <th> Bank ID</th>
-                                         <th> Ref. No.</th>
-                                         <th> Bill Due Date</th>                                            
-                                         <th> Payment Date</th>
-                                         <th> Amount</th>
-                                     </tr>
-                                     </thead>
-                                     <tbody>
-													<tr>
-                                         <th> ICIC00038</th>
-                                         <th> 558965</th>
-                                         <th> 12/2/2017</th>                                            
-                                         <th> 10/2/2017</th>
-                                         <th> 680.00</th>
-                                     </tr>                                        
-                                     </tbody>
-                                     
-                                 </table>
-                             </div>
-                         </div>                                                
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                           id="payment_table">
+                                        <thead>
+	                                        <tr>
+			                                      <th> Bank ID</th>
+			                                      <th> Ref. No.</th>
+			                                      <th> Bill Due Date</th>                                            
+			                                      <th> Payment Date</th>
+			                                      <th> Amount</th>
+			                                  </tr>
+                                        </thead>                                       
+                                    </table>
+                                </div>
+                            </div>
+                                                       
                     </div>
                     </div>
                     <div class="clearfix margin-bottom-20"></div>
@@ -617,6 +612,80 @@
       });
     }
     initTable1();    
+    
+	function reload_pay(){
+	    initTable2();    
+	}		       
+		
+	 var initTable2 = function () {
+        var table = $('#payment_table');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+				"bDestroy" : true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No matching records found",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+
+            "order": [
+                [0, 'asc']
+            ],
+
+            "ajax": "/self-service/get-pay-history/",
+            "columns": [
+                {"data": "bill_month","sClass": "text-center"},
+                {"data": "unit_consumed","sClass": "text-center"},
+                {"data": "net_amount","sClass": "text-center"},
+                {"data": "payment_date","sClass": "text-center"},
+                {"data": "bill_amount_paid","sClass": "text-center"},
+            ],                                                    
+                                                        
+	        buttons: [
+	            { extend: 'print', className: 'btn dark btn-outline' },
+	            { extend: 'pdf', className: 'btn green btn-outline' },
+	            { extend: 'excel', className: 'btn yellow btn-outline ' },
+	            { extend: 'csv', className: 'btn purple btn-outline ' },
+	        ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable            
+    });
+    $('#payment_table_tools > li > a.tool-action').on('click', function() {
+        var action = $(this).attr('data-action');
+        oTable.DataTable().button(action).trigger();
+      });
+    }
+    initTable2();    
     
 </script>
 </body>

@@ -188,7 +188,36 @@ def get_bill_history(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_bill_history', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
-    print 'sss',data
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_pay_history(request):
+    try:
+        print 'selfserviceapp|views.py|get_pay_history'
+        final_list = []
+        try:
+            pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
+            for pay_obj in pay_list:
+                
+                payment_date = pay_obj.payment_date
+                payment_date = payment_date.strftime("%Y-%m-%d")   
+                bill_amount_paid = pay_obj.bill_amount_paid
+
+                data_list = {
+                    'bill_month':'',
+                    'unit_consumed':'',
+                    'net_amount':'',                    
+                    'payment_date':payment_date,
+                    'bill_amount_paid':str(bill_amount_paid)
+                }
+                final_list.append(data_list)
+        except Exception, e:
+            print 'Exception|selfserviceapp|views.py|get_pay_history',e
+            pass
+        data = {'success': 'true','data':final_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_pay_history', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 

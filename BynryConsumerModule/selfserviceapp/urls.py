@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^get-graph1-data/', views.get_graph1_data,name='get_graph1_data'),
     url(r'^get-graph2-data/', views.get_graph2_data,name='get_graph2_data'),
     url(r'^get-bill-history/', views.get_bill_history,name='get_bill_history'),
+    url(r'^get-pay-history/', views.get_pay_history,name='get_pay_history'),
     url(r'^manage-accounts/', views.manage_accounts, name='manage_accounts'),
     url(r'^add-new-account/', views.add_new_account, name='add_new_account'),
     url(r'^complaints/', views.complaints, name='complaints'),
