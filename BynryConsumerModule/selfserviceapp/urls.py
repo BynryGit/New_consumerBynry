@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^index/', views.home_screen, name='home_screen'),
     url(r'^register-new-user/', views.register_new_user, name='register_new_user'),
     url(r'^my-bills/', views.my_bills, name='my_bills'),
+    url(r'^get-graph-data/', views.get_graph_data,name='get_graph_data'),
     url(r'^manage-accounts/', views.manage_accounts, name='manage_accounts'),
     url(r'^add-new-account/', views.add_new_account, name='add_new_account'),
     url(r'^complaints/', views.complaints, name='complaints'),
@@ -29,5 +30,6 @@ urlpatterns = [
     url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
     url(r'^save-consumer/', views.save_consumer, name='save_consumer'),
     url(r'^save-vigilance-complaint/', views.save_vigilance_complaint, name='save_vigilance_complaint'),
-    url(r'^upload-vigilance-image/', views.upload_vigilance_image,name='upload_vigilance_image'),
+    url(r'^upload-vigilance-image/', views.upload_vigilance_image,name='upload_vigilance_image'),    
 ]
+ 

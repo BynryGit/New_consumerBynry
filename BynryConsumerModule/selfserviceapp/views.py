@@ -61,12 +61,61 @@ def my_bills(request):
     try:
         print 'selfserviceapp|views.py|my_bills'
 
+        consumer_obj = MeterReadingDetail.objects.filter(consumer_id=request.session['consumer_id']).latest('created_on')
+        if consumer_obj.bill_status == 'Paid' :
+            payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
+        else :
+            payment_date = ''
         data = {
+            'consumer_no':consumer_obj.consumer_id.consumer_no,
+            'name':consumer_obj.consumer_id.name,
+            'bill_cycle':consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
+            'unit_consumed':consumer_obj.unit_consumed,
+            'bill_amount':consumer_obj.bill_amount,
+            'arrears':consumer_obj.arrears,
+            'net_amount':consumer_obj.net_amount,
+            'payment_date':payment_date,
+            'prompt_date':consumer_obj.prompt_date,
+            'due_date':consumer_obj.due_date
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|my_bills', exe
         data = {}
     return render(request, 'self_service/my_bills.html', data)
+
+def get_graph_data(request):
+    try:
+        print 'selfserviceapp|views.py|get_graph_data'
+        data_list = []
+        ss = ['Month', 'Units']
+        data_list.append(ss)
+
+        month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        pre_Date = datetime.now()
+        pre_Month = pre_Date.month
+        pre_Year = pre_Date.year
+        for i in range(6):
+            last_Year = pre_Year
+            last_Month = pre_Month - i
+            if last_Month <= 0:
+                last_Month = 12 + last_Month
+                last_Year = pre_Year -1
+            try:
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],bill_month=month_list2[last_Month-1],bill_months_year=last_Year)
+                ss = [month_list1[last_Month-1], reading_obj.unit_consumed]
+                data_list.append(ss)
+            except Exception, e:
+                ss = [month_list1[last_Month-1], 0]
+                data_list.append(ss)
+                pass
+            
+        data = {'success': 'true','data_list':data_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_graph_data', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def manage_accounts(request):
@@ -127,8 +176,6 @@ def save_consumer_complaint_details(request):
         chars = string.digits
         pwdSize = 5
         password = ''.join(random.choice(chars) for _ in range(pwdSize))
-
-        print '-----------consumer------',request.session['consumer_id']
         consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session['consumer_id'] else None
 
         complaint_obj = ComplaintDetail(
@@ -468,6 +515,7 @@ def verify_OTP(request):
             consumer_data = {
                 'name': consumer_obj.name,
                 'meter_category': consumer_obj.meter_category,
+                'bill_cycle':consumer_obj.bill_cycle.bill_cycle_name,
                 'address_line_1': consumer_obj.address_line_1,
                 'address_line_2': consumer_obj.address_line_2,
                 'city': consumer_obj.city.city,

@@ -26,6 +26,10 @@ METER_PHASE = (
     ('THREE-THREE-PHASE', 'THREE-THREE-PHASE'),
     ('HT-HT-SUPPLY', 'HT-HT-SUPPLY'),
 )
+BILL_STATUS=(
+    ('Paid', 'Paid'),
+    ('Unpaid', 'Unpaid'),
+)
 
 class ConsumerDetails(models.Model):
     consumer_no = models.CharField(max_length=200, blank=False, null=True)
@@ -85,11 +89,21 @@ class MeterReadingDetail(models.Model):
     previous_month_reading = models.CharField(max_length=100, blank=False, null=True)
     current_reading_date = models.DateField(blank=True, null=True)
     previous_month_reading_date = models.DateField(blank=True, null=True)
+    bill_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
+    arrears = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
+    net_amount = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))    
+    prompt_date = models.DateField(blank=True, null=True)
+    prompt_amount = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    due_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
+    due_date = models.DateField(blank=True, null=True)
+    bill_status=models.CharField(max_length=200, choices=BILL_STATUS,default='')
     created_by = models.CharField(max_length=500, blank=False, null=True)
     updated_by = models.CharField(max_length=500, blank=True, null=True)
     created_on = models.DateTimeField(default=django.utils.timezone.now)
     updated_on = models.DateTimeField(blank=True, null=True)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
+
+
 
     def __unicode__(self):
         return unicode(self.id)
