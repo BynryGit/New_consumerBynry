@@ -118,11 +118,23 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='User',
+            name='SystemUserProfile',
             fields=[
-                ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, to=settings.AUTH_USER_MODEL)),
-                ('user_id', models.AutoField(serialize=False, editable=False, primary_key=True)),
-                ('user_name', models.CharField(default=None, max_length=100, null=True, blank=True)),
+                ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('contact_no', models.CharField(max_length=15)),
+                ('user_first_name', models.CharField(max_length=500, blank=True)),
+                ('user_last_name', models.CharField(max_length=500, blank=True)),
+                ('address', models.CharField(max_length=500, blank=True)),
+                ('user_email', models.CharField(max_length=500, blank=True)),
+                ('employee_id', models.CharField(max_length=100, blank=True)),
+                ('status', models.CharField(default=b'Active', max_length=20, choices=[(b'Active', b'Active'), (b'Inactive', b'Inactive')])),
+                ('created_by', models.CharField(max_length=500)),
+                ('updated_by', models.CharField(max_length=500, null=True, blank=True)),
+                ('created_on', models.DateTimeField(default=django.utils.timezone.now)),
+                ('updated_on', models.DateTimeField(null=True, blank=True)),
+                ('is_deleted', models.BooleanField(default=False, choices=[(True, True), (False, False)])),
+                ('branch', models.ForeignKey(blank=True, to='BynryConsumerModuleapp.Branch', null=True)),
+                ('city', models.ForeignKey(to='BynryConsumerModuleapp.City', null=True)),
             ],
             options={
                 'abstract': False,
@@ -144,7 +156,6 @@ class Migration(migrations.Migration):
                 ('created_on', models.DateTimeField(default=django.utils.timezone.now)),
                 ('updated_on', models.DateTimeField(null=True, blank=True)),
                 ('is_deleted', models.BooleanField(default=False, choices=[(True, True), (False, False)])),
-                ('parent', models.ForeignKey(blank=True, to='BynryConsumerModuleapp.UserPrivilege', null=True)),
             ],
         ),
         migrations.CreateModel(
@@ -187,30 +198,10 @@ class Migration(migrations.Migration):
                 ('branch', models.ForeignKey(blank=True, to='BynryConsumerModuleapp.Branch', null=True)),
             ],
         ),
-        migrations.CreateModel(
-            name='UserProfile',
-            fields=[
-                ('contact_no', models.CharField(max_length=15)),
-                ('address_line_1', models.CharField(max_length=500, blank=True)),
-                ('address_line_2', models.CharField(max_length=500, blank=True)),
-                ('pincode', models.CharField(max_length=500, blank=True)),
-                ('employee_id', models.CharField(max_length=100, blank=True)),
-                ('status', models.CharField(default=b'Active', max_length=20, choices=[(b'Active', b'Active'), (b'Inactive', b'Inactive')])),
-                ('created_by', models.CharField(max_length=500)),
-                ('updated_by', models.CharField(max_length=500, null=True, blank=True)),
-                ('created_on', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_on', models.DateTimeField(null=True, blank=True)),
-                ('is_deleted', models.BooleanField(default=False, choices=[(True, True), (False, False)])),
-            ],
-            options={
-                'abstract': False,
-                'verbose_name': 'user',
-                'verbose_name_plural': 'users',
-            },
-            bases=('BynryConsumerModuleapp.user',),
-            managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
-            ],
+        migrations.AddField(
+            model_name='systemuserprofile',
+            name='role',
+            field=models.ForeignKey(blank=True, to='BynryConsumerModuleapp.UserRole', null=True),
         ),
         migrations.AddField(
             model_name='city',
@@ -241,20 +232,5 @@ class Migration(migrations.Migration):
             model_name='billcycle',
             name='zone',
             field=models.ForeignKey(blank=True, to='BynryConsumerModuleapp.Zone', null=True),
-        ),
-        migrations.AddField(
-            model_name='userprofile',
-            name='city',
-            field=models.ForeignKey(to='BynryConsumerModuleapp.City', null=True),
-        ),
-        migrations.AddField(
-            model_name='userprofile',
-            name='role',
-            field=models.ForeignKey(blank=True, to='BynryConsumerModuleapp.UserRole', null=True),
-        ),
-        migrations.AddField(
-            model_name='userprofile',
-            name='state',
-            field=models.ForeignKey(to='BynryConsumerModuleapp.State', null=True),
         ),
     ]
