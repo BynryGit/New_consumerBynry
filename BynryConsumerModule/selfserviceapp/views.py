@@ -468,6 +468,7 @@ def service_request(request):
 
 
 def log_in(request):
+    logout(request)
     print 'selfserviceapp|views.py|login'
     return render(request, 'self_service/login.html')
 

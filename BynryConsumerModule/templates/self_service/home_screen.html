@@ -102,29 +102,30 @@
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
             <div class="top-menu">
-                <ul class="nav navbar-nav pull-right">
-                    <!-- BEGIN INBOX DROPDOWN -->
-
-                    <!-- END INBOX DROPDOWN -->
-                    <!-- BEGIN USER LOGIN DROPDOWN -->
-                    <li class="dropdown dropdown-user dropdown-dark">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-                           data-close-others="true">
-                            <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
-                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-default">
-                            <li>
-                                <a href="page_user_profile_1.html">
-                                    <i class="icon-user"></i> My Profile </a>
-                            </li>
-                            <li>
-                                <a href="/self-service/">
-                                    <i class="icon-key"></i> Log Out </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                {% if request.session.login_user %}
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user dropdown-dark">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                               data-close-others="true">
+                                <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
+                                <span class="username username-hide-mobile">{{request.session.login_user}}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="page_user_profile_1.html">
+                                        <i class="icon-user"></i> My Profile </a>
+                                </li>
+                                <li>
+                                    <a href="/self-service/">
+                                        <i class="icon-key"></i> Log Out </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                {%else%}
+                    <a class="nav navbar-nav pull-right" href="/self-service/">
+                        <i class="icon-login"></i>  Login </a>
+                {% endif %}
             </div>
             <!-- END TOP NAVIGATION MENU -->
         </div>
@@ -161,6 +162,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="portlet light ">
                                 <div class="row">
+                                    {% if not request.session.login_user %}
                                     <a href="/self-service/quick-pay/" class="box-text">
                                         <div class="feature-item col-md-3 text-center">
                                             <i class="icon-wallet"></i>
@@ -170,6 +172,34 @@
                                             </div>
                                         </div>
                                     </a>
+                                    <a href="/self-service/consumption-calculator/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-bulb"></i>
+                                            <h3>Calculate Consumption</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/self-service/bill-calculator/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-calculator"></i>
+                                            <h3>Calculate Bill</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/self-service/my-bills/" class="box-text">
+                                        <div class="feature-item col-md-3 text-center">
+                                            <i class="icon-user-follow"></i>
+                                            <h3>Apply for New Service Connection</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    {% else %}
                                     <a href="/self-service/my-bills/" class="box-text">
                                         <div class="feature-item col-md-3 text-center">
                                             <i class="icon-bulb"></i>
@@ -197,8 +227,10 @@
                                             </div>
                                         </div>
                                     </a>
+                                    {% endif %}
                                 </div>
                                 <div class="row">
+                                    {% if request.session.login_user %}
                                     <a href="/self-service/my-tariff/" class="box-text">
                                         <div class="feature-item col-md-3 text-center">
                                             <i class="icon-calculator"></i>
@@ -235,6 +267,7 @@
                                             </div>
                                         </div>
                                     </a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
