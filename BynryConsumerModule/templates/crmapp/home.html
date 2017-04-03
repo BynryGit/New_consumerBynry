@@ -257,6 +257,60 @@
                                         </div>
                                     </div>                                                                                                                                                                                                                    
                                   </div>
+                                  <div class="row" id="div6" style="display:none">
+                                           <div class=" portlet light bordered"
+                                         style="height: 140px !important;">
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-top: -15px;!important">
+                                                <div class="col-md-12">
+                                                <br>
+                                                <div class="col-md-12">
+					                                      <label class="bold">Consumer Details :</label>
+					                                      <a style="text-align:right;" href="/cti-crm/">Back</a>
+					                                  </div>                                     
+                                      <br>
+                                      <br>
+                                      		<div class="col-md-3">
+                                         <div class="form-group form-md-line-input has-success">
+                                             <label for="bill_city">City<span class="required"> *</span></label>
+                                             <select id="verify_city" class="form-control input-sm select2-multiple">
+                                                 <option value=" "> Select City</option>
+                                                 {% for city in city_list %}
+                                                 <option value="{{city.city_id}}"> {{ city.city }}</option>
+                                                 {% endfor %}
+                                             </select>
+                                         </div>
+                                     </div>
+                                          
+                                          <div class="col-md-3">
+                                              <div class="form-group">
+                                                  <div class="form-group form-md-line-input has-success">
+                                                      <input type="text" class="form-control">
+                                                      <label >Consumer Name :</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="form-group">
+                                                  <div class="form-group form-md-line-input has-success">
+                                                      <input type="text" class="form-control">
+                                                      <label >Mobile No. :</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                              <div class="form-group">
+                                                  <div class="form-group form-md-line-input has-success">
+                                                      <input type="text" class="form-control">
+                                                      <label >Email :</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>                                                                                                                                                                                                                    
+                                  </div>
                                   <div class="row" id="div5" style="display:none">
                                       <div class="col-md-offset-3 portlet light bordered"
                                          style="height: 70px !important;width:315px !important;">
@@ -266,7 +320,7 @@
 	                                                <br>
 	                                                <div class="col-md-12">
 						                                      <label class="bold">Unregistered Consumer ? </label>
-						                                      <a style="text-align:right;" onclick="">Continue</a>
+						                                      <a style="text-align:right;" onclick="unregistered_consumer();">Continue</a>
 						                                  </div>                                     
 				                                     
 				                                      </div>
@@ -427,6 +481,13 @@
 <script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 <script >
+	function unregistered_consumer() {
+		$("#div1").css('display','none');	
+		$("#div5").css('display','none');	
+		$("#div4").css('display','block');	
+		$("#div6").css('display','block');	
+	}
+
    function verify_consumer() {
 	if(validate_verify()){	
 	event.preventDefault(); 
@@ -446,6 +507,7 @@
 	        success: function (response) {   
 	           if(response.success=='true'){
 		     		  	$("#div1").css('display','none');
+		     		  	$("#div5").css('display','none');	
 		     		  	$("#div2").css('display','block');
 		     		  	$("#div3").css('display','block');
 		     		  //	$("#contactno_id").text(response.contact_no);
