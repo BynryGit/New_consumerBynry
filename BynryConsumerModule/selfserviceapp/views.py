@@ -31,6 +31,17 @@ from .models import *
 from paymentapp.models import *
 import string
 
+def bill_calculator(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|bill_calculator'
+        data = {
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|bill_calculator', exe
+        data = {}
+    return render(request, 'self_service/bill_calculator.html', data)
+
 def home_screen(request):
     """To view complaints page"""
     try:
