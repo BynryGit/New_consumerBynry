@@ -607,7 +607,7 @@ function CheckIdProof() {
    	return false; 
 	}
 }
- // Save edited consumer on edit button click 
+
 $("#save-consumer").click(function(event)  {
 	//console.log($("#consumer_form").serialize())
 	bill_city = $("#bill_city").val()
@@ -624,6 +624,40 @@ $("#save-consumer").click(function(event)  {
               success: function (response) {   
 	              if(response.success=='true'){
 							$("#success_modal").modal('show');
+	              	}
+	      			if (response.success == "false") {
+							$("#error-modal").modal('show');
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            $("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });           
+  } 
+});
+$("#save-consumer-print").click(function(event)  {
+	//console.log($("#consumer_form").serialize())
+	bill_city = $("#bill_city").val()
+	bill_pincode = $("#bill_pincode").val()
+
+	if (validateData()) {
+	event.preventDefault();  												
+	
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/nscapp/save-new-consumer/',
+ 					data : $("#consumer_form").serialize()+'&bill_city='+bill_city+'&bill_pincode='+bill_pincode,
+                     
+              success: function (response) {   
+	              if(response.success=='true'){
+							window.open("/nscapp/nsc-form/?nsc_id="+response.nsc_id,'_blank');
+							location.reload() 
 	              	}
 	      			if (response.success == "false") {
 							$("#error-modal").modal('show');
@@ -739,7 +773,7 @@ $("#save-consumer").click(function(event)  {
                     });
                     $('#attachments').val(reordered_array);
                     if (myDropzone.files.length == 0){
-                        $(".txt_dropzone3").text("Click or drag and drop to upload images");
+                        $(".txt_dropzone3").text("Click or drag and drop to upload documents");
                     }
                 });
 
