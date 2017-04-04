@@ -250,16 +250,17 @@ def get_my_accounts(request):
         users_list = []
         print 'selfserviceapp|views.py|get_my_accounts'
         consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id'])
+        cons_id = request.session['consumer_id']
         print '-----consumer id------',consumer_id
         parent_consumer_obj = WebUserProfile.objects.get(username=consumer_id)
-        users_obj = UserAccount.objects.filter(parent_consumer_no=parent_consumer_obj)
+        users_obj = UserAccount.objects.filter(parent_consumer_no=parent_consumer_obj,is_deleted=False)
         print '--------user obj---------',users_obj
         for users in users_obj:
             users_data = {
                 'name': users.consumer_id.name,
                 'user_no': users.consumer_no,
                 'address': users.consumer_id.address_line_1+' '+users.consumer_id.address_line_2,
-                'actions': '',
+                'actions': '<input type="radio" onclick="select_user_account(\''+str(users.consumer_no)+'\',\''+str(users.consumer_id.name)+'\');" name="Select User" value=' + str(users.id) + ' > &nbsp;' + '&nbsp;<a> <i class="fa fa-trash" aria-hidden="true" onclick="delete_user_account(' + str(users.id) + ');"></i> </a>'
             }
             users_list.append(users_data)
         data = {'success': 'true','data':users_list}
@@ -269,6 +270,35 @@ def get_my_accounts(request):
         data = {}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+def activate_user_account(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|activate_user_account'
+        user_obj = UserAccount.objects.get(consumer_no=request.GET.get('consumer_no'))
+        print '--------user obj---------',user_obj.consumer_id.consumer_no
+        request.session['consumer_id'] = user_obj.consumer_id.consumer_id
+        request.session['consumer_no'] = user_obj.consumer_id.consumer_no
+
+        data = {'success': 'true'}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|activate_user_account', exe
+        data = {}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def delete_user_account(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|delete_user_account'
+        user_obj = UserAccount.objects.get(id=request.GET.get('consumer_no'))
+        print '--------user obj---------',user_obj
+        user_obj.is_deleted='True'
+        user_obj.save()
+
+        data = {'success': 'true'}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|delete_user_account', exe
+        data = {}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 def add_new_account(request):
     """To view complaints page"""
