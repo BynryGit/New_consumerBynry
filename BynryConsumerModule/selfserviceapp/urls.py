@@ -3,9 +3,9 @@ from selfserviceapp import views
 from django.conf.urls import include, url
 
 urlpatterns = [
-    url(r'^$', views.log_in, name='login'),
+    url(r'^$', views.home_screen, name='login'),
     url(r'^log-in/',views.signin,name='signin'),
-    url(r'^index/', views.home_screen, name='home_screen'),
+    url(r'^login/', views.log_in, name='home_screen'),
     url(r'^register-new-user/', views.register_new_user, name='register_new_user'),
     url(r'^my-bills/', views.my_bills, name='my_bills'),
     url(r'^get-graph1-data/', views.get_graph1_data,name='get_graph1_data'),
