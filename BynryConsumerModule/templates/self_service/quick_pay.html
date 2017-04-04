@@ -320,11 +320,11 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12" style="text-align: right;">
-                                                        <button type="button"
+                                                        <a type="button" target="_blank"
                                                                 class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                id="save-consumer" style="width: 89px;">
-                                                            Pay Now
-                                                        </button>
+                                                                onclick="view_bill()" style="width: 89px;">
+                                                            View & Pay
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -456,6 +456,10 @@
             $("#"+error).css("color","red");
 			return false;
 		}
+	}
+
+	function view_bill(){
+	    window.open("/self-service/view-bill/?consumer_no="+$("#consumer_number").val(), "_blank");
 	}
 
 </script>
