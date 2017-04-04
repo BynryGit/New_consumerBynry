@@ -173,17 +173,13 @@
     
  <div id="select_account_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Consumer Details</h4></div>
-            <div class="modal-body">
-                <div class="scroller custom-modal-height4" data-always-visible="1" data-rail-visible1="1">
-                     <label>M.S.Dhoni (45859685) account is selected successfully.</label>           
-                </div>
+        <div class="modal-content">            
+            <div class="modal-body">              
+                     <label>Do you want to activate <span id="con_name"></span> (<span id="con_no"></span>) this account ?</label>           
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">OK</button>
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">No</button>
+                <button type="button" onclick="activate_user_account();" class="btn dark btn-outline">Yes</button>
             </div>
         </div>
     </div>
@@ -192,21 +188,17 @@
  <div id="delete_account_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Consumer Details</h4></div>
             <div class="modal-body">
-                <div class="scroller custom-modal-height4" data-always-visible="1" data-rail-visible1="1">
-                     <label>Are you sure want to delete this account ?</label>           
-                </div>
+                <label>Are you sure want to delete this account ?</label>           
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">No</button>
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Yes</button>
+                <button type="button" onclick="delete_user();" class="btn dark btn-outline">Yes</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="page-footer">
     <div class="container"> 2014 &copy; Metronic by keenthemes.
@@ -263,6 +255,64 @@
 
 <script type="text/javascript">
 
+var number;
+function select_user_account(consumer_no,consumer_name) {
+	number = consumer_no;	
+	cname = consumer_name;	
+	$("#con_name").text(number);  
+	$("#con_no").text(cname);  
+	$('#select_account_modal').modal("show");	
+}
+
+function activate_user_account() {	
+	consumer_number = number;
+	$.ajax({
+       type: "GET",
+       url: '/self-service/activate-user-account/',
+       data: {'consumer_no': consumer_number},
+       success: function (response) {
+           if (response.success == 'true') {      
+					//$('#delete_account_modal').modal("hide"); 
+           		location.href='/self-service/';	          
+           		     		     			                    
+           }
+           if (response.success == 'false') {
+               
+           }
+       },
+       error: function (response) {
+           alert("_Error");
+       }
+   });
+}
+
+var cnumber;
+function delete_user_account(consumer_id) {
+	$('#delete_account_modal').modal("show");
+	cnumber = consumer_id;
+}
+
+function delete_user() {	
+	consumer_number = cnumber;
+	$.ajax({
+       type: "GET",
+       url: '/self-service/delete-user-account/',
+       data: {'consumer_no': consumer_number},
+       success: function (response) {
+           if (response.success == 'true') {      
+					$('#delete_account_modal').modal("hide"); 
+           		location.reload();	          
+           		     		     			                    
+           }
+           if (response.success == 'false') {
+               
+           }
+       },
+       error: function (response) {
+           alert("_Error");
+       }
+   });
+}
 
 var initTable1 = function () {
 
