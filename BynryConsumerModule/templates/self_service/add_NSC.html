@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!-- BEGIN HEAD -->
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8"/>
+    <title> Add New Connection | Bynry</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/pages/css/profile.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout3/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout3/css/themes/default.min.css' %}" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="{% static 'assets/layouts/layout3/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/pages/css/contact.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="{% static 'assets/pages/css/dropzone.css' %}" rel="stylesheet" type="text/css"/>
+
+<style>
+
+  th{
+      text-align:center;
+  }
+  
+  td{
+      text-align:center;
+  }
+  
+  btn-sm{
+            width: 85px;
+  }
+  
+ .dropzone .dz-default.dz-message {
+    width: 283px;
+    height: 159px;
+    margin-left: -141px;
+ }
+ .dropzone .dz-preview, .dropzone-previews .dz-preview {
+    background: rgba(255,255,255,0.8);
+    position: relative;
+    display: inline-block;
+    margin: 4px;
+    vertical-align: top;
+    border: 1px solid #acacac;
+    padding: 6px 6px 6px 6px;
+}
+#my-active-dropzone{
+    border: 3px dashed black !important;
+    min-height: 224px !important;
+    background: #ffffff;
+}
+
+.dropzone .dz-preview .dz-details img, .dropzone-previews .dz-preview .dz-details img {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+#my-awesome-dropzone-3{
+    border: 3px dashed black !important;
+    min-height: 224px !important;
+    background: #ffffff;
+}
+.dropzone .dz-preview, .dropzone-previews .dz-preview{
+    margin: 3px !important;
+}
+
+</style>    
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-boxed">
+<!-- BEGIN HEADER -->
+<div class="page-header">
+    <!-- BEGIN HEADER TOP -->
+    <div class="page-header-top">
+        <div class="container">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="index.html">
+                    <img style="width: 101px; margin-top: 9px"
+                         src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo"
+                         class="logo-default">
+                </a>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler"></a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                {% if request.session.login_user %}
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-user dropdown-dark">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
+                            <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
+                            <span class="username username-hide-mobile">{{request.session.login_user}}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a href="page_user_profile_1.html">
+                                    <i class="icon-user"></i> My Profile </a>
+                            </li>
+                            <li>
+                                <a href="/self-service/">
+                                    <i class="icon-key"></i> Log Out </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                {%else%}
+                <a class="nav navbar-nav pull-right" href="/self-service/login/">
+                    <i class="icon-login"></i> Login </a>
+                {% endif %}
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+    </div>
+    <!-- END HEADER TOP -->
+    <!-- BEGIN HEADER MENU -->
+    <div class="page-header-menu">
+        <div class="container">
+            <!-- BEGIN MEGA MENU -->
+            <div class="hor-menu  ">
+                {% include 'self_service/side-panel.html' %}
+
+            </div>
+            <!-- END MEGA MENU -->
+        </div>
+    </div>
+    <!-- END HEADER MENU -->
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        <!-- BEGIN PAGE HEAD-->
+        <div class="page-head">
+            <div class="container">
+                <!-- BEGIN PAGE TITLE -->
+                <div class="page-title">
+                    <h1>
+                    </h1>
+                </div>
+                <!-- END PAGE TITLE -->
+            </div>
+        </div>
+        <!-- END PAGE HEAD-->
+        <!-- BEGIN PAGE CONTENT BODY -->
+        <div class="page-content">
+           
+            <div class="container">
+                <!-- BEGIN PAGE BREADCRUMBS -->
+                   <ul class="page-breadcrumb breadcrumb">
+                      <li>
+                          <a href="/self-service/">Home</a>
+                          <i class="fa fa-circle"></i>
+                      </li>                     
+                      <li>
+                          <span>New Service Request</span>
+                      </li>
+                   </ul>
+                  <!-- END PAGE BREADCRUMBS -->
+                <!-- BEGIN PAGE CONTENT INNER -->
+                <div class="page-content-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN PROFILE CONTENT -->
+                            <div class="profile-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="portlet light ">
+                                            <div class="portlet-body">
+                                                <form id="consumer_form" method="POST">
+									                        <div class="row">
+									                            <div class="col-md-12">
+									                                <label class="bold">General Information : </label>
+									                                <div class="row">
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label>Consumer Category <span class="required">*</span></label>
+									                                            <select id="consumer_category" class="form-control select2"
+									                                                    name="consumer_category">
+									                                                <option value=" ">Select Consumer Category</option>
+									                                                <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
+									                                                <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
+									                                                <option value="3-EHV">3-EHV</option>
+									                                            </select>
+									                                            <label class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                    </div>
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label for="consumer_service">Service Requested <span
+									                                                    class="required">*</span></label>
+									                                            <select id="consumer_service" class="form-control select2"
+									                                                    name="consumer_service">
+									                                                <option value=" ">Select Service Requested</option>
+									                                                <option value="001-New-Connection (Permanent)">001-New-Connection
+									                                                    (Permanent)
+									                                                </option>
+									                                                <option value="002-New-Connection (Temporary)">002-New-Connection
+									                                                    (Temporary)
+									                                                </option>
+									                                            </select>
+									                                            <label class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                    </div>
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label for="consumer_supply_type">Supply Type <span
+									                                                    class="required">*</span></label>
+									                                            <select id="consumer_supply_type" class="form-control select2"
+									                                                    name="consumer_supply_type">
+									                                                <option value=" ">Select Supply Type</option>
+									                                                <option value="SINGLE-SINGLE-PHASE">SINGLE-SINGLE-PHASE</option>
+									                                                <option value="THREE-THREE-PHASE">THREE-THREE-PHASE</option>
+									                                                <option value="HT-HT-SUPPLY">HT-HT-SUPPLY</option>
+									                                            </select>
+									                                            <label class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                    </div>
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label for="consumer_subcategory">Consumer Subcategory <span
+									                                                    class="required">*</span></label>
+									                                            <select id="consumer_subcategory" class="form-control select2"
+									                                                    name="consumer_subcategory">
+									                                                <option value=" ">Select Consumer Subcategory</option>
+									                                                <option value="30-PWW">30-PWW</option>
+									                                                <option value="40-Residential">40-Residential</option>
+									                                                <option value="50-Commercial">50-Commercial</option>
+									                                                <option value="60-LT industrial">60-LT Industrial</option>
+									                                                <option value="70-LT powerloom">70-LT Powerloom</option>
+									                                                <option value="80-Street Light">80-Street Light</option>
+									                                                <option value="90-Agriculture">90-Agriculture</option>
+									                                                <option value="91-LT poultry">91-LT Poultry</option>
+									                                                <option value="92-LT Advertisement and Hoarding">92-LT Advertisement and
+									                                                    Hoarding
+									                                                </option>
+									                                                <option value="93-LT Precooling">93-LT Precooling</option>
+									                                                <option value="94-LT temporary Religious">94-LT Temporary Religious
+									                                                </option>
+									                                                <option value="95-LT temporary others">95-LT Temporary Others</option>
+									                                                <option value="165-Temp-Construction">165-Temp-Construction</option>
+									                                                <option value="166-Crematorium And Burial">166-Crematorium And Burial
+									                                                </option>
+									                                                <option value="167-Public Services">167-Public Services</option>
+									                                                <option value="207-LT IV A AG ZONE 1">207-LT IV A AG ZONE 1</option>
+									                                                <option value="209-LT IV A AG ZONE 2">209-LT IV A AG ZONE 2</option>
+									                                            </select>
+									                                            <label class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <hr style="border-top: dotted 1px;"/>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <label class="bold">Application Details : </label>
+									                                <div class="row">
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label for="applicant_name">Applicant/ Company Name <span
+									                                                    class="required">*</span></label>
+									                                            <input type="text" class="form-control" id="applicant_name"
+									                                                   name="applicant_name">
+									                                            <label id="applicant_name_error" class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                    </div>
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label for="applicant_aadhar_no">Aadhar No <span
+									                                                    class="required">*</span></label>
+									                                            <input type="text" class="form-control" id="applicant_aadhar_no"
+									                                                   name="applicant_aadhar_no">
+									                                            <label id="applicant_aadhar_no_error" class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                    </div>
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label for="applicant_occupation">Occupation <span class="required">*</span></label>
+									                                            <select id="applicant_occupation" class="form-control select2"
+									                                                    onchange="hide_occupation()" name="applicant_occupation">
+									                                                <option value=" "> Select Occupation</option>
+									                                                <option value="SERVICES">SERVICE</option>
+									                                                <option value="PROFESSION/BUSINESS">PROFESSION/ BUSINESS</option>
+									                                                <option value="OTHERS">OTHERS</option>
+									                                            </select>
+									                                            <label class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                    </div>
+									                                    <div class="col-md-3">
+									                                        <div class="form-group form-md-line-input has-success">
+									                                            <label for="applicant_other_details">Others</label>
+									                                            <input type="text" class="form-control" id="applicant_other_details"
+									                                                   readonly name="applicant_other_details">
+									                                            <label id="applicant_other_error" class="error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                        </div>
+									                                        <span class="help-block" style="margin-top: -27px;">To be filled if Occupation selected is OTHERS.</span>
+									                                    </div>
+									                                </div>
+									                                <br>
+									                                <div class="row">
+									                                    <div class="col-md-12">
+									                                        <span class="bold"> Address at which supply is required (Please enter complete details)</span>
+									                                    </div>
+									                                    <div class="col-md-12">
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="flat_no"> Flat No / House No / Building Name <span
+									                                                        class="required">*</span> </label>
+									                                                <input type="text" class="form-control" id="flat_no"
+									                                                       onblur="make_same()" name="flat_no">
+									                                                <label id="flat_no_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="address_line1">Address Line1 <span class="required">*</span>
+									                                                </label>
+									                                                <input type="text" class="form-control" id="address_line1"
+									                                                       onblur="make_same()" name="address_line1">
+									                                                <label id="address_line1_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="address_line2">Address Line2 </label>
+									                                                <input type="text" class="form-control" id="address_line2"
+									                                                       onblur="make_same()" name="address_line2">
+									                                                <label id="address_line2_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="landmark">Landmark </label>
+									                                                <input type="text" class="form-control" id="landmark"
+									                                                       onblur="make_same()" name="landmark">
+									                                                <label id="landmark_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label>City/Village <span class="required">*</span></label>
+									                                                <select id="city" class="form-control input-sm select2-multiple"
+									                                                        onchange="make_same()" name="city">
+									                                                    <option value=" "> Select City</option>
+									                                                    {% for city in city_list %}
+									                                                    <option value="{{ city.city_id }}"> {{ city.city }}</option>
+									                                                    {% endfor %}
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label>PinCode <span class="required">*</span></label>
+									                                                <select id="pincode" class="form-control input-sm select2-multiple"
+									                                                        onchange="make_same()" name="pincode">
+									                                                    <option value=" "> Select Pincode</option>
+									                                                    {% for pincode in pincode_list %}
+									                                                    <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}
+									                                                    </option>
+									                                                    {% endfor %}
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="email">Email </label>
+									                                                <input type="text" class="form-control" id="email" onblur="make_same()"
+									                                                       name="email">
+									                                                <label id="email_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="mobile">Mobile <span class="required">*</span></label>
+									                                                <input type="text" class="form-control" id="mobile" onblur="make_same()"
+									                                                       name="mobile">
+									                                                <label id="mobile_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="phone_no">Phone </label>
+									                                                <input type="text" class="form-control" id="phone_no"
+									                                                       onblur="make_same()" name="phone_no">
+									                                                <label id="phone_no_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="existing_consumer_no">Existing/ Nearest Consumer No </label>
+									                                                <input type="text" class="form-control" id="existing_consumer_no"
+									                                                       onblur="make_same()" name="existing_consumer_no">
+									                                                <label id="consumer_no_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <hr style="border-top: dotted 1px;"/>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <label class="bold">Billing Details : </label>
+									                                <div class="row">
+									                                    <div class="col-md-12">
+									                                        <div class="md-checkbox">
+									                                            <input type="checkbox" value="1" id="checkbox1_44"
+									                                                   class="md-check" onclick="make_same()" name="checkbox1_44">
+									                                            <label for="checkbox1_44">
+									                                                <span></span>
+									                                                <span class="check"></span>
+									                                                <span class="box"></span> Click here if billing Address same as Meter
+									                                                Address </label>
+									                                        </div>
+									                                    </div>
+									                                    <div class="col-md-12">
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_flat_no"> Flat No / House No / Building Name <span
+									                                                        class="required">*</span> </label>
+									                                                <input type="text" class="form-control" id="bill_flat_no"
+									                                                       name="bill_flat_no">
+									                                                <label id="bill_flat_no_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_address_line1">Address Line1 <span
+									                                                        class="required">*</span> </label>
+									                                                <input type="text" class="form-control" id="bill_address_line1"
+									                                                       name="bill_address_line1">
+									                                                <label id="bill_address_line1_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_address_line2">Address Line2 </label>
+									                                                <input type="text" class="form-control" id="bill_address_line2"
+									                                                       name="bill_address_line2">
+									                                                <label id="bill_address_line2_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_landmark">Landmark </label>
+									                                                <input type="text" class="form-control" id="bill_landmark"
+									                                                       name="bill_landmark">
+									                                                <label id="bill_landmark_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_city">City/Village <span
+									                                                        class="required">*</span></label>
+									                                                <select id="bill_city" class="form-control input-sm select2-multiple">
+									                                                    <option value=" "> Select City</option>
+									                                                    {% for city in city_list %}
+									                                                    <option value="{{city.city_id}}"> {{ city.city }}</option>
+									                                                    {% endfor %}
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_pincode">PinCode <span
+									                                                        class="required">*</span></label>
+									                                                <select id="bill_pincode" class="form-control input-sm select2-multiple">
+									                                                    <option value=" "> Select Pincode</option>
+									                                                    {% for pincode in pincode_list %}
+									                                                    <option value="{{pincode.pincode_id}}"> {{ pincode.pincode }}
+									                                                    </option>
+									                                                    {% endfor %}
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_email">Email </label>
+									                                                <input type="text" class="form-control" id="bill_email"
+									                                                       name="bill_email">
+									                                                <label id="bill_email_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_mobile">Mobile <span class="required">*</span></label>
+									                                                <input type="text" class="form-control" id="bill_mobile"
+									                                                       name="bill_mobile">
+									                                                <label id="bill_mobile_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_phone_no">Phone </label>
+									                                                <input type="text" class="form-control" id="bill_phone_no"
+									                                                       name="bill_phone_no">
+									                                                <label id="bill_phone_no_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_existing_consumer_no">Existing/ Nearest Consumer
+									                                                    No </label>
+									                                                <input type="text" class="form-control" id="bill_existing_consumer_no"
+									                                                       name="bill_existing_consumer_no">
+									                                                <label id="bill_existing_consumer_no_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="premises_type">Type Of Premises <span
+									                                                        class="required">*</span></label>
+									                                                <select id="premises_type" class="form-control select2"
+									                                                        onchange="hide_premises()" name="premises_type">
+									                                                    <option value=" "> Select Premises</option>
+									                                                    <option value="1-OWNED">1-OWNED</option>
+									                                                    <option value="2-RENTED">2-RENTED</option>
+									                                                    <option value="3-LEASE">3-LEASE</option>
+									                                                    <option value="4-LIS/OTHERS">4-LIS/OTHERS</option>
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="bill_other_data">Others</label>
+									                                                <input type="text" class="form-control" id="bill_other_data" readonly=""
+									                                                       name="bill_other_data">
+									                                                <label id="bill_other_data_error" class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                            <span class="help-block" style="margin-top: -27px;">To be filled if Type Of Premises selected is OTHERS.</span>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <hr style="border-top: dotted 1px;"/>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <label class="bold">Requested Load/ Contract Demand : </label>
+									                                <div class="row">
+									                                    <div class="col-md-12">
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="requested_load">Requested Load <span
+									                                                        class="required">*</span></label>
+									                                                <select id="requested_load" class="form-control select2"
+									                                                        name="requested_load">
+									                                                    <option value=" "> Select Requested Load</option>
+									                                                    <option value="120">120</option>
+									                                                    <option value="230">230</option>
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label for="load_type">Type <span class="required">*</span></label>
+									                                                <select id="load_type" class="form-control select2" name="load_type">
+									                                                    <option value=" "> Select Requested Load Type</option>
+									                                                    <option value="KW">KW</option>
+									                                                    <option value="HP">HP</option>
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label>Contract Demand <span class="required">*</span></label>
+									                                                <select id="contract_demand" class="form-control select2"
+									                                                        name="contract_demand">
+									                                                    <option value=" "> Select Contract Demand</option>
+									                                                    <option value="120">120</option>
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									
+									                                        <div class="col-md-3">
+									                                            <div class="form-group form-md-line-input has-success">
+									                                                <label>Type <span class="required">*</span></label>
+									                                                <select id="contract_demand_type" class="form-control select2"
+									                                                        name="contract_demand_type">
+									                                                    <option value=" "> Select Contract Demand Type</option>
+									                                                    <option value="KWA">KWA</option>
+									                                                </select>
+									                                                <label class="error"
+									                                                       style="color:red; display:none; font-size: 12px;"></label>
+									                                            </div>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <hr style="border-top: dotted 1px;"/>
+									                            </div>
+									                            <div class="col-md-12">
+									                                <label class="bold">Documents List <span style="color:red">*</span> : </label>
+									                                <div class="row">
+									                                    <div class="col-md-12">
+									                                        <div class="col-md-4">
+									                                            <label style="font-size: 15px;" class="bold">Address Proof (Any one of the
+									                                                following)</label>
+									                                            <label id="addProofset_error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof" value="Ration Card"
+									                                                       id="checkbox1_1" class="md-check addproofclass">
+									                                                <label for="checkbox1_1">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Ration Card </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof"
+									                                                       value="Local Authority Tax Bill/ Receipt" id="checkbox1_2"
+									                                                       class="md-check addproofclass">
+									                                                <label for="checkbox1_2">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Local Authority Tax Bill/ Receipt </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof"
+									                                                       value="Approved plan by Competent Govt. Authority"
+									                                                       id="checkbox1_3" class="md-check addproofclass">
+									                                                <label for="checkbox1_3">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Approved plan by Competent Govt. Authority
+									                                                </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof" value="Voter ID Card"
+									                                                       id="checkbox1_4" class="md-check addproofclass">
+									                                                <label for="checkbox1_4">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Voter ID Card </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof"
+									                                                       value="UID Card/ Aadhar Card" id="checkbox1_5"
+									                                                       class="md-check addproofclass">
+									                                                <label for="checkbox1_5">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> UID Card/ Aadhar Card </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof" value="Passport"
+									                                                       id="checkbox1_6" class="md-check addproofclass">
+									                                                <label for="checkbox1_6">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Passport </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof" value="Driving License"
+									                                                       id="checkbox1_7" class="md-check addproofclass">
+									                                                <label for="checkbox1_7">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Driving License </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof"
+									                                                       value="Developer Agreement with Land Owner/ Occupier/ Govt. Agency"
+									                                                       id="checkbox1_9" class="md-check addproofclass">
+									                                                <label for="checkbox1_9">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Developer Agreement with Land Owner/
+									                                                    Occupier/ Govt. Agency </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof"
+									                                                       value="Govt. Issued Property Card or 7/12 Extract"
+									                                                       id="checkbox1_10" class="md-check addproofclass">
+									                                                <label for="checkbox1_10">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Govt. Issued Property Card or 7/12 Extract
+									                                                </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="address_proof" value="Society Registration"
+									                                                       id="checkbox1_11" class="md-check addproofclass">
+									                                                <label for="checkbox1_11">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Society Registration </label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-4">
+									                                            <label style="font-size: 15px;" class="bold">Identity Proof (Any One of the
+									                                                following)</label>
+									                                            <label id="idProofset_error"
+									                                                   style="color:red; display:none; font-size: 12px;"></label>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof"
+									                                                       value="Voter's Identification Card" id="checkbox1_12"
+									                                                       class="md-check idproofclass">
+									                                                <label for="checkbox1_12">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Voter's Identification Card </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof" value="Collector / Govt"
+									                                                       id="checkbox1_13" class="md-check idproofclass">
+									                                                <label for="checkbox1_13">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Collector / Govt </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof" value="Authorized Photo ID"
+									                                                       id="checkbox1_14" class="md-check idproofclass">
+									                                                <label for="checkbox1_14">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Authorized Photo ID </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof" value="UID Card/ Aadhar Card"
+									                                                       id="checkbox1_15" class="md-check idproofclass">
+									                                                <label for="checkbox1_15">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> UID Card/ Aadhar Card </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof" value="Passport"
+									                                                       id="checkbox1_16" class="md-check idproofclass">
+									                                                <label for="checkbox1_16">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Passport </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof" value="PAN Card"
+									                                                       id="checkbox1_17" class="md-check idproofclass">
+									                                                <label for="checkbox1_17">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> PAN Card </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof" value="Driving License"
+									                                                       id="checkbox1_18" class="md-check idproofclass">
+									                                                <label for="checkbox1_18">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Driving License </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof"
+									                                                       value="Photo Pass (Recognized By Govt. Department)"
+									                                                       id="checkbox1_19" class="md-check idproofclass">
+									                                                <label for="checkbox1_19">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Photo Pass (Recognized By Govt.
+									                                                    Department) </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof"
+									                                                       value="Sr. Citizens Identity Card issued by Govt."
+									                                                       id="checkbox1_20" class="md-check idproofclass">
+									                                                <label for="checkbox1_20">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Sr. Citizens Identity Card issued by Govt.
+									                                                </label>
+									                                            </div>
+									                                            <div class="md-checkbox">
+									                                                <input type="checkbox" name="id_proof"
+									                                                       value="Photo ID in Purchase/Sale Agreement" id="checkbox1_21"
+									                                                       class="md-check idproofclass">
+									                                                <label for="checkbox1_21">
+									                                                    <span></span>
+									                                                    <span class="check"></span>
+									                                                    <span class="box"></span> Photo ID in Purchase/Sale Agreement
+									                                                </label>
+									                                            </div>
+									                                        </div>
+									                                        <div class="col-md-4">
+									                                            <div class="form-group col-lg-12 col-md-12">
+									                                                <div class="dropzone"
+									                                                     style=" min-height: 70px; border-color: #e4e5e7 !important; "
+									                                                     id="my-awesome-dropzone-3"><span
+									                                                        class="txt_dropzone3"
+									                                                        style="text-align: center; float: left;">Click or drag and drop to upload documents</span>
+									                                                </div>
+									                                                <input type="hidden"
+									                                                       class="form-control"
+									                                                       id="attachment"
+									                                                       name="attachments">
+									                                                <input type="hidden"
+									                                                       class="form-control"
+									                                                       id="attachments"
+									                                                       name="attachment">
+									                                            </div>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									
+									                            <br>
+									                            <div class="col-md-12" style="text-align: right;">
+									                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+									                                        id="save-consumer">
+									                                    Submit
+									                                </button>
+									                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" id="save-consumer-print">
+									                                    Submit & Print
+									                                </button>
+									                            </div>
+									                        </div>
+									                     </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PROFILE CONTENT -->
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT INNER -->
+</div>
+
+<!--  Models Start -->
+<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Consumer added successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/self-service/index/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">User already exists</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  Models End -->
+
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN CORE PLUGINS -->
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.sparkline.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/profile.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout3/scripts/layout.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout3/scripts/demo.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/dropzone1.js' %}"></script>
+<script src="{% static 'custom-js/nsc/nsc.js' %}" type="text/javascript"></script>
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<script type="text/javascript">
+	
+
+
+</script>
+</body>
+</html>

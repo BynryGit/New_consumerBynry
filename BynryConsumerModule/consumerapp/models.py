@@ -26,10 +26,11 @@ METER_PHASE = (
     ('THREE-THREE-PHASE', 'THREE-THREE-PHASE'),
     ('HT-HT-SUPPLY', 'HT-HT-SUPPLY'),
 )
-BILL_STATUS=(
+BILL_STATUS = (
     ('Paid', 'Paid'),
     ('Unpaid', 'Unpaid'),
 )
+
 
 class ConsumerDetails(models.Model):
     consumer_no = models.CharField(max_length=200, blank=False, null=True)
@@ -50,6 +51,7 @@ class ConsumerDetails(models.Model):
     meter_no = models.CharField(max_length=30, blank=True, null=True)
     aadhar_no = models.CharField(max_length=30, blank=True, null=True)
     sanction_load = models.CharField(max_length=30, blank=True, null=True)
+    connection_load = models.CharField(max_length=30, blank=True, null=True)
     meter_category = models.CharField(max_length=200, choices=METER_CATEGORY, default='1-LT-SUPPLY')
     consumer_age = models.CharField(max_length=5, blank=True, null=True)
     Utility = models.ForeignKey(Utility, blank=False, null=True)
@@ -75,6 +77,7 @@ class ConsumerDetails(models.Model):
     updated_by = models.CharField(max_length=500, blank=True, null=True)
     created_on = models.DateTimeField(default=django.utils.timezone.now)
     updated_on = models.DateTimeField(blank=True, null=True)
+
     def __unicode__(self):
         return unicode(str(self.consumer_no))
 
@@ -89,21 +92,39 @@ class MeterReadingDetail(models.Model):
     previous_month_reading = models.CharField(max_length=100, blank=False, null=True)
     current_reading_date = models.DateField(blank=True, null=True)
     previous_month_reading_date = models.DateField(blank=True, null=True)
-    bill_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
-    arrears = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
-    net_amount = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))    
+    bill_amount = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    arrears = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    net_amount = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
     prompt_date = models.DateField(blank=True, null=True)
     prompt_amount = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
-    due_amount = models.DecimalField(max_digits=8, decimal_places=2,default=Decimal(0.00))
+    due_amount = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
     due_date = models.DateField(blank=True, null=True)
-    bill_status=models.CharField(max_length=200, choices=BILL_STATUS,default='')
+    processing_cycle = models.CharField(max_length=100, blank=False, null=True)
+    meter_reader = models.CharField(max_length=100, blank=False, null=True)
+    tariff = models.CharField(max_length=100, blank=False, null=True)
+    bill_unit = models.IntegerField(max_length=100, blank=False, null=True, default= 0)
+    adjusted_unit = models.IntegerField(max_length=100, blank=False, null=True, default=0)
+    bill_amount_after_due_date = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    fixed_charges = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    energy_charges = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    electricity_duty = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    wheeling_charges = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    fuel_adjustment_charges = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    additional_supply_charges = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    tax_on_sale = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    previous_bill_credit = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    current_interest = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    capacitor_penalty = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    other_charges = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    net_arrears = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    adjustments_arrears = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    interest_arrears = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal(0.00))
+    bill_status = models.CharField(max_length=200, choices=BILL_STATUS, default='')
     created_by = models.CharField(max_length=500, blank=False, null=True)
     updated_by = models.CharField(max_length=500, blank=True, null=True)
     created_on = models.DateTimeField(default=django.utils.timezone.now)
     updated_on = models.DateTimeField(blank=True, null=True)
     is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
-
-
 
     def __unicode__(self):
         return unicode(self.id)

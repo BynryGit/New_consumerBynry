@@ -3,9 +3,10 @@ from selfserviceapp import views
 from django.conf.urls import include, url
 
 urlpatterns = [
-    url(r'^$', views.log_in, name='login'),
+    url(r'^$', views.home_screen, name='login'),
     url(r'^log-in/',views.signin,name='signin'),
-    url(r'^index/', views.home_screen, name='home_screen'),
+    url(r'^login/', views.log_in, name='home_screen'),
+    url(r'^logout/', views.log_out, name='home_screen'),
     url(r'^register-new-user/', views.register_new_user, name='register_new_user'),
     url(r'^my-bills/', views.my_bills, name='my_bills'),
     url(r'^get-graph1-data/', views.get_graph1_data,name='get_graph1_data'),
@@ -38,9 +39,10 @@ urlpatterns = [
     url(r'^verify-OTP/', views.verify_OTP, name='verify_OTP'),
     url(r'^save-consumer/', views.save_consumer, name='save_consumer'),
     url(r'^save-vigilance-complaint/', views.save_vigilance_complaint, name='save_vigilance_complaint'),
-    url(r'^upload-vigilance-image/', views.upload_vigilance_image,name='upload_vigilance_image'),    
-    # bill_calculator
+    url(r'^upload-vigilance-image/', views.upload_vigilance_image,name='upload_vigilance_image'),
+    url(r'^view-bill/', views.view_bill,name='view_bill'),
     url(r'^bill-calculator/', views.bill_calculator,name='bill_calculator'),    
-    url(r'^consumption-calculator/', views.consumption_calculator,name='consumption_calculator'),    
+    url(r'^consumption-calculator/', views.consumption_calculator,name='consumption_calculator'),
+    url(r'^add-NSC/', views.add_NSC,name='add_NSC'),
 ]
  
