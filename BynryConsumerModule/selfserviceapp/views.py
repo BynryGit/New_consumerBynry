@@ -972,7 +972,7 @@ def add_new_user(request):
         new_user_obj = UserAccount(
             consumer_no = request.GET.get('consumer_no'),
             parent_consumer_no = WebUserProfile.objects.get(username=request.session['consumer_no']),
-            consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no']),
+            consumer_id = ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no')),
             created_on = datetime.now(),
             created_by = request.session['login_user'],
         );
