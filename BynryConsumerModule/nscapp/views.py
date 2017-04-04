@@ -254,7 +254,8 @@ def save_new_consumer(request):
 
         data = {
             'success': 'true',
-            'message': 'Consumer created successfully.'
+            'message': 'Consumer created successfully.',
+            'nsc_id' :  new_consumer_obj.id
         }
     except Exception, e:
         print 'Exception|nscapp|views.py|save_new_consumer', e

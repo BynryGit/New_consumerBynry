@@ -64,6 +64,20 @@ def home_screen(request):
         data = {}
     return render(request, 'self_service/home_screen.html', data)
 
+def add_NSC(request):
+    """To view NSC page"""
+    try:
+        print 'selfserviceapp|views.py|add_NSC'
+        data = {
+
+            'city_list': get_city(request),
+            'pincode_list': get_pincode(request)
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|add_NSC', exe
+        data = {}
+    return render(request, 'self_service/add_NSC.html', data)    
+
 
 def register_new_user(request):
     """To view complaints page"""
