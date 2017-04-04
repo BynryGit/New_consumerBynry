@@ -31,6 +31,7 @@ from .models import *
 from paymentapp.models import *
 import string
 
+
 def bill_calculator(request):
     """To view complaints page"""
     try:
@@ -41,6 +42,7 @@ def bill_calculator(request):
         print 'Exception|selfserviceapp|views.py|bill_calculator', exe
         data = {}
     return render(request, 'self_service/bill_calculator.html', data)
+
 
 def consumption_calculator(request):
     """To view complaints page"""
@@ -53,6 +55,7 @@ def consumption_calculator(request):
         data = {}
     return render(request, 'self_service/consumption_calculator.html', data)
 
+
 def home_screen(request):
     """To view complaints page"""
     try:
@@ -63,6 +66,7 @@ def home_screen(request):
         print 'Exception|selfserviceapp|views.py|home_screen', exe
         data = {}
     return render(request, 'self_service/home_screen.html', data)
+
 
 def add_NSC(request):
     """To view NSC page"""
@@ -76,7 +80,7 @@ def add_NSC(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|add_NSC', exe
         data = {}
-    return render(request, 'self_service/add_NSC.html', data)    
+    return render(request, 'self_service/add_NSC.html', data)
 
 
 def register_new_user(request):
@@ -97,27 +101,29 @@ def my_bills(request):
     try:
         print 'selfserviceapp|views.py|my_bills'
 
-        consumer_obj = MeterReadingDetail.objects.filter(consumer_id=request.session['consumer_id']).latest('created_on')
-        if consumer_obj.bill_status == 'Paid' :
+        consumer_obj = MeterReadingDetail.objects.filter(consumer_id=request.session['consumer_id']).latest(
+            'created_on')
+        if consumer_obj.bill_status == 'Paid':
             payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
-        else :
+        else:
             payment_date = ''
         data = {
-            'consumer_no':consumer_obj.consumer_id.consumer_no,
-            'name':consumer_obj.consumer_id.name,
-            'bill_cycle':consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
-            'unit_consumed':consumer_obj.unit_consumed,
-            'bill_amount':consumer_obj.bill_amount,
-            'arrears':consumer_obj.arrears,
-            'net_amount':consumer_obj.net_amount,
-            'payment_date':payment_date,
-            'prompt_date':consumer_obj.prompt_date,
-            'due_date':consumer_obj.due_date
+            'consumer_no': consumer_obj.consumer_id.consumer_no,
+            'name': consumer_obj.consumer_id.name,
+            'bill_cycle': consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
+            'unit_consumed': consumer_obj.unit_consumed,
+            'bill_amount': consumer_obj.bill_amount,
+            'arrears': consumer_obj.arrears,
+            'net_amount': consumer_obj.net_amount,
+            'payment_date': payment_date,
+            'prompt_date': consumer_obj.prompt_date,
+            'due_date': consumer_obj.due_date
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|my_bills', exe
         data = {}
     return render(request, 'self_service/my_bills.html', data)
+
 
 def get_graph1_data(request):
     try:
@@ -136,22 +142,25 @@ def get_graph1_data(request):
             last_Month = pre_Month - i
             if last_Month <= 0:
                 last_Month = 12 + last_Month
-                last_Year = pre_Year -1
+                last_Year = pre_Year - 1
             try:
-                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],bill_month=month_list2[last_Month-1],bill_months_year=last_Year)
-                ss = [month_list1[last_Month-1], reading_obj.unit_consumed]
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],
+                                                             bill_month=month_list2[last_Month - 1],
+                                                             bill_months_year=last_Year)
+                ss = [month_list1[last_Month - 1], reading_obj.unit_consumed]
                 data_list.append(ss)
             except Exception, e:
-                ss = [month_list1[last_Month-1], 0]
+                ss = [month_list1[last_Month - 1], 0]
                 data_list.append(ss)
                 pass
-            
-        data = {'success': 'true','data_list':data_list}
+
+        data = {'success': 'true', 'data_list': data_list}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_graph1_data', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def get_graph2_data(request):
     try:
@@ -170,24 +179,27 @@ def get_graph2_data(request):
             last_Month = pre_Month - i
             if last_Month <= 0:
                 last_Month = 12 + last_Month
-                last_Year = pre_Year -1
+                last_Year = pre_Year - 1
             try:
-                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],bill_month=month_list2[last_Month-1],bill_months_year=last_Year)
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],
+                                                             bill_month=month_list2[last_Month - 1],
+                                                             bill_months_year=last_Year)
                 pay_obj = PaymentDetail.objects.get(meter_reading_id=reading_obj.id)
                 if pay_obj.bill_status == 'Paid':
-                    ss = [month_list1[last_Month-1], pay_obj.net_amount]
+                    ss = [month_list1[last_Month - 1], pay_obj.net_amount]
                     data_list.append(ss)
             except Exception, e:
-                ss = [month_list1[last_Month-1], 0]
+                ss = [month_list1[last_Month - 1], 0]
                 data_list.append(ss)
                 pass
-            
-        data = {'success': 'true','data_list':data_list}
+
+        data = {'success': 'true', 'data_list': data_list}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_graph2_data', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def get_bill_history(request):
     try:
@@ -200,26 +212,29 @@ def get_bill_history(request):
             pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
             for pay_obj in pay_list:
                 bill_month = pay_obj.meter_reading_id.bill_month
-                bill_month = month_list1[month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year       
-                action = '<a target="_blank" href="/self-service/view-bill/?meter_reading_id='+str(pay_obj.id)+'"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'
+                bill_month = month_list1[
+                                 month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year
+                action = '<a target="_blank" href="/self-service/view-bill/?meter_reading_id=' + str(
+                    pay_obj.id) + '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'
                 data_list = {
-                    'bill_month':bill_month,
-                    'unit_consumed':pay_obj.meter_reading_id.unit_consumed,
-                    'net_amount':str(pay_obj.net_amount),
-                    'bill_amount_paid':str(pay_obj.bill_amount_paid),
-                    'payment_date':pay_obj.payment_date.strftime("%d %b %Y"),
-                    'action':action
+                    'bill_month': bill_month,
+                    'unit_consumed': pay_obj.meter_reading_id.unit_consumed,
+                    'net_amount': str(pay_obj.net_amount),
+                    'bill_amount_paid': str(pay_obj.bill_amount_paid),
+                    'payment_date': pay_obj.payment_date.strftime("%d %b %Y"),
+                    'action': action
                 }
                 final_list.append(data_list)
         except Exception, e:
-            print 'Exception|selfserviceapp|views.py|get_bill_history',e
+            print 'Exception|selfserviceapp|views.py|get_bill_history', e
             pass
-        data = {'success': 'true','data':final_list}
+        data = {'success': 'true', 'data': final_list}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_bill_history', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def get_pay_history(request):
     try:
@@ -227,19 +242,19 @@ def get_pay_history(request):
         final_list = []
         try:
             pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
-            for pay_obj in pay_list:                
+            for pay_obj in pay_list:
                 data_list = {
-                    'bank_id':pay_obj.bank_id,
-                    'reference_no':pay_obj.reference_no,
-                    'due_date':pay_obj.due_date.strftime("%d %b %Y"),
-                    'payment_date':pay_obj.payment_date.strftime("%d %b %Y"),
-                    'bill_amount_paid':str(pay_obj.bill_amount_paid)
+                    'bank_id': pay_obj.bank_id,
+                    'reference_no': pay_obj.reference_no,
+                    'due_date': pay_obj.due_date.strftime("%d %b %Y"),
+                    'payment_date': pay_obj.payment_date.strftime("%d %b %Y"),
+                    'bill_amount_paid': str(pay_obj.bill_amount_paid)
                 }
                 final_list.append(data_list)
         except Exception, e:
-            print 'Exception|selfserviceapp|views.py|get_pay_history',e
+            print 'Exception|selfserviceapp|views.py|get_pay_history', e
             pass
-        data = {'success': 'true','data':final_list}
+        data = {'success': 'true', 'data': final_list}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_pay_history', exe
@@ -258,61 +273,81 @@ def manage_accounts(request):
         data = {}
     return render(request, 'self_service/manage_accounts.html', data)
 
+
 def get_my_accounts(request):
     """To view complaints page"""
     try:
         users_list = []
         print 'selfserviceapp|views.py|get_my_accounts'
-        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id'])
-        cons_id = request.session['consumer_id']
-        print '-----consumer id------',consumer_id
+        consumer_id = ConsumerDetails.objects.get(id=request.session['parent_consumer_id'])
         parent_consumer_obj = WebUserProfile.objects.get(username=consumer_id)
-        users_obj = UserAccount.objects.filter(parent_consumer_no=parent_consumer_obj,is_deleted=False)
-        print '--------user obj---------',users_obj
+        users_obj = UserAccount.objects.filter(parent_consumer_no=parent_consumer_obj, is_deleted=False)
+        if parent_consumer_obj.consumer_id.consumer_no == request.session['consumer_no']:
+            check_var = 'checked'
+        else:
+            check_var = ''
         parent_user_data = {
             'name': parent_consumer_obj.consumer_id.name,
             'user_no': parent_consumer_obj.consumer_id.consumer_no,
-            'address': parent_consumer_obj.consumer_id.address_line_1+' '+parent_consumer_obj.consumer_id.address_line_2,
-            'actions': '<input type="radio" onclick="select_user_account(\''+str(parent_consumer_obj.consumer_id.consumer_no)+'\',\''+str(parent_consumer_obj.consumer_id.name)+'\');" name="Select User" value=' + str(parent_consumer_obj.id) + ' > &nbsp;' + '&nbsp;<a>'
+            'address': parent_consumer_obj.consumer_id.address_line_1 + ' ' + parent_consumer_obj.consumer_id.address_line_2,
+            'actions': '<input type="radio" '+check_var+' onclick="select_user_account(\'' + str(
+                parent_consumer_obj.consumer_id.consumer_no) + '\',\'' + str(
+                parent_consumer_obj.consumer_id.name) + '\');" name="Select User" value=' + str(
+                parent_consumer_obj.id) + ' > &nbsp;' + '&nbsp;<a>'
         }
         users_list.append(parent_user_data)
         for users in users_obj:
+            print request.session['consumer_no']
+            print users.consumer_no
+            if str(users.consumer_no) == str(request.session['consumer_no']):
+                check_var = 'checked'
+            else:
+                check_var = ''
             users_data = {
                 'name': users.consumer_id.name,
                 'user_no': users.consumer_no,
-                'address': users.consumer_id.address_line_1+' '+users.consumer_id.address_line_2,
-                'actions': '<input type="radio" onclick="select_user_account(\''+str(users.consumer_no)+'\',\''+str(users.consumer_id.name)+'\');" name="Select User" value=' + str(users.id) + ' > &nbsp;' + '&nbsp;<a> <i class="fa fa-trash" aria-hidden="true" onclick="delete_user_account(' + str(users.id) + ');"></i> </a>'
+                'address': users.consumer_id.address_line_1 + ' ' + users.consumer_id.address_line_2,
+                'actions': '<input type="radio" '+check_var+' onclick="select_user_account(\'' + str(
+                    users.consumer_no) + '\',\'' + str(
+                    users.consumer_id.name) + '\');" name="Select User" value=' + str(
+                    users.id) + ' > &nbsp;' + '&nbsp;<a> <i class="fa fa-trash" aria-hidden="true" onclick="delete_user_account(' + str(
+                    users.id) + ');"></i> </a>'
             }
             users_list.append(users_data)
-        data = {'success': 'true','data':users_list}
+        data = {'success': 'true', 'data': users_list}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_my_accounts', exe
         data = {}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 def activate_user_account(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|activate_user_account'
-        user_obj = UserAccount.objects.get(consumer_no=request.GET.get('consumer_no'))
-        print '--------user obj---------',user_obj.consumer_id.consumer_no
-        request.session['consumer_id'] = user_obj.consumer_id.consumer_id
-        request.session['consumer_no'] = user_obj.consumer_id.consumer_no
-
+        try:
+            user_obj = UserAccount.objects.get(consumer_no=request.GET.get('consumer_no'))
+            request.session['consumer_id'] = str(user_obj.consumer_id.id)
+            request.session['consumer_no'] = str(user_obj.consumer_id.consumer_no)
+        except:
+            user_obj = WebUserProfile.objects.get(username=request.GET.get('consumer_no'))
+            request.session['consumer_id'] = str(user_obj.consumer_id.id)
+            request.session['consumer_no'] = str(user_obj.consumer_id.consumer_no)
+            pass
         data = {'success': 'true'}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|activate_user_account', exe
         data = {}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 def delete_user_account(request):
     """To view complaints page"""
     try:
         print 'selfserviceapp|views.py|delete_user_account'
         user_obj = UserAccount.objects.get(id=request.GET.get('consumer_no'))
-        print '--------user obj---------',user_obj
-        user_obj.is_deleted='True'
+        user_obj.is_deleted = 'True'
         user_obj.save()
 
         data = {'success': 'true'}
@@ -320,6 +355,7 @@ def delete_user_account(request):
         print 'Exception|selfserviceapp|views.py|delete_user_account', exe
         data = {}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def add_new_account(request):
     """To view complaints page"""
@@ -346,17 +382,19 @@ def complaints(request):
         data = {}
     return render(request, 'self_service/complaints.html', data)
 
+
 def vigilance(request):
     """To view vigilance page"""
     try:
         print 'selfserviceapp|views.py|vigilance'
-        vigilance_type =  VigilanceType.objects.filter(is_deleted=False)
-        data={'vigilance_type':vigilance_type,'city_list': get_city(request),'pincode_list': get_pincode(request)}
+        vigilance_type = VigilanceType.objects.filter(is_deleted=False)
+        data = {'vigilance_type': vigilance_type, 'city_list': get_city(request), 'pincode_list': get_pincode(request)}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|vigilance', exe
         data = {}
     return render(request, 'self_service/vigilance.html', data)
+
 
 @login_required(login_url='/')
 def save_consumer_complaint_details(request):
@@ -368,10 +406,11 @@ def save_consumer_complaint_details(request):
         chars = string.digits
         pwdSize = 5
         password = ''.join(random.choice(chars) for _ in range(pwdSize))
-        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session['consumer_id'] else None
+        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session[
+            'consumer_id'] else None
 
         complaint_obj = ComplaintDetail(
-            complaint_no= "COMP" + str(password),
+            complaint_no="COMP" + str(password),
             complaint_type_id=complaint_type_obj,
             consumer_id=consumer_id,
             remark=request.GET.get('remark'),
@@ -384,10 +423,10 @@ def save_consumer_complaint_details(request):
         attachment_list = request.GET.get('attachments')
         save_attachments1(attachment_list, complaint_obj)
 
-        data = {'success' : 'true','complaint_id':str(complaint_obj)}
+        data = {'success': 'true', 'complaint_id': str(complaint_obj)}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|save_consumer_complaint_details', exe
-        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
 
     return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -398,8 +437,9 @@ def get_consumer_complaint_details(request):
         complaint_list = []
         print 'selfserviceapp|views.py|get_consumer_complaint_details'
         # filter complaint by complaint id
-        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session['consumer_id'] else None
-        print '---------consumer------',consumer_id
+        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session[
+            'consumer_id'] else None
+        print '---------consumer------', consumer_id
         complaints_list = ComplaintDetail.objects.filter(consumer_id=consumer_id)
         # complaint detail result
         for complaints in complaints_list:
@@ -411,7 +451,7 @@ def get_consumer_complaint_details(request):
                 'closureRemark': complaints.closure_remark,
             }
             complaint_list.append(complaint_data)
-        data = {'success': 'true','data':complaint_list}
+        data = {'success': 'true', 'data': complaint_list}
 
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|get_consumer_complaint_details', exe
@@ -471,15 +511,13 @@ def save_attachments1(attachment_list, complaint_obj):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-
-
 def services(request):
     """To view services page"""
     try:
         print 'selfserviceapp|views.py|services'
         consumer_id = request.session['consumer_id']
         serviceType = ServiceRequestType.objects.filter(is_deleted=False)  # Service Types
-        data = {'serviceType': serviceType,'consumer_id':consumer_id}
+        data = {'serviceType': serviceType, 'consumer_id': consumer_id}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|services', exe
         data = {}
@@ -492,7 +530,7 @@ def service_request(request):
         print 'selfserviceapp|views.py|service_request'
         # filter complaint by complaint id
         consumer_id = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
-        print '----request-----',request.GET.get('service_type')
+        print '----request-----', request.GET.get('service_type')
         service_type = ServiceRequestType.objects.get(id=request.GET.get('service_type'))
         chars = string.digits
         pwdSize = 5
@@ -509,7 +547,7 @@ def service_request(request):
         )
         service_obj.save()
         service_no = service_obj.service_no
-        print '------service no-----',service_no
+        print '------service no-----', service_no
 
         data = {'success': 'true', 'service_no': service_no}
     except Exception as exe:
@@ -523,10 +561,12 @@ def log_in(request):
     print 'selfserviceapp|views.py|login'
     return render(request, 'self_service/login.html')
 
+
 def log_out(request):
     logout(request)
     print 'selfserviceapp|views.py|logout'
     return render(request, 'self_service/home_screen.html')
+
 
 @csrf_exempt
 def signin(request):
@@ -546,6 +586,7 @@ def signin(request):
                             # request.session['user_role'] = user_profile_obj.user_role.role_name
                             try:
                                 request.session['login_user'] = user_profile_obj.consumer_id.name
+                                request.session['parent_consumer_id'] = int(user_profile_obj.consumer_id.id)
                                 request.session['consumer_id'] = int(user_profile_obj.consumer_id.id)
                                 request.session['consumer_no'] = user_profile_obj.consumer_id.consumer_no
                                 login(request, user)
@@ -602,7 +643,7 @@ def get_consumer_bill_data(request):
         bill_cycle = BillCycle.objects.get(id=request.GET.get('bill_cycle'))
         consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no, bill_cycle=bill_cycle,
                                                    meter_category=consumer_type)
-        meter_obj = MeterReadingDetail.objects.filter(consumer_id = consumer_obj,bill_status = 'Unpaid').last()
+        meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj, bill_status='Unpaid').last()
         if meter_obj:
             total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
             total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
@@ -622,7 +663,7 @@ def get_consumer_bill_data(request):
             }
         else:
             data = {
-                'success':'no bill',
+                'success': 'no bill',
             }
     except Exception, e:
         print 'Exception|selfserviceapp|views.py|get_consumer_bill_data', e
@@ -708,15 +749,15 @@ def verify_OTP(request):
     try:
         print 'selfserviceapp|views.py|verify_OTP'
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
-        print '---------consumer obj---------',consumer_obj
+        print '---------consumer obj---------', consumer_obj
         if consumer_obj.consumer_otp == request.POST.get('otp_no'):
             consumer_data = {
                 'name': consumer_obj.name,
                 'consumer_no': consumer_obj.consumer_no,
                 'meter_category': consumer_obj.meter_category,
-                'bill_cycle':consumer_obj.bill_cycle.bill_cycle_name,
-                'address': consumer_obj.address_line_1 +' '+consumer_obj.address_line_2,
-                'address_line_1': consumer_obj.address_line_1 ,
+                'bill_cycle': consumer_obj.bill_cycle.bill_cycle_name,
+                'address': consumer_obj.address_line_1 + ' ' + consumer_obj.address_line_2,
+                'address_line_1': consumer_obj.address_line_1,
                 'address_line_2': consumer_obj.address_line_2,
                 'city': consumer_obj.city.city,
                 'pin_code': consumer_obj.pin_code.pincode,
@@ -729,7 +770,7 @@ def verify_OTP(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_OTP', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
-    print '------data--------',data
+    print '------data--------', data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -762,6 +803,7 @@ def save_consumer(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 @csrf_exempt
 def save_vigilance_complaint(request):
     try:
@@ -771,9 +813,9 @@ def save_vigilance_complaint(request):
         password = ''.join(random.choice(chars) for _ in range(pwdSize))
 
         new_vigilance_obj = VigilanceDetail(
-            case_id= "CASE" + str(password),
+            case_id="CASE" + str(password),
             consumer_id=ConsumerDetails.objects.get(
-                id=request.session['consumer_id']) if request.session['consumer_id'] else None,            
+                id=request.session['consumer_id']) if request.session['consumer_id'] else None,
             vigilance_type_id=VigilanceType.objects.get(
                 id=request.POST.get('vigilance_type')) if request.POST.get(
                 'vigilance_type') else None,
@@ -784,7 +826,7 @@ def save_vigilance_complaint(request):
                 'city') else None,
             pin_code=Pincode.objects.get(
                 id=request.POST.get('pincode')) if request.POST.get(
-                'pincode') else None,      
+                'pincode') else None,
             vigilance_remark=request.POST.get('vigilance_remark'),  # Need to change logic
             created_on=datetime.now(),
             created_by=request.session['login_user'],
@@ -806,6 +848,7 @@ def save_vigilance_complaint(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 @csrf_exempt
 def upload_vigilance_image(request):
     try:
@@ -825,6 +868,7 @@ def upload_vigilance_image(request):
         print 'Exception|selfserviceapp|views.py|upload_vigilance_image', e
         data = {'success': 'invalid request'}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 def save_attachments(attachment_list, vigilance_id):
     try:
@@ -904,7 +948,7 @@ def view_bill(request):
             'previous_reading': meter_obj.previous_month_reading,
             'total_reading': total_reading,
             'bill_date': meter_obj.created_on.strftime('%d %b %Y'),
-            'con_bill_month': month_list[int(meter_obj.bill_month)-1] + ' ' + str(meter_obj.bill_months_year),
+            'con_bill_month': month_list[int(meter_obj.bill_month) - 1] + ' ' + str(meter_obj.bill_months_year),
             'current_amount': str(meter_obj.bill_amount),
             'prev_due': str(meter_obj.due_amount),
             'net_amount': str(meter_obj.net_amount),
@@ -936,7 +980,7 @@ def view_bill(request):
             'total_charges': total_charges,
             'total_arrears': total_arrears,
             'net_bill_amount': net_bill_amount,
-            'rounded_bill_amount': str(round(net_bill_amount,0))+'0',
+            'rounded_bill_amount': str(round(net_bill_amount, 0)) + '0',
             'bill_status': meter_obj.bill_status,
             'last_receipt_date': last_receipt_date,
             'last_receipt_amount': last_receipt_amount,
@@ -945,6 +989,7 @@ def view_bill(request):
         print 'Exception|selfserviceapp|views.py|view_bill', exe
         data = {}
     return render(request, 'self_service/view_bill.html', data)
+
 
 @csrf_exempt
 def verify_consumer(request):
@@ -957,11 +1002,11 @@ def verify_consumer(request):
             ret = u''
             ret = ''.join(random.choice('0123456789ABCDEF') for i in range(6))
             OTP = ret
-            print '--------OTP---------',OTP
+            print '--------OTP---------', OTP
             consumer_obj.consumer_otp = OTP
             consumer_obj.save()
             contact_no = consumer_obj.contact_no
-            contact_no = contact_no[0:2]+8*'x'
+            contact_no = contact_no[0:2] + 8 * 'x'
 
             data = {'success': 'true', 'message': 'SMS Sent Successfully', 'contact_no': contact_no}
         else:
@@ -972,16 +1017,17 @@ def verify_consumer(request):
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 @csrf_exempt
 def add_new_user(request):
     try:
         print 'selfserviceapp|views.py|add_new_user'
         new_user_obj = UserAccount(
-            consumer_no = request.GET.get('consumer_no'),
-            parent_consumer_no = WebUserProfile.objects.get(username=request.session['consumer_no']),
-            consumer_id = ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no')),
-            created_on = datetime.now(),
-            created_by = request.session['login_user'],
+            consumer_no=request.GET.get('consumer_no'),
+            parent_consumer_no=WebUserProfile.objects.get(username=request.session['consumer_no']),
+            consumer_id=ConsumerDetails.objects.get(consumer_no=request.GET.get('consumer_no')),
+            created_on=datetime.now(),
+            created_by=request.session['login_user'],
         );
         new_user_obj.save();
 
@@ -996,4 +1042,3 @@ def add_new_user(request):
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
-
