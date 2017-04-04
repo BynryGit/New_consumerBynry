@@ -269,6 +269,13 @@ def get_my_accounts(request):
         parent_consumer_obj = WebUserProfile.objects.get(username=consumer_id)
         users_obj = UserAccount.objects.filter(parent_consumer_no=parent_consumer_obj,is_deleted=False)
         print '--------user obj---------',users_obj
+        parent_user_data = {
+            'name': parent_consumer_obj.consumer_id.name,
+            'user_no': parent_consumer_obj.consumer_id.consumer_no,
+            'address': parent_consumer_obj.consumer_id.address_line_1+' '+parent_consumer_obj.consumer_id.address_line_2,
+            'actions': '<input type="radio" onclick="select_user_account(\''+str(parent_consumer_obj.consumer_id.consumer_no)+'\',\''+str(parent_consumer_obj.consumer_id.name)+'\');" name="Select User" value=' + str(parent_consumer_obj.id) + ' > &nbsp;' + '&nbsp;<a>'
+        }
+        users_list.append(parent_user_data)
         for users in users_obj:
             users_data = {
                 'name': users.consumer_id.name,
