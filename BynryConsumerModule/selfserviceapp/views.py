@@ -187,13 +187,13 @@ def get_bill_history(request):
             for pay_obj in pay_list:
                 bill_month = pay_obj.meter_reading_id.bill_month
                 bill_month = month_list1[month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year       
-                action = '<a href="/self-service/bill_details/?consumer_id=' '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'             
+                action = '<a target="_blank" href="/self-service/view-bill/?meter_reading_id='+str(pay_obj.id)+'"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'
                 data_list = {
                     'bill_month':bill_month,
                     'unit_consumed':pay_obj.meter_reading_id.unit_consumed,
                     'net_amount':str(pay_obj.net_amount),
                     'bill_amount_paid':str(pay_obj.bill_amount_paid),
-                    'payment_date':pay_obj.payment_date.strftime("%Y-%m-%d"),
+                    'payment_date':pay_obj.payment_date.strftime("%d %b %Y"),
                     'action':action
                 }
                 final_list.append(data_list)
@@ -217,8 +217,8 @@ def get_pay_history(request):
                 data_list = {
                     'bank_id':pay_obj.bank_id,
                     'reference_no':pay_obj.reference_no,
-                    'due_date':pay_obj.due_date.strftime("%Y-%m-%d"),                    
-                    'payment_date':pay_obj.payment_date.strftime("%Y-%m-%d"),
+                    'due_date':pay_obj.due_date.strftime("%d %b %Y"),
+                    'payment_date':pay_obj.payment_date.strftime("%d %b %Y"),
                     'bill_amount_paid':str(pay_obj.bill_amount_paid)
                 }
                 final_list.append(data_list)
@@ -791,38 +791,46 @@ def view_bill(request):
     """To view FAQS page"""
     try:
         print 'selfserviceapp|views.py|view_bill'
-        if request.GET.get('consumer_no'):
-            consumer_no = request.GET.get('consumer_no')
+        last_receipt_date = '--'
+        last_receipt_amount = '0.00'
+        month_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+
+        if request.GET.get('meter_reading_id'):
+            meter_obj = MeterReadingDetail.objects.get(id=request.GET.get('meter_reading_id'))
+            consumer_obj = ConsumerDetails.objects.get(consumer_no=meter_obj.consumer_id.consumer_no)
         else:
-            consumer_no = request.session['consumer_no']
-        consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
-        meter_objs = MeterReadingDetail.objects.filter(consumer_id=consumer_obj)
-        if meter_objs.count() > 1:
-            prev_meter_obj = meter_objs[0]
+            if request.GET.get('consumer_no'):
+                consumer_no = request.GET.get('consumer_no')
+            else:
+                consumer_no = request.session['consumer_no']
+            consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
+
+            meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj).last()
+
+        meter_object = MeterReadingDetail.objects.filter(consumer_id=consumer_obj)
+        if meter_object.count() > 1:
+            prev_meter_obj = meter_object[0]
             try:
-                payment_obj = PaymentDetail.objects.get(meter_reading_id = prev_meter_obj)
+                payment_obj = PaymentDetail.objects.get(meter_reading_id=prev_meter_obj)
                 last_receipt_date = payment_obj.created_on.strftime('%d %b %Y')
                 last_receipt_amount = payment_obj.bill_amount_paid
             except:
-                last_receipt_date = '--'
-                last_receipt_amount = '0.00'
                 pass
-        else:
-            last_receipt_date = '--'
-            last_receipt_amount = '0.00'
-        meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj).last()
+
         if meter_obj.bill_unit and meter_obj.adjusted_unit:
             total_reading = int(meter_obj.bill_unit) - int(meter_obj.adjusted_unit)
         else:
             total_reading = meter_obj.bill_unit
+
         total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
         total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
         net_bill_amount = total_charges + total_arrears
-        month_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+
         if meter_obj.meter_reading_image:
             image_address = "http://" + get_current_site(request).domain + meter_obj.meter_reading_image.url
         else:
             image_address = ''
+
         data = {
             'con_number': consumer_obj.consumer_no,
             'con_name': consumer_obj.name,
