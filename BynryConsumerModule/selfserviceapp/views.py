@@ -549,14 +549,17 @@ def get_consumer_bill_data(request):
                                                    meter_category=consumer_type)
         meter_obj = MeterReadingDetail.objects.filter(consumer_id = consumer_obj,bill_status = 'Unpaid').last()
         if meter_obj:
+            total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
+            total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
+            net_bill_amount = total_charges + total_arrears
             data = {
                 'con_number': consumer_obj.consumer_no,
                 'con_name': consumer_obj.name,
                 'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
                 'con_bill_month': meter_obj.bill_month + ' ' + str(meter_obj.bill_months_year),
-                'current_amount': str(meter_obj.bill_amount),
-                'prev_due': str(meter_obj.due_amount),
-                'net_amount': str(meter_obj.net_amount),
+                'current_amount': str(total_charges),
+                'prev_due': str(total_arrears),
+                'net_amount': str(net_bill_amount),
                 'due_date': meter_obj.due_date.strftime('%B %d, %Y'),
                 'prompt_date': meter_obj.prompt_date.strftime('%B %d, %Y'),
                 'prompt_amount': str(meter_obj.prompt_amount),
@@ -788,7 +791,10 @@ def view_bill(request):
     """To view FAQS page"""
     try:
         print 'selfserviceapp|views.py|view_bill'
-        consumer_no = request.session['consumer_no']
+        if request.GET.get('consumer_no'):
+            consumer_no = request.GET.get('consumer_no')
+        else:
+            consumer_no = request.session['consumer_no']
         consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
         meter_objs = MeterReadingDetail.objects.filter(consumer_id=consumer_obj)
         if meter_objs.count() > 1:
