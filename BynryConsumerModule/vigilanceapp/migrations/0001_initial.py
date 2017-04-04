@@ -14,6 +14,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='ConsumerVigilanceImage',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('document_files', models.FileField(max_length=500, null=True, upload_to=b'images/consumer_vigilance_img/', blank=True)),
+                ('creation_date', models.DateTimeField(null=True, blank=True)),
+                ('created_by', models.CharField(max_length=500, null=True, blank=True)),
+                ('updated_by', models.CharField(max_length=500, null=True, blank=True)),
+                ('updation_date', models.DateTimeField(null=True, blank=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='CourtCaseDetail',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -31,6 +42,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('case_id', models.CharField(max_length=200, null=True)),
+                ('theft_name', models.CharField(max_length=200, null=True, blank=True)),
+                ('address', models.CharField(max_length=500, null=True, blank=True)),
                 ('vigilance_remark', models.CharField(max_length=200, null=True, blank=True)),
                 ('vigilance_status', models.CharField(max_length=50, choices=[(b'WIP', b'WIP'), (b'Closed', b'Closed'), (b'Open', b'Open')])),
                 ('vigilance_source', models.CharField(max_length=50, choices=[(b'Mobile', b'Mobile'), (b'Web', b'Web'), (b'CTI', b'CTI')])),
@@ -42,7 +55,9 @@ class Migration(migrations.Migration):
                 ('created_by', models.CharField(max_length=50)),
                 ('is_deleted', models.BooleanField(default=False, choices=[(True, True), (False, False)])),
                 ('bill_cycle', models.ForeignKey(blank=True, to='BynryConsumerModuleapp.BillCycle', null=True)),
+                ('city', models.ForeignKey(to='BynryConsumerModuleapp.City', null=True)),
                 ('consumer_id', models.ForeignKey(to='consumerapp.ConsumerDetails', null=True)),
+                ('pin_code', models.ForeignKey(to='BynryConsumerModuleapp.Pincode', null=True)),
                 ('route', models.ForeignKey(blank=True, to='BynryConsumerModuleapp.RouteDetail', null=True)),
             ],
         ),
@@ -88,5 +103,10 @@ class Migration(migrations.Migration):
             model_name='courtcasedetail',
             name='vigilance_id',
             field=models.ForeignKey(to='vigilanceapp.VigilanceDetail', null=True),
+        ),
+        migrations.AddField(
+            model_name='consumervigilanceimage',
+            name='vigilance_id',
+            field=models.ForeignKey(blank=True, to='vigilanceapp.VigilanceDetail', null=True),
         ),
     ]
