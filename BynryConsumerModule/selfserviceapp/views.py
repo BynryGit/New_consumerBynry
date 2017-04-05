@@ -413,7 +413,7 @@ def save_consumer_complaint_details(request):
             complaint_no="COMP" + str(password),
             complaint_type_id=complaint_type_obj,
             consumer_id=consumer_id,
-            remark=request.GET.get('remark'),
+            remark=request.GET.get('complaint_remark'),
             complaint_img=request.GET.get('complaint_img'),
             complaint_source="Web",
             complaint_date=datetime.now()
@@ -446,9 +446,9 @@ def get_consumer_complaint_details(request):
             complaint_data = {
                 'complaintID': complaints.complaint_no,
                 'complaintType': complaints.complaint_type_id.complaint_type,
-                'complaintStatus': complaints.complaint_status,
+                'closureRemark': complaints.remark,
                 'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
-                'closureRemark': complaints.closure_remark,
+                'complaintStatus': complaints.complaint_status
             }
             complaint_list.append(complaint_data)
         data = {'success': 'true', 'data': complaint_list}
