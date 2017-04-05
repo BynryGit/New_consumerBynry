@@ -45,3 +45,45 @@ def home(request):
         data = {}
     return render(request, 'crmapp/home.html', data)
 
+
+def complaints(request):
+    """To view complaints page"""
+    try:
+        print 'crmapp|views.py|complaints'
+        complaint_type = ComplaintType.objects.filter(is_deleted=False)
+        data = {
+            'complaint_type': complaint_type
+        }
+
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|home', exe
+        data = {}
+    return render(request, 'crmapp/complaints.html', data)
+
+
+def get_consumer_complaints(request):
+    """to get complaint details"""
+    try:
+        complaint_list = []
+        print 'selfserviceapp|views.py|get_consumer_complaint_details'
+        # filter complaint by complaint id
+        consumer_id = ConsumerDetails.objects.get(consumer_no='100000123000')
+        print '---------consumer------', consumer_id
+        complaints_list = ComplaintDetail.objects.filter(consumer_id=consumer_id)
+        # complaint detail result
+        for complaints in complaints_list:
+            complaint_data = {
+                'complaintID': '<a onclick="complaint_details(' + str(
+                    complaints.id) + ')">' + complaints.complaint_no + '</a>',
+                'complaintType': complaints.complaint_type_id.complaint_type,
+                'closureRemark': complaints.remark,
+                'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
+                'complaintStatus': complaints.complaint_status
+            }
+            complaint_list.append(complaint_data)
+        data = {'success': 'true', 'data': complaint_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_consumer_complaint_details', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')

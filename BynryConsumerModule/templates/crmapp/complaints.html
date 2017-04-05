@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Complaints | Self Service</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components" type="text/css"/>
+    <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout3/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout3/css/themes/default.min.css' %}" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="{% static 'assets/layouts/layout3/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="{% static 'assets/pages/css/dropzone.css' %}" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .dropzone .dz-default.dz-message {
+            width: 283px;
+            height: 159px;
+            margin-left: -141px;
+        }
+
+        .dropzone .dz-preview, .dropzone-previews .dz-preview {
+            background: rgba(255, 255, 255, 0.8);
+            position: relative;
+            display: inline-block;
+            margin: 4px;
+            vertical-align: top;
+            border: 1px solid #acacac;
+            padding: 6px 6px 6px 6px;
+        }
+
+        #my-active-dropzone {
+            border: 3px dashed black !important;
+            min-height: 224px !important;
+            background: #ffffff;
+        }
+
+        .dropzone .dz-preview .dz-details img, .dropzone-previews .dz-preview .dz-details img {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        #my-awesome-dropzone-3 {
+            border: 3px dashed black !important;
+            min-height: 224px !important;
+            background: #ffffff;
+        }
+
+        .dropzone .dz-preview, .dropzone-previews .dz-preview {
+            margin: 3px !important;
+        }
+
+    </style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-boxed">
+<div class="page-container">
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="container">
+                <div class="page-content-inner">
+                    <div class="row">
+                        <div class="portlet light bordered">
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-4">
+                                            <label class="bold">Complaint History :</label>
+                                        </div>
+                                        <div class="col-xs-offset-5 col-xs-3">
+                                            <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                    style="width: 140px;" data-toggle="modal" data-target="#complaint_modal">
+                                                Register Compliant
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="portlet light bordered">
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-bordered table-hover"
+                                               id="consumer_complaint_table">
+                                            <thead>
+                                            <tr>
+                                                <th> Complaint ID</th>
+                                                <th> Type</th>
+                                                <th> Raised Date</th>
+                                                <th> Status</th>
+                                            </tr>
+                                            </thead>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!--<div class="clearfix margin-bottom-40"></div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="complaint_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Register Complaint</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:150px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <select id="select_complaint_type" class="form-control select2">
+                                        <option value="">Select Complaint Type</option>
+                                        {% for type in complaint_type%}
+                                            <option value="{{type.id}}">{{type.complaint_type}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="select_complaint_type">Complaint Type</label>
+                                    <span class="complaint_type_error"
+                                                          style="margin-top: 0px;color:red;"></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="form-group form-md-line-input has-success ">
+                                    <textarea class="form-control" id="cmplnt_remark" readonly rows="4"></textarea>
+                                    <label for="cmplnt_remark" >Complaint</label>
+                                    <span class="complaint_remark_error"
+                                                              style="margin-top: -30px;color:red;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                <button type="button" class="btn btn-success btn-outline" onclick="register_complaint()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Complaint Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:250px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-xs-12">
+                        <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="complaint_id">
+                                    <label for="complaint_id">Complaint Id</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="complaint_type">
+                                    <label for="complaint_type">Complaint Type</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="complaint_status">
+                                    <label for="complaint_status">Status</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group form-md-line-input has-info ">
+                                    <textarea class="form-control" id="complaint_remark" readonly rows="4"></textarea>
+                                    <label >Complaint</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BEGIN CORE PLUGINS -->
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/dashboard.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}"
+        type="text/javascript"></script>
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="{% static 'assets/layouts/layout3/scripts/layout.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout3/scripts/demo.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/dropzone1.js' %}"></script>
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<script type="text/javascript">
+    
+    var initTable1 = function () {
+
+        var table = $('#consumer_complaint_table');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+            "bDestroy": true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            //setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+
+            "order": [
+                [0, 'asc']
+            ],
+            "ajax": "/cti-crm/get-consumer-complaints/",
+            "columns": [
+                {"data": "complaintID"},
+                {"data": "complaintType"},
+                {"data": "complaintDate"},
+                {"data": "complaintStatus"}
+            ],
+
+            buttons: [
+                {extend: 'print', className: 'btn dark btn-outline'},
+                {extend: 'pdf', className: 'btn green btn-outline'},
+                {extend: 'excel', className: 'btn yellow btn-outline '},
+                {extend: 'csv', className: 'btn purple btn-outline '},
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            //"dom": "<'row' <'col-xs-12'B>><'row'<'col-xs-6 col-sm-12'l><'col-xs-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-xs-5 col-sm-12'i><'col-xs-7 col-sm-12'p>>", // horizobtal scrollable datatable
+        });
+        $('#online_payment_table_tools > li > a.tool-action').on('click', function () {
+            var action = $(this).attr('data-action');
+            oTable.DataTable().button(action).trigger();
+        });
+    }
+
+    initTable1();
+
+    function complaint_details(complaint_id){
+        $.ajax({
+            type : "GET",
+            url : '/complaintapp/get-complaint-details/',
+            data : {'complaint_id':complaint_id},
+            success: function (response) {
+                if(response.success =='true'){
+                    complaintDetail = response.complaintDetail;
+                    $("#complaint_id").val(complaintDetail.complaintID);
+                    $("#complaint_type").val(complaintDetail.complaintType);
+                    $("#complaint_status").val(complaintDetail.complaintStatus);
+                    $("#complaint_image").attr("src",complaintDetail.complaint_img);
+                    $("#complaint_remark").text(complaintDetail.consumerRemark);
+                    $("#cons_name").text(complaintDetail.complaintConsumerName);
+                    $("#cons_no").text(complaintDetail.complaintConsumerNo);
+                    $("#complaint_details").modal('show');
+                }
+            },
+            error : function(response){
+                alert("_Error");
+                $("#complaint_details").modal('hide');
+            }
+        });
+    }
+
+    function register_complaint() {
+        complaint_type = $("#select_complaint_type").val();
+        complaint_remark = $("#cmplnt_remark").val();
+
+        if (validateData()) {
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: '/self-service/save-consumer-complaint-details/',
+                data: {
+                    'complaint_type': complaint_type, 'complaint_remark': complaint_remark, 'attachment': attachment,
+                    'attachments': attachments
+                },
+                success: function (response) {
+                    if (response.success == 'true') {
+                        $("#cmp_id").text(response.complaint_id);
+                        $("#complaint_register_modal").modal('show');
+                    }
+                    if (response.success == 'false') {
+                        return false;
+                    }
+                },
+
+                error: function (response) {
+                    alert("_Error");
+                }
+            });
+        }
+    }
+
+    function validateData() {
+
+        if (CheckComplaintType("#select_complaint_type") & CheckComplaintRemark("#cmplnt_remark")) {
+            return true;
+        }
+        return false;
+    }
+
+    function CheckComplaintType(complaint_type) {
+        if ($(complaint_type).val() != '' && $(complaint_type).val() != null) {
+            $(".complaint_type_error").css("display", "none");
+            return true;
+        } else {
+            $(".complaint_type_error").css("display", "block");
+            $(".complaint_type_error").text("Please select complaint type");
+            return false;
+        }
+    }
+
+    function CheckComplaintRemark(complaint_remark) {
+        if ($(complaint_remark).val() != '' && $(complaint_remark).val() != null) {
+            $(".complaint_remark_error").css("display", "none");
+            return true;
+        } else {
+            $(".complaint_remark_error").css("display", "block");
+            $(".complaint_remark_error").text("Please enter valid remark");
+            return false;
+        }
+    }
+
+</script>
+
+</body>
+
+</html>
