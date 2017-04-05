@@ -65,7 +65,7 @@ def get_consumer_complaints(request):
     """to get complaint details"""
     try:
         complaint_list = []
-        print 'selfserviceapp|views.py|get_consumer_complaint_details'
+        print 'crmapp|views.py|get_consumer_complaint_details'
         # filter complaint by complaint id
         consumer_id = ConsumerDetails.objects.get(consumer_no='100000123000')
         print '---------consumer------', consumer_id
@@ -84,6 +84,18 @@ def get_consumer_complaints(request):
         data = {'success': 'true', 'data': complaint_list}
 
     except Exception as exe:
-        print 'Exception|selfserviceapp|views.py|get_consumer_complaint_details', exe
+        print 'Exception|crmapp|views.py|get_consumer_complaint_details', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+def services(request):
+    """To view services page"""
+    try:
+        print 'crmapp|views.py|services'
+        consumer_id = request.session['consumer_id']
+        serviceType = ServiceRequestType.objects.filter(is_deleted=False)  # Service Types
+        data = {'serviceType': serviceType, 'consumer_id': consumer_id}
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|services', exe
+        data = {}
+    return render(request, 'crmapp/services.html', data)
