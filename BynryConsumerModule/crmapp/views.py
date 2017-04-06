@@ -99,3 +99,16 @@ def services(request):
         print 'Exception|crmapp|views.py|services', exe
         data = {}
     return render(request, 'crmapp/services.html', data)
+
+
+def vigilance(request):
+    """To view vigilance page"""
+    try:
+        print 'crmapp|views.py|vigilance'
+        vigilance_type = VigilanceType.objects.filter(is_deleted=False)
+        data = {'vigilance_type': vigilance_type, 'city_list': get_city(request), 'pincode_list': get_pincode(request)}
+
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|vigilance', exe
+        data = {}
+    return render(request, 'crmapp/vigilance.html', data)    
