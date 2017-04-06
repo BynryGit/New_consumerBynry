@@ -76,76 +76,11 @@
 <!-- END HEAD -->
 
 <body class="page-container-bg-solid page-boxed">
-<!-- BEGIN HEADER -->
-<div class="page-header">
-    <!-- BEGIN HEADER TOP -->
-    <div class="page-header-top">
-        <div class="container">
-            <!-- BEGIN LOGO -->
-            <div class="page-logo">
-                <a href="index.html">
-                    <img style="width: 101px; margin-top: 9px" src="{% static 'assets/layouts/layout3/img/Bynry_small_black-logo.png' %}" alt="logo"
-                         class="logo-default">
-                </a>
-            </div>
-            <a href="javascript:;" class="menu-toggler"></a>
-            <div class="top-menu">
-                <ul class="nav navbar-nav pull-right">
-                   <li class="dropdown dropdown-user dropdown-dark">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-                           data-close-others="true">
-                            <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
-                            <span class="username username-hide-mobile">{{request.session.login_user}} ({{request.session.consumer_no}})</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-default">
-                             <li>
-                               <a href="/self-service/my-profile/">
-                                 <i class="icon-user"></i> My Profile </a>
-                         	  </li>                          
-                            <li>
-                                  <a href="/self-service/manage-accounts/">
-                                    <i class="icon-user"></i> Manage Account </a>
-                            </li>
-                            <li>
-                                <a href="/self-service/logout/">
-                                    <i class="icon-key"></i> Log Out </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="page-header-menu">
-        <div class="container">
-            <div class="hor-menu  ">
-                {% include 'self_service/side-panel.html' %}
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="page-container">
     <div class="page-content-wrapper">
-        <div class="page-head">
-            <div class="container">
-                <div class="page-title">
-                    <h1>Vigilance</h1>
-                </div>
-            </div>
-        </div>
         <div class="page-content">
-            <div class="container">
-                <!-- BEGIN PAGE BREADCRUMBS -->
-                   <ul class="page-breadcrumb breadcrumb">
-                      <li>
-                          <a href="/self-service/">Home</a>
-                          <i class="fa fa-circle"></i>
-                      </li>                     
-                      <li>
-                          <span>Vigilance</span>
-                      </li>
-                   </ul>
-                <!-- END PAGE BREADCRUMBS -->
+            <div class="container">           
                 <div class="page-content-inner" id="consumer_info">
                     <div class="row">
                         <div class="portlet light bordered">
@@ -169,23 +104,7 @@
                                                     <span id="vigilance_type_error" style="margin-top: -30px;color:red; font-size: 12px;"></span> 
                                                 </div>                                              
                                             </div>
-                                            <br>
-                                            <div class="form-group ">
-                                                <div class="dropzone"
-                                                     style=" min-height: 70px; border-color: #e4e5e7 !important; "
-                                                     id="my-awesome-dropzone-3"><span
-                                                        class="txt_dropzone3"
-                                                        style="text-align: center; float: left;">Click or drag and drop to upload documents</span>
-                                                </div>
-                                                <input type="hidden"
-                                                       class="form-control"
-                                                       id="attachment"
-                                                       name="attachments">
-                                                <input type="hidden"
-                                                       class="form-control"
-                                                       id="attachments"
-                                                       name="attachment">
-                                            </div>                                                                                       
+
                                         </div>
                                         <input type="hidden" id="consumer_id" hidden="">
                                         <div class="col-md-8">                                            
