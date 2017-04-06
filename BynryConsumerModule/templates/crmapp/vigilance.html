@@ -87,11 +87,31 @@
                             <div class="portlet-body">
                                <form id="vigilance_form" method="POST">
                                 <div class="row">                                   
-                                    <div class="col-md-12">
-                                        <div class="col-md-4">
+                                    <div class="col-xs-12">                                        
                                             <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group form-md-line-input has-success" >                                                    
+                                               <div class="col-xs-12">  
+                                                 <div class="col-xs-4">
+			                                            <div class="form-group">
+					                                        <div class="form-group form-md-line-input has-success">					                                            
+					                                            <input type="text" class="form-control" id="consumer_address"
+					                                                   name="consumer_address">
+					                                                   <label for="consumer_address"> Consumer No. <span class="required">*</span></label>
+					                                        </div>
+					                                      </div>
+					                                      <span id="consumer_address_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
+					                                  </div>       
+					                                  <div class="col-xs-4">
+			                                            <div class="form-group">
+					                                        <div class="form-group form-md-line-input has-success">					                                            
+					                                            <input type="text" class="form-control" id="consumer_address"
+					                                                   name="consumer_address">
+					                                                   <label for="consumer_address"> Consumer Name <span class="required">*</span></label>
+					                                        </div>
+					                                      </div>
+					                                      <span id="consumer_address_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
+					                                  </div>              
+					                                  <div class="col-xs-4">
+                                                    <div class="form-group form-md-line-input has-success" style="padding-top: 23px;">                                                    
                                                         <select id="vigilance_type"
                                                                 class="form-control input-sm select2-multiple" name="vigilance_type">
                                                             <option value=" "> Select Vigilance Type</option>
@@ -102,80 +122,76 @@
                                                         <label>Vigilance Type <span class="required">*</span></label>                                                        
                                                     </div>
                                                     <span id="vigilance_type_error" style="margin-top: -30px;color:red; font-size: 12px;"></span> 
-                                                </div>                                              
-                                            </div>
-
-                                        </div>
-                                        <input type="hidden" id="consumer_id" hidden="">
-                                        <div class="col-md-8">                                            
-                                            <div class="row">
-                                               <div class="col-md-12">                                                     		
-			                                        <div class="col-md-6">
-			                                            <div class="form-group">
-					                                        <div class="form-group form-md-line-input has-success">					                                            
-					                                            <input type="text" class="form-control" id="consumer_name"
-					                                                   name="consumer_name">
-					                                            <label for="consumer_name"> Name (One who is doing Vigilance/ Theft) <span class="required">*</span></label>
+                                                 </div>       
+                                                </div>
+                                                <div class="col-xs-12">
+                                                  <div class="row">    
+                                                    <div class="col-xs-8">                   		
+				                                        <div class="col-xs-6">
+				                                            <div class="form-group">
+						                                        <div class="form-group form-md-line-input has-success">					                                            
+						                                            <input type="text" class="form-control" id="consumer_name"
+						                                                   name="consumer_name">
+						                                            <label for="consumer_name"> Name (One who is doing Vigilance/ Theft) <span class="required">*</span></label>
+						                                        </div>
+						                                      </div>
+						                                      <span id="consumer_name_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
+						                                  </div>
+						                                  <div class="col-xs-6">
+				                                            <div class="form-group">
+						                                        <div class="form-group form-md-line-input has-success">					                                            
+						                                            <input type="text" class="form-control" id="consumer_address"
+						                                                   name="consumer_address">
+						                                                   <label for="consumer_address"> Address <span class="required">*</span></label>
+						                                        </div>
+						                                      </div>
+						                                      <span id="consumer_address_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
+						                                  </div>
+						                                  <div class="col-xs-6">
+					                                            <div class="form-group form-md-line-input has-success">
+					                                                <label>City/ Village <span class="required">*</span></label>
+					                                                <select id="city" class="form-control input-sm select2-multiple"
+					                                                        name="city">
+					                                                    <option value=" "> Select City</option>
+					                                                    {% for city in city_list %}
+					                                                    <option value="{{ city.city_id }}"> {{ city.city }}</option>
+					                                                    {% endfor %}
+					                                                </select>
+					                                            </div>
+					                                            <span id="city_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
 					                                        </div>
-					                                      </div>
-					                                      <span id="consumer_name_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
-					                                  </div>
-					                                  <div class="col-md-6">
-			                                            <div class="form-group">
-					                                        <div class="form-group form-md-line-input has-success">					                                            
-					                                            <input type="text" class="form-control" id="consumer_address"
-					                                                   name="consumer_address">
-					                                                   <label for="consumer_address"> Address <span class="required">*</span></label>
+					                                        <div class="col-xs-6">
+					                                            <div class="form-group form-md-line-input has-success">
+					                                                <label>PinCode <span class="required">*</span></label>
+					                                                <select id="pincode" class="form-control input-sm select2-multiple"
+					                                                         name="pincode">
+					                                                    <option value=" "> Select Pincode</option>
+					                                                    {% for pincode in pincode_list %}
+					                                                    <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}
+					                                                    </option>
+					                                                    {% endfor %}
+					                                                </select>
+					                                            </div>
+					                                            <span id="pincode_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
 					                                        </div>
-					                                      </div>
-					                                      <span id="consumer_address_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
-					                                  </div>
-					                                 </div>
-					                                 <div class="col-md-12">  
-					                                  <div class="col-md-6">
-			                                            <div class="form-group form-md-line-input has-success">
-			                                                <label>City/ Village <span class="required">*</span></label>
-			                                                <select id="city" class="form-control input-sm select2-multiple"
-			                                                        name="city">
-			                                                    <option value=" "> Select City</option>
-			                                                    {% for city in city_list %}
-			                                                    <option value="{{ city.city_id }}"> {{ city.city }}</option>
-			                                                    {% endfor %}
-			                                                </select>
-			                                            </div>
-			                                            <span id="city_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
-			                                        </div>
-			                                        <div class="col-md-6">
-			                                            <div class="form-group form-md-line-input has-success">
-			                                                <label>PinCode <span class="required">*</span></label>
-			                                                <select id="pincode" class="form-control input-sm select2-multiple"
-			                                                         name="pincode">
-			                                                    <option value=" "> Select Pincode</option>
-			                                                    {% for pincode in pincode_list %}
-			                                                    <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}
-			                                                    </option>
-			                                                    {% endfor %}
-			                                                </select>
-			                                            </div>
-			                                            <span id="pincode_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
-			                                        </div>	
-			                                         <div class="col-md-12">
-                                                    <div class="form-group">
+						                                 </div>
+						                                 <div class="col-xs-4">
+						                                     <div class="form-group">
                                                         <div class="form-group form-md-line-input has-success" >                                                            
-                                                            <textarea id="vigilance_remark" style="height: 118px;" type="text"
+                                                            <textarea id="vigilance_remark" style="height: 125px;" type="text"
                                                                       class="form-control" name="vigilance_remark"></textarea> 
                                                             <label>Description <span class="required">*</span></label>                                                           
                                                         </div>
                                                         <span id="vigilance_remark_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
-                                                    </div>
-                                                  </div>				                               					                                 
-					                                 </div>
-					                             </div>	                                            
-                                        </div>
-                                    </div>                                                                            
+                                                      </div>
+						                                 </div>
+					                                  </div>
+					                                 </div>					                                 
+					                             </div>	                                
+                                      </div>                                                                            
                                 </div>
                                 <div class="row">
-                                	  <div class="col-md-12" style="text-align: right;">
+                                	  <div class="col-xs-12" style="text-align: right;">
                                             <button type="button"                                                    
                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                                     onclick="register_vigilance()">
@@ -357,119 +373,7 @@
 		   return false; 
 		   }
 	}   
-    ////////////////////////////////// NEW DROPZONE ///////////////////////////
-    var uploaded_file_mb = 0;
-    var uploaded_file1_mb = 0;
-    var uploaded_file2_mb = 0;
-    Dropzone.options.myAwesomeDropzone3 = {
-        autoProcessQueue: true,
-        uploadMultiple: true,
-        paramName: "file",
-        //maxFiles: 10,
-        //maxFilesize: 2,
-        method: 'post',
-        parallelUploads: 1,
-        url: '/self-service/upload-vigilance-image/',
-        dictDefaultMessage: "Drop or Browse up to 10 images (1MB or higher in size)",
-        addRemoveLinks: true,
-        acceptedFiles: "",
-        dictInvalidFileType: 'This file type is not supported.',
-        dictMaxFilesExceeded: "You can not upload more than 10 images.",
 
-        init: function () {
-            var myDropzone = this;
-            var reordered_array = new Array();
-            var temp_image_files = new Array();
-            this.on("sending", function () {
-                return false;
-            });
-
-            /*this.on("totaluploadprogress", function (file,progress,bytesSent) {
-             uploaded_file1_mb = parseInt(bytesSent)/(1024*1024);
-             uploaded_file_mb = parseFloat(uploaded_file1_mb) + parseFloat(uploaded_file2_mb)+ parseFloat(display_image_size);;
-             $("#progress_bar").val(parseFloat(uploaded_file_mb));
-             if(uploaded_file_mb > 100){
-             $("#error-modal1").modal('show');
-             $("#error-message1").text("Uploaded file size exceeds limit of 100 MB");
-             }
-             progrss_count = parseFloat(uploaded_file_mb).toFixed(2) + "/100 MB"
-             $(".progress_count").text(progrss_count);
-             var alreadyUploadedTotalSize = getTotalPreviousUploadedFilesSize(bytesSent);
-             });*/
-
-
-            this.on("addedfile", function (file, response) {
-                $(".txt_dropzone3").text("");
-                if (this.files.length) {
-                    var i, len, pre;
-                    for (i = 0, len = this.files.length; i < len - 1; i++) {
-                        if (this.files[i].name == file.name && this.files[i].size == file.size && this.files[i].lastModifiedDate.toString() == file.lastModifiedDate.toString()) {
-                            this.removeFile(file);
-                            //return (pre = file.previewElement) != null ? pre.parentNode.removeChild(file.previewElement) : void 0;
-                        }
-                    }
-                }
-                temp_image_files.push(file);
-            });
-
-            this.on("success", function (files, response) {
-                $('#attachment').val($('#attachment').val() + "," + response.attachid);
-                $('a .dz-remove').attr('href', '/remove-advert-image/?image_id=' + response.attachid);
-                reordered_array.push(response.attachid);
-                $('#attachment').val(reordered_array);
-                $('#attachments').val(reordered_array);
-            });
-
-            this.on("removedfile", function (file) {
-                deleting_image_id = reordered_array[temp_image_files.indexOf(file)];
-                $.ajax({
-                    url: "/nscapp/remove-consumer-docs/?image_id=" + deleting_image_id,
-                    success: function (result) {
-                        arr = $('#attachment').val();
-                        arr = arr.split(',');
-                        console.log('Before Id Remove : ' + arr);
-                        arr = jQuery.grep(arr, function (value) {
-                            return value != deleting_image_id;
-                        });
-                        console.log('After Id Remove : ' + arr);
-                        $('#attachment').val(arr);
-                    }
-                });
-                arr = $('#attachments').val();
-                arr = arr.split(',');
-                arr = jQuery.grep(arr, function (value) {
-                    return value != deleting_image_id;
-                });
-
-                $('#attachments').val(arr);
-                var index = myDropzone.files.length;
-                var temp_image_id = reordered_array[temp_image_files.indexOf(file)];
-
-                reordered_array = jQuery.grep(reordered_array, function (value) {
-                    return value != temp_image_id;
-                });
-
-                temp_image_files = jQuery.grep(temp_image_files, function (value) {
-                    return value != file;
-                });
-                $('#attachments').val(reordered_array);
-                if (myDropzone.files.length == 0) {
-                    $(".txt_dropzone3").text("Click or drag and drop to upload images");
-                }
-            });
-
-            this.on("maxfilesexceeded", function (file) {
-                this.removeFiles(file);
-                $('#lbl_upl').css ("color", "red");
-            });
-
-            function getTotalPreviousUploadedFilesSize(bytesSent) {
-                var totalSize = 0;
-                var image_space = bytesSent;
-                $("#image_space").val(image_space);
-            }
-        }
-    }
   
 </script>
 </body>

@@ -584,6 +584,10 @@ def signin(request):
                             user_profile_obj = WebUserProfile.objects.get(username=username)
                             # request.session['user_role'] = user_profile_obj.user_role.role_name
                             try:
+                                if user_profile_obj.profile_image:
+                                    request.session['profile_image'] = "http://" + get_current_site(request).domain + user_profile_obj.profile_image.url
+                                else:
+                                    request.session['profile_image'] = "" 
                                 request.session['login_user'] = user_profile_obj.consumer_id.name
                                 request.session['parent_consumer_id'] = int(user_profile_obj.consumer_id.id)
                                 request.session['consumer_id'] = int(user_profile_obj.consumer_id.id)
@@ -1045,10 +1049,16 @@ def my_profile(request):
     try:
         print 'selfserviceapp|views.py|my_profile'
         consumer_obj = ConsumerDetails.objects.get(id=request.session['consumer_id'])
+        webuser_obj = WebUserProfile.objects.get(consumer_id=consumer_obj.id)
+        if webuser_obj.profile_image:
+            profile_image = "http://" + get_current_site(request).domain + webuser_obj.profile_image.url
+        else:
+            profile_image = ""         
         data = {
             'name':consumer_obj.name,
             'contact_no':consumer_obj.contact_no,
-            'email_id':consumer_obj.email_id
+            'email_id':consumer_obj.email_id,
+            'profile_image':profile_image
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|my_profile', exe
@@ -1073,6 +1083,10 @@ def save_profile(request):
 
                         consumer_obj.save();
                         user_obj.set_password(request.POST.get('new_pass'));
+                        try:
+                            user_obj.profile_image = request.FILES['profile_image']
+                        except:
+                            pass
                         user_obj.save();
                         data = {
                             'success': 'true',
@@ -1088,8 +1102,13 @@ def save_profile(request):
                     consumer_obj.contact_no = request.POST.get('mobile_no')
                     consumer_obj.email_id = request.POST.get('email_add')
                     user_obj.updated_on = datetime.now()
-
                     consumer_obj.save();
+                    try:
+                        user_obj.profile_image = request.FILES['profile_image']
+                    except:
+                        pass
+                    user_obj.save();                    
+
                     data = {
                         'success': 'true',
                         'message': 'User Updated Successfully.'

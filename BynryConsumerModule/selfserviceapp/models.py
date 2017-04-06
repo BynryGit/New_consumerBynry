@@ -13,16 +13,17 @@ IS_DELETED = (
     (True, True),
     (False, False),
 )
-
+PROFILE_IMAGE_PATH = 'profile_images/'
 
 class WebUserProfile(User):
     consumer_id = models.ForeignKey(ConsumerDetails, blank=True, null=True)
-    status = models.CharField(max_length=20, default='Active', choices=ROLE_STATUS)
-    created_by = models.CharField(max_length=500, blank=False, null=False)
-    updated_by = models.CharField(max_length=500, blank=True, null=True)
-    created_on = models.DateTimeField(default=django.utils.timezone.now)
-    updated_on = models.DateTimeField(blank=True, null=True)
-    is_deleted = models.BooleanField(choices=IS_DELETED, default=False)
+    profile_image= models.ImageField(upload_to=PROFILE_IMAGE_PATH,default=None,null=True,blank=True)
+    status      = models.CharField(max_length=20, default='Active', choices=ROLE_STATUS)
+    created_by  = models.CharField(max_length=500, blank=False, null=False)
+    updated_by  = models.CharField(max_length=500, blank=True, null=True)
+    created_on  = models.DateTimeField(default=django.utils.timezone.now)
+    updated_on  = models.DateTimeField(blank=True, null=True)
+    is_deleted  = models.BooleanField(choices=IS_DELETED, default=False)
 
     def __unicode__(self):
         return unicode(str(self.username))
