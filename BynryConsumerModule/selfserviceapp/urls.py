@@ -44,5 +44,7 @@ urlpatterns = [
     url(r'^bill-calculator/', views.bill_calculator,name='bill_calculator'),    
     url(r'^consumption-calculator/', views.consumption_calculator,name='consumption_calculator'),
     url(r'^add-NSC/', views.add_NSC,name='add_NSC'),
+    url(r'^my-profile/', views.my_profile,name='my_profile'),
+    url(r'^save-profile/', views.save_profile,name='save_profile'),
 ]
  
