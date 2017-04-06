@@ -30,6 +30,7 @@ from django.shortcuts import *
 import MySQLdb, sys
 from .models import *
 from paymentapp.models import *
+import string
 
 
 def home(request):
@@ -85,6 +86,61 @@ def get_consumer_complaints(request):
 
     except Exception as exe:
         print 'Exception|crmapp|views.py|get_consumer_complaint_details', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def get_complaint_details(request):
+    """to get complaint details"""
+    try:
+        print 'crmapp|views.py|get_complaint_details'
+        # filter complaint by complaint id
+        complaints = ComplaintDetail.objects.get(
+            id=request.GET.get('complaint_id'))
+
+        # complaint detail result
+        complaint_detail = {
+            'complaintID' : complaints.complaint_no,
+            'complaintType' : complaints.complaint_type_id.complaint_type,
+            'complaintConsumerName' : complaints.consumer_id.name,
+            'complaintConsumerNo' : complaints.consumer_id.consumer_no,
+            'complaintStatus' : complaints.complaint_status if complaints.complaint_status else '',
+            'consumerRemark' : complaints.remark if complaints.remark else '',
+            'closureRemark' : complaints.closure_remark,
+        }
+        data = {'success' : 'true', 'complaintDetail' : complaint_detail}
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|get_complaint_details', exe
+        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def save_complaint_details(request):
+    """to get complaint details"""
+    try:
+        print 'selfserviceapp|views.py|save_consumer_complaint_details'
+        complaint_type_obj = ComplaintType.objects.get(id=request.GET.get('complaint_type'))
+        # filter complaint by complaint id
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
+        consumer_id = ConsumerDetails.objects.get(consumer_no='100000123000')# if request.session[
+            #'consumer_id'] else None
+
+        complaint_obj = ComplaintDetail(
+            complaint_no="COMP" + str(password),
+            complaint_type_id=complaint_type_obj,
+            consumer_id=consumer_id,
+            remark=request.GET.get('complaint_remark'),
+            complaint_img=request.GET.get('complaint_img'),
+            complaint_source="CTI",
+            complaint_date=datetime.now()
+        )
+        complaint_obj.save()
+
+        data = {'success': 'true', 'complaint_id': str(complaint_obj)}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|save_consumer_complaint_details', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
