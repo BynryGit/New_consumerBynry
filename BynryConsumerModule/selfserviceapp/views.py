@@ -105,8 +105,9 @@ def my_bills(request):
             'created_on')
         if consumer_obj.bill_status == 'Paid':
             payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
+            payment_status = 'Paid on '+ payment_date
         else:
-            payment_date = ''
+            payment_status = 'Not Paid'
         data = {
             'consumer_no': consumer_obj.consumer_id.consumer_no,
             'name': consumer_obj.consumer_id.name,
@@ -115,7 +116,7 @@ def my_bills(request):
             'bill_amount': consumer_obj.bill_amount,
             'arrears': consumer_obj.arrears,
             'net_amount': consumer_obj.net_amount,
-            'payment_date': payment_date,
+            'payment_status': payment_status,
             'prompt_date': consumer_obj.prompt_date,
             'due_date': consumer_obj.due_date
         }

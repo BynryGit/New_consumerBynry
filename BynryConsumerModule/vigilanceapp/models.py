@@ -114,13 +114,13 @@ class CourtCaseDetail(models.Model):
     def __unicode__(self):
         return unicode(self.id)
 
-class ConsumerVigilanceImage(models.Model):
-    vigilance_id    = models.ForeignKey(VigilanceDetail, blank=True, null=True)
-    document_files  = models.FileField(upload_to=VIGILANCE_IMAGE_PATH, max_length=500, null=True, blank=True)
-    creation_date   = models.DateTimeField(null=True,blank=True)
-    created_by      = models.CharField(max_length=500,null=True,blank=True)
-    updated_by      = models.CharField(max_length=500,null=True,blank= True)
-    updation_date   = models.DateTimeField(null=True,blank=True)
+# class ConsumerVigilanceImage(models.Model):
+#     vigilance_id    = models.ForeignKey(VigilanceDetail, blank=True, null=True)
+#     document_files  = models.FileField(upload_to=VIGILANCE_IMAGE_PATH, max_length=500, null=True, blank=True)
+#     creation_date   = models.DateTimeField(null=True,blank=True)
+#     created_by      = models.CharField(max_length=500,null=True,blank=True)
+#     updated_by      = models.CharField(max_length=500,null=True,blank= True)
+#     updation_date   = models.DateTimeField(null=True,blank=True)
 
-    def __unicode__(self):
-        return unicode(self.id)
+#     def __unicode__(self):
+#         return unicode(self.id)
