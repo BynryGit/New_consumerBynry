@@ -1067,20 +1067,17 @@ def save_profile(request):
             try:
                 if request.POST.get('old_pass'):
                     user = authenticate(username=request.session['login_consumer_no'], password=request.POST.get('old_pass'))
-                    print 'SSSSSSSSSSSS\n\n\n',user
                     if user:
-                        print '\n\n\n\n....1......'  
                         user_obj = WebUserProfile.objects.get(username=request.session['login_consumer_no'])              
                         consumer_obj = ConsumerDetails.objects.get(id=user_obj.consumer_id.id)
                         consumer_obj.name = request.POST.get('user_name')
                         consumer_obj.contact_no = request.POST.get('mobile_no')
                         consumer_obj.email_id = request.POST.get('email_add')
-                        #user_obj.updated_on = datetime.now()
+                        user_obj.updated_on = datetime.now()
 
                         consumer_obj.save();
                         user_obj.set_password(request.POST.get('new_pass'));
                         user_obj.save();
-                        print 'uuuuuuuuuuuuuuuuuuuu',user_obj.consumer_id.name
                         data = {
                             'success': 'true',
                             'message': 'User Updated Successfully.'
@@ -1094,10 +1091,9 @@ def save_profile(request):
                     consumer_obj.name = request.POST.get('user_name')
                     consumer_obj.contact_no = request.POST.get('mobile_no')
                     consumer_obj.email_id = request.POST.get('email_add')
-                    #user_obj.updated_on = datetime.now()
+                    user_obj.updated_on = datetime.now()
 
                     consumer_obj.save();
-                    print 'uuuuuuuuuuuuuuuuuuuu',user_obj.consumer_id.name 
                     data = {
                         'success': 'true',
                         'message': 'User Updated Successfully.'
