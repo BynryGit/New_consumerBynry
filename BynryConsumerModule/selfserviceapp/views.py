@@ -547,7 +547,6 @@ def service_request(request):
         )
         service_obj.save()
         service_no = service_obj.service_no
-        print '------service no-----', service_no
 
         data = {'success': 'true', 'service_no': service_no}
     except Exception as exe:
@@ -750,7 +749,6 @@ def verify_OTP(request):
     try:
         print 'selfserviceapp|views.py|verify_OTP'
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
-        print '---------consumer obj---------', consumer_obj
         if consumer_obj.consumer_otp == request.POST.get('otp_no'):
             consumer_data = {
                 'name': consumer_obj.name,
@@ -771,7 +769,6 @@ def verify_OTP(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_OTP', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
-    print '------data--------', data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -1003,7 +1000,6 @@ def verify_consumer(request):
             ret = u''
             ret = ''.join(random.choice('0123456789ABCDEF') for i in range(6))
             OTP = ret
-            print '--------OTP---------', OTP
             consumer_obj.consumer_otp = OTP
             consumer_obj.save()
             contact_no = consumer_obj.contact_no
