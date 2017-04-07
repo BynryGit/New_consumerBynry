@@ -108,12 +108,17 @@ def my_bills(request):
             payment_status = 'Paid on '+ payment_date
         else:
             payment_status = 'Not Paid'
+
+        total_charges = consumer_obj.fixed_charges + consumer_obj.energy_charges + consumer_obj.electricity_duty + consumer_obj.wheeling_charges + consumer_obj.fuel_adjustment_charges + consumer_obj.additional_supply_charges + consumer_obj.tax_on_sale - consumer_obj.previous_bill_credit + consumer_obj.current_interest + consumer_obj.capacitor_penalty + consumer_obj.other_charges
+        total_arrears = consumer_obj.net_arrears + consumer_obj.adjustments_arrears + consumer_obj.interest_arrears
+        net_bill_amount = total_charges + total_arrears
+
         data = {
             'consumer_no': consumer_obj.consumer_id.consumer_no,
             'name': consumer_obj.consumer_id.name,
             'bill_cycle': consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
             'unit_consumed': consumer_obj.unit_consumed,
-            'net_amount': consumer_obj.net_amount,
+            'net_amount': str(net_bill_amount),
             'payment_status': payment_status,
             'prompt_date': consumer_obj.prompt_date,
             'due_date': consumer_obj.due_date
@@ -185,7 +190,7 @@ def get_graph2_data(request):
                                                              bill_months_year=last_Year)
                 pay_obj = PaymentDetail.objects.get(meter_reading_id=reading_obj.id)
                 if pay_obj.bill_status == 'Paid':
-                    ss = [month_list1[last_Month - 1], pay_obj.net_amount]
+                    ss = [month_list1[last_Month - 1], str(pay_obj.net_amount)]
                     data_list.append(ss)
             except Exception, e:
                 ss = [month_list1[last_Month - 1], 0]
@@ -415,6 +420,7 @@ def save_consumer_complaint_details(request):
             remark=request.GET.get('complaint_remark'),
             complaint_img=request.GET.get('complaint_img'),
             complaint_source="Web",
+            complaint_status="Open",
             complaint_date=datetime.now()
         )
         complaint_obj.save()

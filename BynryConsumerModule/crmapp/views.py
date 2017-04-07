@@ -51,10 +51,9 @@ def verify_new_consumer(request):
     """to get verify_new_consumer"""
     try:
         print 'crmapp|views.py|verify_new_consumer'
-
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'),
                                                    city=request.POST.get('city_id'))
-        print '--------cons no-----',consumer_obj.consumer_no
+        request.session['consumer_no'] = consumer_obj.consumer_no
         if consumer_obj:
             c_obj = ConsumerData(
                 consumer_no=consumer_obj,
@@ -76,6 +75,7 @@ def verify_new_consumer(request):
 
     except Exception as exe:
         print 'Exception|crmapp|views.py|verify_new_consumer', exe
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def complaints(request):
@@ -99,7 +99,7 @@ def get_consumer_complaints(request):
         complaint_list = []
         print 'crmapp|views.py|get_consumer_complaint_details'
         # filter complaint by complaint id
-        consumer_id = ConsumerDetails.objects.get(consumer_no='100000123000')
+        consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
         print '---------consumer------', consumer_id
         complaints_list = ComplaintDetail.objects.filter(consumer_id=consumer_id)
         # complaint detail result
@@ -176,7 +176,7 @@ def save_complaint_details(request):
         chars = string.digits
         pwdSize = 5
         password = ''.join(random.choice(chars) for _ in range(pwdSize))
-        consumer_id = ConsumerDetails.objects.get(consumer_no='100000123000')# if request.session[
+        consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])# if request.session[
             #'consumer_id'] else None
 
         complaint_obj = ComplaintDetail(

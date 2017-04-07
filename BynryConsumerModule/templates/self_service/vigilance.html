@@ -196,7 +196,7 @@
 					                                        <div class="form-group form-md-line-input has-success">					                                            
 					                                            <input type="text" class="form-control" id="consumer_name"
 					                                                   name="consumer_name">
-					                                            <label for="consumer_name"> Name (One who is doing Vigilance/ Theft) <span class="required">*</span></label>
+					                                            <label for="consumer_name"> Name (One who is doing Vigilance/ Theft) </label>
 					                                        </div>
 					                                      </div>
 					                                      <span id="consumer_name_error" style="margin-top: -9px;color:red; font-size: 12px;"></span>
@@ -363,7 +363,7 @@
     }
 
 	function validate_vigilance() {
-			if (CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")&checkName("#consumer_name")
+			if (CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")
 			     &CheckAddress("#consumer_address")&CheckRemark("#vigilance_remark")) {	
 			return true
 			}
@@ -403,18 +403,7 @@
 		   return false; 
 		   }
 	}   	
-	function checkName(applicant_name){
-	 	var namePattern = /[A-Za-z]+/;  
-		applicant_name = $(applicant_name).val()  
-	   if(namePattern.test(applicant_name)){
-	 	$(consumer_name_error).css("display", "none");
-	   return true;
-	   }else{
-	    $(consumer_name_error).css("display", "block");
-	    $(consumer_name_error).text("Please enter valid Name");
-	   return false; 
-	   }
-	}	
+
 	function CheckAddress(address_line){
 	 	var namePattern = /[A-Za-z]+/;  
 		address_line = $(address_line).val()  
