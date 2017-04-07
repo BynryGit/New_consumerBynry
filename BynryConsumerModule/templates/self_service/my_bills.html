@@ -185,27 +185,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control" readonly
-
-                                                           value="{{bill_amount}}">
-                                                    <label>Current Amt. :</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{arrears}}">
-                                                    <label>Previous Due Amount :</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-12">                                      
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <div class="form-group form-md-line-input has-info">
@@ -226,8 +206,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">                                        
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <div class="form-group form-md-line-input has-info">
@@ -248,7 +226,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6" style="text-align:right;margin-top: 25px;">
+                                    </div>
+                                    <div class="col-md-12">                                                                                
+                                        <div class="col-md-12" style="text-align:right;margin-top: 25px;">
                                          {% if payment_status == 'Not Paid' %}
                                             <a href="/self-service/view-bill/" target="_blank">
                                                 <input type="button"
