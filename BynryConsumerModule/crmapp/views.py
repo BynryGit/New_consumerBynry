@@ -13,7 +13,7 @@ from consumerapp.models import *
 from complaintapp.models import ComplaintType, ComplaintDetail, ComplaintImages
 from selfserviceapp.models import WebUserProfile
 from serviceapp.models import ServiceRequestType, ServiceRequest
-from vigilanceapp.models import VigilanceType
+from vigilanceapp.models import VigilanceType, VigilanceDetail
 from django.views.decorators.csrf import csrf_exempt
 import urllib2
 import random
@@ -361,3 +361,47 @@ def view_bill(request):
         print 'Exception|crmapp|views.py|view_bill', exe
         data = {}
     return render(request, 'crmapp/view_bill.html', data)
+
+@csrf_exempt
+def save_vigilance_complaint(request):
+    try:
+        print 'crmapp|views.py|save_vigilance_complaint'
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
+    
+        new_vigilance_obj = VigilanceDetail(
+            case_id="CASE" + str(password),
+            consumer_id=ConsumerDetails.objects.get(
+                id=consumer_obj.id) if consumer_obj.id else None,
+            vigilance_type_id=VigilanceType.objects.get(
+                id=request.POST.get('vigilance_type')) if request.POST.get(
+                'vigilance_type') else None,
+            theft_name=request.POST.get('consumer_name'),
+            address=request.POST.get('consumer_address'),
+            city=City.objects.get(
+                id=request.POST.get('city')) if request.POST.get(
+                'city') else None,
+            pin_code=Pincode.objects.get(
+                id=request.POST.get('pincode')) if request.POST.get(
+                'pincode') else None,
+            vigilance_remark=request.POST.get('vigilance_remark'),  # Need to change logic
+            vigilance_source='CTI',
+            vigilance_status='Open',
+            created_on=datetime.now(),
+            created_by='CTI',
+        );
+        new_vigilance_obj.save();
+
+        data = {
+            'success': 'true',
+            'message': 'Vigilance complaint created successfully.'
+        }
+    except Exception, e:
+        print 'Exception|crmapp|views.py|save_vigilance_complaint', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
