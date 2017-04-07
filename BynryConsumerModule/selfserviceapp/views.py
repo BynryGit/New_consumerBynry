@@ -569,7 +569,7 @@ def log_in(request):
 def log_out(request):
     logout(request)
     print 'selfserviceapp|views.py|logout'
-    return render(request, 'self_service/home_screen.html')
+    return render(request, 'self_service/login.html')
 
 
 @csrf_exempt
