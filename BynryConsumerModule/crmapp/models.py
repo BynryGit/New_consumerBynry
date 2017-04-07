@@ -9,7 +9,7 @@ ROLE_STATUS = (
     ('Active', 'Active'),
     ('Inactive', 'Inactive'),
 )
-IS_DELETED = (
+IS_REGISTERED = (
     (True, True),
     (False, False),
 )
@@ -27,3 +27,18 @@ IS_DELETED = (
 #
 #     def __unicode__(self):
 #         return unicode(str(self.username))
+
+class ConsumerData(models.Model):
+    consumer_no = models.ForeignKey(ConsumerDetails, blank=True, null=True)
+    name = models.CharField(max_length=200, blank=False, null=True)
+    email_id = models.CharField(max_length=50, blank=True, null=True)
+    contact_no = models.CharField(max_length=50, blank=True, null=True)
+    city = models.ForeignKey(City, blank=False, null=True)
+    is_registered = models.BooleanField(choices=IS_REGISTERED, default=False)
+    created_by = models.CharField(max_length=500, blank=False, null=True)
+    updated_by = models.CharField(max_length=500, blank=True, null=True)
+    created_on = models.DateTimeField(default=django.utils.timezone.now)
+    updated_on = models.DateTimeField(blank=True, null=True)
+
+    def __unicode__(self):
+        return unicode(str(self.name))
