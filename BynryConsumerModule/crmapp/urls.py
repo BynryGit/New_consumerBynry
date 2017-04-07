@@ -6,4 +6,10 @@ urlpatterns = [
     url(r'^$', views.home, name='login'),
     url(r'^verify-new-consumer/', views.verify_new_consumer, name='verify_new_consumer'),
     url(r'^save-new-consumer/', views.save_new_consumer, name='save_new_consumer'),
+    url(r'^complaints/', views.complaints, name='complaints'),
+    url(r'^get-consumer-complaints/', views.get_consumer_complaints, name='get_consumer_complaints'),
+    url(r'^get-complaint-details/', views.get_complaint_details, name='get_complaint_details'),
+    url(r'^save-complaint-details/', views.save_complaint_details, name='save_complaint_details'),
+    url(r'^services/', views.services, name='services'),
+    url(r'^vigilance/', views.vigilance, name='vigilance'),
 ]

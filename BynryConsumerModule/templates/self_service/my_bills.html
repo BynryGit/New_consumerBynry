@@ -66,10 +66,14 @@
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
-                            <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
+                            <img alt="" class="img-circle" src="{{request.session.profile_image}}">
                             <span class="username username-hide-mobile">{{request.session.login_user}} ({{request.session.consumer_no}})</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
+                             <li>
+                               <a href="/self-service/my-profile/">
+                                 <i class="icon-user"></i> My Profile </a>
+                         	  </li>                          
                             <li>
                                   <a href="/self-service/manage-accounts/">
                                     <i class="icon-user"></i> Manage Account </a>
@@ -181,27 +185,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control" readonly
-
-                                                           value="{{bill_amount}}">
-                                                    <label>Current Amt. :</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{arrears}}">
-                                                    <label>Previous Due Amount :</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-12">                                      
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <div class="form-group form-md-line-input has-info">
@@ -212,18 +196,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{payment_date}}">
-                                                    <label>Payment Date :</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <div class="form-group form-md-line-input has-info">
@@ -244,12 +216,32 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6" style="text-align:right;margin-top: 25px;">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-group form-md-line-input has-info">
+                                                    <input type="text" class="form-control"
+                                                           readonly=""
+                                                           value="{{payment_status}}">
+                                                    <label>Payment Status :</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">                                                                                
+                                        <div class="col-md-12" style="text-align:right;margin-top: 25px;">
+                                         {% if payment_status == 'Not Paid' %}
                                             <a href="/self-service/view-bill/" target="_blank">
                                                 <input type="button"
                                                 class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                                 value="View & Pay">
                                             </a>
+                                         {% else %}
+                                         		<a href="/self-service/view-bill/" target="_blank">
+                                                <input type="button"
+                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                value="View">
+                                            </a>
+                                         {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -629,7 +621,6 @@
             //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable            
     });
     $('#bill_table_tools > li > a.tool-action').on('click', function() {
-    alert('1')
         var action = $(this).attr('data-action');
         oTable.DataTable().button(action).trigger();
       });

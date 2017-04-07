@@ -42,10 +42,14 @@
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
-                            <img alt="" class="img-circle" src="{% static 'assets/layouts/layout3/img/avatar9.jpg' %}">
+                            <img alt="" class="img-circle" src="{{request.session.profile_image}}">
                             <span class="username username-hide-mobile">{{request.session.login_user}} ({{request.session.consumer_no}})</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
+                             <li>
+                               <a href="/self-service/my-profile/">
+                                 <i class="icon-user"></i> My Profile </a>
+                         	  </li>                        
                             <li>
                                 <a href="/self-service/manage-accounts/">
                                     <i class="icon-user"></i> Manage Account </a>

@@ -105,17 +105,16 @@ def my_bills(request):
             'created_on')
         if consumer_obj.bill_status == 'Paid':
             payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
+            payment_status = 'Paid on '+ payment_date
         else:
-            payment_date = ''
+            payment_status = 'Not Paid'
         data = {
             'consumer_no': consumer_obj.consumer_id.consumer_no,
             'name': consumer_obj.consumer_id.name,
             'bill_cycle': consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
             'unit_consumed': consumer_obj.unit_consumed,
-            'bill_amount': consumer_obj.bill_amount,
-            'arrears': consumer_obj.arrears,
             'net_amount': consumer_obj.net_amount,
-            'payment_date': payment_date,
+            'payment_status': payment_status,
             'prompt_date': consumer_obj.prompt_date,
             'due_date': consumer_obj.due_date
         }
@@ -547,7 +546,6 @@ def service_request(request):
         )
         service_obj.save()
         service_no = service_obj.service_no
-        print '------service no-----', service_no
 
         data = {'success': 'true', 'service_no': service_no}
     except Exception as exe:
@@ -585,9 +583,14 @@ def signin(request):
                             user_profile_obj = WebUserProfile.objects.get(username=username)
                             # request.session['user_role'] = user_profile_obj.user_role.role_name
                             try:
+                                if user_profile_obj.profile_image:
+                                    request.session['profile_image'] = "http://" + get_current_site(request).domain + user_profile_obj.profile_image.url
+                                else:
+                                    request.session['profile_image'] = "" 
                                 request.session['login_user'] = user_profile_obj.consumer_id.name
                                 request.session['parent_consumer_id'] = int(user_profile_obj.consumer_id.id)
                                 request.session['consumer_id'] = int(user_profile_obj.consumer_id.id)
+                                request.session['login_consumer_no'] = user_profile_obj.consumer_id.consumer_no
                                 request.session['consumer_no'] = user_profile_obj.consumer_id.consumer_no
                                 login(request, user)
                             except Exception as e:
@@ -749,7 +752,6 @@ def verify_OTP(request):
     try:
         print 'selfserviceapp|views.py|verify_OTP'
         consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'))
-        print '---------consumer obj---------', consumer_obj
         if consumer_obj.consumer_otp == request.POST.get('otp_no'):
             consumer_data = {
                 'name': consumer_obj.name,
@@ -770,7 +772,6 @@ def verify_OTP(request):
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|verify_OTP', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
-    print '------data--------', data
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -1002,7 +1003,6 @@ def verify_consumer(request):
             ret = u''
             ret = ''.join(random.choice('0123456789ABCDEF') for i in range(6))
             OTP = ret
-            print '--------OTP---------', OTP
             consumer_obj.consumer_otp = OTP
             consumer_obj.save()
             contact_no = consumer_obj.contact_no
@@ -1037,6 +1037,91 @@ def add_new_user(request):
         }
     except Exception, e:
         print 'Exception|selfserviceapp|views.py|add_new_user', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def my_profile(request):
+    """To view complaints page"""
+    try:
+        print 'selfserviceapp|views.py|my_profile'
+        consumer_obj = ConsumerDetails.objects.get(id=request.session['consumer_id'])
+        webuser_obj = WebUserProfile.objects.get(consumer_id=consumer_obj.id)
+        if webuser_obj.profile_image:
+            profile_image = "http://" + get_current_site(request).domain + webuser_obj.profile_image.url
+        else:
+            profile_image = ""         
+        data = {
+            'name':consumer_obj.name,
+            'contact_no':consumer_obj.contact_no,
+            'email_id':consumer_obj.email_id,
+            'profile_image':profile_image
+        }
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|my_profile', exe
+        data = {}
+    return render(request, 'self_service/my_profile.html', data)
+
+@csrf_exempt
+def save_profile(request):    
+    try:
+        if request.POST:
+            print 'selfserviceapp|views.py|save_profile',request.POST
+            try:
+                if request.POST.get('old_pass'):
+                    user = authenticate(username=request.session['login_consumer_no'], password=request.POST.get('old_pass'))
+                    if user:
+                        user_obj = WebUserProfile.objects.get(username=request.session['login_consumer_no'])              
+                        consumer_obj = ConsumerDetails.objects.get(id=user_obj.consumer_id.id)
+                        consumer_obj.name = request.POST.get('user_name')
+                        consumer_obj.contact_no = request.POST.get('mobile_no')
+                        consumer_obj.email_id = request.POST.get('email_add')
+                        user_obj.updated_on = datetime.now()
+
+                        consumer_obj.save();
+                        user_obj.set_password(request.POST.get('new_pass'));
+                        try:
+                            user_obj.profile_image = request.FILES['profile_image']
+                        except:
+                            pass
+                        user_obj.save();
+                        data = {
+                            'success': 'true',
+                            'message': 'User Updated Successfully.'
+                        }
+                    else:
+                        data = {'success': 'false', 'message': 'Invalid Password'}
+                        return HttpResponse(json.dumps(data), content_type='application/json')
+                else:
+                    user_obj = WebUserProfile.objects.get(username=request.session['login_consumer_no'])              
+                    consumer_obj = ConsumerDetails.objects.get(id=user_obj.consumer_id.id)
+                    consumer_obj.name = request.POST.get('user_name')
+                    consumer_obj.contact_no = request.POST.get('mobile_no')
+                    consumer_obj.email_id = request.POST.get('email_add')
+                    user_obj.updated_on = datetime.now()
+                    consumer_obj.save();
+                    try:
+                        user_obj.profile_image = request.FILES['profile_image']
+                        user_obj.save();                                        
+                        request.session['profile_image'] = "http://" + get_current_site(request).domain + user_obj.profile_image.url
+                    except :
+                        pass
+                    user_obj.save();                                        
+
+                    data = {
+                        'success': 'true',
+                        'message': 'User Updated Successfully.'
+                    }                  
+
+            except Exception as e:
+                print e
+                data = {'success': 'false', 'message': 'Invalid Username'}
+                return HttpResponse(json.dumps(data), content_type='application/json')
+
+    except Exception, e:
+        print 'Exception|selfserviceapp|views.py|save_profile', exe
         data = {
             'success': 'false',
             'message': str(e)

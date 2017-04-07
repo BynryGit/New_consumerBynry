@@ -30,6 +30,7 @@ from django.shortcuts import *
 import MySQLdb, sys
 from .models import *
 from paymentapp.models import *
+import string
 
 
 def home(request):
@@ -75,6 +76,47 @@ def verify_new_consumer(request):
 
     except Exception as exe:
         print 'Exception|crmapp|views.py|verify_new_consumer', exe
+
+
+def complaints(request):
+    """To view complaints page"""
+    try:
+        print 'crmapp|views.py|complaints'
+        complaint_type = ComplaintType.objects.filter(is_deleted=False)
+        data = {
+            'complaint_type': complaint_type
+        }
+
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|home', exe
+        data = {}
+    return render(request, 'crmapp/complaints.html', data)
+
+
+def get_consumer_complaints(request):
+    """to get complaint details"""
+    try:
+        complaint_list = []
+        print 'crmapp|views.py|get_consumer_complaint_details'
+        # filter complaint by complaint id
+        consumer_id = ConsumerDetails.objects.get(consumer_no='100000123000')
+        print '---------consumer------', consumer_id
+        complaints_list = ComplaintDetail.objects.filter(consumer_id=consumer_id)
+        # complaint detail result
+        for complaints in complaints_list:
+            complaint_data = {
+                'complaintID': '<a onclick="complaint_details(' + str(
+                    complaints.id) + ')">' + complaints.complaint_no + '</a>',
+                'complaintType': complaints.complaint_type_id.complaint_type,
+                'closureRemark': complaints.remark,
+                'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
+                'complaintStatus': complaints.complaint_status
+            }
+            complaint_list.append(complaint_data)
+        data = {'success': 'true', 'data': complaint_list}
+
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|get_consumer_complaint_details', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -98,3 +140,84 @@ def save_new_consumer(request):
         print 'Exception|crmapp|views.py|save_new_consumer', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def get_complaint_details(request):
+    """to get complaint details"""
+    try:
+        print 'crmapp|views.py|get_complaint_details'
+        # filter complaint by complaint id
+        complaints = ComplaintDetail.objects.get(
+            id=request.GET.get('complaint_id'))
+
+        # complaint detail result
+        complaint_detail = {
+            'complaintID' : complaints.complaint_no,
+            'complaintType' : complaints.complaint_type_id.complaint_type,
+            'complaintConsumerName' : complaints.consumer_id.name,
+            'complaintConsumerNo' : complaints.consumer_id.consumer_no,
+            'complaintStatus' : complaints.complaint_status if complaints.complaint_status else '',
+            'consumerRemark' : complaints.remark if complaints.remark else '',
+            'closureRemark' : complaints.closure_remark,
+        }
+        data = {'success' : 'true', 'complaintDetail' : complaint_detail}
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|get_complaint_details', exe
+        data = {'success' : 'false', 'error' : 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def save_complaint_details(request):
+    """to get complaint details"""
+    try:
+        print 'selfserviceapp|views.py|save_consumer_complaint_details'
+        complaint_type_obj = ComplaintType.objects.get(id=request.GET.get('complaint_type'))
+        # filter complaint by complaint id
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
+        consumer_id = ConsumerDetails.objects.get(consumer_no='100000123000')# if request.session[
+            #'consumer_id'] else None
+
+        complaint_obj = ComplaintDetail(
+            complaint_no="COMP" + str(password),
+            complaint_type_id=complaint_type_obj,
+            consumer_id=consumer_id,
+            remark=request.GET.get('complaint_remark'),
+            complaint_img=request.GET.get('complaint_img'),
+            complaint_source="CTI",
+            complaint_status="Open",
+            complaint_date=datetime.now()
+        )
+        complaint_obj.save()
+
+        data = {'success': 'true', 'complaint_id': str(complaint_obj)}
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|save_consumer_complaint_details', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def services(request):
+    """To view services page"""
+    try:
+        print 'crmapp|views.py|services'
+        consumer_id = request.session['consumer_id']
+        serviceType = ServiceRequestType.objects.filter(is_deleted=False)  # Service Types
+        data = {'serviceType': serviceType, 'consumer_id': consumer_id}
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|services', exe
+        data = {}
+    return render(request, 'crmapp/services.html', data)
+
+
+def vigilance(request):
+    """To view vigilance page"""
+    try:
+        print 'crmapp|views.py|vigilance'
+        vigilance_type = VigilanceType.objects.filter(is_deleted=False)
+        data = {'vigilance_type': vigilance_type, 'city_list': get_city(request), 'pincode_list': get_pincode(request)}
+
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|vigilance', exe
+        data = {}
+    return render(request, 'crmapp/vigilance.html', data)    
