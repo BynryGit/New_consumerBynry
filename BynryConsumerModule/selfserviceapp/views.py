@@ -190,7 +190,7 @@ def get_graph2_data(request):
                                                              bill_months_year=last_Year)
                 pay_obj = PaymentDetail.objects.get(meter_reading_id=reading_obj.id)
                 if pay_obj.bill_status == 'Paid':
-                    ss = [month_list1[last_Month - 1], pay_obj.net_amount]
+                    ss = [month_list1[last_Month - 1], str(pay_obj.net_amount)]
                     data_list.append(ss)
             except Exception, e:
                 ss = [month_list1[last_Month - 1], 0]
@@ -420,6 +420,7 @@ def save_consumer_complaint_details(request):
             remark=request.GET.get('complaint_remark'),
             complaint_img=request.GET.get('complaint_img'),
             complaint_source="Web",
+            complaint_status="Open",
             complaint_date=datetime.now()
         )
         complaint_obj.save()
