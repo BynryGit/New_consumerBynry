@@ -134,6 +134,7 @@ def save_complaint_details(request):
             remark=request.GET.get('complaint_remark'),
             complaint_img=request.GET.get('complaint_img'),
             complaint_source="CTI",
+            complaint_status="Open",
             complaint_date=datetime.now()
         )
         complaint_obj.save()
