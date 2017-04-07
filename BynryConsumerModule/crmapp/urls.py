@@ -12,4 +12,7 @@ urlpatterns = [
     url(r'^save-complaint-details/', views.save_complaint_details, name='save_complaint_details'),
     url(r'^services/', views.services, name='services'),
     url(r'^vigilance/', views.vigilance, name='vigilance'),
+    url(r'^bills/', views.bills, name='bills'),
+    url(r'^get-bill-history/', views.get_bill_history, name='get_bill_history'),
+    url(r'^view-bill/', views.view_bill, name='view_bill'),
 ]
