@@ -45,3 +45,56 @@ def home(request):
         data = {}
     return render(request, 'crmapp/home.html', data)
 
+@csrf_exempt
+def verify_new_consumer(request):
+    """to get verify_new_consumer"""
+    try:
+        print 'crmapp|views.py|verify_new_consumer'
+
+        consumer_obj = ConsumerDetails.objects.get(consumer_no=request.POST.get('consumer_no'),
+                                                   city=request.POST.get('city_id'))
+        print '--------cons no-----',consumer_obj.consumer_no
+        if consumer_obj:
+            c_obj = ConsumerData(
+                consumer_no=consumer_obj,
+                name = consumer_obj.name,
+                email_id = consumer_obj.email_id,
+                contact_no = consumer_obj.contact_no,
+                city = consumer_obj.city,
+                is_registered = 'True'
+            )
+            c_obj.save()
+            data = {'success': 'true',
+                    'consumer_no' : consumer_obj.consumer_no,
+                    'consumer_name' : consumer_obj.name,
+                    'mobile_number' : consumer_obj.contact_no,
+                    'email_id' : consumer_obj.email_id
+                    }
+        else:
+            data = {'success': 'false'}
+
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|verify_new_consumer', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@csrf_exempt
+def save_new_consumer(request):
+    """to get verify_new_consumer"""
+    try:
+        print 'crmapp|views.py|save_new_consumer'
+        city_objs = City.objects.get(id=request.POST.get('city'))
+        c_obj = ConsumerData(
+            name = request.POST.get('name'),
+            email_id = request.POST.get('email'),
+            contact_no = request.POST.get('contact_no'),
+            city = city_objs,
+            is_registered = 'False'
+        )
+        c_obj.save()
+        data = {'success': 'true'}
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|save_new_consumer', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
