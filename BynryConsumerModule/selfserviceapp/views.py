@@ -113,8 +113,6 @@ def my_bills(request):
             'name': consumer_obj.consumer_id.name,
             'bill_cycle': consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
             'unit_consumed': consumer_obj.unit_consumed,
-            'bill_amount': consumer_obj.bill_amount,
-            'arrears': consumer_obj.arrears,
             'net_amount': consumer_obj.net_amount,
             'payment_status': payment_status,
             'prompt_date': consumer_obj.prompt_date,
@@ -1106,9 +1104,11 @@ def save_profile(request):
                     consumer_obj.save();
                     try:
                         user_obj.profile_image = request.FILES['profile_image']
-                    except:
+                        user_obj.save();                                        
+                        request.session['profile_image'] = "http://" + get_current_site(request).domain + user_obj.profile_image.url
+                    except :
                         pass
-                    user_obj.save();                    
+                    user_obj.save();                                        
 
                     data = {
                         'success': 'true',
