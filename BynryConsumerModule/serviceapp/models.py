@@ -3,6 +3,7 @@ from django.db import models
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail
 
 from consumerapp.models import ConsumerDetails
+from crmapp.models import ConsumerData
 
 
 # Create your models here.
@@ -50,6 +51,7 @@ class ServiceRequest(models.Model):
     service_type = models.ForeignKey(ServiceRequestType, blank=False, null=True)
     subtype = models.ForeignKey(ServiceRequestSubType, blank=True, null=True)
     consumer_id = models.ForeignKey(ConsumerDetails, blank=False, null=True)
+    consumer_data_id = models.ForeignKey(ConsumerData, blank=True, null=True)
     request_date = models.DateTimeField(blank=True, null=True)
     request_closer_date = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=500, default='Open', choices=SERVICE_STATUS)
