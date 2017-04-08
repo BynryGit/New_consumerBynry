@@ -64,7 +64,7 @@
      
  
  function add_admin() {	
-		//$( "#clear_div" ).load(" #clear_div" );
+		$( "#switch-div" ).load(" #switch-div" );
 		//$("#city").append('<option value="">Select City</option>');
 			$(".first_name_error").css("display", "none");			
 			$(".last_name_error").css("display", "none");			
@@ -197,8 +197,9 @@ function update_head_admin_details() {
 			var branch = $('#user_branch_name').val();
 			var contact_no = $('#user_contact_no').val();
 			var email = $('#user_email').val();
-			var password = $('#user_password').val();
-			var re_password = $('#user_re_password').val();
+			var password = $('#user_pass').val();
+			alert(password);
+			var re_password = $('#user_re_pass').val();
 			
 			user_status = document.getElementById('update_user_status').checked;
 
@@ -499,33 +500,31 @@ function checkEmail(email){
 function checkContactNo(contact_no){
     contact_no = $(contact_no).val()    
    var phoneNumberPattern = /^[789]\d{9}$/; 
-  
    if(phoneNumberPattern.test(contact_no)){
-    $(".contact_no_error").parent().children('.error').css("display", "none");
+    $(".contact_no_error").css("display", "none");
    return true;
    }else if($(contact_no).val()==' ' && $(contact_no).val()==null){
-    $(".contact_no_error").css("display", "block");
-    $(".contact_no_error").text("Please enter valid employee ID");
-   return false; 
+    	$(".contact_no_error").css("display", "block");
+    	$(".contact_no_error").text("Please enter valid Contact Number");
+   	return false; 
    }
    else{
-    $(".contact_no_error").css("display", "block");
-    $(".contact_no_error").text("Please enter valid Contact Number");
-   return false; 
+    	$(".contact_no_error").css("display", "block");
+    	$(".contact_no_error").text("Please enter valid Contact Number");
+   	return false; 
    }
 }
 
 function checkPassword(password){
-    password = $(password).val()     
-    re_password = $(re_password).val()   
-   if (password == ' ' && password==null) {		
-		$(".password_error").css("display", "block");
-    	$(".password_error").text("Password does not match");
-    	return false;
-   }
-   else{
-   	return true; 
-   }
+	if($(password).val()!='' && $(password).val()!=null)
+   {
+    	$(".password_error").css("display", "none");
+    	return true;
+   }else{
+    	$(".password_error").css("display", "block");
+    	$(".password_error").text("Please enter password ");
+   	return false; 
+   }     
 }
 
 function checkRePassword(re_password){
