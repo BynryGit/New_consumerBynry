@@ -57,27 +57,14 @@
                                                             <div class="form-group form-md-line-input has-success">
                                                                 <input type="text" class="form-control"
                                                                        id="consumer_no"
-                                                                       name="consumer_no" maxlength="12">
+                                                                       name="consumer_no" maxlength="12" value="{{request.session.consumer_no}}">
                                                                 <label for="consumer_no" > Consumer No. <span
                                                                         class="required">*</span></label>
                                                             </div>
                                                         </div>
                                                         <span id="consumer_no_error"
                                                               style="margin-top: -9px;color:red; font-size: 12px;"></span>
-                                                    </div>
-                                                    <div class="col-xs-4">
-                                                        <div class="form-group">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <input type="text" class="form-control"
-                                                                       id="consumer_name"
-                                                                       name="consumer_name">
-                                                                <label for="consumer_name"> Consumer Name <span
-                                                                        class="required">*</span></label>
-                                                            </div>
-                                                        </div>
-                                                        <span id="consumer_name_error"
-                                                              style="margin-top: -9px;color:red; font-size: 12px;"></span>
-                                                    </div>
+                                                    </div>                                                    
                                                     <div class="col-xs-4">
                                                         <div class="form-group form-md-line-input has-success"
                                                              style="padding-top: 23px;">
@@ -106,13 +93,10 @@
                                                                         <input type="text" class="form-control"
                                                                                id="theft_name"
                                                                                name="theft_name">
-                                                                        <label for="theft_name"> Name (One who is
-                                                                            doing Vigilance/ Theft) <span
-                                                                                    class="required">*</span></label>
+																							  <label for="consumer_no" > Theft Name </label>
                                                                     </div>
                                                                 </div>
-                                                                <span id="theft_name_error"
-                                                                      style="margin-top: -9px;color:red; font-size: 12px;"></span>
+
                                                             </div>
                                                             <div class="col-xs-6">
                                                                 <div class="form-group">
@@ -293,7 +277,7 @@
     }
 
 	function validate_vigilance() {
-			if (CheckConsumerNo("#consumer_no")&checkName("#consumer_name")&CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")&checkTheftName("#theft_name")
+			if (CheckConsumerNo("#consumer_no")&CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")
 			     &CheckAddress("#consumer_address")&CheckRemark("#vigilance_remark")) {	
 			return true
 			}
@@ -313,18 +297,7 @@
 	   return false; 
 	   }
 	 }	
-	function checkName(applicant_name){
-	 	var namePattern = /[A-Za-z]+/;  
-		applicant_name = $(applicant_name).val()  
-	   if(namePattern.test(applicant_name)){
-	 	$(consumer_name_error).css("display", "none");
-	   return true;
-	   }else{
-	    $(consumer_name_error).css("display", "block");
-	    $(consumer_name_error).text("Please enter valid Consumer Name");
-	   return false; 
-	   }
-	}			
+
 	function CheckCity(city){
 			if($(city).val()!=' ' && $(city).val()!=null)
 		   {
@@ -358,18 +331,7 @@
 		   return false; 
 		   }
 	}   	
-	function checkTheftName(applicant_name){
-	 	var namePattern = /[A-Za-z]+/;  
-		applicant_name = $(applicant_name).val()  
-	   if(namePattern.test(applicant_name)){
-	 	$(theft_name_error).css("display", "none");
-	   return true;
-	   }else{
-	    $(theft_name_error).css("display", "block");
-	    $(theft_name_error).text("Please enter valid Name");
-	   return false; 
-	   }
-	}	
+
 	function CheckAddress(address_line){
 	 	var namePattern = /[A-Za-z]+/;  
 		address_line = $(address_line).val()  
