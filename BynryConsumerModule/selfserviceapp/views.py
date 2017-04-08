@@ -418,7 +418,6 @@ def save_consumer_complaint_details(request):
             complaint_type_id=complaint_type_obj,
             consumer_id=consumer_id,
             remark=request.GET.get('complaint_remark'),
-            complaint_img=request.GET.get('complaint_img'),
             complaint_source="Web",
             complaint_status="Open",
             complaint_date=datetime.now()
@@ -426,7 +425,7 @@ def save_consumer_complaint_details(request):
         complaint_obj.save()
 
         attachment_list = request.GET.get('attachments')
-        save_attachments1(attachment_list, complaint_obj)
+        save_complaints_attachments(attachment_list, complaint_obj)
 
         data = {'success': 'true', 'complaint_id': str(complaint_obj)}
     except Exception as exe:
@@ -500,19 +499,19 @@ def remove_complaint_img(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-def save_attachments1(attachment_list, complaint_obj):
+def save_complaints_attachments(attachment_list, complaint_obj):
     try:
-        print 'selfserviceapp|views.py|save_attachments'
+        print 'selfserviceapp|views.py|save_complaints_attachments'
         attachment_list = attachment_list.split(',')
         attachment_list = filter(None, attachment_list)
         for attached_id in attachment_list:
             attachment_obj = ComplaintImages.objects.get(id=attached_id)
-            attachment_obj.consumer_id = complaint_obj.consumer_id
+            attachment_obj.complaint_id = complaint_obj
             attachment_obj.save()
 
         data = {'success': 'true'}
     except Exception, e:
-        print 'Exception|selfserviceapp|views.py|save_attachments', e
+        print 'Exception|selfserviceapp|views.py|save_complaints_attachments', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -841,7 +840,7 @@ def save_vigilance_complaint(request):
         new_vigilance_obj.save();
 
         attachment_list = request.POST.get('attachments')
-        save_attachments(attachment_list, new_vigilance_obj)
+        save_vigilance_attachment(attachment_list, new_vigilance_obj)
 
         data = {
             'success': 'true',
@@ -877,9 +876,9 @@ def upload_vigilance_image(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-def save_attachments(attachment_list, vigilance_id):
+def save_vigilance_attachment(attachment_list, vigilance_id):
     try:
-        print 'selfserviceapp|views.py|save_attachments'
+        print 'selfserviceapp|views.py|save_vigilance_attachment'
         attachment_list = attachment_list.split(',')
         attachment_list = filter(None, attachment_list)
         for attached_id in attachment_list:
@@ -889,7 +888,7 @@ def save_attachments(attachment_list, vigilance_id):
 
         data = {'success': 'true'}
     except Exception, e:
-        print 'Exception|selfserviceapp|views.py|save_attachments', e
+        print 'Exception|selfserviceapp|views.py|save_vigilance_attachment', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
