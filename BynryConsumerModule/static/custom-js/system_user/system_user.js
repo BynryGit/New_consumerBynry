@@ -64,7 +64,6 @@
      
  
  function add_admin() {	
-		$( "#switch-div" ).load(" #switch-div" );
 		//$("#city").append('<option value="">Select City</option>');
 			$(".first_name_error").css("display", "none");			
 			$(".last_name_error").css("display", "none");			
