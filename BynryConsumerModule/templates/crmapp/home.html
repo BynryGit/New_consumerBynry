@@ -201,7 +201,7 @@
                                                     <div class="form-group">
                                                         <div class="form-group form-xs-line-input has-info">
                                                             <label>Mobile No. :</label>
-                                                            <input type="text" id="c_mobile_no" class="form-control"
+                                                            <input type="text" id="c_mobile_no" maxlength="10" class="form-control"
                                                                    readonly="">
                                                         </div>
                                                     </div>
@@ -272,7 +272,7 @@
                                                         <div class="form-group form-xs-line-input has-success"
                                                              style="margin-bottom: 0px;">
                                                             <label>Mobile No. :</label>
-                                                            <input id="new_cmobile_no" type="text" class="form-control">
+                                                            <input id="new_cmobile_no" maxlength="10" type="text" class="form-control">
                                                         </div>
                                                         <span id="new_cmobile_no_error" class="error"
                                                               style="color:red; font-size: 12px;"></span>
@@ -297,81 +297,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="div6" style="display:none">
-                        <div class=" portlet light bordered"
-                             style="height: 140px !important;">
-                            <div class="portlet-body">
-                                <div class="row" style="margin-top: -15px;!important">
-                                    <div class="col-xs-12">
-                                        <br>
-
-                                        <div class="col-xs-10">
-                                            <label class="bold">Consumer Details :</label>
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <a style="text-align:left;" href="/cti-crm/">Back</a>
-                                        </div>
-                                        <div id="save_btn" class="col-xs-1">
-                                            <a style="text-align:right;"
-                                               onclick="save_new_consumer();">Save</a>
-                                        </div>
-                                        <br>
-                                        <br>
-
-                                        <div class="col-xs-3">
-                                            <div class="form-group form-xs-line-input has-success"
-                                                 style="margin-top: -20px;">
-                                                <label for="bill_city">City<span class="required"> *</span></label>
-                                                <select id="new_city"
-                                                        class="form-control input-sm select2-multiple">
-                                                    <option value=" "> Select City</option>
-                                                    {% for city in city_list %}
-                                                        <option value="{{ city.city_id }}"> {{ city.city }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                                <label id="new_city_error" class="error"
-                                                       style="color:red; font-size: 12px;"></label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-xs-line-input has-success">
-                                                    <input id="new_cname" type="text" class="form-control">
-                                                    <label>Consumer Name :</label>
-                                                </div>
-                                                <label id="new_cname_error" class="error"
-                                                       style="color:red; font-size: 12px;"></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-xs-line-input has-success">
-                                                    <input id="new_cmobile_no" type="text"
-                                                           class="form-control">
-                                                    <label>Mobile No. :</label>
-                                                </div>
-                                                <label id="new_cmobile_no_error" class="error"
-                                                       style="color:red; font-size: 12px;"></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-xs-line-input has-success">
-                                                    <input id="new_cemail_id" type="text"
-                                                           class="form-control">
-                                                    <label>Email :</label>
-                                                </div>
-                                                <label id="new_cemail_error" class="error"
-                                                       style="color:red; font-size: 12px;"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="row" id="div5" style="display:none">
                         <div class="col-xs-offset-3 portlet light bordered"
                              style="height: 70px !important;width:315px !important;">
@@ -445,7 +371,7 @@
             <div id="div4" class="col-xs-12 col-xs-12" style="display:none">
                 <div class="portlet light ">
                     <div class="row">
-                        <a href="/cti-crm/services/" class="box-text">
+                        <a href="/cti-crm/services/"  class="box-text">
                             <div class="feature-item col-xs-offset-3 col-xs-3 text-center">
                                 <i class="icon-bulb"></i>
 

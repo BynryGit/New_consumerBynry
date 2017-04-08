@@ -64,7 +64,6 @@
      
  
  function add_admin() {	
-		$( "#switch-div" ).load(" #switch-div" );
 		//$("#city").append('<option value="">Select City</option>');
 			$(".first_name_error").css("display", "none");			
 			$(".last_name_error").css("display", "none");			
@@ -106,7 +105,7 @@ function save_head_admin_details() {
 			var contact_no = $('#contact_no').val();
 			var email = $('#email').val();
 			var password = $('#password').val();
-			var re_password = $('#re_password').val();
+			
 					
 			user_status = document.getElementById('user_status').checked;
 			
@@ -198,7 +197,6 @@ function update_head_admin_details() {
 			var contact_no = $('#user_contact_no').val();
 			var email = $('#user_email').val();
 			var password = $('#user_pass').val();
-			alert(password);
 			var re_password = $('#user_re_pass').val();
 			
 			user_status = document.getElementById('update_user_status').checked;
@@ -528,12 +526,16 @@ function checkPassword(password){
 }
 
 function checkRePassword(re_password){
-    password = $(password).val();  
-    re_password = $(re_password).val();
-   if (password == re_password) {		
+    password1 = $(password).val();  
+    re_password1 = $(re_password).val();
+   if (password1 == re_password1) {		
 		return true;
+   } 
+   else if (password1 == 'undefined') {		
+   	$(".re_password_error").css("display", "none");
+		return false;
    }
-   else{   	 
+   else{   	    
    	$(".re_password_error").css("display", "block");
     	$(".re_password_error").text("Password does not match");
     	return false;

@@ -63,8 +63,6 @@
                                     <br>
 
                                     <div class="col-xs-12">
-                                        <input type="hidden" id="cons_id" value="{{ consumer_id }}">
-
                                         <div class="col-xs-4">
                                             <div class="form-group form-md-line-input has-success">
                                                 <select id="service_type" style="margin-top: 4px;"
@@ -234,7 +232,7 @@
     }
 
     function service_request() {
-        consumer_id = $('#cons_id').val();
+        //consumer_data_id = $('#consumer_data_id').val();
         service_type = $('#service_type').val();
         service_remark = $('#service_remark').val();
         if (validateData()) {
@@ -242,7 +240,7 @@
             $.ajax({
                 type: "GET",
                 url: '/cti-crm/service-request/',
-                data: {'consumer_id': consumer_id, 'service_type': service_type, 'service_remark': service_remark},
+                data: {'service_type': service_type, 'service_remark': service_remark},
                 success: function (response) {
                     if (response.success == 'true') {
                         $("#service_ID").text(response.service_no);

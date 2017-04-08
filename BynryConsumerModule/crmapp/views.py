@@ -37,6 +37,8 @@ def home(request):
     """To view complaints page"""
     try:
         print 'crmapp|views.py|home'
+        request.session['consumer_no'] = ''
+        request.session['consumer_data_id'] = ''
         data = {
             'city_list': get_city(request)
         }
@@ -135,6 +137,9 @@ def save_new_consumer(request):
             is_registered = 'False'
         )
         c_obj.save()
+        consumer_data_obj = c_obj.id
+        request.session['consumer_data_id'] = consumer_data_obj
+
         data = {'success': 'true'}
     except Exception as exe:
         print 'Exception|crmapp|views.py|save_new_consumer', exe
@@ -201,9 +206,8 @@ def services(request):
     """To view services page"""
     try:
         print 'crmapp|views.py|services'
-        consumer_id = request.session['consumer_id']
         serviceType = ServiceRequestType.objects.filter(is_deleted=False)  # Service Types
-        data = {'serviceType': serviceType, 'consumer_id': consumer_id}
+        data = {'serviceType': serviceType}
     except Exception as exe:
         print 'Exception|crmapp|views.py|services', exe
         data = {}
@@ -215,9 +219,15 @@ def service_request(request):
     try:
         print 'crmapp|views.py|service_request'
         # filter complaint by service id
-        consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
-        print '---------consumer------', consumer_id
-        print '----request-----', request.GET.get('service_type')
+        if request.session['consumer_no']:
+            consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
+            consumer_id = consumer_id.consumer_no
+            consumer_data_id = None
+
+        if request.session['consumer_data_id']:
+            consumer_data_id = ConsumerData.objects.get(id=request.session['consumer_data_id'])
+            consumer_id = None
+
         service_type = ServiceRequestType.objects.get(id=request.GET.get('service_type'))
         chars = string.digits
         pwdSize = 5
@@ -226,7 +236,8 @@ def service_request(request):
         service_obj = ServiceRequest(
             service_no="SERVICE" + str(password),
             service_type=service_type,
-            consumer_id=consumer_id,
+            consumer_id=consumer_id if consumer_id else None,
+            consumer_data_id=consumer_data_id if consumer_data_id else None,
             consumer_remark=request.GET.get('service_remark'),
             source="CTI",
             request_date=datetime.now(),
