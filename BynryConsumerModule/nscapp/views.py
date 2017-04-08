@@ -10,7 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from consumerapp.models import ConsumerDetails
 from nscapp.models import *
-
+import string
+import random
 
 # Create your views here.
 def new_connection_list(request):
@@ -188,6 +189,10 @@ def review_consumer_form(request):
 def save_new_consumer(request):
     try:
         print 'nscapp|views.py|save_new_consumer'
+        chars = string.digits
+        Size = 5
+        regstrtn_no = ''.join(random.choice(chars) for _ in range(Size))
+
         is_same = request.POST.get('checkbox1_44')
         if is_same == None:
             is_same = 0
@@ -200,7 +205,7 @@ def save_new_consumer(request):
             service_requested=request.POST.get('consumer_service'),
             supply_type=request.POST.get('consumer_supply_type'),
             consumer_subcategory=request.POST.get('consumer_subcategory'),
-            registration_no='NSC11110',  # Need to change logic
+            registration_no="NSC" + str(regstrtn_no),
             date_of_registration=datetime.now(),
             meter_building_name=request.POST.get('flat_no'),
             meter_address_line_1=request.POST.get('address_line1'),
@@ -245,7 +250,7 @@ def save_new_consumer(request):
             identity_proof_list=request.POST.getlist('id_proof'),
             status='Registered',
             created_on=datetime.now(),
-            # created_by=request.session['login_user'],
+            created_by=request.session['login_user'],
         );
         new_consumer_obj.save();
 
@@ -418,6 +423,7 @@ def get_verification_data(request):
                 address = meter_address_line_1
 
             consumer_data = {
+                'aadhar_no':consumer_obj.aadhar_no,
                 'consumer_id': consumer_obj.id,
                 'registration_no': consumer_obj.registration_no,
                 'applicant_name': consumer_obj.applicant_name,
@@ -454,7 +460,7 @@ def save_consumer_kyc(request):
             status=request.POST.get('verify_KYC_status'),
             remark=request.POST.get('KYC_remark'),
             creation_date=datetime.now(),
-            # created_by=request.session['login_user'],
+            created_by=request.session['login_user'],
         );
         new_KYC_obj.save();
 
@@ -502,7 +508,7 @@ def save_consumer_technical(request):
             remark=request.POST.get('tech_remark'),
             technician_name=request.POST.get('technician_name'),
             creation_date=datetime.now(),
-            # created_by=request.session['login_user'],
+            created_by=request.session['login_user'],
         );
         new_Technical_obj.save();
 
@@ -539,7 +545,7 @@ def save_consumer_payment(request):
             DD_no=request.POST.get('pay_DD_no'),
             DD=request.POST.get('pay_DD'),
             creation_date=datetime.now(),
-            # created_by=request.session['login_user'],
+            created_by=request.session['login_user'],
         );
         new_Payment_obj.save();
 
@@ -565,7 +571,7 @@ def save_consumer_payment(request):
 
             aadhar_no=consumer_obj.aadhar_no,
             created_on=datetime.now(),
-            # created_by=request.session['login_user'],
+            created_by=request.session['login_user'],
         );
         new_Consumer_obj.save();
 

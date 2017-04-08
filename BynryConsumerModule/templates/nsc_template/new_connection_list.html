@@ -304,7 +304,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success">
-                                <input type="text" class="form-control" id="edit_utility">
+                                <input type="text" class="form-control" id="KYC_aadhar_no">
                                 <label for="form_control_1">Aadhar No.</label>
                             </div>
                         </div>
@@ -595,7 +595,7 @@
                                     <select id="verify_technical" name="verify_technical"
                                             class="form-control input-sm select2-multiple"
                                             onchange="open_remark_technical();">
-                                        <option value="Passed"> Pass</option>
+                                        <option value="Passed"> Passed</option>
                                         <option value="Failed"> Failed</option>
                                     </select>
                                     <label for="consumer_zone">Status by Technician </label>
@@ -640,7 +640,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group form-md-line-input has-success">
-                                    <input type="text" class="form-control" id="pay_reg_no">
+                                    <input type="text" class="form-control" id="pay_reg_no" readonly="">
                                     <label for="form_control_1">Reg. No.</label>
                                 </div>
                             </div>
@@ -877,14 +877,14 @@
                                 </select>
                                 <label>Route <span class="required" aria-required="true"> * </span></label>
                             </div>
-                            <span id="error_meter_route" class="display-none has-error" > Please select Route </span>
+                            <span id="error_meter_route" class="display-none has-error" style="font-size: 12px;"> Please select Route </span>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input name="meter_no" type="text" class="form-control" id="meter_no" >
                                 <label >Meter No. <span class="required" aria-required="true"> * </span></label>
                             </div>
-                            <span id="error_meter_no" class="display-none has-error"> Please enter Meter No. </span>
+                            <span id="error_meter_no" class="display-none has-error" style="font-size: 12px;"> Please enter Meter No. </span>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
@@ -892,7 +892,7 @@
                                        type="text" class="form-control" readonly>
                                 <label class="control-label">Meter Connection Date <span class="required" aria-required="true"> * </span></label>
                             </div>
-                            <span id="error_meter_date" class="display-none has-error" > Please select Meter Connection Date </span>
+                            <span id="error_meter_date" class="display-none has-error" style="font-size: 12px;"> Please select Meter Connection Date </span>
                         </div>
 
                     </div>
@@ -903,21 +903,21 @@
                                 <input name="meter_digit" type="text" class="form-control" id="meter_digit" >
                                 <label >Meter Digit <span class="required" aria-required="true"> * </span></label>
                             </div>
-                            <span id="error_meter_digit" class="display-none has-error" > Please enter Meter Digit </span>
+                            <span id="error_meter_digit" class="display-none has-error" style="font-size: 12px;"> Please enter Meter Digit </span>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input name="meter_make" type="text" class="form-control" id="meter_make" maxlength="10">
                                 <label >Meter Make <span class="required" aria-required="true"> * </span></label>
                             </div>
-                            <span id="error_meter_make" class="display-none has-error" > Please enter Meter Make </span>
+                            <span id="error_meter_make" class="display-none has-error" style="font-size: 12px;"> Please enter Meter Make </span>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input name="meter_type" type="text" class="form-control" id="meter_type" maxlength="10">
                                 <label >Meter Type <span class="required" aria-required="true"> * </span></label>
                             </div>
-                            <span id="error_meter_type" class="display-none has-error" > Please enter Meter Type </span>
+                            <span id="error_meter_type" class="display-none has-error" style="font-size: 12px;"> Please enter Meter Type </span>
                         </div>
                     </div>
                     <br>
@@ -932,7 +932,7 @@
                                 </select>
                                 <label>Meter Connection Status<span class="required" aria-required="true"> * </span></label>
                             </div>
-                            <span id="error_meter_status" class="display-none has-error"> Please select Meter Connection Status </span>
+                            <span id="error_meter_status" class="display-none has-error" style="font-size: 12px;"> Please select Meter Connection Status </span>
                         </div>
                     </div>
 
