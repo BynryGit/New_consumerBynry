@@ -293,7 +293,7 @@ def get_my_accounts(request):
         parent_user_data = {
             'name': parent_consumer_obj.consumer_id.name,
             'user_no': parent_consumer_obj.consumer_id.consumer_no,
-            'address': parent_consumer_obj.consumer_id.address_line_1 + ' ' + parent_consumer_obj.consumer_id.address_line_2,
+            'address': parent_consumer_obj.consumer_id.address_line_1 + ', ' + parent_consumer_obj.consumer_id.address_line_2,
             'actions': '<input type="radio" '+check_var+' onclick="select_user_account(\'' + str(
                 parent_consumer_obj.consumer_id.consumer_no) + '\',\'' + str(
                 parent_consumer_obj.consumer_id.name) + '\');" name="Select User" value=' + str(
@@ -764,7 +764,7 @@ def verify_OTP(request):
                 'consumer_no': consumer_obj.consumer_no,
                 'meter_category': consumer_obj.meter_category,
                 'bill_cycle': consumer_obj.bill_cycle.bill_cycle_name,
-                'address': consumer_obj.address_line_1 + ' ' + consumer_obj.address_line_2,
+                'address': consumer_obj.address_line_1 + ', ' + consumer_obj.address_line_2,
                 'address_line_1': consumer_obj.address_line_1,
                 'address_line_2': consumer_obj.address_line_2,
                 'city': consumer_obj.city.city,
