@@ -123,6 +123,10 @@
 								                                        </div>
 								                                  </div>
 								                                  <div class="col-md-6" style="text-align: right;margin-top: 36px;">
+											                                <a href="/self-service/"><button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+											                                        style="width: 89px;">
+											                                    Cancel
+											                                </button>	 </a>
 											                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
 											                                        style="width: 89px;" onclick="verify_consumer();">
 											                                    Verify
@@ -277,13 +281,14 @@
 								                                            <label for="confirm_password">Confirm Password </label>
 								                                            <input type="password" class="form-control" id="confirm_password"
 								                                                   name="confirm_password">
+								                                            <span id="password_error" class="error"
+						                                                   style="color:red; display:none; font-size: 12px;"></span>
 								                                        </div>
 								                                  </div>
-								                                 </div>
+								                                </div>
 								                                 <div class="col-md-12"> 
 								                                   <div class="col-md-6">
-						                                  				<label id="password_error" class="error"
-						                                                   style="color:red; display:none; font-size: 12px;"></label>
+						                                  				
 						                                          </div>								                                                   								                                 
 								                                 </div>
 								                              </div>
@@ -421,7 +426,7 @@ function verify_consumer() {
 	           	}
 	   			if (response.success == "false") {
     					$(verify_consumer_no_error).css("display", "block");
-    					$(verify_consumer_no_error).text("Consumer Number does not exit");	   			
+    					$(verify_consumer_no_error).text("Consumer Number does not exist");	   			
 	    			}							                        		                      		                       		
 	         },
 	         	beforeSend: function () {

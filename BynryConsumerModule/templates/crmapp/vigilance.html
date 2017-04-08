@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>Vigilance | Self Service</title>
+    <title>Vigilance | CRM</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
@@ -56,28 +56,15 @@
                                                         <div class="form-group">
                                                             <div class="form-group form-md-line-input has-success">
                                                                 <input type="text" class="form-control"
-                                                                       id="consumer_address"
-                                                                       name="consumer_address">
-                                                                <label for="consumer_address"> Consumer No. <span
+                                                                       id="consumer_no"
+                                                                       name="consumer_no" maxlength="12" value="{{request.session.consumer_no}}">
+                                                                <label for="consumer_no" > Consumer No. <span
                                                                         class="required">*</span></label>
                                                             </div>
                                                         </div>
-                                                        <span id="consumer_address_error"
+                                                        <span id="consumer_no_error"
                                                               style="margin-top: -9px;color:red; font-size: 12px;"></span>
-                                                    </div>
-                                                    <div class="col-xs-4">
-                                                        <div class="form-group">
-                                                            <div class="form-group form-md-line-input has-success">
-                                                                <input type="text" class="form-control"
-                                                                       id="consumer_address"
-                                                                       name="consumer_address">
-                                                                <label for="consumer_address"> Consumer Name <span
-                                                                        class="required">*</span></label>
-                                                            </div>
-                                                        </div>
-                                                        <span id="consumer_address_error"
-                                                              style="margin-top: -9px;color:red; font-size: 12px;"></span>
-                                                    </div>
+                                                    </div>                                                    
                                                     <div class="col-xs-4">
                                                         <div class="form-group form-md-line-input has-success"
                                                              style="padding-top: 23px;">
@@ -104,15 +91,12 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-success">
                                                                         <input type="text" class="form-control"
-                                                                               id="consumer_name"
-                                                                               name="consumer_name">
-                                                                        <label for="consumer_name"> Name (One who is
-                                                                            doing Vigilance/ Theft) <span
-                                                                                    class="required">*</span></label>
+                                                                               id="theft_name"
+                                                                               name="theft_name">
+																							  <label for="consumer_no" > Theft Name </label>
                                                                     </div>
                                                                 </div>
-                                                                <span id="consumer_name_error"
-                                                                      style="margin-top: -9px;color:red; font-size: 12px;"></span>
+
                                                             </div>
                                                             <div class="col-xs-6">
                                                                 <div class="form-group">
@@ -135,8 +119,7 @@
                                                                             name="city">
                                                                         <option value=" "> Select City</option>
                                                                         {% for city in city_list %}
-                                                                        <option value="{{ city.city_id }}"> {{ city.city
-                                                                            }}
+                                                                        <option value="{{ city.city_id }}"> {{city.city}}
                                                                         </option>
                                                                         {% endfor %}
                                                                     </select>
@@ -153,8 +136,7 @@
                                                                             name="pincode">
                                                                         <option value=" "> Select Pincode</option>
                                                                         {% for pincode in pincode_list %}
-                                                                        <option value="{{ pincode.pincode_id }}"> {{
-                                                                            pincode.pincode }}
+                                                                        <option value="{{ pincode.pincode_id }}"> {{pincode.pincode}}
                                                                         </option>
                                                                         {% endfor %}
                                                                     </select>
@@ -184,6 +166,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12" style="text-align: right;">
+														  <a href="/cti-crm/"><button type="button"
+                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm" >
+                                                Cancel
+                                            </button>  </a>                                    
                                             <button type="button"
                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                                     onclick="register_vigilance()">
@@ -209,7 +195,7 @@
                     <h4 class="text-center">Your vigilance Case is successfully registered </h4>
                 </div>
                 <div style="text-align:center !important;" class="modal-footer">
-                    <a href="/self-service/vigilance/">
+                    <a href="/cti-crm/vigilance/">
                         <button type="button" class="btn green">OK</button>
                     </a>
                 </div>
@@ -266,7 +252,7 @@
 			event.preventDefault();  													
   			$.ajax({  				  
 				  type	: "POST",
-				   url : '/self-service/save-vigilance-complaint/',
+				   url : '/cti-crm/save-vigilance-complaint/',
  					data : $("#vigilance_form").serialize(),
                      
               success: function (response) {   
@@ -291,13 +277,27 @@
     }
 
 	function validate_vigilance() {
-			if (CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")&checkName("#consumer_name")
+			if (CheckConsumerNo("#consumer_no")&CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")
 			     &CheckAddress("#consumer_address")&CheckRemark("#vigilance_remark")) {	
 			return true
 			}
 			return false		
 	}
-		
+	function CheckConsumerNo(consumer_no){
+	   consumer_no = $(consumer_no).val()     
+	   var Pattern = /^[a-zA-Z0-9!@#$%^&*]{12}$/;
+	 
+	   if(Pattern.test(consumer_no)){
+	    $(consumer_no_error).css("display", "none");
+	   return true;
+	   }
+	   else{
+	    $(consumer_no_error).css("display", "block");
+	    $(consumer_no_error).text("Please enter valid Consumer Number");
+	   return false; 
+	   }
+	 }	
+
 	function CheckCity(city){
 			if($(city).val()!=' ' && $(city).val()!=null)
 		   {
@@ -331,18 +331,7 @@
 		   return false; 
 		   }
 	}   	
-	function checkName(applicant_name){
-	 	var namePattern = /[A-Za-z]+/;  
-		applicant_name = $(applicant_name).val()  
-	   if(namePattern.test(applicant_name)){
-	 	$(consumer_name_error).css("display", "none");
-	   return true;
-	   }else{
-	    $(consumer_name_error).css("display", "block");
-	    $(consumer_name_error).text("Please enter valid Name");
-	   return false; 
-	   }
-	}	
+
 	function CheckAddress(address_line){
 	 	var namePattern = /[A-Za-z]+/;  
 		address_line = $(address_line).val()  
@@ -367,9 +356,7 @@
 		   }
 	}   
 
-  
-
-
+ 
 </script>
 </body>
 </html>
