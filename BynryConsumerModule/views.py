@@ -29,10 +29,10 @@ def system_user(request):
     else:
         role_list = []
         branch_list = []
-        role_objs = UserRole.objects.filter(is_deleted=False)
+        role_objs = UserRole.objects.filter(is_deleted=False,status='Active')
         total_role_count = UserRole.objects.filter(is_deleted=False).count()
         active_role_count = UserRole.objects.filter(is_deleted=False,status='Active').count()
-        inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inctive').count()
+        inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inactive').count()
         branch_obj = Branch.objects.filter(is_deleted=False)
         for branch in branch_obj:
             branch_data = {'branch_id':branch.id, 'branch':branch.branch_name}
@@ -153,7 +153,7 @@ def update_system_user_details(request):
             user_obj.status = 'Inactive'
 
         user_obj.username = request.GET.get('email')
-        user_obj.password = request.GET.get('password')
+        #user_obj.password = request.GET.get('password')
         user_obj.contact_no = request.GET.get('contact_no')
         user_obj.address = request.GET.get('address')
         user_obj.first_name = request.GET.get('first_name')
@@ -163,6 +163,9 @@ def update_system_user_details(request):
         user_obj.role = role_obj
         user_obj.email = request.GET.get('email')
         #user_obj.status = request.GET.get('user_status')
+        user_obj.save()
+
+        user_obj.set_password(request.GET.get('password'))
         user_obj.save()
 
         if request.GET.get('branch'):
@@ -187,12 +190,16 @@ def head_admin(request):
             head_admin_list = SystemUserProfile.objects.all()
             # get head admin data list
             for h in head_admin_list:
+                if h.status == 'Active':
+                    status = '<span style = "cursor : default;" class = "btn btn-success">Active</span>'
+                else:
+                    status = '<span style = "cursor : default;" class = "btn btn-danger">Inactive</span>'
                 head_admin_data = {'id' : str(h.employee_id),
                                    'name' : str(h.first_name)+' '+str(h.last_name),
                                    'contact' : str(h.contact_no),
                                    'email' : str(h.email),
                                    'role' : str(h.role),
-                                   'status' : str(h.status),
+                                   'status' : str(status),
                                    'actions' : '<a class="icon-pencil" title="Edit" onclick="edit_admin_modal('+ str(h.id) +');"></a>',
                               }
                 final_list.append(head_admin_data)

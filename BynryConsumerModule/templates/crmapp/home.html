@@ -529,7 +529,7 @@
     function new_consumer() {
         $("#div11").css('display', 'none');
         $("#div5").css('display', 'none');
-        $("#div4").css('display', 'block');
+        $("#div4").css('display', 'none');
         $("#div6").css('display', 'block');
         $("#div1").css('display', 'none');
     }
@@ -567,7 +567,8 @@
                         $("#new_cemail_id").attr("readonly", "readonly");
                         $("#new_cmobile_no").attr("readonly", "readonly");
                         $("#save_btn").attr("hidden", "hidden");
-                        alert('Data Saved');
+                        $("#div4").css('display', 'block');
+                        
                     }
                     if (response.success == "false") {
                         //$("#div5").css('display','block');

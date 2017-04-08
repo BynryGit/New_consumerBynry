@@ -418,7 +418,6 @@ def save_consumer_complaint_details(request):
             complaint_type_id=complaint_type_obj,
             consumer_id=consumer_id,
             remark=request.GET.get('complaint_remark'),
-            complaint_img=request.GET.get('complaint_img'),
             complaint_source="Web",
             complaint_status="Open",
             complaint_date=datetime.now()
@@ -507,7 +506,7 @@ def save_attachments1(attachment_list, complaint_obj):
         attachment_list = filter(None, attachment_list)
         for attached_id in attachment_list:
             attachment_obj = ComplaintImages.objects.get(id=attached_id)
-            attachment_obj.consumer_id = complaint_obj.consumer_id
+            attachment_obj.complaint_id = complaint_obj
             attachment_obj.save()
 
         data = {'success': 'true'}

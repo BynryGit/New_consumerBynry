@@ -52,12 +52,8 @@
 <div class="page-container">
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
-        <!-- BEGIN CONTENT BODY -->
-
-        <!-- BEGIN PAGE CONTENT BODY -->
         <div class="page-content">
-            <div class="container">
-                
+            <div class="container">                
                 <div class="page-content-inner" id="consumer_info">
                     <div class="row">
                         <div class="portlet light bordered">
@@ -245,7 +241,7 @@
             event.preventDefault();
             $.ajax({
                 type: "GET",
-                url: '/self-service/service-request/',
+                url: '/cti-crm/service-request/',
                 data: {'consumer_id': consumer_id, 'service_type': service_type, 'service_remark': service_remark},
                 success: function (response) {
                     if (response.success == 'true') {

@@ -1,7 +1,7 @@
 __auther__ = "Vikas Kumawat"
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
-from .models import ComplaintType, ComplaintDetail
+from .models import ComplaintType, ComplaintDetail, ComplaintImages
 from BynryConsumerModuleapp.models import Zone, BillCycle, RouteDetail, Branch
 from consumerapp.models import ConsumerDetails
 from django.contrib.sites.shortcuts import get_current_site
@@ -154,11 +154,12 @@ def get_complaint_details(request):
         complaints = ComplaintDetail.objects.get(
             id=request.GET.get('complaint_id'))
         # complaint image path with server url
-        if complaints.complaint_img:
-            image_address = "http://" + get_current_site(request).domain \
-                        + "/" + complaints.complaint_img.url
+        complaint_images = ComplaintImages.objects.filter(complaint_id = complaints)
+        if complaint_images:
+            complaint_image = complaint_images.last()
+            image_address = "http://" + get_current_site(request).domain + complaint_image.document_files.url
         else:
-            image_address = ''
+            image_address = "http://" + get_current_site(request).domain + '/static/assets/placeholder.png'
 
         # complaint detail result
         complaint_detail = {

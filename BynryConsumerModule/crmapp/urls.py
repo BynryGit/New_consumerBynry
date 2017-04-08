@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^get-complaint-details/', views.get_complaint_details, name='get_complaint_details'),
     url(r'^save-complaint-details/', views.save_complaint_details, name='save_complaint_details'),
     url(r'^services/', views.services, name='services'),
+    url(r'^service-request/', views.service_request, name='service_request'),
     url(r'^vigilance/', views.vigilance, name='vigilance'),
     url(r'^save-vigilance-complaint/', views.save_vigilance_complaint, name='save_vigilance_complaint'),
     url(r'^bills/', views.bills, name='bills'),
