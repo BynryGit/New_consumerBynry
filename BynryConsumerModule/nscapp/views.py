@@ -139,6 +139,7 @@ def review_consumer_form(request):
                 }
                 id_document_list.append(docs)
         data = {
+            'nsc_id':nsc_id,
             'consumer_category': nsc_obj.consumer_category,
             'service_requested': nsc_obj.service_requested,
             'supply_type': nsc_obj.supply_type,
@@ -295,7 +296,7 @@ def nsc_form(request):
     if nsc_obj.billing_address_line_2:
         billing_address = billing_address + ', ' + nsc_obj.billing_address_line_2
     if nsc_obj.billing_landmark:
-        billing_address = address + ', ' + nsc_obj.billing_landmark
+        billing_address = billing_address + ', ' + nsc_obj.billing_landmark
 
     document_list = []
     if nsc_obj.address_proof_list:
