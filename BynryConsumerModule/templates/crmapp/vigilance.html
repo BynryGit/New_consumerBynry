@@ -57,13 +57,10 @@
                                                             <div class="form-group form-md-line-input has-success">
                                                                 <input type="text" class="form-control"
                                                                        id="consumer_no"
-                                                                       name="consumer_no" maxlength="12" value="{{request.session.consumer_no}}">
-                                                                <label for="consumer_no" > Consumer No. <span
-                                                                        class="required">*</span></label>
+                                                                       name="consumer_no"  value="{{request.session.consumer_no}}" readonly="">
+                                                                <label for="consumer_no" > Consumer No. </label>
                                                             </div>
-                                                        </div>
-                                                        <span id="consumer_no_error"
-                                                              style="margin-top: -9px;color:red; font-size: 12px;"></span>
+                                                        </div>                                                        
                                                     </div>                                                    
                                                     <div class="col-xs-4">
                                                         <div class="form-group form-md-line-input has-success"
@@ -277,26 +274,12 @@
     }
 
 	function validate_vigilance() {
-			if (CheckConsumerNo("#consumer_no")&CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")
+			if (CheckCity("#city")&CheckVigilanceType("#vigilance_type")&CheckPincode("#pincode")
 			     &CheckAddress("#consumer_address")&CheckRemark("#vigilance_remark")) {	
 			return true
 			}
 			return false		
 	}
-	function CheckConsumerNo(consumer_no){
-	   consumer_no = $(consumer_no).val()     
-	   var Pattern = /^[a-zA-Z0-9!@#$%^&*]{12}$/;
-	 
-	   if(Pattern.test(consumer_no)){
-	    $(consumer_no_error).css("display", "none");
-	   return true;
-	   }
-	   else{
-	    $(consumer_no_error).css("display", "block");
-	    $(consumer_no_error).text("Please enter valid Consumer Number");
-	   return false; 
-	   }
-	 }	
 
 	function CheckCity(city){
 			if($(city).val()!=' ' && $(city).val()!=null)

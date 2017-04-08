@@ -411,11 +411,11 @@ function CheckBillLandmark(landmark){
 function CheckBillCity(city){
 	if($(city).val()!=' ' && $(city).val()!=null)
    {
-    $(bill_city).parent().children('.error').css("display", "none");
+    $(city).parent().children('.error').css("display", "none");
    return true;
    }else{
-    $(bill_city).parent().children('.error').css("display", "block");
-    $(bill_city).parent().children('.error').text("Please select City");
+    $(city).parent().children('.error').css("display", "block");
+    $(city).parent().children('.error').text("Please select City");
    return false; 
    }
 }
@@ -423,11 +423,11 @@ function CheckBillCity(city){
 function CheckBillPincode(pincode){
 	if($(pincode).val()!=' ' && $(pincode).val()!=null)
    {
-    $(bill_pincode).parent().children('.error').css("display", "none");
+    $(pincode).parent().children('.error').css("display", "none");
    return true;
    }else{
-    $(bill_pincode).parent().children('.error').css("display", "block");
-    $(bill_pincode).parent().children('.error').text("Please select Pincode");
+    $(pincode).parent().children('.error').css("display", "block");
+    $(pincode).parent().children('.error').text("Please select Pincode");
    return false; 
    }
 }

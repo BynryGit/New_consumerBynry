@@ -59,11 +59,42 @@ var initTable1 = function () {
             [0, 'asc']
         ],
 
-        buttons: [
-            { extend: 'print', className: 'btn dark btn-outline' },
-            { extend: 'pdf', className: 'btn green btn-outline' },
-            { extend: 'excel', className: 'btn yellow btn-outline ' },
-            { extend: 'csv', className: 'btn purple btn-outline ' },
+        buttons: [        	
+            { extend: 'print', className: 'btn dark btn-outline', 
+                 filename: 'New Service Request  Bynry', "title": "New Service Request | Bynry",
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
+            { extend: 'pdf', className: 'btn green btn-outline',
+                 filename: 'New Service Request  Bynry', "title": "New Service Request | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.fontSize = 12; 
+                     doc.defaultStyle.alignment= 'center';
+                     doc.styles.tableHeader.fontSize = 14; 
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
+             { extend: 'excel', className: 'btn yellow btn-outline',
+                 filename: 'New Service Request  Bynry', "title": "New Service Request | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.alignment= 'center';
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
+             { extend: 'csv', className: 'btn purple btn-outline',
+                 filename: 'New Service Request  Bynry', "title": "New Service Request | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.alignment= 'center';
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
         ],
 
         "lengthMenu": [
@@ -122,7 +153,7 @@ function clear_filter(){
 	}
 	   // KYC Verification
 	function KYC_verify(var1) {
-
+		  $("#remark_error").css("display", "none");
         var  registration_id = var1;
         $.ajax({
             type: 'GET',
@@ -132,6 +163,7 @@ function clear_filter(){
 
             console.log(response);
                 if (response.success == 'true') {
+                	$('#KYC_aadhar_no').val(response.data.aadhar_no)
 						$('#KYC_consumerid').val(response.data.consumer_id)
 						$('#KYC_applicant_name').val(response.data.applicant_name)
 						$('#KYC_mobile_no').val(response.data.meter_mobile_no)
@@ -139,6 +171,8 @@ function clear_filter(){
 						$('#KYC_address').val(response.data.address)
 						$('#KYC_city').val(response.data.city_name)
 						$('#KYC_pincode').val(response.data.pincode)
+						$('#verify_KYC').val('Verified').change()
+						$('#KYC_remark').val('')		
 
                   $("#KYC_model").modal('show');
                 }
@@ -185,9 +219,11 @@ function clear_filter(){
 		    		contentType: false,
               success: function (response) {
 	              if(response.success=='true'){
+							$("#KYC_model").modal('hide');	           	  		
 	           	  		$("#success_modal").modal('show');
 	              	}
 	      			if (response.success == "false") {
+	      				$("#KYC_model").modal('hide');
 							$("#error-model").modal('show');
 	       			}
                },
@@ -205,7 +241,10 @@ function clear_filter(){
 });
 // Technical
 	function Technical_verify(var1) {
-
+		  $("#checklist_error").css("display", "none");
+		  $(techname_error).css("display", "none");
+		  $(mobile_error).css("display", "none");
+		  $("#techremark_error").css("display", "none");
         var  registration_id = var1;
         $.ajax({
             type: 'GET',
@@ -224,7 +263,15 @@ function clear_filter(){
 						$('#tech_subcat').val(response.data.consumer_subcategory)
 						$('#tech_supply_type').val(response.data.supply_type)
 						$('#tech_premise_type').val(response.data.type_of_premises)
-
+						$('#technician_name').val('')
+						$('#tech_contact_no').val('')
+						$('#verify_technical').val('Passed').change()
+						$('#tech_remark').val('')
+						document.getElementById("checkbox1_1").checked = false;
+						document.getElementById("checkbox1_2").checked = false;
+						document.getElementById("checkbox1_3").checked = false;
+						document.getElementById("checkbox1_4").checked = false;
+										
                   $("#technical_model").modal('show');
                 }
                 if (response.success == 'false') {
@@ -311,9 +358,11 @@ function clear_filter(){
 
               success: function (response) {
 	              if(response.success=='true'){
+	              		$("#technical_model").modal('hide');
 	           	  		$("#success_modal").modal('show');
 	              	}
 	      			if (response.success == "false") {
+	      				$("#technical_model").modal('hide');
 							$("#error-model").modal('show');
 
 	       			}
@@ -333,7 +382,11 @@ function clear_filter(){
 
 // Payment
 	function Payment_verify(var1) {
-
+		  $(amount_error).css("display", "none");
+		  $(checkno_error).css("display", "none");
+		  $(checknm_error).css("display", "none");
+		  $(checkDDno_error).css("display", "none");
+		  $(checkDDnm_error).css("display", "none");
         var  registration_id = var1;
         $.ajax({
             type: 'GET',
@@ -351,8 +404,11 @@ function clear_filter(){
 						$('#pay_subcategory').val(response.data.consumer_subcategory)
 						$('#pay_supply_type').val(response.data.supply_type)
 						$('#pay_address').val(response.data.address)
-						$('#pay_pincode').val(response.data.pincode)
-
+						$('#pay_pincode').val(response.data.pincode)						
+						$('#pay_amount_paid').val('')
+						$('#pay_cheque_no').val('')
+						$('#payment_mode').val('Cheque').change()
+						$('#pay_cheque_name').val('')						
                   $("#payment_model").modal('show');
                 }
                 if (response.success == 'false') {
@@ -455,9 +511,11 @@ function clear_filter(){
 
               success: function (response) {
 	              if(response.success=='true'){
+	              	   $("#payment_model").modal('hide');
 	           	  		$("#success_modal").modal('show');
 	              	}
 	      			if (response.success == "false") {
+	      				$("#payment_model").modal('hide');
 							$("#error-model").modal('show');
 
 	       			}
@@ -477,6 +535,13 @@ function clear_filter(){
 
 
     function consumer_details(registration_id) {
+    	$("#error_meter_route").css("display", "none");
+    	$("#error_meter_no").css("display", "none");
+    	$("#error_meter_date").css("display", "none");
+    	$("#error_meter_digit").css("display", "none");
+    	$("#error_meter_make").css("display", "none");
+    	$("#error_meter_type").css("display", "none");
+    	$("#error_meter_status").css("display", "none");
         $.ajax({
             type: 'GET',
             url: '/nscapp/get-consumer-data/',
@@ -492,7 +557,15 @@ function clear_filter(){
                     $('#connection_sub_category').val(response.consumer_sub_category);
                     $('#connection_supply_type').val(response.supply_type);
                     $('#connection_address').val(response.address);
-                    $("#Meter_Detail_model").modal('show');
+                    $('#meter_route').val('').change();
+                    $('#meter_no').val('');
+                    $('#meter_date').val('');
+                    $('#meter_digit').val('');
+                    $('#meter_make').val('');
+                    $('#meter_type').val('');
+                    $('#meter_status').val('').change();
+                    
+                    $("#Meter_Detail_model").modal('show');  
                 }
                 if (response.success == 'false') {
                     alert(response.message);
@@ -532,6 +605,7 @@ function clear_filter(){
 	           	  		$("#success_modal").modal('show');
 	              	}
 	      			if (response.success == "false") {
+	      			 $("#Meter_Detail_model").modal('hide');
 					    $("#error-model").modal('show');
 	       		    }
                 },
