@@ -210,6 +210,38 @@ def services(request):
     return render(request, 'crmapp/services.html', data)
 
 
+def service_request(request):
+    """to get service details"""
+    try:
+        print 'crmapp|views.py|service_request'
+        # filter complaint by service id
+        consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
+        print '---------consumer------', consumer_id
+        print '----request-----', request.GET.get('service_type')
+        service_type = ServiceRequestType.objects.get(id=request.GET.get('service_type'))
+        chars = string.digits
+        pwdSize = 5
+        password = ''.join(random.choice(chars) for _ in range(pwdSize))
+
+        service_obj = ServiceRequest(
+            service_no="SERVICE" + str(password),
+            service_type=service_type,
+            consumer_id=consumer_id,
+            consumer_remark=request.GET.get('service_remark'),
+            source="CTI",
+            request_date=datetime.now(),
+            created_date=datetime.now()
+        )
+        service_obj.save()
+        service_no = service_obj.service_no
+
+        data = {'success': 'true', 'service_no': service_no}
+    except Exception as exe:
+        print 'Exception|crmapp|views.py|service_request', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
 def vigilance(request):
     """To view vigilance page"""
     try:
