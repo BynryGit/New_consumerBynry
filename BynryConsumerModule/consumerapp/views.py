@@ -32,7 +32,8 @@ from vigilanceapp.models import VigilanceType
 from consumerapp.models import MeterReadingDetail
 from datetime import datetime
 
-SERVER_URL = "http://192.168.10.102:8080"   
+SERVER_URL = "http://192.168.10.102:8080"
+
 
 def consumer_list(request):
     if not request.user.is_authenticated():
@@ -53,12 +54,12 @@ def consumer_list(request):
                 'billcycle_list': get_billcycle(request),
                 'route_list': get_RouteDetail(request),
                 'pincode_list': get_pincode(request),
-                'total':total
+                'total': total
             }
         except Exception, e:
             data = {}
             print 'Exception|consumerapp|views.py|consumer_list', e
-        print '..........\n\n\n\n......SSSSSSSSSSSSS',data
+        print '..........\n\n\n\n......SSSSSSSSSSSSS', data
         return render(request, 'consumer_list.html', data)
 
 
@@ -75,6 +76,7 @@ def get_city(request):
         print 'Exception|consumerapp|views.py|get_city', e
         data = {'city_list': 'none', 'message': 'No city available'}
         return data
+
 
 def get_branch(request):
     branch_list = []
@@ -173,14 +175,16 @@ def get_consumer_list(request):
 
             for consumer_obj in consumer_obj_list:
                 consumer_no = consumer_obj.consumer_no
-                consumer_no1 = '<a href="/consumerapp/consumer-details/?consumer_id=' + str(consumer_obj.id) + '">' + consumer_no + '</a>'
+                consumer_no1 = '<a href="/consumerapp/consumer-details/?consumer_id=' + str(
+                    consumer_obj.id) + '">' + consumer_no + '</a>'
                 consumer_name = consumer_obj.name
                 contact_no = consumer_obj.contact_no
                 email_id = consumer_obj.email_id
                 servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_obj.id).count()
                 complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_obj.id).count()
                 connection_status = consumer_obj.connection_status
-                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + str(consumer_obj.id) + ')"></i> </a>'
+                action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + str(
+                    consumer_obj.id) + ')"></i> </a>'
 
                 consumer_data = {
                     'consumer_no': consumer_no1,
@@ -228,7 +232,7 @@ def edit_consumer(request):
             sanction_load = consumer_obj.sanction_load
 
             consumer_data = {
-            	'consumer_id': consumer_obj.id,
+                'consumer_id': consumer_obj.id,
                 'name': name,
                 'utility': utility,
                 'contact_no': contact_no,
@@ -308,64 +312,73 @@ def consumer_details(request):
                     last_Month = pre_Month - i
                     if last_Month <= 0:
                         last_Month = 12 + last_Month
-                        last_Year = pre_Year -1
-                    month1 = month_list1[last_Month-1] +'-'+str(last_Year)
-                    month2 = month_list2[last_Month-1] +'-'+str(last_Year)
-                    last_month_list.append({'month1':month1,'month2':month2})
+                        last_Year = pre_Year - 1
+                    month1 = month_list1[last_Month - 1] + '-' + str(last_Year)
+                    month2 = month_list2[last_Month - 1] + '-' + str(last_Year)
+                    last_month_list.append({'month1': month1, 'month2': month2})
+
+                consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+                address_line_1 = consumer_obj.address_line_1
+                address_line_2 = consumer_obj.address_line_2
+                address = address_line_1 + ', ' + address_line_2
+
+                vigilanceType = VigilanceType.objects.filter(is_deleted=False)
+                complaintType = ComplaintType.objects.filter(is_deleted=False)
+                serviceType = ServiceRequestType.objects.filter(is_deleted=False)
+                consumer_data = {
+                    'consumer_id': request.GET.get('consumer_id'),
+                    'name': consumer_obj.name,
+                    'consumer_no': consumer_obj.consumer_no,
+                    'aadhar_no': consumer_obj.aadhar_no,
+                    'address': address,
+                    'contact_no': consumer_obj.contact_no,
+                    'email_id': consumer_obj.email_id,
+                    'zone_name': str(consumer_obj.zone.zone_name),
+                    'billcycle': str(consumer_obj.bill_cycle.bill_cycle_code),
+                    'route': str(consumer_obj.route.route_code),
+                    'utility': consumer_obj.Utility.utility,
+                    'meter_no': consumer_obj.meter_no,
+                    'meter_category': consumer_obj.meter_category,
+                    'sanction_load': consumer_obj.sanction_load,
+                    'pole_no': consumer_obj.pole_no,
+                    'latitude': consumer_obj.latitude,
+                    'longitude': consumer_obj.longitude,
+                    'special_remark_location': consumer_obj.special_remark_location,
+                }
 
                 try:
-                    consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+                    meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj).last()
+                    # payment_obj = PaymentDetail.objects.filter(consumer_id=request.GET.get('consumer_id')).first()
 
-                    address_line_1 = consumer_obj.address_line_1
-                    address_line_2 = consumer_obj.address_line_2
-                    address = address_line_1 + ', ' + address_line_2
-                    
-                    vigilanceType = VigilanceType.objects.filter(is_deleted=False)
-                    complaintType = ComplaintType.objects.filter(is_deleted=False)
-                    serviceType = ServiceRequestType.objects.filter(is_deleted=False)
-                    consumer_data = {
-                        'consumer_id': request.GET.get('consumer_id'),
-                        'name': consumer_obj.name,
-                        'consumer_no': consumer_obj.consumer_no,
-                        'aadhar_no': consumer_obj.aadhar_no,
-                        'address': address,
-                        'contact_no': consumer_obj.contact_no,
-                        'email_id': consumer_obj.email_id,
-                        'zone_name': str(consumer_obj.zone.zone_name),
-                        'billcycle': str(consumer_obj.bill_cycle.bill_cycle_code),
-                        'route': str(consumer_obj.route.route_code),
-                        'utility': consumer_obj.Utility.utility,
-                        'meter_no': consumer_obj.meter_no,
-                        'meter_category': consumer_obj.meter_category,
-                        'sanction_load': consumer_obj.sanction_load,
-                        'pole_no':consumer_obj.pole_no
+                    if meter_obj.bill_unit and meter_obj.adjusted_unit:
+                        total_reading = int(meter_obj.bill_unit) - int(meter_obj.adjusted_unit)
+                    else:
+                        total_reading = meter_obj.bill_unit
+
+                    total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
+                    total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
+                    net_bill_amount = total_charges + total_arrears
+
+                    consumer_address = str(consumer_obj.address_line_1)
+                    if consumer_obj.address_line_2:
+                        consumer_address = consumer_address + ', ' + str(consumer_obj.address_line_2)
+
+                    payment_data = {
+                        'consumer_no': consumer_obj.name,
+                        'address': consumer_address,
+                        'bill_month': str(meter_obj.bill_month),
+                        'consumption': str(total_reading),
+                        'current_month_reading': str(meter_obj.current_month_reading),
+                        'previous_month_reading': str(meter_obj.previous_month_reading),
+                        'current_reading_date': meter_obj.current_reading_date.strftime('%d %b %Y'),
+                        'prompt_date': meter_obj.prompt_date.strftime('%d %b %Y'),
+                        'current_amount': str(total_charges),
+                        'tariff_rate': str(meter_obj.tariff),
+                        'net_amount': str(net_bill_amount),
+                        'bill_amount_after_due_date': meter_obj.bill_amount_after_due_date,
+                        'prompt_amount': str(meter_obj.prompt_amount),
+                        'due_date': meter_obj.due_date.strftime('%d %b %Y'),
                     }
-                except Exception, e:
-                    print 'Exception|consumerapp|views.py|consumer_details', e
-                    consumer_data = {}
-
-                try:
-                    payment_obj = PaymentDetail.objects.filter(consumer_id=request.GET.get('consumer_id')).first()
-                    payment_data={
-                            'consumer_no':consumer_obj.name,
-                            'address': payment_obj.consumer_id.address_line_1 +' '+ payment_obj.consumer_id.address_line_2,
-                            'transaction_id':str(payment_obj.transaction_id),
-                            'payment_mode':payment_obj.payment_mode,
-                            'meter_no':str(payment_obj.consumer_id.meter_no),
-                            'bill_month':str(payment_obj.meter_reading_id.bill_month),
-                            'consumption':str(payment_obj.meter_reading_id.unit_consumed),
-                            'current_month_reading':str(payment_obj.meter_reading_id.current_month_reading),
-                            'previous_month_reading':str(payment_obj.meter_reading_id.previous_month_reading),
-                            'current_reading_date':str(payment_obj.meter_reading_id.current_reading_date),
-                            'prompt_date':str(payment_obj.prompt_date),
-                            'current_amount':str(payment_obj.current_amount),
-                            'tariff_rate':str(payment_obj.tariff_rate),
-                            'net_amount':str(payment_obj.net_amount),
-                            'bill_amount_paid':str(payment_obj.bill_amount_paid),
-                            'amount_after_due_date':str(payment_obj.due_amount),
-                            'payment_date':str(payment_obj.payment_date.strftime("%d/%m/%Y")),
-                            'due_date':str(payment_obj.due_date.strftime("%d/%m/%Y"))
-                         }
                 except Exception, e:
                     print 'Exception|consumerapp|views.py|consumer_details', e
                     payment_data = {}
@@ -374,9 +387,9 @@ def consumer_details(request):
                     'success': 'true',
                     'data': consumer_data,
                     'last_month_list': last_month_list,
-                    'vigilanceType':vigilanceType,
-                    'complaintType':complaintType,
-                    'serviceType':ServiceRequestType.objects.filter(is_deleted=False),
+                    'vigilanceType': vigilanceType,
+                    'complaintType': complaintType,
+                    'serviceType': ServiceRequestType.objects.filter(is_deleted=False),
                     'payment_data': payment_data
                 }
             except Exception as e:
@@ -386,6 +399,7 @@ def consumer_details(request):
             print 'Exception|consumerapp|views.py|consumer_details', e
         return render(request, 'consumer_details.html', data)
 
+
 @csrf_exempt
 def get_meter_details(request):
     try:
@@ -394,11 +408,12 @@ def get_meter_details(request):
         final_list = []
         try:
             consumer_id = request.POST.get('consumer_id')
-            monthList   = request.POST.get('monthList')			
+            monthList = request.POST.get('monthList')
             month = monthList.split('-')
 
             try:
-                reading_obj = MeterReadingDetail.objects.get(consumer_id=consumer_id,bill_month=str(month[0]),bill_months_year=str(month[1]))
+                reading_obj = MeterReadingDetail.objects.get(consumer_id=consumer_id, bill_month=str(month[0]),
+                                                             bill_months_year=str(month[1]))
                 unit_consumed = reading_obj.unit_consumed
                 current_reading = reading_obj.current_month_reading
                 previous_reading = reading_obj.previous_month_reading
@@ -408,23 +423,24 @@ def get_meter_details(request):
                 current_reading_date = current_reading_date.strftime("%b %d,%Y")
                 previous_month_reading_date = previous_month_reading_date.strftime("%b %d,%Y")
                 if reading_obj.meter_reading_image:
-                    meter_reading_image = "http://" + get_current_site(request).domain + reading_obj.meter_reading_image.url
+                    meter_reading_image = "http://" + get_current_site(
+                        request).domain + reading_obj.meter_reading_image.url
                 else:
-                    meter_reading_image = ""              
+                    meter_reading_image = ""
 
                 consumer_data = {
-                'unit_consumed': unit_consumed,
-                'current_reading': current_reading,
-                'previous_reading': previous_reading,
-                'current_reading_date': current_reading_date,
-                'previous_month_reading_date': previous_month_reading_date,
-                'billed_days': billed_days,
-                'meter_reading_image':meter_reading_image
+                    'unit_consumed': unit_consumed,
+                    'current_reading': current_reading,
+                    'previous_reading': previous_reading,
+                    'current_reading_date': current_reading_date,
+                    'previous_month_reading_date': previous_month_reading_date,
+                    'billed_days': billed_days,
+                    'meter_reading_image': meter_reading_image
                 }
             except Exception, e:
                 print 'Exception|consumerapp|views.py|get_meter_details', e
-                consumer_data ={}
-            
+                consumer_data = {}
+
             data = {'success': 'true', 'data': consumer_data}
         except Exception as e:
             print 'Exception|consumerapp|views.py|get_meter_details', e
@@ -444,6 +460,10 @@ def save_consumer_details(request):
         consumer_obj.meter_no = request.POST.get('meter_no')
         consumer_obj.meter_category = request.POST.get('category')
         consumer_obj.sanction_load = request.POST.get('saction_load')
+        consumer_obj.pole_no = request.POST.get('panel_no')
+        consumer_obj.latitude = request.POST.get('latitude')
+        consumer_obj.longitude = request.POST.get('longitude')
+        consumer_obj.special_remark_location = request.POST.get('special_instruction')
         consumer_obj.updated_on = datetime.now()
         consumer_obj.save();
 

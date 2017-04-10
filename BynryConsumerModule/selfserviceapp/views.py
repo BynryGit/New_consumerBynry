@@ -940,10 +940,18 @@ def view_bill(request):
         else:
             image_address = ''
 
+        consumer_address = str(consumer_obj.address_line_1)
+        if consumer_obj.address_line_2:
+            consumer_address = consumer_address + ', ' + str(consumer_obj.address_line_2)
+        if consumer_obj.city:
+            consumer_address = consumer_address + ', ' + str(consumer_obj.city.city)
+        if consumer_obj.pin_code:
+            consumer_address = consumer_address + ' - ' + str(consumer_obj.pin_code)
+
         data = {
             'con_number': consumer_obj.consumer_no,
             'con_name': consumer_obj.name,
-            'con_address': consumer_obj.name,
+            'con_address': consumer_address,
             'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
             'route': consumer_obj.route.route_code,
             'category': consumer_obj.meter_category,
