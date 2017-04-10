@@ -23,16 +23,21 @@ def dashboard(request):
 def login(request):
     return render(request, 'login.html')
 
+
+# redirect to system user's page
 def system_user(request):
+    print 'views.py|system_user'
     if not request.user.is_authenticated():
         return render(request, 'login.html')
     else:
         role_list = []
         branch_list = []
-        role_objs = UserRole.objects.filter(is_deleted=False,status='Active')
+        role_objs = UserRole.objects.filter(is_deleted=False, status='Active')
         total_role_count = UserRole.objects.filter(is_deleted=False).count()
-        active_role_count = UserRole.objects.filter(is_deleted=False,status='Active').count()
-        inactive_role_count = UserRole.objects.filter(is_deleted=False,status='Inactive').count()
+        active_role_count = UserRole.objects.filter(is_deleted=False,
+                                                    status='Active').count()
+        inactive_role_count = UserRole.objects.filter(is_deleted=False,
+                                                      status='Inactive').count()
         branch_obj = Branch.objects.filter(is_deleted=False)
         for branch in branch_obj:
             branch_data = {'branch_id':branch.id, 'branch':branch.branch_name}
@@ -47,18 +52,20 @@ def system_user(request):
                 }
         return render(request, 'system_user.html', data)
 
+
+# redirect to administrator's page
 def administrator(request):
     if not request.user.is_authenticated():
         return render(request, 'login.html')
     else:
         try:
             print 'views.py|administrator'
-            privilege_list =  UserPrivilege.objects.filter(is_deleted=False)
-            data={'privilege_list':privilege_list}
+            privilege_list = UserPrivilege.objects.filter(is_deleted=False)
+            data = {'privilege_list':privilege_list}
 
         except Exception, e:
             print 'views.py|administrator'
-        return render(request, 'administrator.html',data)
+        return render(request, 'administrator.html', data)
 
 def complaints(request):
     return render(request, 'complaints.html')
@@ -73,18 +80,19 @@ def vigilance_cases(request):
 def payments(request):
     return render(request, 'payments.html')
 
+
+# save system user details
 def save_system_user_details(request):
     try:
         print 'views.py|save_system_user_details'
         city_obj = City.objects.get(city=request.GET.get('city'))
         role_obj = UserRole.objects.get(role=request.GET.get('role'))
-        if request.GET.get('user_status')=='true':
+        if request.GET.get('user_status') == 'true':
             user_status = 'Active'
         else:
             user_status = 'Inactive'
         user_obj = SystemUserProfile(
             username=request.GET.get('email'),
-            #password=request.GET.get('password'),
             contact_no=request.GET.get('contact_no'),
             address=request.GET.get('address'),
             first_name=request.GET.get('first_name'),
@@ -111,6 +119,8 @@ def save_system_user_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+# get system user details
 def get_system_user_details(request):
     try:
         print 'views.py|get_system_user_details'
@@ -140,6 +150,8 @@ def get_system_user_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+# update system user details
 def update_system_user_details(request):
     try:
         print 'views.py|update_system_user_details'
@@ -153,7 +165,6 @@ def update_system_user_details(request):
             user_obj.status = 'Inactive'
 
         user_obj.username = request.GET.get('email')
-        #user_obj.password = request.GET.get('password')
         user_obj.contact_no = request.GET.get('contact_no')
         user_obj.address = request.GET.get('address')
         user_obj.first_name = request.GET.get('first_name')
@@ -162,7 +173,6 @@ def update_system_user_details(request):
         user_obj.employee_id = request.GET.get('emp_id')
         user_obj.role = role_obj
         user_obj.email = request.GET.get('email')
-        #user_obj.status = request.GET.get('user_status')
         user_obj.save()
 
         user_obj.set_password(request.GET.get('password'))
@@ -181,12 +191,13 @@ def update_system_user_details(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+# get head admin list
 def head_admin(request):
     final_list = []
     try:
         print 'views.py|head_admin'
         try:
-            #role_obj = UserRole.objects.all()
             head_admin_list = SystemUserProfile.objects.all()
             # get head admin data list
             for h in head_admin_list:
@@ -321,6 +332,8 @@ def branch_agent(request):
         print 'Exception', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+# save new role
 @csrf_exempt
 def save_new_role(request):
     try:
@@ -348,6 +361,8 @@ def save_new_role(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+# get role list
 def get_role_list(request):
     try:
         print 'views.py|get_role_list'
@@ -389,6 +404,8 @@ def get_role_list(request):
         print 'Exception|views.py|get_role_list', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+# get role details and privileges list
 def get_role_details(request):
     try:
         print 'views.py|get_role_details'
@@ -430,10 +447,11 @@ def get_role_details(request):
         print 'Exception|views.py|get_role_details', e
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# to update role details
 @csrf_exempt
 def update_role_details(request):
     try:
-        print 'views.py|update_role_details\n\n\n\n\n\nSSSSSSSSSSSA',request.POST.get('status')
+        print 'views.py|update_role_details'
         privilege_list = request.POST.get('privilege_list')
         privilege_list = privilege_list.split(',')
 

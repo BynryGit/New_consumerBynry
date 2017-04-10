@@ -219,14 +219,8 @@ def service_request(request):
     try:
         print 'crmapp|views.py|service_request'
         # filter complaint by service id
-        if request.session['consumer_no']:
-            consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
-            consumer_id = consumer_id.consumer_no
-            consumer_data_id = None
 
-        if request.session['consumer_data_id']:
-            consumer_data_id = ConsumerData.objects.get(id=request.session['consumer_data_id'])
-            consumer_id = None
+        consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
 
         service_type = ServiceRequestType.objects.get(id=request.GET.get('service_type'))
         chars = string.digits
@@ -236,8 +230,7 @@ def service_request(request):
         service_obj = ServiceRequest(
             service_no="SERVICE" + str(password),
             service_type=service_type,
-            consumer_id=consumer_id if consumer_id else None,
-            consumer_data_id=consumer_data_id if consumer_data_id else None,
+            consumer_id=consumer_id,
             consumer_remark=request.GET.get('service_remark'),
             source="CTI",
             request_date=datetime.now(),
