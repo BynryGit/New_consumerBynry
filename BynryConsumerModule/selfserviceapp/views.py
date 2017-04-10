@@ -118,6 +118,8 @@ def my_bills(request):
             'name': consumer_obj.consumer_id.name,
             'bill_cycle': consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
             'unit_consumed': consumer_obj.unit_consumed,
+            'bill_amount': str(total_charges),
+            'total_arrears': str(total_arrears),
             'net_amount': str(net_bill_amount),
             'payment_status': payment_status,
             'prompt_date': consumer_obj.prompt_date,
