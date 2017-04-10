@@ -52,11 +52,34 @@
                 {"data": "action","sClass": "text-center"}                                                       
             ],                                                                                                                                                                  
                                                       
-            buttons: [
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' },
-            ],
-
+           
+				
+				buttons: [        	
+            
+            { extend: 'pdf', className: 'btn green btn-outline',
+                 filename: 'New Service Request  Bynry', "title": "User Role | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.fontSize = 12; 
+                     doc.defaultStyle.alignment= 'center';
+                     doc.styles.tableHeader.fontSize = 14; 
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3 ]
+                 },
+             },
+             { extend: 'excel', className: 'btn yellow btn-outline',
+                 filename: 'New Service Request  Bynry', "title": "User Role | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.alignment= 'center';
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3 ]
+                 },
+             },
+             
+        ],
+				
+				
             "lengthMenu": [
                 [5, 10, 15, 20, -1],
                 [5, 10, 15, 20, "All"] // change per page values here
@@ -68,6 +91,7 @@
       });
     }
     initTable1();
+
 
 function validateRole(user_role){
 	
@@ -150,6 +174,8 @@ $("#save-role").click(function(event)  {
 });    
     
 function edit_role_modal(role_id) {
+		
+		
 		$("#edit_role_modal").modal('show');  
 		   $.ajax({
 		       type	: "GET",
@@ -168,7 +194,7 @@ function edit_role_modal(role_id) {
 							$("#status_switch").attr("checked", false).change();
 						}
 
-		     		  							
+		     		  	//$( "#edit_role_modal" ).load(" #edit_role_modal" );						
 						$("#edit_role_modal").modal('show');   
 		     		  }
 		     		  if(response.success=='false'){
@@ -186,7 +212,7 @@ function edit_role_modal(role_id) {
 		
 		
 function update_role_details() {
-
+		
 		var checkboxValues = []
 		checkboxValues = $('.privillagesModel:checked').map(function() {
 			    return $(this).val();
