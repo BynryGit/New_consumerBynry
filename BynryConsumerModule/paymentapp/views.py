@@ -345,7 +345,7 @@ def get_bills_details(request):
 
                 transaction_id = payment_obj.transaction_id
                 bill_amount_paid = str(payment_obj.bill_amount_paid)
-                payment_date = str(payment_obj.payment_date.strftime("%d/%m/%Y"))
+                payment_date = str(payment_obj.created_on.strftime("%d %b %Y"))
                 payment_mode = payment_obj.payment_mode
 
                 payment_data = {
