@@ -12,5 +12,10 @@ urlpatterns = [
     url(r'^consumer-details/', views.consumer_details,name='consumer_details'),
     url(r'^get-meter-details/', views.get_meter_details,name='get_meter_details'),
     url(r'^save-consumer-details/', views.save_consumer_details,name='save_consumer_details'),
-
+    url(r'^get-pincode/', views.get_pincode_front,name='get_pincode'),
+    url(r'^get-branch/', views.get_branch_front,name='get_branch'),
+    url(r'^get-zone/', views.get_zone_front,name='get_zone'),
+    url(r'^get-billcycle/', views.get_billcycle_front,name='get_billcycle_front'),
+    url(r'^get-route/', views.get_route_front,name='get_route_front'),
 ]
+

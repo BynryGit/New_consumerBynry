@@ -553,7 +553,7 @@ def save_consumer_payment(request):
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('pay_consumerid'))
         consumer_obj.status = 'Payment'
         consumer_obj.save();
-
+        Utility_obj = Utility.objects.get(utility= 'Electricity')
         new_Consumer_obj = ConsumerDetails(
             consumer_id=NewConsumerRequest.objects.get(
                 id=request.POST.get('pay_consumerid')) if request.POST.get(
@@ -564,7 +564,7 @@ def save_consumer_payment(request):
             address_line_1=consumer_obj.meter_address_line_1,
             address_line_2=consumer_obj.meter_address_line_2,
             consumer_no='CONS123456',
-
+            Utility= Utility_obj,
             city=City.objects.get(
                 id=consumer_obj.meter_city.id) if consumer_obj.meter_city.id else None,
             pin_code=Pincode.objects.get(
