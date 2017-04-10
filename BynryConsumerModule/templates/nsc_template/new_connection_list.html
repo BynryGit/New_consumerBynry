@@ -805,7 +805,6 @@
                 <h4 class="modal-title"> Meter Connection Details:</h4>
             </div>
             <div class="modal-body">
-
                 <div class="scroller" style="height:500px" data-always-visible="1" data-rail-visible1="1">
                     <div class="row">
                         <div class="col-md-4">
@@ -928,20 +927,16 @@
                                 <select name="meter_status" id="meter_status" class="form-control input-sm select2-multiple">
                                     <option value="">Select a Status</option>
                                     <option value="Done"> Done</option>
-                                    <option value="Not Done"> Not Done</option>
+                                    <option value="Not Done"> Rejected</option>
                                 </select>
                                 <label>Meter Connection Status<span class="required" aria-required="true"> * </span></label>
                             </div>
                             <span id="error_meter_status" class="display-none has-error" style="font-size: 12px;"> Please select Meter Connection Status </span>
                         </div>
                     </div>
-                    
-
                 </div>
-
             </div>
             <div class="modal-footer">
-
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
                 <button type="button" class="btn green" id="save-consumer" onclick="save_meter_details()">Save</button>
             </div>
