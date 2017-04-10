@@ -118,6 +118,8 @@ def my_bills(request):
             'name': consumer_obj.consumer_id.name,
             'bill_cycle': consumer_obj.consumer_id.bill_cycle.bill_cycle_name,
             'unit_consumed': consumer_obj.unit_consumed,
+            'bill_amount': str(total_charges),
+            'total_arrears': str(total_arrears),
             'net_amount': str(net_bill_amount),
             'payment_status': payment_status,
             'prompt_date': consumer_obj.prompt_date,
@@ -533,7 +535,7 @@ def service_request(request):
     try:
         print 'selfserviceapp|views.py|service_request'
         # filter complaint by complaint id
-        consumer_id = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+        consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
         print '----request-----', request.GET.get('service_type')
         service_type = ServiceRequestType.objects.get(id=request.GET.get('service_type'))
         chars = string.digits
@@ -834,6 +836,8 @@ def save_vigilance_complaint(request):
                 id=request.POST.get('pincode')) if request.POST.get(
                 'pincode') else None,
             vigilance_remark=request.POST.get('vigilance_remark'),  # Need to change logic
+            vigilance_status= 'Open',
+            vigilance_source= 'Web',
             created_on=datetime.now(),
             created_by=request.session['login_user'],
         );
@@ -936,10 +940,18 @@ def view_bill(request):
         else:
             image_address = ''
 
+        consumer_address = str(consumer_obj.address_line_1)
+        if consumer_obj.address_line_2:
+            consumer_address = consumer_address + ', ' + str(consumer_obj.address_line_2)
+        if consumer_obj.city:
+            consumer_address = consumer_address + ', ' + str(consumer_obj.city.city)
+        if consumer_obj.pin_code:
+            consumer_address = consumer_address + ' - ' + str(consumer_obj.pin_code)
+
         data = {
             'con_number': consumer_obj.consumer_no,
             'con_name': consumer_obj.name,
-            'con_address': consumer_obj.name,
+            'con_address': consumer_address,
             'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
             'route': consumer_obj.route.route_code,
             'category': consumer_obj.meter_category,

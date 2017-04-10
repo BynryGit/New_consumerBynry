@@ -251,7 +251,7 @@ def save_new_consumer(request):
             identity_proof_list=request.POST.getlist('id_proof'),
             status='Registered',
             created_on=datetime.now(),
-            created_by=request.session['login_user'],
+            created_by='Guest User',
         );
         new_consumer_obj.save();
 
