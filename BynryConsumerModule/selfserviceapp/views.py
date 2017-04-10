@@ -104,8 +104,8 @@ def my_bills(request):
         consumer_obj = MeterReadingDetail.objects.filter(consumer_id=request.session['consumer_id']).latest(
             'created_on')
         if consumer_obj.bill_status == 'Paid':
-            payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).payment_date
-            payment_status = 'Paid on '+ payment_date
+            payment_date = PaymentDetail.objects.get(meter_reading_id=consumer_obj.id).created_on.strftime('%B %d, %Y')
+            payment_status = 'Paid on ' + payment_date
         else:
             payment_status = 'Not Paid'
 
@@ -153,11 +153,11 @@ def get_graph1_data(request):
                 reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],
                                                              bill_month=month_list2[last_Month - 1],
                                                              bill_months_year=last_Year)
-                ss = [month_list1[last_Month - 1], reading_obj.unit_consumed]
-                data_list.append(ss)
+                unit_data = [month_list1[last_Month - 1], reading_obj.unit_consumed]
+                data_list.append(unit_data)
             except Exception, e:
-                ss = [month_list1[last_Month - 1], 0]
-                data_list.append(ss)
+                unit_data = [month_list1[last_Month - 1], 0]
+                data_list.append(unit_data)
                 pass
 
         data = {'success': 'true', 'data_list': data_list}
@@ -187,16 +187,20 @@ def get_graph2_data(request):
                 last_Month = 12 + last_Month
                 last_Year = pre_Year - 1
             try:
-                reading_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],
-                                                             bill_month=month_list2[last_Month - 1],
-                                                             bill_months_year=last_Year)
-                pay_obj = PaymentDetail.objects.get(meter_reading_id=reading_obj.id)
-                if pay_obj.bill_status == 'Paid':
-                    ss = [month_list1[last_Month - 1], str(pay_obj.net_amount)]
-                    data_list.append(ss)
+                meter_obj = MeterReadingDetail.objects.get(consumer_id=request.session['consumer_id'],
+                                                           bill_month=month_list2[last_Month - 1],
+                                                           bill_months_year=last_Year)
+
+                total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
+                total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
+                net_bill_amount = total_charges + total_arrears
+
+                pay_obj = PaymentDetail.objects.get(meter_reading_id=meter_obj.id)
+                payment_data = [month_list1[last_Month - 1], str(net_bill_amount)]
+                data_list.append(payment_data)
             except Exception, e:
-                ss = [month_list1[last_Month - 1], 0]
-                data_list.append(ss)
+                payment_data = [month_list1[last_Month - 1], 0]
+                data_list.append(payment_data)
                 pass
 
         data = {'success': 'true', 'data_list': data_list}
@@ -217,6 +221,12 @@ def get_bill_history(request):
         try:
             pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
             for pay_obj in pay_list:
+                meter_obj = MeterReadingDetail.objects.get(id = str(pay_obj.meter_reading_id.id))
+
+                total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
+                total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
+                net_bill_amount = total_charges + total_arrears
+
                 bill_month = pay_obj.meter_reading_id.bill_month
                 bill_month = month_list1[
                                  month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year
@@ -225,9 +235,9 @@ def get_bill_history(request):
                 data_list = {
                     'bill_month': bill_month,
                     'unit_consumed': pay_obj.meter_reading_id.unit_consumed,
-                    'net_amount': str(pay_obj.net_amount),
+                    'net_amount': str(net_bill_amount),
                     'bill_amount_paid': str(pay_obj.bill_amount_paid),
-                    'payment_date': pay_obj.payment_date.strftime("%d %b %Y"),
+                    'payment_date': pay_obj.created_on.strftime("%d %b %Y"),
                     'action': action
                 }
                 final_list.append(data_list)
@@ -249,11 +259,12 @@ def get_pay_history(request):
         try:
             pay_list = PaymentDetail.objects.filter(consumer_id=request.session['consumer_id'])
             for pay_obj in pay_list:
+                #meter_obj = MeterReadingDetail.objects.get(id=str(pay_obj.meter_reading_id.id))
                 data_list = {
                     'bank_id': pay_obj.bank_id,
                     'reference_no': pay_obj.reference_no,
-                    'due_date': pay_obj.due_date.strftime("%d %b %Y"),
-                    'payment_date': pay_obj.payment_date.strftime("%d %b %Y"),
+                    'due_date': pay_obj.meter_reading_id.due_date.strftime("%d %b %Y"),
+                    'payment_date': pay_obj.created_on.strftime("%d %b %Y"),
                     'bill_amount_paid': str(pay_obj.bill_amount_paid)
                 }
                 final_list.append(data_list)
@@ -296,7 +307,7 @@ def get_my_accounts(request):
             'name': parent_consumer_obj.consumer_id.name,
             'user_no': parent_consumer_obj.consumer_id.consumer_no,
             'address': parent_consumer_obj.consumer_id.address_line_1 + ', ' + parent_consumer_obj.consumer_id.address_line_2,
-            'actions': '<input type="radio" '+check_var+' onclick="select_user_account(\'' + str(
+            'actions': '<input type="radio" ' + check_var + ' onclick="select_user_account(\'' + str(
                 parent_consumer_obj.consumer_id.consumer_no) + '\',\'' + str(
                 parent_consumer_obj.consumer_id.name) + '\');" name="Select User" value=' + str(
                 parent_consumer_obj.id) + ' > &nbsp;' + '&nbsp;<a>'
@@ -313,7 +324,7 @@ def get_my_accounts(request):
                 'name': users.consumer_id.name,
                 'user_no': users.consumer_no,
                 'address': users.consumer_id.address_line_1 + ' ' + users.consumer_id.address_line_2,
-                'actions': '<input type="radio" '+check_var+' onclick="select_user_account(\'' + str(
+                'actions': '<input type="radio" ' + check_var + ' onclick="select_user_account(\'' + str(
                     users.consumer_no) + '\',\'' + str(
                     users.consumer_id.name) + '\');" name="Select User" value=' + str(
                     users.id) + ' > &nbsp;' + '&nbsp;<a> <i class="fa fa-trash" aria-hidden="true" onclick="delete_user_account(' + str(
@@ -591,9 +602,10 @@ def signin(request):
                             # request.session['user_role'] = user_profile_obj.user_role.role_name
                             try:
                                 if user_profile_obj.profile_image:
-                                    request.session['profile_image'] = "http://" + get_current_site(request).domain + user_profile_obj.profile_image.url
+                                    request.session['profile_image'] = "http://" + get_current_site(
+                                        request).domain + user_profile_obj.profile_image.url
                                 else:
-                                    request.session['profile_image'] = "" 
+                                    request.session['profile_image'] = ""
                                 request.session['login_user'] = user_profile_obj.consumer_id.name
                                 request.session['parent_consumer_id'] = int(user_profile_obj.consumer_id.id)
                                 request.session['consumer_id'] = int(user_profile_obj.consumer_id.id)
@@ -836,8 +848,8 @@ def save_vigilance_complaint(request):
                 id=request.POST.get('pincode')) if request.POST.get(
                 'pincode') else None,
             vigilance_remark=request.POST.get('vigilance_remark'),  # Need to change logic
-            vigilance_status= 'Open',
-            vigilance_source= 'Web',
+            vigilance_status='Open',
+            vigilance_source='Web',
             created_on=datetime.now(),
             created_by=request.session['login_user'],
         );
@@ -1060,6 +1072,7 @@ def add_new_user(request):
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+
 def my_profile(request):
     """To view complaints page"""
     try:
@@ -1069,28 +1082,30 @@ def my_profile(request):
         if webuser_obj.profile_image:
             profile_image = "http://" + get_current_site(request).domain + webuser_obj.profile_image.url
         else:
-            profile_image = ""         
+            profile_image = ""
         data = {
-            'name':consumer_obj.name,
-            'contact_no':consumer_obj.contact_no,
-            'email_id':consumer_obj.email_id,
-            'profile_image':profile_image
+            'name': consumer_obj.name,
+            'contact_no': consumer_obj.contact_no,
+            'email_id': consumer_obj.email_id,
+            'profile_image': profile_image
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|my_profile', exe
         data = {}
     return render(request, 'self_service/my_profile.html', data)
 
+
 @csrf_exempt
-def save_profile(request):    
+def save_profile(request):
     try:
         if request.POST:
-            print 'selfserviceapp|views.py|save_profile',request.POST
+            print 'selfserviceapp|views.py|save_profile', request.POST
             try:
                 if request.POST.get('old_pass'):
-                    user = authenticate(username=request.session['login_consumer_no'], password=request.POST.get('old_pass'))
+                    user = authenticate(username=request.session['login_consumer_no'],
+                                        password=request.POST.get('old_pass'))
                     if user:
-                        user_obj = WebUserProfile.objects.get(username=request.session['login_consumer_no'])              
+                        user_obj = WebUserProfile.objects.get(username=request.session['login_consumer_no'])
                         consumer_obj = ConsumerDetails.objects.get(id=user_obj.consumer_id.id)
                         consumer_obj.name = request.POST.get('user_name')
                         consumer_obj.contact_no = request.POST.get('mobile_no')
@@ -1112,7 +1127,7 @@ def save_profile(request):
                         data = {'success': 'false', 'message': 'Invalid Password'}
                         return HttpResponse(json.dumps(data), content_type='application/json')
                 else:
-                    user_obj = WebUserProfile.objects.get(username=request.session['login_consumer_no'])              
+                    user_obj = WebUserProfile.objects.get(username=request.session['login_consumer_no'])
                     consumer_obj = ConsumerDetails.objects.get(id=user_obj.consumer_id.id)
                     consumer_obj.name = request.POST.get('user_name')
                     consumer_obj.contact_no = request.POST.get('mobile_no')
@@ -1121,16 +1136,17 @@ def save_profile(request):
                     consumer_obj.save();
                     try:
                         user_obj.profile_image = request.FILES['profile_image']
-                        user_obj.save();                                        
-                        request.session['profile_image'] = "http://" + get_current_site(request).domain + user_obj.profile_image.url
-                    except :
+                        user_obj.save();
+                        request.session['profile_image'] = "http://" + get_current_site(
+                            request).domain + user_obj.profile_image.url
+                    except:
                         pass
-                    user_obj.save();                                        
+                    user_obj.save();
 
                     data = {
                         'success': 'true',
                         'message': 'User Updated Successfully.'
-                    }                  
+                    }
 
             except Exception as e:
                 print e
