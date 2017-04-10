@@ -834,6 +834,8 @@ def save_vigilance_complaint(request):
                 id=request.POST.get('pincode')) if request.POST.get(
                 'pincode') else None,
             vigilance_remark=request.POST.get('vigilance_remark'),  # Need to change logic
+            vigilance_status= 'Open',
+            vigilance_source= 'Web',
             created_on=datetime.now(),
             created_by=request.session['login_user'],
         );
