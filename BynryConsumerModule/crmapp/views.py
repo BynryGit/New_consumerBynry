@@ -77,6 +77,7 @@ def verify_new_consumer(request):
 
     except Exception as exe:
         print 'Exception|crmapp|views.py|verify_new_consumer', exe
+        data = {'success': 'false'}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
