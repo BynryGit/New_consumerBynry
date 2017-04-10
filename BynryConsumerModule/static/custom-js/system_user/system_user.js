@@ -32,12 +32,36 @@
                 {"data" : "status","sClass": "text-center"},      
                 {"data" : "actions","sClass": "text-center"}                             
 		            ],				
-
-         buttons: [
-             { extend: 'print', className: 'btn dark btn-outline' },
-             { extend: 'pdf', className: 'btn green btn-outline' },
-             { extend: 'excel', className: 'btn yellow btn-outline ' },
-         ],
+         
+         buttons: [        	
+            { extend: 'print', className: 'btn dark btn-outline', 
+                 filename: 'New Service Request  Bynry', "title": "System User | Bynry",
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5 ]
+                 },
+             },
+            { extend: 'pdf', className: 'btn green btn-outline',
+                 filename: 'New Service Request  Bynry', "title": "System User | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.fontSize = 12; 
+                     doc.defaultStyle.alignment= 'center';
+                     doc.styles.tableHeader.fontSize = 14; 
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5 ]
+                 },
+             },
+             { extend: 'excel', className: 'btn yellow btn-outline',
+                 filename: 'New Service Request  Bynry', "title": "System User | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.alignment= 'center';
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5 ]
+                 },
+             },
+             
+        ],
 
          // setup responsive extension: http://datatables.net/extensions/responsive/
          responsive: true,
