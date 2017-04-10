@@ -358,7 +358,7 @@ def get_role_list(request):
             for role_obj in role_obj_list:
                 role = role_obj.role
                 description = role_obj.description
-                created_on = role_obj.created_on.strftime("%Y-%m-%d")
+                created_on = role_obj.created_on.strftime("%d-%m-%Y")
 
                 associated_user_obj = SystemUserProfile.objects.filter(role=role_obj.id)  
                 users_name_list=''                

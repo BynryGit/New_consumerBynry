@@ -337,7 +337,6 @@
         service_type = $('#service_type').val();
         service_remark = $('#service_remark').val();
         if (validateData()) {
-            event.preventDefault();
             $.ajax({
                 type: "GET",
                 url: '/self-service/service-request/',

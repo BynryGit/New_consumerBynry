@@ -533,7 +533,7 @@ def service_request(request):
     try:
         print 'selfserviceapp|views.py|service_request'
         # filter complaint by complaint id
-        consumer_id = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+        consumer_id = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
         print '----request-----', request.GET.get('service_type')
         service_type = ServiceRequestType.objects.get(id=request.GET.get('service_type'))
         chars = string.digits
