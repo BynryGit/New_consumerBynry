@@ -337,13 +337,13 @@ function add_payment() {
 						$("#current_reading").val(response.payment_data.current_month_reading); 
 						$("#prev_month_reading").val(response.payment_data.previous_month_reading); 
 						$("#consumption").val(response.payment_data.consumption); 
-						$("#prompt_date").val(response.payment_data.payment_date); 
+						$("#prompt_date").val(response.payment_data.prompt_date);
 						$("#due_date").val(response.payment_data.due_date); 
-						$("#arrears").val(response.payment_data.arriers); 
+						$("#arrears").val(response.payment_data.arrears);
 						$("#current_amt").val(response.payment_data.current_amount); 
-						$("#prompt_amt").val(response.payment_data.bill_amount_paid); 
+						$("#prompt_amt").val(response.payment_data.prompt_amount);
 						$("#net_amt").val(response.payment_data.net_amount); 
-						$("#due_date_amt").val(response.payment_data.amount_after_due_date); 	
+						$("#due_date_amt").val(response.payment_data.bill_amount_after_due_date);
 						
 						document.getElementById("counter_form").removeAttribute("hidden");
 						document.getElementById("counter_form_footer").removeAttribute("hidden");	  	

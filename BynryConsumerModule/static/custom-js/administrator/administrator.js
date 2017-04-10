@@ -2,6 +2,14 @@
 	 $("#admin_menu").addClass("active open");
 	 $("#admin_span").addClass("open");
 	
+		$("#ckbCheckAll").click(function () {
+		    $(".privillages").prop('checked', $(this).prop('checked'));
+		});    
+    
+     $("#ckbCheckAll1").click(function () {
+		    $(".privillagesModel").prop('checked', $(this).prop('checked'));
+		});     
+    
     
     	 var initTable1 = function () {	 	
 		
@@ -85,7 +93,7 @@
                 [5, 10, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 20,
+            "pageLength": 10,
 
             "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
       });
@@ -183,10 +191,27 @@ function edit_role_modal(role_id) {
 		       data : {'role_id':role_id},       
 		       success: function (response) {			  
 		     		  if(response.success=='true'){
+		     		  	
+		     		  	var selected_checkbox_length;
+		     		  	selected_checkbox_length = (response.user_data.final_list).length;
+		     		  	
+		     		  	var checkboxAllValues = []
+						checkboxAllValues = $('.privillagesModel:checked').map(function() {
+						    return $(this).val();
+						}).get(); 
+
+						if (checkboxAllValues.length == selected_checkbox_length){							
+							$(".ckbCheckAll_priv").prop('checked', $(this).prop('checked'));
+						}	     		  	
+						
 		     		  	$("#role_name").text(response.user_data.role);
 		     		  	$("#roleid").val(response.user_data.role_id);
 		     		  	$("#role_desc").text(response.user_data.role_description);
+		     		  	
 		     		  	$("#role_append").html(response.user_data.final_list);
+
+						
+		     		  	
 		     		  	if (response.user_data.status == 'Active') {
 			     		 	$("#status_switch").attr("checked", true).change();
 						}
@@ -212,6 +237,11 @@ function edit_role_modal(role_id) {
 		
 		
 function update_role_details() {
+
+		var prv = check_privilage1()
+		if (prv == false){
+	     return false;	
+		}			
 		
 		var checkboxValues = []
 		checkboxValues = $('.privillagesModel:checked').map(function() {
@@ -244,4 +274,20 @@ function update_role_details() {
 	       }
 	   });				
 	}		    
+		
+function check_privilage1(){
+			var checkboxValues2 = []
+			checkboxValues2 = $('.privillagesModel:checked').map(function() {
+			    return $(this).val();
+			}).get(); 
+
+			if (checkboxValues2.length == 0){
+				$("#priv_err1").css("display", "block");
+				$("#priv_err1").text("Please select at least 1 Privilege");
+			   return false; 
+			}else{
+				$("#priv_err1").css("display", "none");
+				return true;
+			}
+		} 		
 		

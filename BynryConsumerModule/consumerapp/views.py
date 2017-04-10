@@ -419,13 +419,14 @@ def get_meter_details(request):
                 current_reading_date = reading_obj.current_reading_date
                 previous_month_reading_date = reading_obj.previous_month_reading_date
                 billed_days = abs((current_reading_date - previous_month_reading_date).days)
-                current_reading_date = current_reading_date.strftime("%b %d,%Y")
-                previous_month_reading_date = previous_month_reading_date.strftime("%b %d,%Y")
+                current_reading_date = current_reading_date.strftime("%d %b %Y")
+                previous_month_reading_date = previous_month_reading_date.strftime("%d %b %Y")
                 if reading_obj.meter_reading_image:
                     meter_reading_image = "http://" + get_current_site(
                         request).domain + reading_obj.meter_reading_image.url
                 else:
                     meter_reading_image = ""
+
 
                 consumer_data = {
                     'unit_consumed': unit_consumed,

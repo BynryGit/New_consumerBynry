@@ -605,9 +605,9 @@
 
                     }
                     if (response.success == "false") {
-                        //$(verify_consumer_no_error).css("display", "block");
-                        //$(verify_consumer_no_error).text("Consumer Number does not exit");
-                        $("#div5").css('display', 'block');
+                        $(verify_consumer_no_error).css("display", "block");
+                        $(verify_consumer_no_error).text("Consumer Number does not exist");
+                        //$("#div5").css('display', 'block');
                         //$("#div4").css('display','block');
                     }
                 },
@@ -650,7 +650,7 @@
         }
         else {
             $(verify_consumer_no_error).css("display", "block");
-            $(verify_consumer_no_error).text("Please enter valid Consumer No");
+            $(verify_consumer_no_error).text("Consumer Number does not exist");
             return false;
         }
     }
