@@ -31,7 +31,6 @@
     <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css"
           id="style_color"/>
     <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" href="favicon.ico"/>
     <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
           rel="stylesheet" type="text/css"/>
@@ -388,15 +387,15 @@
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
-                                                                       id="latitude" readonly value="">
-                                                                <label >latitude :</label>
+                                                                       id="latitude" readonly value="{{data.latitude}}">
+                                                                <label >Latitude :</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
                                                                        id="longitude" readonly
-                                                                       value="">
+                                                                       value="{{data.longitude}}">
                                                                 <label >Longitude :</label>
                                                             </div>
                                                         </div>
@@ -413,7 +412,7 @@
                                                             <div class="form-group form-md-line-input has-info">
                                                                 <input type="text" class="form-control"
                                                                        id="special_instru" readonly
-                                                                       value="">
+                                                                       value="{{data.special_remark_location}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
@@ -542,14 +541,25 @@
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
                                                                                readonly=""
+                                                                               value="{{payment_data.address}}">
+                                                                        <label >Address :</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <div class="form-group form-md-line-input has-info">
+                                                                        <input type="text" class="form-control"
+                                                                               readonly=""
                                                                                value="{{payment_data.current_month_reading}}">
                                                                         <label >Current Reading
                                                                             :</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-12">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
@@ -572,6 +582,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="col-md-12">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
@@ -583,8 +595,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-12">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <div class="form-group form-md-line-input has-info">
@@ -606,16 +616,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <div class="form-group form-md-line-input has-info">
-                                                                        <input type="text" class="form-control"
-                                                                               readonly=""
-                                                                               value="{{payment_data.address}}">
-                                                                        <label >Address :</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="col-md-4">
@@ -623,7 +624,7 @@
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control" readonly
 
-                                                                               value="{{payment_data.transaction_id}}">
+                                                                               value="{{payment_data.net_amount}}">
                                                                         <label >Net Amount (Rs)
                                                                             :</label>
                                                                     </div>
@@ -645,7 +646,7 @@
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control"
                                                                                readonly=""
-                                                                               value="{{payment_data.bill_amount_paid}}">
+                                                                               value="{{payment_data.prompt_amount}}">
                                                                         <label >Prompt Amount (Rs)
                                                                             :</label>
                                                                     </div>
@@ -658,7 +659,7 @@
                                                                     <div class="form-group form-md-line-input has-info">
                                                                         <input type="text" class="form-control" readonly
 
-                                                                               value="{{payment_data.amount_after_due_date}}">
+                                                                               value="{{payment_data.bill_amount_after_due_date}}">
                                                                         <label >Amount After Due
                                                                             Date (Rs) :</label>
                                                                     </div>
@@ -1370,47 +1371,46 @@ if (var1 == '1') {
 	$("#edit_btn").css("display","none");
 	$("#save_btn").css("display","block");
 }
-else {
-		consumer_id = getUrlParam("consumer_id", window.location.href);				
-	   var formData= new FormData();
-		formData.append("consumer_id",consumer_id);
-		formData.append("meter_no",$('#meter_no1').val());		
-		formData.append("category",$('#category').val());    
-		formData.append("saction_load",$('#saction_load').val());    
-		/*formData.append("panel_no",$('#panel_no').val()); 
-		formData.append("latitude",$('#latitude').val()); 
-		formData.append("longitude",$('#longitude').val()); 
-		formData.append("special_instru",$('#special_instru').val()); */
-	
-  			$.ajax({  				  
-				  type	: "POST",
-				   url : '/consumerapp/save-consumer-details/',
- 					data : formData,
-					cache: false,
-		         processData: false,
-		    		contentType: false,                       
-              success: function (response) {   
-	              if(response.success=='true'){
-	           	  		//$("#edituser_model").modal('hide');
-	           	  		location.reload();
-	              	}
-	      			if (response.success == "false") {
-							location.reload()            
-	       			}							                        		                      		                       		
-               },
-               	beforeSend: function () {
-            $("#processing").css('display','block');
+else
+    {
+        consumer_id = getUrlParam("consumer_id", window.location.href);
+        var formData= new FormData();
+        formData.append("consumer_id",consumer_id);
+        formData.append("meter_no",$('#meter_no1').val());
+        formData.append("category",$('#category').val());
+        formData.append("saction_load",$('#saction_load').val());
+        formData.append("panel_no",$('#panel_no').val());
+        formData.append("latitude",$('#latitude').val());
+        formData.append("longitude",$('#longitude').val());
+        formData.append("special_instruction",$('#special_instru').val());
+
+        $.ajax({
+            type	: "POST",
+            url : '/consumerapp/save-consumer-details/',
+            data : formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if(response.success=='true'){
+                    location.reload();
+                }
+                if (response.success == "false") {
+                    location.reload();
+                }
+            },
+            beforeSend: function () {
+                $("#processing").css('display','block');
             },
             complete: function () {
                 $("#processing").css('display','none');
             },
-               error : function(response){
-                  	alert("_Error");
-            	}              
-           });       
-
-}	
-}   
+            error : function(response){
+                alert("_Error");
+            }
+        });
+    }
+}
 
   
 
