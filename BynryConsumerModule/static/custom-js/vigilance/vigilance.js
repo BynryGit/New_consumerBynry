@@ -91,18 +91,28 @@ function vigilance_details(vigilance_id){
         success: function (response) {
             if(response.success =='true'){
                 vigilanceDetail = response.vigilanceDetail;
-                $("#case_id").val(vigilanceDetail.caseID);
-                $("#vigilance_type").val(vigilanceDetail.vigilanceType);
-                $("#registered_date").val(vigilanceDetail.registeredDate);
+                $("#case_id").text(vigilanceDetail.caseID);
+                $("#vigilance_type").text(vigilanceDetail.vigilanceType);
+                $("#registered_date").text(vigilanceDetail.registeredDate);
                 $("#registered_source").val(vigilanceDetail.registeredSource);
                 $("#case_status").val(vigilanceDetail.caseStatus);
                 $("#theft_found").val(vigilanceDetail.theftFound);
+                
+                $("#theft_name").val(vigilanceDetail.theftname);
+                $("#theft_address").text(vigilanceDetail.theftaddress);
+                
                 $("#vigilance_remark").text(vigilanceDetail.vigilanceRemark);
                 $("#penalty_amount").val(vigilanceDetail.penaltyAmount);
                 $("#payment_status").val(vigilanceDetail.paymentStatus);
                 $("#payment_method").val(vigilanceDetail.paymentMethod);
                 $("#court_case_status").val(vigilanceDetail.courtCaseStatus);
                 $("#court_remark").text(vigilanceDetail.courtRemark);
+                $.each(vigilanceDetail.vigilance_img, function(index, value ) {
+                    $(".w3-content").append('<img class="mySlides" src="'+value+'" style="width:100%;height:200px;">');
+                });
+                $(".w3-content").append('<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>');
+                $(".w3-content").append('<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>');
+                showDivs(slideIndex);                
             }
         },
         error : function(response){
@@ -110,6 +120,22 @@ function vigilance_details(vigilance_id){
         }
     });
     $("#vigilance_details").modal('show');
+}
+var slideIndex = 1;
+
+function plusDivs(n) {
+    showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
 }
 
 function consumer_details(consumer_id){
