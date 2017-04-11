@@ -125,7 +125,7 @@ function clear_filter(){
 
     // SHUBHAM KYC
     function open_remark_KYC() {
-		if ($("#verify_KYC").val()== 'NotVerified' ) {
+		if ($("#verify_KYC").val()== 'Rejected' ) {
 	  		 $("#remark_div").css("display","block");
 		}
 		else {
@@ -189,7 +189,7 @@ function clear_filter(){
 		}
 	function validate_KYC() {
 
-		if ($('#verify_KYC').val() == 'NotVerified' & $('#KYC_remark').val() == '') {
+		if ($('#verify_KYC').val() == 'Rejected' & $('#KYC_remark').val() == '') {
 			$("#remark_error").css("display", "block");
 		   $("#remark_error").text("Please write Remark");
 		   return false;
