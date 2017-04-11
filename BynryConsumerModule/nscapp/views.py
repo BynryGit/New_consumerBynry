@@ -77,6 +77,7 @@ def get_nsc_data(request):
                 closed_date = nsc.closed_date.strftime('%d/%m/%Y')
             else:
                 closed_date = ''
+            other_action = ''
             if nsc.status == 'Registered':
                 other_action = '&nbsp;<a title="KYC"> <i class="fa icon-user-following" aria-hidden="true" onclick="KYC_verify(' + str(
                     nsc.id) + ')"></i> </a>'
@@ -464,9 +465,12 @@ def save_consumer_kyc(request):
             created_by=request.session['login_user'],
         );
         new_KYC_obj.save();
-
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('consumer_id'))
-        consumer_obj.status = 'KYC'
+        if request.POST.get('verify_KYC_status') != 'Rejected':            
+            consumer_obj.status = 'KYC'
+        else:
+            consumer_obj.status = 'KYC Rejected'
+        
         consumer_obj.save();
 
         data = {
@@ -514,7 +518,10 @@ def save_consumer_technical(request):
         new_Technical_obj.save();
 
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('tech_consumerid'))
-        consumer_obj.status = 'Technical'
+        if request.POST.get('verify_technical') != 'Failed':            
+            consumer_obj.status = 'Technical'
+        else:
+            consumer_obj.status = 'Technical Rejected'        
         consumer_obj.save();
 
         data = {
