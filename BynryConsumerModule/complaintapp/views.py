@@ -155,11 +155,15 @@ def get_complaint_details(request):
             id=request.GET.get('complaint_id'))
         # complaint image path with server url
         complaint_images = ComplaintImages.objects.filter(complaint_id = complaints)
+
+        image_list = []
         if complaint_images:
-            complaint_image = complaint_images.last()
-            image_address = "http://" + get_current_site(request).domain + complaint_image.document_files.url
+            for complaint_image in complaint_images:
+                image_address = "http://" + get_current_site(request).domain + complaint_image.document_files.url
+                image_list.append(image_address)
         else:
             image_address = "http://" + get_current_site(request).domain + '/static/assets/placeholder.png'
+            image_list.append(image_address)
 
         # complaint detail result
         complaint_detail = {
@@ -170,7 +174,7 @@ def get_complaint_details(request):
             'complaintStatus' : complaints.complaint_status,
             'consumerRemark' : complaints.remark,
             'closureRemark' : complaints.closure_remark,
-            'complaint_img' : image_address,
+            'complaint_img' : image_list,
         }
         data = {'success' : 'true', 'complaintDetail' : complaint_detail}
     except Exception as exe:

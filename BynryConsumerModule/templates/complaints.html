@@ -29,7 +29,7 @@
     <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css"
           id="style_color"/>
     <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <style>
         th {
@@ -52,6 +52,7 @@
         .custom-width {
             width: 29%;
         }
+
     </style>
     <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
           type="text/css"/>
@@ -119,7 +120,7 @@
                                 <select id="select_complaint_type" class="form-control select2">
                                     <option value="all">All</option>
                                     {% for type in complaintType %}
-                                        <option value="{{ type.id }}">{{ type.complaint_type }}</option>
+                                    <option value="{{ type.id }}">{{ type.complaint_type }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -143,20 +144,20 @@
                             <div class="col-md-3 custom-width">
                                 <label class="control-label">Branch</label>
                                 {% if request.session.branch_id %}
-                                    <select id="select_branch" disabled class="form-control select2"
-                                            onchange="get_zone()">
-                                {% else %}
-                                    <select id="select_branch" class="form-control select2" onchange="get_zone()">
-                                {% endif %}
-                                <option value="all">All</option>
-                                {% for branch in branch_list %}
-                                    {% if request.session.branch_id == branch.id %}
-                                        <option selected value="{{ branch.id }}">{{ branch }}</option>
+                                <select id="select_branch" disabled class="form-control select2"
+                                        onchange="get_zone()">
                                     {% else %}
+                                    <select id="select_branch" class="form-control select2" onchange="get_zone()">
+                                        {% endif %}
+                                        <option value="all">All</option>
+                                        {% for branch in branch_list %}
+                                        {% if request.session.branch_id == branch.id %}
+                                        <option selected value="{{ branch.id }}">{{ branch }}</option>
+                                        {% else %}
                                         <option value="{{ branch.id }}">{{ branch }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                                </select>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
                             </div>
                         </div>
                         <br>
@@ -166,7 +167,7 @@
                                 <select id="select_zone" class="form-control select2" onchange="get_bill_cycle()">
                                     <option value="all">All</option>
                                     {% for zone in zones %}
-                                        <option value="{{ zone.id }}">{{ zone.zone_name }}</option>
+                                    <option value="{{ zone.id }}">{{ zone.zone_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -326,8 +327,13 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6" style="">
-                                <img id="complaint_image" src="{% static 'assets/placeholder.png' %}"
-                                     style="width:100%; max-height:244px">
+
+                                <div class="w3-content w3-display-container">
+
+
+
+
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-info ">
@@ -464,6 +470,7 @@
             $('<script>').attr('src', src).appendTo('head');
         }, 1000);
     }
+
 </script>
 
 </body>
