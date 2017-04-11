@@ -89,10 +89,15 @@ function complaint_details(complaint_id){
                 $("#complaint_id").val(complaintDetail.complaintID);
                 $("#complaint_type").val(complaintDetail.complaintType);
                 $("#complaint_status").val(complaintDetail.complaintStatus);
-                $("#complaint_image").attr("src",complaintDetail.complaint_img);
                 $("#complaint_remark").text(complaintDetail.consumerRemark);
                 $("#cons_name").text(complaintDetail.complaintConsumerName);
                 $("#cons_no").text(complaintDetail.complaintConsumerNo);
+                $.each(complaintDetail.complaint_img, function( index, value ) {
+                    $(".w3-content").append('<img class="mySlides" src="'+value+'" style="width:100%;height:200px;">');
+                });
+                $(".w3-content").append('<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>');
+                $(".w3-content").append('<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>');
+                showDivs(slideIndex);
             }
             else {
                 $("#complaint_id").val('');
@@ -101,7 +106,8 @@ function complaint_details(complaint_id){
                 $("#complaint_image").attr("src",'');
                 $("#complaint_remark").text('');
                 $("#cons_name").text('');
-                $("#cons_no").text('');}
+                $("#cons_no").text('');
+            }
         },
         error : function(response){
             alert("_Error");
@@ -123,4 +129,22 @@ function clear_complaint_filter(){
     $("#complaint_start_date").val("");
     $("#complaint_end_date").val("");
     complaintTable();
+}
+
+var slideIndex = 1;
+
+
+function plusDivs(n) {
+    showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
 }

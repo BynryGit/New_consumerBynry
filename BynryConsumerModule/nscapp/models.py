@@ -66,13 +66,15 @@ OCCUPATION = (
 NSC_STATUS = (
     ('Registered', 'Registered'),
     ('KYC', 'KYC'),
+    ('KYC Rejected', 'KYC Rejected'),
     ('Technical', 'Technical'),
+    ('Technical Rejected', 'Technical Rejected'),
     ('Payment', 'Payment'),
     ('Closed', 'Closed'),
 )
 KYC_STATUS = (
     ('Verified', 'Verified'),
-    ('NotVerified', 'NotVerified'),
+    ('Rejected', 'Rejected'),
 )
 TECHNICAL_STATUS = (
     ('Pass', 'Pass'),

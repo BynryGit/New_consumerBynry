@@ -77,6 +77,7 @@ def get_nsc_data(request):
                 closed_date = nsc.closed_date.strftime('%d/%m/%Y')
             else:
                 closed_date = ''
+            other_action = ''
             if nsc.status == 'Registered':
                 other_action = '&nbsp;<a title="KYC"> <i class="fa icon-user-following" aria-hidden="true" onclick="KYC_verify(' + str(
                     nsc.id) + ')"></i> </a>'
@@ -464,9 +465,12 @@ def save_consumer_kyc(request):
             created_by=request.session['login_user'],
         );
         new_KYC_obj.save();
-
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('consumer_id'))
-        consumer_obj.status = 'KYC'
+        if request.POST.get('verify_KYC_status') != 'Rejected':            
+            consumer_obj.status = 'KYC'
+        else:
+            consumer_obj.status = 'KYC Rejected'
+        
         consumer_obj.save();
 
         data = {
@@ -514,7 +518,10 @@ def save_consumer_technical(request):
         new_Technical_obj.save();
 
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('tech_consumerid'))
-        consumer_obj.status = 'Technical'
+        if request.POST.get('verify_technical') != 'Failed':            
+            consumer_obj.status = 'Technical'
+        else:
+            consumer_obj.status = 'Technical Rejected'        
         consumer_obj.save();
 
         data = {
@@ -553,7 +560,7 @@ def save_consumer_payment(request):
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('pay_consumerid'))
         consumer_obj.status = 'Payment'
         consumer_obj.save();
-
+        Utility_obj = Utility.objects.get(utility= 'Electricity')
         new_Consumer_obj = ConsumerDetails(
             consumer_id=NewConsumerRequest.objects.get(
                 id=request.POST.get('pay_consumerid')) if request.POST.get(
@@ -564,7 +571,7 @@ def save_consumer_payment(request):
             address_line_1=consumer_obj.meter_address_line_1,
             address_line_2=consumer_obj.meter_address_line_2,
             consumer_no='CONS123456',
-
+            Utility= Utility_obj,
             city=City.objects.get(
                 id=consumer_obj.meter_city.id) if consumer_obj.meter_city.id else None,
             pin_code=Pincode.objects.get(

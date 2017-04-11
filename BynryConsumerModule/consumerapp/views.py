@@ -59,7 +59,6 @@ def consumer_list(request):
         except Exception, e:
             data = {}
             print 'Exception|consumerapp|views.py|consumer_list', e
-        print '..........\n\n\n\n......SSSSSSSSSSSSS', data
         return render(request, 'consumer_list.html', data)
 
 
@@ -215,37 +214,25 @@ def edit_consumer(request):
         final_list = []
         try:
             consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
-            consumer_no = consumer_obj.consumer_no
-            name = consumer_obj.name
-            name = name + ' (' + consumer_no + ') '
-            utility = consumer_obj.Utility.utility
-            contact_no = consumer_obj.contact_no
-            email_id = consumer_obj.email_id
-            aadhar_no = consumer_obj.aadhar_no
-            address_line_1 = consumer_obj.address_line_1
-            address_line_2 = consumer_obj.address_line_2
-            city_id = str(consumer_obj.city.id)
-            pincode_id = str(consumer_obj.pin_code.id)
-            zone_id = str(consumer_obj.zone.id)
-            meter_no = consumer_obj.meter_no
-            meter_category = consumer_obj.meter_category
-            sanction_load = consumer_obj.sanction_load
 
             consumer_data = {
                 'consumer_id': consumer_obj.id,
-                'name': name,
-                'utility': utility,
-                'contact_no': contact_no,
-                'aadhar_no': aadhar_no,
-                'email_id': email_id,
-                'address_line_1': address_line_1,
-                'address_line_2': address_line_2,
-                'city_id': city_id,
-                'pincode_id': pincode_id,
-                'zone_id': zone_id,
-                'meter_no': meter_no,
-                'meter_category': meter_category,
-                'sanction_load': sanction_load
+                'name': consumer_obj.name + ' (' + consumer_obj.consumer_no + ') ',
+                'utility': consumer_obj.Utility.utility,
+                'contact_no': consumer_obj.contact_no,
+                'aadhar_no': consumer_obj.aadhar_no,
+                'email_id': consumer_obj.email_id,
+                'address_line_1': consumer_obj.address_line_1,
+                'address_line_2': consumer_obj.address_line_2,
+                'city_id': str(consumer_obj.city.id),
+                'pincode_id': str(consumer_obj.pin_code.id),
+                'branch_id': str(consumer_obj.branch.id),
+                'bill_cycle_id': str(consumer_obj.bill_cycle.id),
+                'route_id': str(consumer_obj.route.id),
+                'zone_id': str(consumer_obj.zone.id),
+                'meter_no': consumer_obj.meter_no,
+                'meter_category': consumer_obj.meter_category,
+                'sanction_load': consumer_obj.sanction_load
             }
             data = {'success': 'true', 'data': consumer_data}
         except Exception as e:
@@ -270,12 +257,24 @@ def save_consumer_profile(request):
         consumer_obj.address_line_2 = request.POST.get('edit_address2')
         consumer_obj.meter_no = request.POST.get('edit_meter_no')
         consumer_obj.sanction_load = request.POST.get('edit_sanction_load')
+        consumer_obj.city = City.objects.get(
+            id=request.POST.get('edit_city')) if request.POST.get(
+            'edit_city') else None
         consumer_obj.pin_code = Pincode.objects.get(
             id=request.POST.get('edit_pincode')) if request.POST.get(
             'edit_pincode') else None
+        consumer_obj.branch = Branch.objects.get(
+            id=request.POST.get('edit_branch')) if request.POST.get(
+            'edit_branch') else None
         consumer_obj.zone = Zone.objects.get(
             id=request.POST.get('edit_zone')) if request.POST.get(
             'edit_zone') else None
+        consumer_obj.bill_cycle = BillCycle.objects.get(
+            id=request.POST.get('edit_bill_cycle')) if request.POST.get(
+            'edit_bill_cycle') else None
+        consumer_obj.route = RouteDetail.objects.get(
+            id=request.POST.get('edit_route')) if request.POST.get(
+            'edit_route') else None            
         consumer_obj.updated_on = datetime.now()
         consumer_obj.save();
 
@@ -478,4 +477,89 @@ def save_consumer_details(request):
             'success': 'false',
             'message': str(e)
         }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+# TO GET THE Pincode
+def get_pincode_front(request):
+    print 'consumerapp|views.py|get_pincode'
+    city_id = request.GET.get('city_id')
+    pincode_list = []
+    try:
+        pincode_objs = Pincode.objects.filter(city=city_id)
+        for pincode in pincode_objs:
+            options_data = '<option value=' + str(
+                pincode.id) + '>' + pincode.pincode + '</option>'
+            pincode_list.append(options_data)
+        data = {'pincode_list': pincode_list}
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_pincode', e
+        data = {'pincode_list': 'No Pincodes available'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+# TO GET THE Branch
+def get_branch_front(request):
+    print 'consumerapp|views.py|get_branch_front'
+    city_id = request.GET.get('city_id')
+    branch_list = []
+    try:
+        branch_objs = Branch.objects.filter(city=city_id)
+        for branch in branch_objs:
+            options_data = '<option value=' + str(
+                branch.id) + '>' + branch.branch_name + '</option>'
+            branch_list.append(options_data)
+        data = {'branch_list': branch_list}
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_branch_front', e
+        data = {'branch_list': 'No Branch available'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+# TO GET THE Zone
+def get_zone_front(request):
+    print 'consumerapp|views.py|get_zone_front'
+    branch_id = request.GET.get('branch_id')
+    zone_list = []
+    try:
+        zone_objs = Zone.objects.filter(branch=branch_id)
+        for zone in zone_objs:
+            options_data = '<option value=' + str(
+                zone.id) + '>' + zone.zone_name + '</option>'
+            zone_list.append(options_data)
+        data = {'zone_list': zone_list}
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_zone_front', e
+        data = {'zone_list': 'No Zone available'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+# TO GET THE Bill Cycle
+def get_billcycle_front(request):
+    print 'consumerapp|views.py|get_billcycle_front'
+    zone_id = request.GET.get('zone_id')
+    billcycle_list = []
+    try:
+        billcycle_objs = BillCycle.objects.filter(zone=zone_id)
+        for bill in billcycle_objs:
+            options_data = '<option value=' + str(
+                bill.id) + '>' + bill.bill_cycle_code + '</option>'
+            billcycle_list.append(options_data)
+        data = {'billcycle_list': billcycle_list}
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_billcycle_front', e
+        data = {'billcycle_list': 'No Zone available'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+# TO GET THE Bill Cycle
+def get_route_front(request):
+    print 'consumerapp|views.py|get_route_front'
+    bill_cycle_id = request.GET.get('bill_cycle_id')
+    route_list = []
+    try:
+        route_objs = RouteDetail.objects.filter(billcycle=bill_cycle_id)
+        for route in route_objs:
+            options_data = '<option value=' + str(
+                route.id) + '>' + route.route_code + '</option>'
+            route_list.append(options_data)
+        data = {'route_list': route_list}
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|get_route_front', e
+        data = {'route_list': 'No Route available'}
     return HttpResponse(json.dumps(data), content_type='application/json')

@@ -38,6 +38,13 @@
     <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
           type="text/css"/>
     <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        tr > td > a {
+            color: #337ab7 !important;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 
@@ -1067,8 +1074,8 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6" style="">
-                                <img id="complaint_image" src="{% static 'assets/placeholder.png' %}"
-                                     style="width:100%; max-height:244px">
+                                <div class="w3-content w3-display-container">
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-info ">

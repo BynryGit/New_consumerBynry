@@ -333,8 +333,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
                                         <input type="text" class="form-control" id="edit_contact">
-                                        <label for="form_control_1">Contact No.</label>
+                                        <label for="form_control_1">Contact No. <span class="required"> *</span></label>
                                     </div>
+                                    <span id="mobile_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -343,90 +344,106 @@
                                         <input type="text" class="form-control" id="edit_email">
                                         <label for="form_control_1">Email Id</label>
                                     </div>
+                                    <span id="edit_email_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
                                         <input type="text" class="form-control" id="edit_aadhar">
-                                        <label for="form_control_1">Aadhar No.</label>
+                                        <label for="form_control_1">Aadhar No. <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_aadhar_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success ">
                                         <textarea class="form-control" id="edit_address1"></textarea>
-                                        <label>Address Line 1</label>
+                                        <label>Address Line 1 <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_address1_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success ">
                                         <textarea class="form-control" id="edit_address2"></textarea>
                                         <label>Address Line 2</label>
                                     </div>
+                                    <span id="edit_address2_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4" style="margin-top: 4px;">
                                     <div class="form-group form-md-line-input has-success">
                                         <select id="edit_city" class="form-control input-sm select2-multiple">
+                                            <option value=""> Select City </option>
                                             {% for city in city_list %}
                                             <option value="{{ city.city_id }}"> {{ city.city }}</option>
                                             {% endfor %}
                                         </select>
-                                        <label for="edit_city">City</label>
+                                        <label for="edit_city">City <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_city_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                                 <div class="col-md-4" style="margin-top: 4px;">
                                     <div class="form-group form-md-line-input has-success">
                                         <select id="edit_pincode" class="form-control input-sm select2-multiple">
+                                        		<option value=""> Select Pincode </option>
                                             {% for pincode in pincode_list %}
                                             <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
                                             {% endfor %}
                                         </select>
-                                        <label for="edit_pincode">Pincode</label>
+                                        <label for="edit_pincode">Pincode <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_pincode_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                                 <div class="col-md-4" style="margin-top: 4px;">
                                     <div class="form-group form-md-line-input has-success">
                                         <select id="edit_branch" class="form-control input-sm select2-multiple">
-                                            {% for zone in zone_list %}
-                                            <option value="{{ zone.id }}"> {{ zone.zone_name }}</option>
+                                        		<option value=""> Select Branch </option>
+                                            {% for bill in branch_list %}
+                                            <option value="{{ bill.branch_id }}"> {{ bill.branch_name }}</option>
                                             {% endfor %}
                                         </select>
-                                        <label for="edit_branch">Branch</label>
+                                        <label for="edit_branch">Branch <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_branch_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4" style="margin-top: 4px;">
                                     <div class="form-group form-md-line-input has-success">
                                         <select id="edit_zone" class="form-control input-sm select2-multiple">
+                                            <option value=""> Select Zone </option>
                                             {% for zone in zone_list %}
                                             <option value="{{ zone.id }}"> {{ zone.zone_name }}</option>
                                             {% endfor %}
                                         </select>
-                                        <label for="edit_zone">Zone</label>
+                                        <label for="edit_zone">Zone <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_zone_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                                 <div class="col-md-4" style="margin-top: 4px;">
                                     <div class="form-group form-md-line-input has-success">
                                         <select id="edit_bill_cycle" class="form-control input-sm select2-multiple">
-                                            {% for city in city_list %}
-                                            <option value="{{ city.city_id }}"> {{ city.city }}</option>
+                                            <option value=""> Select Bill Cycle </option>
+                                            {% for cycle in billcycle_list %}
+                                            <option value="{{ cycle.bill_cycle_id }}"> {{ cycle.bill_cycle_code }}</option>
                                             {% endfor %}
                                         </select>
-                                        <label for="edit_bill_cycle">Bill Cycle</label>
+                                        <label for="edit_bill_cycle">Bill Cycle <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_bill_cycle_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                                 <div class="col-md-4" style="margin-top: 4px;">
                                     <div class="form-group form-md-line-input has-success">
                                         <select id="edit_route" class="form-control input-sm select2-multiple">
-                                            {% for pincode in pincode_list %}
-                                            <option value="{{ pincode.pincode_id }}"> {{ pincode.pincode }}</option>
+                                            <option value=""> Select Route </option>
+                                            {% for route in route_list %}
+                                            <option value="{{ route.route_id }}"> {{ route.route_code }}</option>
                                             {% endfor %}
                                         </select>
-                                        <label for="edit_route">Route</label>
+                                        <label for="edit_route">Route <span class="required"> *</span></label>
                                     </div>
+                                    <span id="edit_route_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -436,8 +453,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
                                         <input type="text" class="form-control" id="edit_meter_no">
-                                        <label for="form_control_1">Meter No.</label>
+                                        <label for="form_control_1">Meter No. <span class="required"> *</span></label>                                        
                                     </div>
+                                    <span id="edit_meter_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-md-line-input has-success">
@@ -450,6 +468,7 @@
                                         <input type="text" class="form-control" id="edit_sanction_load">
                                         <label for="form_control_1">Saction Load</label>
                                     </div>
+                                    <span id="edit_sanction_load_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
                                 </div>
                             </div>
                         </div>
@@ -460,142 +479,40 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="adduser_model" class="modal fade" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Add Consumer</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="scroller" style="height:490px" data-always-visible="1" data-rail-visible1="1">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h4><b>Basic Details :</b></h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="bill_cycle">
-                                        <label for="bill_cycle">First Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="route_code">
-                                        <label for="route_code">Last Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Age</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Utility</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Contact No.</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Email Id</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Aadhar No.</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group form-md-line-input has-success ">
-                                        <textarea class="form-control" id="consumer_address">Flat no-201, Primrose, right bhusari colony, oppo. borse hospital, kothrud, pune - 411038.</textarea>
-                                        <label>Address</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" style="margin-top: 4px;">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <select id="select2-single-input-sm"
-                                                class="form-control input-sm select2-multiple">
-                                            <option value="HI">Pune</option>
-                                            <option value="CT">Nagpur</option>
-                                        </select>
-                                        <label for="consumer_zone">City</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" style="margin-top: 4px;">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <select id="select2-single-input-sm"
-                                                class="form-control input-sm select2-multiple">
-                                            <option value="HI">111</option>
-                                            <option value="CT">222</option>
-                                        </select>
-                                        <label for="consumer_zone">Pincode</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4" style="margin-top: 4px;">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <select id="select2-single-input-sm"
-                                                class="form-control input-sm select2-multiple">
-                                            <option value="HI">abc</option>
-                                            <option value="CT">xyz</option>
-                                        </select>
-                                        <label for="consumer_zone">Zone</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4><b>Meter Details :</b></h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Meter No.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Category</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <input type="text" class="form-control" id="form_control_1">
-                                        <label for="form_control_1">Saction Load</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                        <button type="button" class="btn green">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div>        
         <!--  Models End -->
-
+		<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+		    <div class="modal-dialog" style="width:35%;">
+		        <div class="modal-content">
+		            <div class="modal-body">
+		                <form action="index.html" class="form-horizontal form-row-seperated">
+		                    <div class="form-body">
+		                        <h4 class="text-center">Consumer Profile Changed successfully</h4>
+		                    </div>
+		                    <div style="text-align:center !important;" class="modal-footer">
+		                        <a href="/consumerapp/consumer-list/">
+		                            <button type="button" class="btn green">OK</button>
+		                        </a>
+		                    </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-body">
+		                <form action="index.html" class="form-horizontal form-row-seperated">
+		                    <div class="form-body">
+		                        <h4 class="text-center">User already exists</h4>
+		                    </div>
+		                    <div style="text-align:center !important;" class="modal-footer">
+		                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+		                    </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
         <!-- END CONTAINER -->
         <!-- BEGIN FOOTER -->
         <div class="page-footer">
