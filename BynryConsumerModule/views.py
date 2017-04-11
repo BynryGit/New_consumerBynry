@@ -268,7 +268,7 @@ def branch_admin(request):
                               'actions' : '<a class="icon-pencil" title="Edit" onclick="edit_branch_admin_modal('+ str(b.id) +');"></a>',
                               }
                 final_list.append(branch_admin_data)
-            data = {'data' : final_list}
+            data = {'data': final_list}
         except Exception as e:
             print 'exception ', str(traceback.print_exc())
             print 'Exception|views.py|branch_admin', e
