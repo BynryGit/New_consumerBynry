@@ -231,7 +231,7 @@ def get_bill_history(request):
                 bill_month = month_list1[
                                  month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year
                 action = '<a target="_blank" href="/self-service/view-bill/?meter_reading_id=' + str(
-                    pay_obj.id) + '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'
+                    pay_obj.meter_reading_id.id) + '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'
                 data_list = {
                     'bill_month': bill_month,
                     'unit_consumed': pay_obj.meter_reading_id.unit_consumed,
@@ -929,10 +929,18 @@ def view_bill(request):
             meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj).last()
 
         meter_object = MeterReadingDetail.objects.filter(consumer_id=consumer_obj)
-        if meter_object.count() > 1:
-            prev_meter_obj = meter_object[0]
+        # print meter_object#.index(meter_obj)
+        # print meter_obj#.index(meter_obj)
+        prev_obj = ''
+        for meter in meter_object:
+            if meter == meter_obj:
+                break
+            else:
+                prev_obj = meter
+
+        if prev_obj:
             try:
-                payment_obj = PaymentDetail.objects.get(meter_reading_id=prev_meter_obj)
+                payment_obj = PaymentDetail.objects.get(meter_reading_id=prev_obj)
                 last_receipt_date = payment_obj.created_on.strftime('%d %b %Y')
                 last_receipt_amount = payment_obj.bill_amount_paid
             except:
