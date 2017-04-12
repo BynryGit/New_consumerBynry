@@ -7,6 +7,7 @@ from BynryConsumerModuleapp.models import *
 from BynryConsumerModuleapp.models import City, BillCycle, RouteDetail, Branch
 from consumerapp.models import ConsumerDetails
 import datetime
+from django.contrib.sites.shortcuts import get_current_site
 
 # To view vigilance page
 def vigilance(request):
@@ -117,6 +118,19 @@ def get_vigilance_details(request):
     try:
         print 'vigilanceapp|views.py|get_vigilance_details'
         vigilance = VigilanceDetail.objects.get(id=request.GET.get('vigilance_id'))
+        theftaddress = vigilance.address+ ', '+vigilance.city.city+ ', '+vigilance.pin_code.pincode
+
+        # vigilance image path with server url
+        vigilance_images = ConsumerVigilanceImage.objects.filter(vigilance_id = vigilance)
+
+        image_list = []
+        if vigilance_images:
+            for vigilance_image in vigilance_images:
+                image_address = "http://" + get_current_site(request).domain + vigilance_image.document_files.url
+                image_list.append(image_address)
+        else:
+            image_address = "http://" + get_current_site(request).domain + '/static/assets/placeholder.png'
+            image_list.append(image_address)        
 
         # vigilance details
         vigilanceDetail = {
@@ -126,12 +140,15 @@ def get_vigilance_details(request):
             'registeredSource': vigilance.vigilance_source,
             'caseStatus': vigilance.vigilance_status,
             'theftFound': vigilance.theft_found,
+            'theftname':vigilance.theft_name,
+            'theftaddress':theftaddress,
             'vigilanceRemark': vigilance.vigilance_remark,
             'penaltyAmount': '',
             'paymentStatus': '',
             'paymentMethod': '',
             'courtRemark': '',
             'courtCaseStatus': '',
+            'vigilance_img' : image_list,
         }
         try:
             # vigilance penalty details

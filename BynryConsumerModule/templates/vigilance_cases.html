@@ -33,6 +33,7 @@
     <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
     <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         th{
             text-align:center;
@@ -50,7 +51,11 @@
         .custom-width{
 				    width: 29%;        
         }
-    </style>
+        tr > td > a {
+            color: #337ab7 !important;
+        }
+
+    </style>    
 </head>
 <!-- END HEAD -->
 
@@ -96,14 +101,7 @@
         <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
         <div class="page-sidebar navbar-collapse collapse">
             <!-- BEGIN SIDEBAR MENU -->
-            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
             {% include 'side-panel.html' %}
-            <!-- END SIDEBAR MENU -->
             <!-- END SIDEBAR MENU -->
         </div>
         <!-- END SIDEBAR -->
@@ -114,9 +112,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <!-- BEGIN THEME PANEL -->
 
-            <!-- END THEME PANEL -->
             <!-- BEGIN PAGE BAR -->
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -328,35 +324,29 @@
                 <h4 class="modal-title">Vigilance Case Details</h4></div>
             <div class="modal-body">
                 <div class="scroller" style="height:480px;" data-always-visible="1" data-rail-visible1="1">
-                    <h4><b>Case Details</b></h4>
-                    <div class="row">
-                        <div class="col-md-12">
+                    <h4><b><span id="case_id"></span> (<label id="vigilance_type"></label>)</b> registered on <span id="registered_date"></span></h4>
+              
+                    <div class="row">                       
+                       <div class="col-md-6">
+                                <div class="w3-content w3-display-container">
+                                </div>
+                       </div>
+                       <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="theft_name">
+                                <label for="registered_source"> Name (One who is doing Vigilance/ Theft)</label>
+                            </div>
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="vigilance_remark" rows="2"></textarea>
-                                <label >Vigilance Case</label>
+                                <textarea class="form-control" readonly id="theft_address"></textarea>
+                                <label >Address</label>
+                            </div>
+                            <div class="form-group form-md-line-input has-info ">
+                                <textarea class="form-control" readonly id="vigilance_remark"></textarea>
+                                <label >Description</label>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly id="case_id">
-                                <label for="case_id">Case Id</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="vigilance_type">
-                                <label for="vigilance_type">Vigilance Type</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="registered_date">
-                                <label for="registered_date">Registered Date</label>
-                            </div>
-                        </div>
-                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-info">
