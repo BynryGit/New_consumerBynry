@@ -52,6 +52,7 @@ def get_vigilance_data(request):
 
         # filter vigilance data by vigilance type
         if request.GET.get('vigilance_type'):
+            print '\n.............1..............',vigilance_obj
             if request.GET.get('vigilance_type') == 'all':
                 vigilanceType = VigilanceType.objects.filter(is_deleted=False)
             else:
@@ -60,35 +61,43 @@ def get_vigilance_data(request):
 
         # filter vigilance data by vigilance status
         if request.GET.get('vigilance_status') and request.GET.get('vigilance_status') != "all":
+            print '\n.............2..............',vigilance_obj
             vigilance_obj = vigilance_obj.filter(vigilance_status=request.GET.get('vigilance_status'))
 
         # filter vigilance data by vigilance source
         if request.GET.get('vigilance_source') and request.GET.get('vigilance_source') != "all":
+            print '\n.............3..............',vigilance_obj
             vigilance_obj = vigilance_obj.filter(vigilance_source=request.GET.get('vigilance_source'))
 
         # filter vigilance data by consumer
         if request.GET.get('consumer_id'):
+            print '\n.............4..............',vigilance_obj
             vigilance_obj = vigilance_obj.filter(consumer_id=request.GET.get('consumer_id'))
         else:
             # filter vigilance data by branch
             if request.GET.get('branch') and request.GET.get('branch') != "all":
+                print '\n.............5..............',vigilance_obj
                 consumer = ConsumerDetails.objects.filter(branch=request.GET.get('branch'))
                 vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
             # filter vigilance data by zone
             if request.GET.get('zone') and request.GET.get('zone') != "all":
+                print '\n.............6..............',vigilance_obj
                 consumer = ConsumerDetails.objects.filter(zone=request.GET.get('zone'))
                 vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
             # filter vigilance data by bill cycle
             if request.GET.get('bill_cycle') and request.GET.get('bill_cycle') != "all":
+                print '\n.............7..............',vigilance_obj
                 consumer = ConsumerDetails.objects.filter(bill_cycle=request.GET.get('bill_cycle'))
                 vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
             # filter vigilance data by route
             if request.GET.get('route') and request.GET.get('route') != "all":
+                print '\n.............8..............',vigilance_obj
                 consumer = ConsumerDetails.objects.filter(route=request.GET.get('route'))
                 vigilance_obj = vigilance_obj.filter(consumer_id__in=consumer)
 
         # filter vigilance data by date range
         if request.GET.get('start_date') and request.GET.get('end_date'):
+            print '\n.............9..............',vigilance_obj
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y').replace(hour=23, minute=59, second=59)
             vigilance_obj = vigilance_obj.filter(registered_date__range=[start_date, end_date])
