@@ -48,6 +48,7 @@ def get_vigilance_data(request):
         print 'vigilanceapp|views.py|get_vigilance_data'
         vigilance_list = []
         vigilance_obj = VigilanceDetail.objects.all()
+        print '...\n\n\n\n\n\n..SSSSSSS...\n',vigilance_obj
 
         # filter vigilance data by vigilance type
         if request.GET.get('vigilance_type'):
@@ -91,7 +92,7 @@ def get_vigilance_data(request):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y').replace(hour=23, minute=59, second=59)
             vigilance_obj = vigilance_obj.filter(registered_date__range=[start_date, end_date])
-
+        print '\n\n\n\n..2222...\n',vigilance_obj
         # vigilance data result
         for vigilance in vigilance_obj:
             vigilance_data = {
@@ -110,6 +111,7 @@ def get_vigilance_data(request):
     except Exception, e:
         print 'Exception|vigilanceapp|views.py|get_vigilance_data', e
         data = {'msg': 'error'}
+    print '...........DATA........\n\n',data
     return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 
 
