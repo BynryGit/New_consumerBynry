@@ -96,11 +96,9 @@ function vigilance_details(vigilance_id){
                 $("#registered_date").text(vigilanceDetail.registeredDate);
                 $("#registered_source").val(vigilanceDetail.registeredSource);
                 $("#case_status").val(vigilanceDetail.caseStatus);
-                $("#theft_found").val(vigilanceDetail.theftFound);
-                
+                $("#theft_found").val(vigilanceDetail.theftFound);                
                 $("#theft_name").val(vigilanceDetail.theftname);
-                $("#theft_address").text(vigilanceDetail.theftaddress);
-                
+                $("#theft_address").text(vigilanceDetail.theftaddress);               
                 $("#vigilance_remark").text(vigilanceDetail.vigilanceRemark);
                 $("#penalty_amount").val(vigilanceDetail.penaltyAmount);
                 $("#payment_status").val(vigilanceDetail.paymentStatus);
