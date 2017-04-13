@@ -155,7 +155,7 @@
                                                             <div class="form-group">
                                                                 <div class="form-group form-md-line-input has-success">
                                                             <textarea id="vigilance_remark" style="height: 125px;"
-                                                                      type="text"
+                                                                      type="text" maxlength="500"
                                                                       class="form-control"
                                                                       name="vigilance_remark"></textarea>
                                                                     <label>Description <span
@@ -255,7 +255,6 @@
 
     function register_vigilance() {
        if (validate_vigilance()) {
-			event.preventDefault();  													
   			$.ajax({  				  
 				  type	: "POST",
 				   url : '/cti-crm/save-vigilance-complaint/',

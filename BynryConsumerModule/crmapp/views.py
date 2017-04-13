@@ -180,7 +180,6 @@ def save_complaint_details(request):
             complaint_type_id=complaint_type_obj,
             consumer_id=consumer_id,
             remark=request.GET.get('complaint_remark'),
-            complaint_img=request.GET.get('complaint_img'),
             complaint_source="CTI",
             complaint_status="Open",
             complaint_date=datetime.now()
@@ -271,17 +270,23 @@ def get_bill_history(request):
             consumer_obj = ConsumerDetails.objects.get(consumer_no=request.session['consumer_no'])
             pay_list = PaymentDetail.objects.filter(consumer_id=consumer_obj)
             for pay_obj in pay_list:
+                meter_obj = MeterReadingDetail.objects.get(id=str(pay_obj.meter_reading_id.id))
+
+                total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
+                total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
+                net_bill_amount = total_charges + total_arrears
+
                 bill_month = pay_obj.meter_reading_id.bill_month
                 bill_month = month_list1[
                                  month_list2.index(bill_month)] + '-' + pay_obj.meter_reading_id.bill_months_year
                 action = '<a target="_blank" href="/cti-crm/view-bill/?meter_reading_id=' + str(
-                    pay_obj.id) + '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'
+                    pay_obj.meter_reading_id.id) + '"> <i class="fa fa-eye" aria-hidden="true"></i> </a>'
                 data_list = {
                     'bill_month':bill_month,
                     'unit_consumed':pay_obj.meter_reading_id.unit_consumed,
-                    'net_amount':str(pay_obj.net_amount),
+                    'net_amount':str(net_bill_amount),
                     'bill_amount_paid':str(pay_obj.bill_amount_paid),
-                    'payment_date':pay_obj.payment_date.strftime("%d %b %Y"),
+                    'payment_date':pay_obj.created_on.strftime("%d %b %Y"),
                     'action':action
                 }
                 final_list.append(data_list)
@@ -404,7 +409,7 @@ def save_vigilance_complaint(request):
             vigilance_type_id=VigilanceType.objects.get(
                 id=request.POST.get('vigilance_type')) if request.POST.get(
                 'vigilance_type') else None,
-            theft_name=request.POST.get('consumer_name'),
+            theft_name=request.POST.get('theft_name'),
             address=request.POST.get('consumer_address'),
             city=City.objects.get(
                 id=request.POST.get('city')) if request.POST.get(
