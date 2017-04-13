@@ -469,8 +469,6 @@
 
     function save_new_consumer() {
         if (validate_new_consumer_data()) {
-            event.preventDefault();
-
             var formData = new FormData();
             formData.append("city", $("#new_city").val());
             formData.append("name", $("#new_cname").val());
@@ -577,8 +575,6 @@
 
     function verify_consumer() {
         if (validate_verify()) {
-            event.preventDefault();
-
             var formData = new FormData();
             formData.append("city_id", $("#verify_city").val());
             formData.append("consumer_no", $("#verify_consumer_no").val());

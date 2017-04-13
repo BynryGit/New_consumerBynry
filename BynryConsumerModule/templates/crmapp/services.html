@@ -90,7 +90,7 @@
                                         <div class="col-xs-6">
                                             <div class="form-group">
                                                 <div class="form-group form-md-line-input has-success">
-                                                    <textarea id="service_remark" style="height: 35px;" type="text"
+                                                    <textarea id="service_remark" maxlength="500" rows="4" style="height: 35px;" type="text"
                                                               class="form-control"></textarea>
                                                     <label>Remark <span
                                                     class="required"> *</span> :</label>
@@ -238,7 +238,6 @@
         service_type = $('#service_type').val();
         service_remark = $('#service_remark').val();
         if (validateData()) {
-            event.preventDefault();
             $.ajax({
                 type: "GET",
                 url: '/cti-crm/service-request/',
