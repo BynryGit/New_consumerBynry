@@ -89,6 +89,7 @@ function complaint_details(complaint_id){
         data : {'complaint_id':complaint_id},
         success: function (response) {
             if(response.success =='true'){
+                $(".w3-content").html('');
                 complaintDetail = response.complaintDetail;
                 $("#complaint_id").val(complaintDetail.complaintID);
                 $("#complaint_type").val(complaintDetail.complaintType);
@@ -100,9 +101,12 @@ function complaint_details(complaint_id){
                 $.each(complaintDetail.complaint_img, function( index, value ) {
                     $(".w3-content").append('<img class="mySlides" src="'+value+'" style="width:100%;height:200px;">');
                 });
-                $(".w3-content").append('<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>');
-                $(".w3-content").append('<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>');
-                showDivs(slideIndex);
+                if(complaintDetail.complaint_img.length > 1)
+                {
+                    $(".w3-content").append('<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>');
+                    $(".w3-content").append('<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>');
+                    showDivs(slideIndex);
+                }
             }
         },
         error : function(response){

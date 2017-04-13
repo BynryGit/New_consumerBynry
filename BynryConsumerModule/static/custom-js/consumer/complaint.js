@@ -85,6 +85,7 @@ function complaint_details(complaint_id){
         data : {'complaint_id':complaint_id},
         success: function (response) {
             if(response.success =='true'){
+                $(".complaint-slider").html('');
                 complaintDetail = response.complaintDetail;
                 $("#complaint_id").val(complaintDetail.complaintID);
                 $("#complaint_type").val(complaintDetail.complaintType);
@@ -93,11 +94,14 @@ function complaint_details(complaint_id){
                 $("#cons_name").text(complaintDetail.complaintConsumerName);
                 $("#cons_no").text(complaintDetail.complaintConsumerNo);
                 $.each(complaintDetail.complaint_img, function( index, value ) {
-                    $(".w3-content").append('<img class="mySlides" src="'+value+'" style="width:100%;height:200px;">');
+                    $(".complaint-slider").append('<img class="mySlides" src="'+value+'" style="width:100%;height:200px;">');
                 });
-                $(".w3-content").append('<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>');
-                $(".w3-content").append('<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>');
-                showDivs(slideIndex);
+                if(complaintDetail.complaint_img.length > 1)
+                {
+                    $(".complaint-slider").append('<button class="w3-button w3-black w3-display-left" onclick="comPlusDivs(-1)">&#10094;</button>');
+                    $(".complaint-slider").append('<button class="w3-button w3-black w3-display-right" onclick="comPlusDivs(1)">&#10095;</button>');
+                    compShowDivs(compSlideIndex);
+                }
             }
             else {
                 $("#complaint_id").val('');
@@ -131,20 +135,20 @@ function clear_complaint_filter(){
     complaintTable();
 }
 
-var slideIndex = 1;
+var compSlideIndex = 1;
 
 
-function plusDivs(n) {
-    showDivs(slideIndex += n);
+function comPlusDivs(n) {
+    compShowDivs(compSlideIndex += n);
 }
 
-function showDivs(n) {
+function compShowDivs(n) {
     var i;
     var x = document.getElementsByClassName("mySlides");
-    if (n > x.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = x.length}
+    if (n > x.length) {compSlideIndex = 1}
+    if (n < 1) {compSlideIndex = x.length}
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
     }
-    x[slideIndex-1].style.display = "block";
+    x[compSlideIndex-1].style.display = "block";
 }
