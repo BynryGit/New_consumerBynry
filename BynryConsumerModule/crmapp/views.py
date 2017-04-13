@@ -424,9 +424,12 @@ def save_vigilance_complaint(request):
             created_by='CTI'
         )
         new_vigilance_obj.save()
+        case_id = new_vigilance_obj.case_id
+
 
         data = {
             'success':'true',
+            'case_id':case_id,
             'message':'Vigilance complaint created successfully.'
         }
     except Exception, e:

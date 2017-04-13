@@ -188,6 +188,52 @@
                         </div>
                     </div>
                 </div>
+                <div class="page-content-inner" id="confirm_vigilance_msg" hidden="">
+                    <div class="row">
+                        <div class="portlet light bordered">
+                            <div class="portlet-body">
+
+                                <div class="row">
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-body">
+                                            <div class="row" style="margin-top: -15px;!important">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group form-md-line-input has-info">
+                                                            <p>Thank you for helping us. We have registered your case. Kindly note the
+                                                                Case ID for future.</p>
+
+                                                            <p>Case ID : <b><span id="vigilance_ID"></span></b></p>
+
+                                                            <!-- <p>Please download the service form from your registered
+                                                                email id and submit it at nearest CSD center with
+                                                                supporting documents.</p> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-xs-offset-11 col-xs-1">
+                                                    <div class="btn-group btn-group-devided">
+                                                        <a type="button" href="/cti-crm/"
+                                                           style="margin-top: 25px;"
+                                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                           >
+                                                            Home
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -262,7 +308,9 @@
                      
               success: function (response) {   
 	              if(response.success=='true'){
-							$("#success_modal").modal('show');
+							//$("#success_modal").modal('show');
+							$("#vigilance_ID").text(response.case_id);
+                     document.getElementById("confirm_vigilance_msg").removeAttribute("hidden");
 	              	}
 	      			if (response.success == "false") {
 							$("#error-modal").modal('show');
