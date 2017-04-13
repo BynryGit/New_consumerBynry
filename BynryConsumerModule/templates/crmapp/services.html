@@ -81,7 +81,8 @@
                                                         <option value="{{ type.id }}"> {{ type.request_type }} </option>
                                                     {% endfor %}
                                                 </select>
-                                                <label>Service Type :</label>
+                                                <label>Service Type <span
+                                                    class="required"> *</span> :</label>
                                             </div>
                                             <span class="service_type_error"
                                                   style="margin-top: -29px;color:red;"></span>
@@ -91,7 +92,8 @@
                                                 <div class="form-group form-md-line-input has-success">
                                                     <textarea id="service_remark" style="height: 35px;" type="text"
                                                               class="form-control"></textarea>
-                                                    <label>Remark :</label>
+                                                    <label>Remark <span
+                                                    class="required"> *</span> :</label>
                                                 </div>
                                             </div>
                                             <span class="service_remark_error"
