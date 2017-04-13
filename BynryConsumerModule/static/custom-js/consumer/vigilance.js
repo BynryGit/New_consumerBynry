@@ -78,6 +78,7 @@ function vigilance_details(vigilance_id){
         data : {'vigilance_id':vigilance_id},
         success: function (response) {
             if(response.success =='true'){
+                $(".vigilance-slider").html('');
                 vigilanceDetail = response.vigilanceDetail;
                 $("#case_id").text(vigilanceDetail.caseID);
                 $("#vigilance_type").text(vigilanceDetail.vigilanceType);
@@ -94,11 +95,14 @@ function vigilance_details(vigilance_id){
                 $("#theft_name").val(vigilanceDetail.theftname);
                 $("#theft_address").text(vigilanceDetail.theftaddress);               
                 $.each(vigilanceDetail.vigilance_img, function(index, value ) {
-                    $(".w3-content").append('<img class="mySlides" src="'+value+'" style="width:100%;height:200px;">');
+                    $(".vigilance-slider").append('<img class="vigilanceSlides" src="'+value+'" style="width:100%;height:200px;">');
                 });
-                $(".w3-content").append('<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>');
-                $(".w3-content").append('<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>');
-                showDivs(slideIndex);                  
+                if(vigilanceDetail.vigilance_img.length > 1){
+                    $(".vigilance-slider").append('<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>');
+                    $(".vigilance-slider").append('<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>');
+                    showDivs(slideIndex);
+                }
+
             }
         },
         error : function(response){
@@ -116,7 +120,7 @@ function plusDivs(n) {
 
 function showDivs(n) {
     var i;
-    var x = document.getElementsByClassName("mySlides");
+    var x = document.getElementsByClassName("vigilanceSlides");
     if (n > x.length) {slideIndex = 1}
     if (n < 1) {slideIndex = x.length}
     for (i = 0; i < x.length; i++) {
