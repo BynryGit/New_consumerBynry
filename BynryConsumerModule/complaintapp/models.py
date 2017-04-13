@@ -44,7 +44,7 @@ class ComplaintDetail(models.Model):
     complaint_no = models.CharField(max_length=200, blank=False, null=True)
     complaint_type_id = models.ForeignKey(ComplaintType, blank=False, null=True)
     consumer_id = models.ForeignKey(ConsumerDetails, blank=False, null=True)
-    remark = models.CharField(max_length=200, blank=True, null=True)
+    remark = models.CharField(max_length=500, blank=True, null=True)
     #complaint_img = models.ImageField(upload_to=IMAGES_PATH, null=True, blank=True)
     complaint_status = models.CharField(max_length=50, choices=COMPLAINT_STATUS)
     complaint_source = models.CharField(max_length=50, choices=COMPLAINT_SOURCE)
