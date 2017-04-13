@@ -309,9 +309,9 @@
                                                                                 <button type="submit" class="btn green"
                                                                                         id="save-changes">Save Changes
                                                                                 </button>
-                                                                                <button type="button"
+                                                                               <a href="/self-service/"> <button type="button"
                                                                                         class="btn default">Cancel
-                                                                                </button>
+                                                                                </button></a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -537,7 +537,7 @@ function check_oldPass(password){
    }
    else{
      $("#old_pass_error").css("display", "block");
-     $("#old_pass_error").text("Enter valid Password");
+     $("#old_pass_error").text("Enter valid Old Password");
      return false; 
    }
 }
@@ -547,7 +547,7 @@ function check_newPass(){
  		var re_password = $('#confirm_pass').val();
    if (password != re_password) {
  			 $('#new_pass_error').css("display", "block");
-          $('#new_pass_error').text("Password don't match");
+          $('#new_pass_error').text("Password doesn't match");
  				 return false;	
  		 }
  	passw = $('#new_pass').val()
@@ -560,7 +560,7 @@ function check_newPass(){
    }
    else{
      $("#new_pass_error").css("display", "block");
-     $("#new_pass_error").text("Enter valid Password");
+     $("#new_pass_error").text("Enter valid New Password more than six character");
      return false; 
    }
 }

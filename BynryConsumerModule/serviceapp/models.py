@@ -56,7 +56,7 @@ class ServiceRequest(models.Model):
     request_closer_date = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=500, default='Open', choices=SERVICE_STATUS)
     source = models.CharField(max_length=500, default='Open', choices=SERVICE_SOURCE)
-    consumer_remark = models.CharField(max_length=200, blank=True, null=True)
+    consumer_remark = models.CharField(max_length=500, blank=True, null=True)
     closure_remark = models.CharField(max_length=200, blank=True, null=True)
     created_by = models.CharField(max_length=500, blank=False, null=False)
     updated_by = models.CharField(max_length=500, blank=True, null=True)

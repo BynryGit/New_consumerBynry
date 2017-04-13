@@ -52,7 +52,7 @@ class VigilanceDetail(models.Model):
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.ForeignKey(City, blank=False, null=True)
     pin_code = models.ForeignKey(Pincode, blank=False, null=True)
-    vigilance_remark = models.CharField(max_length = 200,blank = True, null = True)
+    vigilance_remark = models.CharField(max_length = 500,blank = True, null = True)
     vigilance_status = models.CharField(max_length = 50, choices = VIGILANCE_STATUS)
     vigilance_source = models.CharField(max_length = 50, choices = VIGILANCE_SOURCE)
     registered_date = models.DateTimeField(blank = True,null = True)
