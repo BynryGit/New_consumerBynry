@@ -106,7 +106,8 @@
                                             <div class="form-group">
                                                 <div class="form-group form-md-line-input has-success">
                                                     <input type="text" id="cons_no" class="form-control">
-                                                    <label>Enter Consumer No. :</label>
+                                                    <label>Enter Consumer No. <span
+                                                    class="required"> *</span> :</label>
                                                 </div>
                                                 <span class="cons_no_error" style="margin-top: -30px;color:red;"></span>
                                             </div>
@@ -115,13 +116,14 @@
                                             <div class="form-group form-md-line-input has-success">
                                                 <select id="bill_cycle" style="margin-top: 4px;"
                                                         class="form-control input-sm select2-multiple">
-                                                    <option value=""> Select Bill Cycle</option>
+                                                    <option value=""> Select Bill Cycle </option>
                                                     {% for bill_cycle in bill_cycle_list %}
                                                          <option value="{{bill_cycle.bill_cycle_id}}"> {{ bill_cycle.bill_cycle_code }}
                                                          </option>
                                                      {% endfor %}
                                                 </select>
-                                                <label>Bill Cycle :</label>
+                                                <label>Bill Cycle <span
+                                                    class="required"> *</span> :</label>
                                             </div>
                                             <span class="bill_cycle_error" style="margin-top: -30px;color:red;"></span>
                                         </div>
