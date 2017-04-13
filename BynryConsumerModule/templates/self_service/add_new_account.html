@@ -361,7 +361,7 @@
         consumer_no = $('#cons_no').val();
         otp_no = $('#otp_no').val();
         if (check_otp('#otp_no')) {
-            event.preventDefault();
+            //event.preventDefault();
             $.ajax({
                 type: "POST",
                 url: '/self-service/verify-OTP/',
@@ -412,7 +412,7 @@
         bill_cycle = $('#bill_cycle').val();
 
         if (validateData()) {
-            event.preventDefault();
+            //event.preventDefault();
             $.ajax({
                 type: "GET",
                 url: '/self-service/verify-consumer/',
