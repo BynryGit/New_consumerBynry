@@ -852,14 +852,15 @@ def save_vigilance_complaint(request):
             vigilance_source='Web',
             created_on=datetime.now(),
             created_by=request.session['login_user'],
-        );
-        new_vigilance_obj.save();
+        )
+        new_vigilance_obj.save()
 
         attachment_list = request.POST.get('attachments')
         save_attachments(attachment_list, new_vigilance_obj)
 
         data = {
             'success': 'true',
+            'case_id':new_vigilance_obj.case_id,
             'message': 'Consumer created successfully.'
         }
     except Exception, e:
