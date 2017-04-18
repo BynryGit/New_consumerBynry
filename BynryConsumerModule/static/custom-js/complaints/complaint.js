@@ -194,7 +194,7 @@ function get_bill_cycle(){
         $.ajax({
             type : "GET",
             url : '/complaintapp/get-bill-cycle/',
-            data : {'zone':zone,'branch',branch},
+            data : {'zone':zone,'branch':branch},
             success: function (response) {
                 if(response.success =='true'){
                     $.each(response.bill_cycle, function (index, item) {
