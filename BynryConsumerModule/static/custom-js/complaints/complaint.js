@@ -220,7 +220,7 @@ function get_route(){
         $.ajax({
             type : "GET",
             url : '/complaintapp/get-route/',
-            data : {'zone':zone,'branch',branch,'bill_cycle':bill_cycle},
+            data : {'zone':zone,'branch':branch,'bill_cycle':bill_cycle},
             success: function (response) {
                 if(response.success =='true'){
                     $.each(response.route_list, function (index, item) {
