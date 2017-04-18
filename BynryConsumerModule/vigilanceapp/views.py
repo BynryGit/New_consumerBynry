@@ -90,7 +90,7 @@ def get_vigilance_data(request):
         if request.GET.get('start_date') and request.GET.get('end_date'):
             start_date = datetime.datetime.strptime(request.GET.get('start_date'), '%d/%m/%Y')
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y').replace(hour=23, minute=59, second=59)
-            vigilance_obj = vigilance_obj.filter(registered_date__range=[start_date, end_date])
+            vigilance_obj = vigilance_obj.filter(created_on__range=[start_date, end_date])
 
         # vigilance data result
         for vigilance in vigilance_obj:

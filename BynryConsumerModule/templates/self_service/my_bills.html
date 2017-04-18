@@ -625,10 +625,26 @@
             ],                                                    
                                                         
 	        buttons: [
-	            { extend: 'print', className: 'btn dark btn-outline' },
-	            { extend: 'pdf', className: 'btn green btn-outline' },
-	            { extend: 'excel', className: 'btn yellow btn-outline ' },
-	            { extend: 'csv', className: 'btn purple btn-outline ' },
+	            { extend: 'print', className: 'btn dark btn-outline',
+	                exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4]
+                    },
+	            },
+	            { extend: 'pdf', className: 'btn green btn-outline',
+	                exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4]
+                    },
+	            },
+	            { extend: 'excel', className: 'btn yellow btn-outline ',
+	                exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4]
+                    },
+	            },
+	            { extend: 'csv', className: 'btn purple btn-outline ',
+	                exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4]
+                    },
+	            },
 	        ],
 
             "lengthMenu": [
