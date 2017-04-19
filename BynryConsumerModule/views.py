@@ -32,12 +32,20 @@ def system_user(request):
     else:
         role_list = []
         branch_list = []
+        # role_objs = UserRole.objects.filter(is_deleted=False, status='Active')
+        # total_role_count = UserRole.objects.filter(is_deleted=False).count()
+        # active_role_count = UserRole.objects.filter(is_deleted=False,
+        #                                             status='Active').count()
+        # inactive_role_count = UserRole.objects.filter(is_deleted=False,
+        #                                               status='Inactive').count()
+
         role_objs = UserRole.objects.filter(is_deleted=False, status='Active')
-        total_role_count = UserRole.objects.filter(is_deleted=False).count()
-        active_role_count = UserRole.objects.filter(is_deleted=False,
+        total_role_count = SystemUserProfile.objects.filter(is_deleted=False).count()
+        active_role_count = SystemUserProfile.objects.filter(is_deleted=False,
                                                     status='Active').count()
-        inactive_role_count = UserRole.objects.filter(is_deleted=False,
+        inactive_role_count = SystemUserProfile.objects.filter(is_deleted=False,
                                                       status='Inactive').count()
+
         branch_obj = Branch.objects.filter(is_deleted=False)
         for branch in branch_obj:
             branch_data = {'branch_id':branch.id, 'branch':branch.branch_name}
@@ -175,15 +183,16 @@ def update_system_user_details(request):
         user_obj.email = request.GET.get('email')
         user_obj.save()
 
-        user_obj.set_password(request.GET.get('password'))
-        user_obj.save()
+        if request.GET.get('password'):
+            user_obj.set_password(request.GET.get('password'))
+            user_obj.save()
 
         if request.GET.get('branch'):
             branch = request.GET.get('branch')
             branch_obj = Branch.objects.get(branch_name=branch)
             user_obj.branch = branch_obj
             user_obj.save()
-        data = {'success':'True'}
+        data = {'success':'True','status':user_obj.status}
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|views.py|update_system_user_details', e

@@ -117,7 +117,8 @@
 		$('#re_password').val('');  	
 		$("#add_admin_model").modal('show');         		         
 	}          
-
+	
+ 
 function save_head_admin_details() {
 			var first_name = $('#fname').val();
 			var last_name = $('#lname').val();
@@ -168,6 +169,8 @@ function edit_admin_modal(user_id) {
 			$(".user_password_error").css("display", "none");			
 			$(".user_re_password_error").css("display", "none");		
 			$("#user_branch_name").prop("disabled", false);	
+			$('#user_pass').val('');  	
+			$('#user_re_pass').val(''); 
 			
 		   $.ajax({
 		       type	: "GET",
@@ -232,9 +235,14 @@ function update_head_admin_details() {
 			       data : {'user_id':user_id,'user_status':user_status,'first_name':first_name,'last_name':last_name,'branch':branch,'city':city,'address':address,'emp_id':emp_id,'role':role,'contact_no':contact_no,'email':email,'password':password},       
 			       success: function (response) {			  
 			     		  if(response.success=='True'){
-			     		  	initTable1();
-			     		  	$('#edit_admin_modal').modal('hide');
-			     		  	$('#success_update_modal').modal('show');
+			     		  		if (response.status=='Inactive') {
+				     		  		location.href='/log-out/'
+			     		  		}
+			     		  		else {
+			     		  			initTable1();
+			     		  			$('#edit_admin_modal').modal('hide');
+			     		  			$('#success_update_modal').modal('show');
+			     		  		}
 			     		  }
 			     		  if (response.success == "false") {
 								$("#error-modal").modal('show');
@@ -336,7 +344,7 @@ function check_role(user_role){
 
 function check_email(user_email){
 	Email = $(user_email).val()
-   var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
+   var namePattern = /[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,3}$/;  
    if(Email=='')
 	{ 
 	$(".user_email_error").css("display", "block");
@@ -390,6 +398,7 @@ function check_repassword(user_re_pass){
     password = $(user_pass).val();  
     re_password = $(user_re_pass).val();
    if (password == re_password) {		
+   	$(".user_re_password_error").css("display", "none");
 		return true;
    }
    else{   	 
@@ -502,7 +511,7 @@ function checkRole(role){
 
 function checkEmail(email){
 	Email = $(email).val()
-   var namePattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;  
+   var namePattern = /[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,3}$/;  
    if(Email=='')
 	{ 
 	$(".email_error").css("display", "block");
@@ -553,6 +562,7 @@ function checkRePassword(re_password){
     password1 = $(password).val();  
     re_password1 = $(re_password).val();
    if (password1 == re_password1) {		
+   	$(".re_password_error").css("display", "none");
 		return true;
    } 
    else if (password1 == 'undefined') {		
