@@ -578,8 +578,8 @@
                                 <div class="form-group form-md-line-input has-success">
                                     <label for="form_control_1">Technician Name <span class="required"> *</span></label>
                                     <input type="text" class="form-control" id="technician_name" name="technician_name">
-                                    <label id="techname_error"
-                                           style="color:red; display:none; font-size: 12px;"></label>
+                                    <span id="techname_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -587,15 +587,13 @@
                                 <div class="form-group form-md-line-input has-success">
                                     <label for="form_control_1">Contact No.<span class="required"> *</span></label>
                                     <input type="text" class="form-control" id="tech_contact_no" name="tech_contact_no">
-                                    <label id="mobile_error"
-                                           style="color:red; display:none; font-size: 12px;"></label>
+                                    <span id="mobile_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6" style="margin-top: 4px;">
-                                <label id="techstatus_error" class="error"
-                                       style="color:red; display:none; font-size: 12px;"></label>
+                            <div class="col-md-6" style="margin-top: 4px;">                                
                                 <div class="form-group form-md-line-input has-success">
                                     <select id="verify_technical" name="verify_technical"
                                             class="form-control input-sm select2-multiple"
@@ -605,14 +603,16 @@
                                         <option value="Failed"> Failed</option>
                                     </select>
                                     <label for="consumer_zone">Status by Technician <span class="required"> *</span></label>
+                                    <span id="techstatus_error" class="error"
+                                       style="color:red; display:none; font-size: 12px;"></span>
                                 </div>
                             </div>
-                            <div class="col-md-12" style="display:none" id="remark_div_tech">
-                                <label id="techremark_error" class="error"
-                                       style="color:red; display:none; font-size: 12px;"></label>
+                            <div class="col-md-12" style="display:none" id="remark_div_tech">                               
                                 <div class="form-group form-md-line-input has-success">
                                     <input type="text" class="form-control" id="tech_remark" name="tech_remark">
                                     <label for="form_control_1">Remark<span class="required"> *</span></label>
+                                     <span id="techremark_error" class="error"
+                                       style="color:red; display:none; font-size: 12px;"></span>
                                 </div>
                             </div>
                         </div>
