@@ -192,7 +192,7 @@ def cash_payments(request):
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
                 filter_from = filter_from.strftime("%Y-%m-%d")
-                filter_to = datetime.strptime(filter_to, "%d/%m/%Y")
+                filter_to = datetime.strptime(filter_to, "%d/%m/%Y").replace(hour=23, minute=59, second=59)
                 filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 

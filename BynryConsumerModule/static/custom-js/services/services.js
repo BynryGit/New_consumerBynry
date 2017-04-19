@@ -164,6 +164,7 @@
                     $.each(response.zone, function (index, item) {
                         $("#select_zone").append('<option value="'+item.zone_id+'">'+item.zone_name+'</option>')
                     });
+                    $("#select_zone").val("all").change();
                 }
             },
             error : function(response){
