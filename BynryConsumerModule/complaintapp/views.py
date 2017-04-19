@@ -226,7 +226,7 @@ def get_zone(request):
         print 'complaintapp|views.py|get_zone'
         zone_list = []
         # filer zone by branch_id
-        if request.GET.get('zone') != 'all':
+        if request.GET.get('branch') != 'all':
             zone_obj = Zone.objects.filter(
                 is_deleted=False, branch=request.GET.get('branch'))
         else:
@@ -255,7 +255,12 @@ def get_bill_cycle(request):
             bill_cycle_obj = BillCycle.objects.filter(
                 is_deleted=False, zone=request.GET.get('zone'))
         else:
-            bill_cycle_obj = BillCycle.objects.filter(is_deleted=False)
+            if request.GET.get('branch') != 'all':
+                zone_obj = Zone.objects.filter(
+                    is_deleted=False, branch=request.GET.get('branch'))
+            else:
+                zone_obj = Zone.objects.filter(is_deleted=False)
+            bill_cycle_obj = BillCycle.objects.filter(is_deleted=False,zone__in=zone_obj)
 
         # bill cycle result
         for bill_cycle in bill_cycle_obj:
@@ -281,7 +286,13 @@ def get_route(request):
             route_obj = RouteDetail.objects.filter(
                 is_deleted=False, billcycle=request.GET.get('bill_cycle'))
         else:
-            route_obj = RouteDetail.objects.filter(is_deleted=False)
+            if request.GET.get('branch') != 'all':
+                zone_obj = Zone.objects.filter(
+                    is_deleted=False, branch=request.GET.get('branch'))
+            else:
+                zone_obj = Zone.objects.filter(is_deleted=False)
+            bill_cycle_obj = BillCycle.objects.filter(is_deleted=False, zone__in=zone_obj)
+            route_obj = RouteDetail.objects.filter(is_deleted=False, billcycle__in = bill_cycle_obj)
 
         # route result
         for route in route_obj:

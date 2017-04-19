@@ -13,6 +13,7 @@ from nscapp.models import *
 import string
 import random
 
+
 # Create your views here.
 def new_connection_list(request):
     try:
@@ -140,7 +141,7 @@ def review_consumer_form(request):
                 }
                 id_document_list.append(docs)
         data = {
-            'nsc_id':nsc_id,
+            'nsc_id': nsc_id,
             'consumer_category': nsc_obj.consumer_category,
             'service_requested': nsc_obj.service_requested,
             'supply_type': nsc_obj.supply_type,
@@ -262,7 +263,7 @@ def save_new_consumer(request):
         data = {
             'success': 'true',
             'message': 'Consumer created successfully.',
-            'nsc_id' :  new_consumer_obj.id
+            'nsc_id': new_consumer_obj.id
         }
     except Exception, e:
         print 'Exception|nscapp|views.py|save_new_consumer', e
@@ -425,7 +426,7 @@ def get_verification_data(request):
                 address = meter_address_line_1
 
             consumer_data = {
-                'aadhar_no':consumer_obj.aadhar_no,
+                'aadhar_no': consumer_obj.aadhar_no,
                 'consumer_id': consumer_obj.id,
                 'registration_no': consumer_obj.registration_no,
                 'applicant_name': consumer_obj.applicant_name,
@@ -466,11 +467,11 @@ def save_consumer_kyc(request):
         );
         new_KYC_obj.save();
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('consumer_id'))
-        if request.POST.get('verify_KYC_status') != 'Rejected':            
+        if request.POST.get('verify_KYC_status') != 'Rejected':
             consumer_obj.status = 'KYC'
         else:
             consumer_obj.status = 'KYC Rejected'
-        
+
         consumer_obj.save();
 
         data = {
@@ -518,10 +519,10 @@ def save_consumer_technical(request):
         new_Technical_obj.save();
 
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('tech_consumerid'))
-        if request.POST.get('verify_technical') != 'Failed':            
+        if request.POST.get('verify_technical') != 'Failed':
             consumer_obj.status = 'Technical'
         else:
-            consumer_obj.status = 'Technical Rejected'        
+            consumer_obj.status = 'Technical Rejected'
         consumer_obj.save();
 
         data = {
@@ -560,14 +561,14 @@ def save_consumer_payment(request):
         consumer_obj = NewConsumerRequest.objects.get(id=request.POST.get('pay_consumerid'))
         consumer_obj.status = 'Payment'
         consumer_obj.save();
-        Utility_obj = Utility.objects.get(utility= 'Electricity')
+        Utility_obj = Utility.objects.get(utility='Electricity')
 
         chars = string.digits
-        char_size = 5
+        char_size = 8
         password = ''.join(random.choice(chars) for _ in range(char_size))
 
-        consumer_no = 'CONS'+password
-        con_obj = ConsumerDetails.objects.filter(consumer_no)
+        consumer_no = 'CONS' + password
+        con_obj = ConsumerDetails.objects.filter(consumer_no=consumer_no)
         if con_obj:
             password = ''.join(random.choice(chars) for _ in range(char_size))
             consumer_no = 'CONS' + password
@@ -582,7 +583,7 @@ def save_consumer_payment(request):
             address_line_1=consumer_obj.meter_address_line_1,
             address_line_2=consumer_obj.meter_address_line_2,
             consumer_no=consumer_no,
-            Utility= Utility_obj,
+            Utility=Utility_obj,
             city=City.objects.get(
                 id=consumer_obj.meter_city.id) if consumer_obj.meter_city.id else None,
             pin_code=Pincode.objects.get(

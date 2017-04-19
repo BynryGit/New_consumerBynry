@@ -144,8 +144,8 @@
 
  function get_zone(){
     branch = $("#select_branch").val();
-    $( "#clear_zone_list" ).load(" #clear_zone_list" );
-    $( "#clear_bill_cycle" ).load(" #clear_bill_cycle" );
+//    $( "#clear_zone_list" ).load(" #clear_zone_list" );
+//    $( "#clear_bill_cycle" ).load(" #clear_bill_cycle" );
     $("#select_zone").html('');
     $("#select_zone").append('<option value="all">All</option>');
     $("#select_bill_cycle").html('');
@@ -164,6 +164,7 @@
                     $.each(response.zone, function (index, item) {
                         $("#select_zone").append('<option value="'+item.zone_id+'">'+item.zone_name+'</option>')
                     });
+                    $("#select_zone").val("all").change();
                 }
             },
             error : function(response){
@@ -174,7 +175,8 @@
 }
     
 function get_bill_cycle(){
-	 zone = $("#select_zone").val();
+    zone = $("#select_zone").val();
+    branch = $("#select_branch").val();
     $("#select_bill_cycle").html('');
     $("#select_bill_cycle").append('<option value="all">All</option>');
     $("#select_bill_cycle").val("all").change();
@@ -185,7 +187,7 @@ function get_bill_cycle(){
         $.ajax({
             type : "GET",
             url : '/complaintapp/get-bill-cycle/',
-            data : {'zone':zone},
+            data : {'zone':zone,'branch':branch},
             success: function (response) {
                 if(response.success =='true'){
                     $.each(response.bill_cycle, function (index, item) {
@@ -202,6 +204,8 @@ function get_bill_cycle(){
 
 function get_route(){
     bill_cycle = $("#select_bill_cycle").val();
+    zone = $("#select_zone").val();
+    branch = $("#select_branch").val();
     $("#select_route").html('');
     $("#select_route").append('<option value="all">All</option>');
     $("#select_route").val("all").change();
@@ -209,7 +213,7 @@ function get_route(){
         $.ajax({
             type : "GET",
             url : '/complaintapp/get-route/',
-            data : {'bill_cycle':bill_cycle},
+            data : {'zone':zone,'branch':branch,'bill_cycle':bill_cycle},
             success: function (response) {
                 if(response.success =='true'){
                     $.each(response.route_list, function (index, item) {

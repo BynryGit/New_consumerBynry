@@ -205,6 +205,7 @@ function reload_vigilance(){
 
 function get_bill_cycle(){
     zone = $("#select_zone").val();
+    branch = $("#select_branch").val();
     $("#select_bill_cycle").html('');
     $("#select_bill_cycle").append('<option value="all">All</option>');
     $("#select_bill_cycle").val("all").change();
@@ -215,7 +216,7 @@ function get_bill_cycle(){
         $.ajax({
             type : "GET",
             url : '/complaintapp/get-bill-cycle/',
-            data : {'zone':zone},
+            data : {'zone':zone,'branch':branch},
             success: function (response) {
                 if(response.success =='true'){
                     $.each(response.bill_cycle, function (index, item) {
@@ -232,6 +233,8 @@ function get_bill_cycle(){
 
 function get_route(){
     bill_cycle = $("#select_bill_cycle").val();
+    zone = $("#select_zone").val();
+    branch = $("#select_branch").val();
     $("#select_route").html('');
     $("#select_route").append('<option value="all">All</option>');
     $("#select_route").val("all").change();
@@ -239,7 +242,7 @@ function get_route(){
         $.ajax({
             type : "GET",
             url : '/complaintapp/get-route/',
-            data : {'bill_cycle':bill_cycle},
+            data : {'zone':zone,'branch':branch,'bill_cycle':bill_cycle},
             success: function (response) {
                 if(response.success =='true'){
                     $.each(response.route_list, function (index, item) {
