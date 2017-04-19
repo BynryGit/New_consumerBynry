@@ -413,13 +413,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6" style="margin-top: 4px;">
+                            <label id="kyc_status_error" class="error"
+                                   style="color:red; display:none; font-size: 12px;"></label>
                             <div class="form-group form-md-line-input has-success">
                                 <select id="verify_KYC" class="form-control input-sm select2-multiple"
                                         onchange="open_remark_KYC();">
+                                    <option value=""> Select Status</option>
                                     <option value="Verified"> Verified</option>
                                     <option value="Rejected"> Rejected </option>
                                 </select>
-                                <label for="consumer_zone">Status </label>
+                                <label for="consumer_zone">Status <span class="required"> *</span></label>
                             </div>
                         </div>
                         <div class="col-md-12" style="display:none" id="remark_div">
@@ -427,7 +430,7 @@
                                    style="color:red; display:none; font-size: 12px;"></label>
                             <div class="form-group form-md-line-input has-success">
                                 <input type="text" class="form-control" id="KYC_remark">
-                                <label for="form_control_1">Remark</label>
+                                <label for="form_control_1">Remark<span class="required"> *</span></label>
                             </div>
                         </div>
                     </div>
@@ -511,7 +514,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h4><b> Checklist</b></h4>
+                                <h4><b> Checklist </b></h4> 
                             </div>
                         </div>
                         <div class="row">
@@ -573,7 +576,7 @@
                             <div class="col-md-6">
 
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="form_control_1">Technician Name</label>
+                                    <label for="form_control_1">Technician Name <span class="required"> *</span></label>
                                     <input type="text" class="form-control" id="technician_name" name="technician_name">
                                     <label id="techname_error"
                                            style="color:red; display:none; font-size: 12px;"></label>
@@ -582,7 +585,7 @@
                             <div class="col-md-6">
 
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="form_control_1">Contact No.</label>
+                                    <label for="form_control_1">Contact No.<span class="required"> *</span></label>
                                     <input type="text" class="form-control" id="tech_contact_no" name="tech_contact_no">
                                     <label id="mobile_error"
                                            style="color:red; display:none; font-size: 12px;"></label>
@@ -598,7 +601,7 @@
                                         <option value="Passed"> Passed</option>
                                         <option value="Failed"> Failed</option>
                                     </select>
-                                    <label for="consumer_zone">Status by Technician </label>
+                                    <label for="consumer_zone">Status by Technician <span class="required"> *</span></label>
                                 </div>
                             </div>
                             <div class="col-md-12" style="display:none" id="remark_div_tech">
@@ -606,7 +609,7 @@
                                        style="color:red; display:none; font-size: 12px;"></label>
                                 <div class="form-group form-md-line-input has-success">
                                     <input type="text" class="form-control" id="tech_remark" name="tech_remark">
-                                    <label for="form_control_1">Remark</label>
+                                    <label for="form_control_1">Remark<span class="required"> *</span></label>
                                 </div>
                             </div>
                         </div>
@@ -698,7 +701,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="form_control_1">Amount Paid</label>
+                                    <label for="form_control_1">Amount Paid<span class="required"> *</span></label>
                                     <input type="text" class="form-control" name="pay_amount_paid" id="pay_amount_paid">
                                     <label id="amount_error"
                                            style="color:red; display:none; font-size: 12px;"></label>
@@ -706,7 +709,7 @@
                             </div>
                             <div class="col-md-6" style="margin-top: 4px;">
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="consumer_zone">Payment Mode</label>
+                                    <label for="consumer_zone">Payment Mode<span class="required"> *</span></label>
                                     <select id="payment_mode" name="payment_mode"
                                             class="form-control input-sm select2-multiple" onchange="change_pay_mode()">
                                         <option value="Cheque">By Cheque</option>
@@ -719,7 +722,7 @@
                         <div class="row" id="cheque_div">
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="form_control_1">Cheque No. </label>
+                                    <label for="form_control_1">Cheque No. <span class="required"> *</span></label>
                                     <input type="text" class="form-control" name="pay_cheque_no" id="pay_cheque_no">
                                     <label id="checkno_error"
                                            style="color:red; display:none; font-size: 12px;"></label>
@@ -727,7 +730,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="form_control_1">Name on Cheque</label>
+                                    <label for="form_control_1">Name on Cheque <span class="required"> *</span></label>
                                     <input type="text" class="form-control" name="pay_cheque_name" id="pay_cheque_name">
                                     <label id="checknm_error"
                                            style="color:red; display:none; font-size: 12px;"></label>
@@ -737,7 +740,7 @@
                         <div class="row" style="display:none" id="DD_div">
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="form_control_1">Demand Draft No. </label>
+                                    <label for="form_control_1">Demand Draft No. <span class="required"> *</span></label>
                                     <input type="text" class="form-control" name="pay_DD_no" id="pay_DD_no">
                                     <label id="checkDDno_error"
                                            style="color:red; display:none; font-size: 12px;"></label>
@@ -745,7 +748,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group form-md-line-input has-success">
-                                    <label for="form_control_1">DD</label>
+                                    <label for="form_control_1">DD<span class="required"> *</span></label>
                                     <input type="text" class="form-control" name="pay_DD" id="pay_DD">
                                     <label id="checkDDnm_error"
                                            style="color:red; display:none; font-size: 12px;"></label>

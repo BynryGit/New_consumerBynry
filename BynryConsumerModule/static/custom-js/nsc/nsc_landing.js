@@ -171,7 +171,7 @@ function clear_filter(){
 						$('#KYC_address').val(response.data.address)
 						$('#KYC_city').val(response.data.city_name)
 						$('#KYC_pincode').val(response.data.pincode)
-						$('#verify_KYC').val('Verified').change()
+						$('#verify_KYC').val('').change()
 						$('#KYC_remark').val('')		
 
                   $("#KYC_model").modal('show');
@@ -188,8 +188,12 @@ function clear_filter(){
         });
 		}
 	function validate_KYC() {
-
-		if ($('#verify_KYC').val() == 'Rejected' & $('#KYC_remark').val() == '') {
+		if ($("#verify_KYC").val() == '') {
+			$("#kyc_status_error").css("display", "block");
+		   $("#kyc_status_error").text("Please Select Status");
+		   return false;
+	   }
+		else if ($('#verify_KYC').val() == 'Rejected' & $('#KYC_remark').val() == '') {
 			$("#remark_error").css("display", "block");
 		   $("#remark_error").text("Please write Remark");
 		   return false;
@@ -202,6 +206,7 @@ function clear_filter(){
  	// Save KYC verification
 	$("#save-KYC").click(function(event) {
 		if (validate_KYC()) {
+
 		event.preventDefault();
 
 	   var formData= new FormData();
