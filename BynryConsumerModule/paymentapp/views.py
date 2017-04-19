@@ -64,9 +64,7 @@ def online_payments(request):
             # filter payment data by date range
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
-                filter_from = filter_from.strftime("%Y-%m-%d")
                 filter_to = datetime.strptime(filter_to, "%d/%m/%Y").replace(hour=23, minute=59, second=59)
-                filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 
             # get online payment data list by payment obj
@@ -126,9 +124,7 @@ def paytm_payments(request):
             # filter payment data by date range
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
-                filter_from = filter_from.strftime("%Y-%m-%d")
                 filter_to = datetime.strptime(filter_to, "%d/%m/%Y").replace(hour=23, minute=59, second=59)
-                filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
 
             # get paytm payment data list by payment obj
@@ -172,13 +168,14 @@ def cash_payments(request):
 
         try:
             payment_details_list = PaymentDetail.objects.filter(payment_mode= 'Cash Payment')
+
             # filter payment data by date range
             if filter_from != '' and filter_to != '':
                 filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
-                filter_from = filter_from.strftime("%Y-%m-%d")
                 filter_to = datetime.strptime(filter_to, "%d/%m/%Y").replace(hour=23, minute=59, second=59)
-                filter_to = filter_to.strftime("%Y-%m-%d")
                 payment_details_list = payment_details_list.filter(created_on__range=[filter_from, filter_to])
+
+            print filter_from, filter_to
             # filter payment data by barnch
             if filter_branch != 'all':
                 consumer_obj = ConsumerDetails.objects.filter(branch__id=str(filter_branch))
