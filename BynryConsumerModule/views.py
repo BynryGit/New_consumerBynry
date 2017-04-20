@@ -192,7 +192,7 @@ def update_system_user_details(request):
             branch_obj = Branch.objects.get(branch_name=branch)
             user_obj.branch = branch_obj
             user_obj.save()
-        data = {'success':'True','status':user_obj.status}
+        data = {'success':'True','status':user_obj.status,'username':request.session['login_user']}
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|views.py|update_system_user_details', e

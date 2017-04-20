@@ -134,7 +134,7 @@
 
             <div class="portlet light bordered">
                 <div class="portlet-body">
-                    <ul class="nav nav-tabs">
+                    <!-- <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="#tab_1_1" data-toggle="tab"> Online Payments </a>
                         </li>
@@ -145,7 +145,7 @@
                             <a href="#tab_1_3" data-toggle="tab"> Cash Payments </a>
                         </li>
                     </ul>
-                    <br>
+                    <br> -->
 
                     <div class="portlet-title">
                         <div id="filter_div">
@@ -242,6 +242,21 @@
 
             <div class="portlet light bordered">
                 <div class="portlet-body">
+                	  <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab"> Online Payments </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_2" data-toggle="tab"> Paytm Wallet </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_3" data-toggle="tab"> Cash Payments </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_4" data-toggle="tab"> UPI </a>
+                        </li>
+                    </ul>
+                    <br>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="tab_1_1">
                             <div class="portlet light bordered">
@@ -434,6 +449,67 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade active in" id="tab_1_4">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title">
+                                    <div class="caption font-dark">                                        
+                                        <span class="caption-subject bold uppercase">UPI Payments</span>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="btn-group btn-group-devided">
+                                            <button type="button"
+                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                    onclick="reload_upi_payments()">
+                                                <i class="fa fa-refresh"></i> Reload
+                                            </button>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn red btn-outline btn-circle" href="javascript:;"
+                                               data-toggle="dropdown">
+                                                <i class="fa fa-share"></i>
+                                                <span class="hidden-xs"> Tools </span>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right" id="upi_payment_table_tools">
+                                                <li>
+                                                    <a href="javascript:;" data-action="0" class="tool-action">
+                                                        <i class="icon-printer"></i> Print</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="javascript:;" data-action="1" class="tool-action">
+                                                        <i class="icon-doc"></i> PDF</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="2" class="tool-action">
+                                                        <i class="icon-paper-clip"></i> Excel</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" data-action="3" class="tool-action">
+                                                        <i class="icon-cloud-upload"></i> CSV</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <table class="table table-striped table-bordered table-hover"
+                                           id="upi_payment_table">
+                                        <thead>
+                                        <tr>
+                                            <th> Date</th>
+                                            <th> Amount</th>
+                                            <th> Transaction ID</th>
+                                            <th> Consumer No.</th>
+                                            <th> Name</th>
+                                            <th> Payment Mode</th>
+                                        </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="clearfix margin-bottom-20"></div>
                 </div>
@@ -459,7 +535,7 @@
                                 <p>
                                     <label id="cno" class="">Consumer No. <span style="color:red;">*</span></label>
                                     <input type="text" placeholder="Enter Consumer No." id="consumer_no"
-                                           class="col-md-12 form-control ">
+                                           class="col-md-12 form-control">
                                 </p>
                                 <label class="error" style="color:red; "></label>
                             </div>
@@ -659,6 +735,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="consumer_branch">
+                                <label for="consumer_branch">Branch</label>
+                            </div>
+                        </div> 
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="consumer_zone">
+                                <label for="consumer_zone">Zone</label>
+                            </div>
+                        </div>                                               
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-info">
                                 <input type="text" class="form-control" readonly="" id="bill_cycle">
                                 <label for="bill_cycle">Bill Cycle Code</label>
                             </div>
@@ -667,20 +757,6 @@
                             <div class="form-group form-md-line-input has-info">
                                 <input type="text" class="form-control" readonly="" id="route_code">
                                 <label for="route_code">Route Code</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_zone">
-                                <label for="consumer_zone">Zone</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_city">
-                                <label for="consumer_city">City</label>
                             </div>
                         </div>
                     </div>
