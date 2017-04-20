@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^online_payments/',views.online_payments, name='online_payments'),
     url(r'^paytm_payments/',views.paytm_payments, name='paytm_payments'),
     url(r'^cash_payments/',views.cash_payments, name='cash_payments'),
+    url(r'^upi_payments/',views.upi_payments, name='upi_payments'),
     url(r'^payments_get_consumer_details/',views.payments_get_consumer_details, name='payments_get_consumer_details'),
     url(r'^payments_save_payment_details/',views.payments_save_payment_details, name='payments_save_payment_details'),
     url(r'^payments_get_payment_details/',views.payments_get_payment_details, name='payments_get_payment_details'),
