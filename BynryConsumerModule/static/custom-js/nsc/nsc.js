@@ -1,6 +1,9 @@
 $("#nsc_anchor").prepend('<span class="selected"></span>');
   $("#nsc_menu").addClass("active open");
   $("#nsc_span").addClass("open");
+
+var doc_length = 0;
+
 function make_same() {
    if (document.getElementById('checkbox1_44').checked) {
    		$("#bill_flat_no").val($("#flat_no").val());
@@ -49,42 +52,40 @@ function make_same() {
    }
 }
  
- function clear_filter(){
-        $( "#filter_div" ).load(" #filter_div" );
-        setTimeout(function () {
-            $('.select2').select2();
-            //initTable1();
-            src = "{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}";
-            $('script[src="' + src + '"]').remove();
-            $('<script>').attr('src', src).appendTo('head');
-        }, 1000);
-    }
-  
+function clear_filter(){
+    $( "#filter_div" ).load(" #filter_div" );
+    setTimeout(function () {
+        $('.select2').select2();
+        //initTable1();
+        src = "{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}";
+        $('script[src="' + src + '"]').remove();
+        $('<script>').attr('src', src).appendTo('head');
+    }, 1000);
+}
+
 
 
 function hide_occupation() {
+    if ($("#applicant_occupation").val() == 'OTHERS') {
+        document.getElementById('applicant_other_details').readOnly = false;
+    }
+    else {
+        $('#applicant_other_details').val("")
+        document.getElementById('applicant_other_details').readOnly = true;
+    }
+}
 
-if ($("#applicant_occupation").val() == 'OTHERS') {
-	document.getElementById('applicant_other_details').readOnly = false;
-}
-else {
-  $('#applicant_other_details').val("")
-	document.getElementById('applicant_other_details').readOnly = true;
-}
-}
 function hide_premises() {
-
-if ($("#premises_type").val() == '4-LIS/OTHERS') {
-	document.getElementById('bill_other_data').readOnly = false;
-}
-else {
-  $('#bill_other_data').val("")
-	document.getElementById('bill_other_data').readOnly = true;
-}
+    if ($("#premises_type").val() == '4-LIS/OTHERS') {
+        document.getElementById('bill_other_data').readOnly = false;
+    }
+    else {
+        $('#bill_other_data').val("")
+        document.getElementById('bill_other_data').readOnly = true;
+    }
 }
 
 function validateData(){
-
 	if(CheckConsumerCategory("#consumer_category")&CheckConsumerService("#consumer_service")&CheckSupplyType("#consumer_supply_type")
 	   &CheckConsumerSubCategory("#consumer_subcategory")&checkName("#applicant_name")
 	   &CheckAadharNo("#applicant_aadhar_no")&CheckOccupation("#applicant_occupation")
@@ -103,102 +104,100 @@ function validateData(){
 
 
 function CheckConsumerCategory(consumer_category){
-	if($(consumer_category).val()!=' ' && $(consumer_category).val()!=null)
-   {
-    $(consumer_category).parent().children('.error').css("display", "none");
-   return true;
-   }else{
-    $(consumer_category).parent().children('.error').css("display", "block");
-    $(consumer_category).parent().children('.error').text("Please select a Consumer Category");
-   return false; 
-   }
+    if($(consumer_category).val()!=' ' && $(consumer_category).val()!=null){
+        $(consumer_category).parent().children('.error').css("display", "none");
+        return true;
+    }else{
+        $(consumer_category).parent().children('.error').css("display", "block");
+        $(consumer_category).parent().children('.error').text("Please select a Consumer Category");
+        return false;
+    }
 }
+
 function CheckConsumerService(consumer_service){
-	if($(consumer_service).val()!=' ' && $(consumer_service).val()!=null)
-   {
-    $(consumer_service).parent().children('.error').css("display", "none");
-   return true;
-   }else{
-    $(consumer_service).parent().children('.error').css("display", "block");
-    $(consumer_service).parent().children('.error').text("Please select a Service Requested");
-   return false; 
-   }
+	if($(consumer_service).val()!=' ' && $(consumer_service).val()!=null){
+        $(consumer_service).parent().children('.error').css("display", "none");
+        return true;
+    }else{
+        $(consumer_service).parent().children('.error').css("display", "block");
+        $(consumer_service).parent().children('.error').text("Please select a Service Requested");
+        return false;
+    }
 }
+
 function CheckSupplyType(consumer_supply_type){
-	if($(consumer_supply_type).val()!=' ' && $(consumer_supply_type).val()!=null)
-   {
-    $(consumer_supply_type).parent().children('.error').css("display", "none");
-   return true;
-   }else{
-    $(consumer_supply_type).parent().children('.error').css("display", "block");
-    $(consumer_supply_type).parent().children('.error').text("Please select a Supply Type");
-   return false; 
-   }
+	if($(consumer_supply_type).val()!=' ' && $(consumer_supply_type).val()!=null){
+        $(consumer_supply_type).parent().children('.error').css("display", "none");
+        return true;
+    }else{
+        $(consumer_supply_type).parent().children('.error').css("display", "block");
+        $(consumer_supply_type).parent().children('.error').text("Please select a Supply Type");
+        return false;
+    }
 }
+
 function CheckConsumerSubCategory(consumer_subcategory){
-	if($(consumer_subcategory).val()!=' ' && $(consumer_subcategory).val()!=null)
-   {
-    $(consumer_subcategory).parent().children('.error').css("display", "none");
-   return true;
-   }else{
-    $(consumer_subcategory).parent().children('.error').css("display", "block");
-    $(consumer_subcategory).parent().children('.error').text("Please select a Consumer Subcategory");
-   return false; 
-   }
+    if($(consumer_subcategory).val()!=' ' && $(consumer_subcategory).val()!=null){
+        $(consumer_subcategory).parent().children('.error').css("display", "none");
+        return true;
+    }else{
+        $(consumer_subcategory).parent().children('.error').css("display", "block");
+        $(consumer_subcategory).parent().children('.error').text("Please select a Consumer Subcategory");
+        return false;
+    }
 }
+
 function checkName(applicant_name){
  	var namePattern = /[A-Za-z]+/;  
 	applicant_name = $(applicant_name).val()  
-   if(namePattern.test(applicant_name)){
- 	$(applicant_name_error).css("display", "none");
-   return true;
-   }else{
-    $(applicant_name_error).css("display", "block");
-    $(applicant_name_error).text("Please enter valid Applicant Name");
-   return false; 
-   }
+    if(namePattern.test(applicant_name)){
+ 	    $(applicant_name_error).css("display", "none");
+        return true;
+    }else{
+        $(applicant_name_error).css("display", "block");
+        $(applicant_name_error).text("Please enter valid Applicant Name");
+        return false;
+    }
 }
 
 function CheckAadharNo(applicant_aadhar_no){
-   applicant_aadhar_no = $(applicant_aadhar_no).val()     
-   var Pattern = /^\d{12}$/; 
- 
-   if(Pattern.test(applicant_aadhar_no)){
-    $(applicant_aadhar_no_error).css("display", "none");
-   return true;
-   }
-   else{
-    $(applicant_aadhar_no_error).css("display", "block");
-    $(applicant_aadhar_no_error).text("Please enter valid Aadhar Number");
-   return false; 
-   }
-   }
+    applicant_aadhar_no = $(applicant_aadhar_no).val()
+    var Pattern = /^\d{12}$/;
+    if(Pattern.test(applicant_aadhar_no)){
+        $(applicant_aadhar_no_error).css("display", "none");
+        return true;
+    }
+    else{
+        $(applicant_aadhar_no_error).css("display", "block");
+        $(applicant_aadhar_no_error).text("Please enter valid Aadhar Number");
+        return false;
+    }
+}
+
 function CheckOccupation(applicant_occupation){
-	if($(applicant_occupation).val()!=' ' && $(applicant_occupation).val()!=null)
-   {
-    if ($(applicant_occupation).val() == 'OTHERS') {
-    	if ($("#applicant_other_details").val() !=''){
-    	   $("#applicant_other_error").css("display", "none");	
-         return true;
-    	}
-    	else {
-    	   $(applicant_occupation).parent().children('.error').css("display", "none");	
-    		$("#applicant_other_error").css("display", "block");	
-    		$("#applicant_other_error").text("Please Enter Other Occupation");
-         return false;
-    	}
+	if($(applicant_occupation).val()!=' ' && $(applicant_occupation).val()!=null){
+        if ($(applicant_occupation).val() == 'OTHERS') {
+            if ($("#applicant_other_details").val() !=''){
+                $("#applicant_other_error").css("display", "none");
+                return true;
+            }
+            else {
+                $(applicant_occupation).parent().children('.error').css("display", "none");
+                $("#applicant_other_error").css("display", "block");
+                $("#applicant_other_error").text("Please Enter Other Occupation");
+             return false;
+            }
+        }
+        else {
+            $("#applicant_other_error").css("display", "none");
+            $(applicant_occupation).parent().children('.error').css("display", "none");
+            return true;
+        }
+    }else{
+        $(applicant_occupation).parent().children('.error').css("display", "block");
+        $(applicant_occupation).parent().children('.error').text("Please select Occupation");
+        return false;
     }
-    else {
-       $("#applicant_other_error").css("display", "none");	
-       $(applicant_occupation).parent().children('.error').css("display", "none");	
-       return true;
-    }
-       
-   }else{
-    $(applicant_occupation).parent().children('.error').css("display", "block");
-    $(applicant_occupation).parent().children('.error').text("Please select Occupation");
-    return false; 
-   }
 }
 function CheckBusinessName(flat_no){
  	var namePattern = /[A-Za-z]+/;  
@@ -646,12 +645,10 @@ function CheckDropeZone(){
     }
 }
 
-var doc_length = 0;
+
 
 $("#save-consumer").click(function(event)  {
 	//console.log($("#consumer_form").serialize())
-
-
 
 	bill_city = $("#bill_city").val()
 	bill_pincode = $("#bill_pincode").val()
