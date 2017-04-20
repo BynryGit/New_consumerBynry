@@ -608,8 +608,34 @@ function CheckIdProof() {
 	}
 }
 
+var doc_length = 0;
+
 $("#save-consumer").click(function(event)  {
 	//console.log($("#consumer_form").serialize())
+	id_doc = 0;
+	add_doc = 0;
+    var checkboxes = document.getElementsByName("id_proof");
+    for(i = 0;i<checkboxes.length;i++)
+    {
+        if(checkboxes[i].checked==1){
+            id_doc = id_doc + 1;
+        }
+    }
+    var checkboxes = document.getElementsByName("id_proof");
+    for(i = 0;i<checkboxes.length;i++)
+    {
+        if(checkboxes[i].checked==1){
+            add_doc = add_doc + 1;
+        }
+    }
+
+    total_doc = add_doc + id_doc;
+    if(total_doc != doc_length){
+        alert('doc');
+    }
+	console.log(doc_length);
+	return false;
+
 	bill_city = $("#bill_city").val()
 	bill_pincode = $("#bill_pincode").val()
 
@@ -643,6 +669,10 @@ $("#save-consumer").click(function(event)  {
 });
 $("#save-consumer-print").click(function(event)  {
 	//console.log($("#consumer_form").serialize())
+
+	console.log($("#attachment").val());
+	return false;
+
 	bill_city = $("#bill_city").val()
 	bill_pincode = $("#bill_pincode").val()
 
@@ -731,7 +761,8 @@ $("#save-consumer-print").click(function(event)  {
                     temp_image_files.push(file);
                 });
 
-                this.on("success", function (files, response) {               
+                this.on("success", function (files, response) {
+                    doc_length = doc_length + 1;
                     $('#attachment').val($('#attachment').val()+","+response.attachid);
                     $('a .dz-remove').attr('href','/remove-advert-image/?image_id='+response.attachid);
                     reordered_array.push(response.attachid);
@@ -743,7 +774,8 @@ $("#save-consumer-print").click(function(event)  {
                     deleting_image_id = reordered_array[temp_image_files.indexOf(file)];
                     $.ajax({
                         url: "/nscapp/remove-consumer-docs/?image_id="+deleting_image_id,
-                        success: function(result){                        
+                        success: function(result){
+                            doc_length = doc_length - 1;
                             arr = $('#attachment').val();
                             arr = arr.split(',');
                             console.log('Before Id Remove : '+ arr);
