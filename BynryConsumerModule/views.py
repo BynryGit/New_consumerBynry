@@ -167,6 +167,11 @@ def update_system_user_details(request):
         city_obj = City.objects.get(city=request.GET.get('city'))
         role_obj = UserRole.objects.get(role=request.GET.get('role'))
 
+        userrole = request.GET.get('role')
+        if 'H.O.' in userrole:
+            user_obj.branch=None
+            user_obj.save()
+
         if request.GET.get('user_status')=='true':
             user_obj.status = 'Active'
         else:
@@ -189,9 +194,10 @@ def update_system_user_details(request):
 
         if request.GET.get('branch'):
             branch = request.GET.get('branch')
-            branch_obj = Branch.objects.get(branch_name=branch)
+            branch_obj=Branch.objects.get(branch_name=branch)
             user_obj.branch = branch_obj
             user_obj.save()
+
         data = {'success':'True','status':user_obj.status,'username':request.session['login_user']}
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
@@ -219,6 +225,7 @@ def head_admin(request):
                                    'contact' : str(h.contact_no),
                                    'email' : str(h.email),
                                    'role' : str(h.role),
+                                   'branch' : str(h.branch),
                                    'status' : str(status),
                                    'actions' : '<a class="icon-pencil" title="Edit" onclick="edit_admin_modal('+ str(h.id) +');"></a>',
                               }

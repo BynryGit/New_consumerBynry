@@ -48,6 +48,7 @@
                  <th> Contact</th>                                            
                  <th> Email</th>
                  <th> Role</th>
+                 <th> Branch</th>
                  <th> Status</th>
                  <th style="text-align:center"> Actions</th>
              </tr>
@@ -301,7 +302,10 @@
                     		<div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
 	                          <select id="branch_name" class="form-control input-sm select2-multiple custom-sys-user-margin-top2">
-                                  <option value=" "> Select Branch</option>                                  
+                                  <option value=" "> Select Branch</option>  
+                                  {% for branch in branch_list %}                                  		
+                                  <option value="{{ branch.branch }}"> {{ branch.branch }}</option>
+                                  {% endfor %}                          
                              </select>
 	                          <label for="city">Branch</label>
 	                      	</div>
