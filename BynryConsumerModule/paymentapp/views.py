@@ -152,6 +152,67 @@ def paytm_payments(request):
         data = {'success': 'false', 'error': 'Exception ' + str(e)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+# To get upi payments list
+def upi_payments(request):
+    try:
+        print 'paymentapp|views.py|upi_payments'
+        upi_payment_list = []
+        upi_details_list = []
+
+        filter_branch = request.GET.get('filter_branch')
+        filter_zone = request.GET.get('filter_zone')
+        filter_bill = request.GET.get('filter_bill')
+        filter_route = request.GET.get('filter_route')
+        filter_from = request.GET.get('filter_from')
+        filter_to = request.GET.get('filter_to')
+        try:
+            upi_details_list = PaymentDetail.objects.filter(payment_mode= 'UPI')
+            # filter payment data by barnch
+            if filter_branch != 'all':
+                consumer_obj = ConsumerDetails.objects.filter(branch__id=str(filter_branch))
+                upi_details_list = upi_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by zone
+            if filter_zone != 'all':
+                consumer_obj = ConsumerDetails.objects.filter(zone__id=str(filter_zone))
+                upi_details_list = upi_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by bill cycle
+            if filter_bill != 'all':
+                consumer_obj = ConsumerDetails.objects.filter(bill_cycle__id=str(filter_bill))
+                upi_details_list = upi_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by route
+            if filter_route != 'all':
+                consumer_obj = ConsumerDetails.objects.filter(route__id=str(filter_route))
+                upi_details_list = upi_details_list.filter(consumer_id__in=consumer_obj)
+            # filter payment data by date range
+            if filter_from != '' and filter_to != '':
+                filter_from = datetime.strptime(filter_from, "%d/%m/%Y")
+                filter_to = datetime.strptime(filter_to, "%d/%m/%Y").replace(hour=23, minute=59, second=59)
+                upi_details_list = upi_details_list.filter(created_on__range=[filter_from, filter_to])
+
+            # get upi payment data list by payment obj
+            for i in upi_details_list:
+                paytm_data = {
+                    'payment_date': str(i.created_on.strftime('%B %d, %Y %I:%M %p')),
+                    'bill_amount_paid': str(i.bill_amount_paid),
+                    'transaction_id': str(i.transaction_id),
+                    'consumer_id': '<a onclick="consumer_details_modal(' + str(
+                        i.consumer_id) + ');">' + str(i.consumer_id) + '</a>',
+                    'consumer_name': str(i.consumer_id.name),
+                    'payment_mode': str('UPI')
+                }
+                upi_payment_list.append(paytm_data)
+            data = {'data': upi_payment_list}
+        except Exception as e:
+            print 'exception ', str(traceback.print_exc())
+            print 'Exception|views.py|upi_payments', e
+            print 'Exception', e
+            data = {'success': 'false', 'error': 'Exception ' + str(e)}
+    except Exception, e:
+        print 'exception ', str(traceback.print_exc())
+        print 'Exception|views.py|upi_payments', e
+        print 'Exception', e
+        data = {'success': 'false', 'error': 'Exception ' + str(e)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 # To get cash payments list
 def cash_payments(request):
@@ -225,6 +286,7 @@ def payments_get_consumer_details(request):
         consumer_data = {
             'billCycle': consumer_obj.bill_cycle.bill_cycle_code,
             'consumerCity': consumer_obj.city.city,
+            'consumerBranch': consumer_obj.branch.branch,
             'consumerRoute': consumer_obj.route.route_code,
             'consumerZone': consumer_obj.bill_cycle.zone.zone_name,
             'consumerNo': consumer_obj.consumer_no,

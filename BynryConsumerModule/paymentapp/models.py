@@ -13,6 +13,7 @@ class PaymentDetail(models.Model):
         ('Online Payment', 'Online Payment'),
         ('Paytm Wallet', 'Paytm Wallet'),
         ('Cash Payment', 'Cash Payment'),
+        ('UPI', 'UPI'),
     )
 
     PAYMENT_BY = (

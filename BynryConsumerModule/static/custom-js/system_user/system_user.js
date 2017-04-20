@@ -235,7 +235,7 @@ function update_head_admin_details() {
 			       data : {'user_id':user_id,'user_status':user_status,'first_name':first_name,'last_name':last_name,'branch':branch,'city':city,'address':address,'emp_id':emp_id,'role':role,'contact_no':contact_no,'email':email,'password':password},       
 			       success: function (response) {			  
 			     		  if(response.success=='True'){
-			     		  		if (response.status=='Inactive') {
+			     		  		if (response.username==email && response.status=='Inactive') {
 				     		  		location.href='/log-out/'
 			     		  		}
 			     		  		else {

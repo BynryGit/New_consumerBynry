@@ -24,11 +24,15 @@ function add_payment() {
     function reload_cash_payments(){
         initTable3();
     }
+    function reload_upi_payments(){
+        initTable4();
+    }
 	
 	function search_consumer(){
 	    initTable1();    
 	    initTable2();    
 	    initTable3();    
+	    initTable4();    
 	}	
 	
 	 var initTable1 = function () {
@@ -257,22 +261,100 @@ function add_payment() {
         });
     }	
     
+    var initTable4 = function () {
+		   filter_branch 	 = $("#filter_branch").val();
+		   filter_zone 	 = $("#filter_zone").val();
+		   filter_branch 	 = $("#filter_branch").val();
+			filter_bill 	 = $("#filter_bill").val();
+			filter_route 	 = $("#filter_route").val();			
+			filter_from 	 = $("#filter_from").val();
+			filter_to 		 = $("#filter_to").val();		     
+        
+        var table = $('#upi_payment_table');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+				"bDestroy" : true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            //setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+				
+            "order": [
+                [0, 'asc']
+            ],
+				"ajax": "/paymentapp/upi_payments/?filter_branch="+filter_branch+"&filter_zone="+filter_zone+"&filter_bill="+filter_bill+"&filter_route="+filter_route+"&filter_from="+filter_from+"&filter_to="+filter_to+"",
+                  "columns": [
+                {"data": "payment_date"},
+                {"data": "bill_amount_paid"}, 
+                {"data": "transaction_id"}, 
+                {"data" : "consumer_id"},      
+                {"data" : "consumer_name"},      
+                {"data" : "payment_mode"}                             
+		            ],				
+				
+            buttons: [
+                { extend: 'print', className: 'btn dark btn-outline' },
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' },
+                { extend: 'csv', className: 'btn purple btn-outline ' },
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 20,
+
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+      });
+      $('#upi_payment_table_tools > li > a.tool-action').on('click', function() {
+            var action = $(this).attr('data-action');
+            oTable.DataTable().button(action).trigger();
+        });
+    }
+    
     function clear_filter(){
         filter_zone 	 = $("#filter_zone").val('all').change();
         filter_branch 	 = $("#filter_branch").val('all').change();
-			filter_bill 	 = $("#filter_bill").val('all').change();
-			filter_route 	 = $("#filter_route").val('all').change();
-			filter_from 	 = $("#filter_from").val('');
-			filter_to 		 = $("#filter_to").val('');	
+		  filter_bill 	 = $("#filter_bill").val('all').change();
+		  filter_route 	 = $("#filter_route").val('all').change();
+		  filter_from 	 = $("#filter_from").val('');
+		  filter_to 		 = $("#filter_to").val('');	
         initTable1();
         initTable2();
         initTable3();
+        initTable4();
     }
 
 	function save_payment_details() {
 			$(".error2").css("display", "none");	
 			var paid_amount = $('#paid_amt').val();
-			if (paid_amount == '') {
+			if (paid_amount == '' && paid_amount <= 0) {
 				$('.error2').text("Please enter amount");		
 				return false;
 			}
@@ -379,6 +461,7 @@ function add_payment() {
 		          $("#cNo").text(response.consumerData.consumerNo); 
 		          $("#cName").text(response.consumerData.consumerName); 
 		          $("#consumer_city").val(response.consumerData.consumerCity); 
+		          $("#consumer_branch").val(response.consumerData.consumerBranch); 
 		          $("#consumer_address").text(response.consumerData.consumerAddress); 
               	$("#consumer_details_modal").modal('show');  
              }
@@ -392,6 +475,7 @@ function add_payment() {
     initTable1();
     initTable2();
     initTable3();
+    initTable4();
 
 
 function counter_submit() {
