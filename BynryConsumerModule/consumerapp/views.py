@@ -179,8 +179,8 @@ def get_consumer_list(request):
                 consumer_name = consumer_obj.name
                 contact_no = consumer_obj.contact_no
                 email_id = consumer_obj.email_id
-                servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_obj.id).count()
-                complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_obj.id).count()
+                servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_obj.id,status='Open').count()
+                complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_obj.id,complaint_status='Open').count()
                 connection_status = consumer_obj.connection_status
                 action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + str(
                     consumer_obj.id) + ')"></i> </a>'
@@ -190,8 +190,10 @@ def get_consumer_list(request):
                     'consumer_name': consumer_name,
                     'contact_no': contact_no,
                     'email_id': email_id,
-                    'servicerequest': servicerequest,
-                    'complaintrequest': complaintrequest,
+                    'servicerequest': '<a href="/consumerapp/consumer-details/?consumer_id=' + str(
+                    consumer_obj.id) + '#tab_1_4">' + str(servicerequest) + '</a>',
+                    'complaintrequest': '<a href="/consumerapp/consumer-details/?consumer_id=' + str(
+                    consumer_obj.id) + '#tab_1_3">' + str(complaintrequest) + '</a>',
                     'connection_status': connection_status,
                     'action': action
                 }
@@ -215,6 +217,53 @@ def edit_consumer(request):
         try:
             consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
 
+            
+            pincode_list = []
+            try:
+                pincode_objs = Pincode.objects.filter(city=consumer_obj.city.id)
+                for pincode in pincode_objs:
+                    options_data = '<option value=' + str(
+                        pincode.id) + '>' + pincode.pincode + '</option>'
+                    pincode_list.append(options_data)
+            except:
+                pass
+            branch_list = []
+            try:
+                branch_objs = Branch.objects.filter(city=consumer_obj.city.id)
+                for branch in branch_objs:
+                    options_data = '<option value=' + str(
+                        branch.id) + '>' + branch.branch_name + '</option>'
+                    branch_list.append(options_data)
+            except:
+                pass           
+            zone_list = []
+            try:
+                zone_objs = Zone.objects.filter(branch=consumer_obj.branch.id)
+                for zone in zone_objs:
+                    options_data = '<option value=' + str(
+                        zone.id) + '>' + zone.zone_name + '</option>'
+                    zone_list.append(options_data)        
+            except:
+                pass
+            billcycle_list = []
+            try:
+                billcycle_objs = BillCycle.objects.filter(zone=consumer_obj.zone.id)
+                for bill in billcycle_objs:
+                    options_data = '<option value=' + str(
+                        bill.id) + '>' + bill.bill_cycle_code + '</option>'
+                    billcycle_list.append(options_data)
+            except:
+                pass
+            route_list = []
+            try:
+                route_objs = RouteDetail.objects.filter(billcycle=consumer_obj.bill_cycle.id)
+                for route in route_objs:
+                    options_data = '<option value=' + str(
+                        route.id) + '>' + route.route_code + '</option>'
+                    route_list.append(options_data)
+            except:
+                pass
+
             consumer_data = {
                 'consumer_id': consumer_obj.id,
                 'name': consumer_obj.name + ' (' + consumer_obj.consumer_no + ') ',
@@ -232,7 +281,12 @@ def edit_consumer(request):
                 'zone_id': str(consumer_obj.zone.id),
                 'meter_no': consumer_obj.meter_no,
                 'meter_category': consumer_obj.meter_category,
-                'sanction_load': consumer_obj.sanction_load
+                'sanction_load': consumer_obj.sanction_load,
+                'pincode_list':pincode_list,
+                'branch_list':branch_list,
+                'zone_list':zone_list,
+                'billcycle_list':billcycle_list, 
+                'route_list':route_list             
             }
             data = {'success': 'true', 'data': consumer_data}
         except Exception as e:

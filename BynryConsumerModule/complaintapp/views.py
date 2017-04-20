@@ -197,13 +197,13 @@ def get_consumer_details(request):
             consumer_address = consumer_address + ', ' \
                                + consumer_details.address_line_2
         if consumer_details.pin_code:
-            consumer_address = consumer_address + ' - ' \
-                               + consumer_details.pin_code.pincode + '.'
+            consumer_address = consumer_address + ', ' \
+                               + consumer_details.city.city + ' - ' +consumer_details.pin_code.pincode + '.'
 
         # consumer details result
         consumer_data = {
             'billCycle' : consumer_details.bill_cycle.bill_cycle_code,
-            'consumerCity' : consumer_details.city.city,
+            'consumerBranch' : consumer_details.branch.branch_name,
             'consumerRoute' : consumer_details.route.route_code,
             'consumerZone' : consumer_details.bill_cycle.zone.zone_name,
             'consumerNo' : consumer_details.consumer_no,

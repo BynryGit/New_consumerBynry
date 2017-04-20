@@ -670,8 +670,7 @@ def save_meter_details(request):
         new_Consumer_obj.meter_make = request.POST.get('meter_make')
         new_Consumer_obj.meter_type = request.POST.get('meter_type')
 
-        if request.POST.get('meter_status') == "Done":
-            new_Consumer_obj.connection_status = 'Connected'
+        new_Consumer_obj.connection_status = 'Active'
 
         new_Consumer_obj.save()
         consumer_obj.status = 'Closed'

@@ -203,11 +203,25 @@
     }          
    // Edit Consumer From Edit button click
 	function edit_consumer(var1) {
-	 pin_flag  = 0
-    branch_flag  = 0
-    zone_flag  = 0
-    cycle_flag = 0
-    route_flag = 0
+      pin_flag  = 0
+      branch_flag  = 0
+      zone_flag  = 0
+      cycle_flag = 0
+      route_flag = 0
+		$(mobile_error).css("display", "none");
+		$(edit_aadhar_error).css("display", "none");
+		$(edit_address1_error).css("display", "none");
+		$(edit_email_error).css("display", "none");
+		$(edit_address2_error).css("display", "none");
+		$(edit_city_error).css("display", "none"); 	
+		$(edit_pincode_error).css("display", "none");
+		$(edit_branch_error).css("display", "none");
+		$(edit_zone_error).css("display", "none");
+		$(edit_bill_cycle_error).css("display", "none");
+		$(edit_route_error).css("display", "none");
+		$(edit_meter_error).css("display", "none");
+		$(edit_sanction_load_error).css("display", "none");
+    
         var  consumer_id = var1;
         $.ajax({
             type: 'GET',
@@ -215,7 +229,7 @@
             data: {'consumer_id': consumer_id},
             success: function (response) {
       
-            console.log(response);
+            //console.log(response);
                 if (response.success == 'true') {     
 						$('#edit_name').text(response.data.name)
 						$('#consumer_id').val(response.data.consumer_id)						
@@ -225,15 +239,46 @@
 						$('#edit_aadhar').val(response.data.aadhar_no)
 						$('#edit_address1').val(response.data.address_line_1)
 						$('#edit_address2').val(response.data.address_line_2)
-						$('#edit_city').val(response.data.city_id).change();
-						$('#edit_pincode').val(response.data.pincode_id).change();
-						$('#edit_branch').val(response.data.branch_id).change();
-						$('#edit_zone').val(response.data.zone_id).change();
-						$('#edit_bill_cycle').val(response.data.bill_cycle_id).change();
-						$('#edit_route').val(response.data.route_id).change();
+						$('#edit_city').val(response.data.city_id).change();						
 						$('#edit_meter_no').val(response.data.meter_no)
 						$('#edit_category').val(response.data.meter_category)
 						$('#edit_sanction_load').val(response.data.sanction_load)
+						  // Pincode List
+						  $('#edit_pincode').html('');
+                    $('#edit_pincode').append("<option value=''>Select Pincode</option>");
+                    $.each(response.data.pincode_list, function (index, item) {
+                        $('#edit_pincode').append(item);
+                    });                    
+                    $('#edit_pincode').val(response.data.pincode_id).change();
+						  // Branch List
+                    $('#edit_branch').html('');
+                    $('#edit_branch').append("<option value=''>Select Branch</option>");
+                    $.each(response.data.branch_list, function (index, item) {
+                        $('#edit_branch').append(item);
+                    });
+                    $('#edit_branch').val(response.data.branch_id).change(); 
+                    // Zone List  
+                    $('#edit_zone').html('');
+                    $('#edit_zone').append("<option value=''>Select Zone</option>");
+                    $.each(response.data.zone_list, function (index, item) {
+                        $('#edit_zone').append(item);
+                    });         
+                    $('#edit_zone').val(response.data.zone_id).change();
+                    // Bill Cycle List
+                    $('#edit_bill_cycle').html('');
+                    $('#edit_bill_cycle').append("<option value=''>Select Bill Cycle</option>");
+                    $.each(response.data.billcycle_list, function (index, item) {
+                        $('#edit_bill_cycle').append(item);
+                    });
+                    $('#edit_bill_cycle').val(response.data.bill_cycle_id).change();
+                    //Route List                  
+                    $('#edit_route').html('');
+                    $('#edit_route').append("<option value=''>Select Route</option>");
+                    $.each(response.data.route_list, function (index, item) {
+                        $('#edit_route').append(item);
+                    });                 
+                    $('#edit_route').val(response.data.route_id).change();   
+                    
                   $("#edituser_model").modal('show');
                 }
                 if (response.success == 'false') {

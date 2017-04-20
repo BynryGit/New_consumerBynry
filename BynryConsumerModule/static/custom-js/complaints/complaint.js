@@ -127,9 +127,9 @@ function consumer_details(consumer_id){
                 $("#bill_cycle").val(consumerDetail.billCycle);
                 $("#route_code").val(consumerDetail.consumerRoute);
                 $("#consumer_zone").val(consumerDetail.consumerZone);
-                $("#consumer_city").val(consumerDetail.consumerCity);
-                $("#consumer_no").val(consumerDetail.consumerNo);
-                $("#consumer_name").val(consumerDetail.consumerName);
+                $("#consumer_branch").val(consumerDetail.consumerBranch);
+                $("#consumer_no").text(consumerDetail.consumerNo);
+                $("#consumer_name").text(consumerDetail.consumerName);
                 $("#consumer_address").text(consumerDetail.consumerAddress);
             }
         },
