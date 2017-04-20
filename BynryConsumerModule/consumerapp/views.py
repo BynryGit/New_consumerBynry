@@ -179,8 +179,8 @@ def get_consumer_list(request):
                 consumer_name = consumer_obj.name
                 contact_no = consumer_obj.contact_no
                 email_id = consumer_obj.email_id
-                servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_obj.id).count()
-                complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_obj.id).count()
+                servicerequest = ServiceRequest.objects.filter(consumer_id=consumer_obj.id,status='Open').count()
+                complaintrequest = ComplaintDetail.objects.filter(consumer_id=consumer_obj.id,complaint_status='Open').count()
                 connection_status = consumer_obj.connection_status
                 action = '<a> <i class="fa fa-pencil" aria-hidden="true" onclick="edit_consumer(' + str(
                     consumer_obj.id) + ')"></i> </a>'
@@ -190,8 +190,10 @@ def get_consumer_list(request):
                     'consumer_name': consumer_name,
                     'contact_no': contact_no,
                     'email_id': email_id,
-                    'servicerequest': servicerequest,
-                    'complaintrequest': complaintrequest,
+                    'servicerequest': '<a href="/consumerapp/consumer-details/?consumer_id=' + str(
+                    consumer_obj.id) + '#tab_1_4">' + str(servicerequest) + '</a>',
+                    'complaintrequest': '<a href="/consumerapp/consumer-details/?consumer_id=' + str(
+                    consumer_obj.id) + '#tab_1_3">' + str(complaintrequest) + '</a>',
                     'connection_status': connection_status,
                     'action': action
                 }

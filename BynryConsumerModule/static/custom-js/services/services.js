@@ -116,10 +116,10 @@
                     consumerDetail = response.consumerDetail;
                     $("#bill_cycle").val(consumerDetail.billCycle);
                     $("#route_code").val(consumerDetail.consumerRoute);
+                    $("#consumer_branch").val(consumerDetail.consumerBranch);
                     $("#consumer_zone").val(consumerDetail.consumerZone);
-                    $("#consumer_city").val(consumerDetail.consumerCity);
-                    $("#consumer_no").val(consumerDetail.consumerNo);
-                    $("#consumer_name").val(consumerDetail.consumerName);
+                    $("#consumer_no").text(consumerDetail.consumerNo);
+                    $("#consumer_name").text(consumerDetail.consumerName);
                     $("#consumer_address").text(consumerDetail.consumerAddress);
                 }
             },

@@ -142,12 +142,13 @@ def get_consumer_details(request):
         if consumerDetails.address_line_2:
             consumer_address = consumer_address + ', ' + consumerDetails.address_line_2 # Consumer address line 2
         if consumerDetails.pin_code:
-            consumer_address = consumer_address + ' - ' + consumerDetails.pin_code.pincode + '.' # Consumer address pincode
+            consumer_address = consumer_address + ', ' \
+                               + consumerDetails.city.city + ' - ' + consumerDetails.pin_code.pincode + '.'
 
         # get consumer details by consumer object
         getConsumer = {
             'billCycle': consumerDetails.bill_cycle.bill_cycle_code,
-            'consumerCity': consumerDetails.city.city,
+            'consumerBranch' : consumerDetails.branch.branch_name,
             'consumerRoute': consumerDetails.route.route_code,
             'consumerZone': consumerDetails.bill_cycle.zone.zone_name,
             'consumerNo': consumerDetails.consumer_no,
