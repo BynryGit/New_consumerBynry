@@ -203,7 +203,11 @@
     }          
    // Edit Consumer From Edit button click
 	function edit_consumer(var1) {
-
+	 pin_flag  = 0
+    branch_flag  = 0
+    zone_flag  = 0
+    cycle_flag = 0
+    route_flag = 0
         var  consumer_id = var1;
         $.ajax({
             type: 'GET',
@@ -212,7 +216,7 @@
             success: function (response) {
       
             console.log(response);
-                if (response.success == 'true') {                	
+                if (response.success == 'true') {     
 						$('#edit_name').text(response.data.name)
 						$('#consumer_id').val(response.data.consumer_id)						
 						$('#edit_utility').val(response.data.utility)
@@ -297,7 +301,7 @@ function checkEmail(email){
 	return true;	
 	}  
    else if(namePattern.test(Email)){
-      $(email_error).css("display", "none");
+      $(edit_email_error).css("display", "none");
    return true;
    }else{
  	$(edit_email_error).css("display", "block");
