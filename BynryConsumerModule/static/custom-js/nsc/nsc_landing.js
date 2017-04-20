@@ -141,12 +141,17 @@ function clear_filter(){
 		}
     }
 	function change_pay_mode() {
-
+		$("#paymode_error").css("display", "none");
+		$(amount_error).css("display", "none");
+		$(checkno_error).css("display", "none");
+		$(checknm_error).css("display", "none");
+		$(checkDDno_error).css("display", "none");
+		$(checkDDnm_error).css("display", "none");		
 		if ($("#payment_mode").val()== 'DD' ) {
 			 $("#cheque_div").css("display","none");
 	  		 $("#DD_div").css("display","block");
 		}
-		else {
+		else if ($("#payment_mode").val()== 'Cheque' ) {
    		$("#cheque_div").css("display","block");
    		$("#DD_div").css("display","none");
 		}
@@ -171,7 +176,7 @@ function clear_filter(){
 						$('#KYC_address').val(response.data.address)
 						$('#KYC_city').val(response.data.city_name)
 						$('#KYC_pincode').val(response.data.pincode)
-						$('#verify_KYC').val('Verified').change()
+						$('#verify_KYC').val('').change()
 						$('#KYC_remark').val('')		
 
                   $("#KYC_model").modal('show');
@@ -188,8 +193,12 @@ function clear_filter(){
         });
 		}
 	function validate_KYC() {
-
-		if ($('#verify_KYC').val() == 'Rejected' & $('#KYC_remark').val() == '') {
+		if ($("#verify_KYC").val() == '') {
+			$("#kyc_status_error").css("display", "block");
+		   $("#kyc_status_error").text("Please Select Status");
+		   return false;
+	   }
+		else if ($('#verify_KYC').val() == 'Rejected' & $('#KYC_remark').val() == '') {
 			$("#remark_error").css("display", "block");
 		   $("#remark_error").text("Please write Remark");
 		   return false;
@@ -202,6 +211,7 @@ function clear_filter(){
  	// Save KYC verification
 	$("#save-KYC").click(function(event) {
 		if (validate_KYC()) {
+
 		event.preventDefault();
 
 	   var formData= new FormData();
@@ -265,7 +275,7 @@ function clear_filter(){
 						$('#tech_premise_type').val(response.data.type_of_premises)
 						$('#technician_name').val('')
 						$('#tech_contact_no').val('')
-						$('#verify_technical').val('Passed').change()
+						$('#verify_technical').val('').change()
 						$('#tech_remark').val('')
 						document.getElementById("checkbox1_1").checked = false;
 						document.getElementById("checkbox1_2").checked = false;
@@ -287,7 +297,7 @@ function clear_filter(){
 		}
 
    function validate_Technical() {
-		if (CheckChecklist()&checkName("#technician_name")&CheckContact("#tech_contact_no")&CheckStatus()) {
+		if (CheckChecklist()&checkName("#technician_name")&CheckContact("#tech_contact_no")&CheckStatus()&ChecktechStatus()) {
 			return true;
 		}
 		return false;
@@ -346,6 +356,17 @@ function clear_filter(){
 			return true
 		}
 	}
+	function ChecktechStatus() {
+		if ($('#verify_technical').val() == '') {
+			$("#techstatus_error").css("display", "block");
+		   $("#techstatus_error").text("Please Select Status");
+		   return false;
+		}
+		else {
+		   $("#techstatus_error").css("display", "none");
+			return true
+		}
+	}	
  	// Save technical verification
 	$("#save-technical").click(function(event)  {
 		if (validate_Technical()) {
@@ -407,7 +428,7 @@ function clear_filter(){
 						$('#pay_pincode').val(response.data.pincode)						
 						$('#pay_amount_paid').val('')
 						$('#pay_cheque_no').val('')
-						$('#payment_mode').val('Cheque').change()
+						$('#payment_mode').val('').change()
 						$('#pay_cheque_name').val('')						
                   $("#payment_model").modal('show');
                 }
@@ -424,15 +445,21 @@ function clear_filter(){
 		}
 
 	function validate_Payment() {
-
+		$("#paymode_error").css("display", "none");
 	 	if ($("#payment_mode").val()== 'DD' ) {
 			if (CheckAmount()&CheckDDNo()&CheckDDName()) {
 			  return true;
 			}
 			return false;
 		}
-		else {
+		else if ($("#payment_mode").val()== 'Cheque' ){
 			if (CheckAmount()&CheckCNo()&CheckCName()) {
+			  return true;
+			}
+			return false;
+		}
+		else {
+			if (PayModeStatus()) {
 			  return true;
 			}
 			return false;
@@ -498,6 +525,19 @@ function clear_filter(){
 		   return false;
 		   }
 	}
+	function PayModeStatus() {
+		if ($('#payment_mode').val() == '') {
+			$("#paymode_error").css("display", "block");
+		   $("#paymode_error").text("Please Select Payment Mode");
+		   return false;
+		}
+		else {
+		   $("#paymode_error").css("display", "none");
+			return true
+		}
+	}		   
+	   
+	   
  	// Save payment verification
 	$("#save-payment").click(function(event)  {
 	if (validate_Payment()) {

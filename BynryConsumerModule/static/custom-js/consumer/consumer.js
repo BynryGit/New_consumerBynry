@@ -531,13 +531,44 @@ $("#save-consumer").click(function(event)  {
                 {"data": "connection_status","sClass": "text-center"}  ,
                 {"data": "action","sClass": "text-center"}                                                       
             ],                                                    
-                                                        
-	        buttons: [
-	            { extend: 'print', className: 'btn dark btn-outline' },
-	            { extend: 'pdf', className: 'btn green btn-outline' },
-	            { extend: 'excel', className: 'btn yellow btn-outline ' },
-	            { extend: 'csv', className: 'btn purple btn-outline ' },
-	        ],
+                                                        	       
+	        buttons: [        	
+            { extend: 'print', className: 'btn dark btn-outline', 
+                 filename: 'Consumer List  Bynry', "title": "Consumer List | Bynry",
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
+            { extend: 'pdf', className: 'btn green btn-outline',
+                 filename: 'Consumer List  Bynry', "title": "Consumer List | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.fontSize = 12; 
+                     doc.defaultStyle.alignment= 'center';
+                     doc.styles.tableHeader.fontSize = 14; 
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
+             { extend: 'excel', className: 'btn yellow btn-outline',
+                 filename: 'Consumer List  Bynry', "title": "Consumer List | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.alignment= 'center';
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
+             { extend: 'csv', className: 'btn purple btn-outline',
+                 filename: 'Consumer List  Bynry', "title": "Consumer List | Bynry",
+                 customize: function(doc) {
+                     doc.defaultStyle.alignment= 'center';
+                 },
+                 exportOptions: {
+                     columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                 },
+             },
+        ],
 
             "lengthMenu": [
                 [5, 10, 15, 20, -1],

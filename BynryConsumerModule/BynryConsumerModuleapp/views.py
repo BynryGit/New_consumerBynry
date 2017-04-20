@@ -62,7 +62,7 @@ def signin(request):
                     user = authenticate(username=username, password=password)
                     if user:
                         if user.is_active:
-                            user_profile_obj = SystemUserProfile.objects.get(username=username)
+                            user_profile_obj = SystemUserProfile.objects.get(username=username,status='Active')
                             # request.session['user_role'] = user_profile_obj.user_role.role_name
                             try:
                                 request.session['login_user'] = user_profile_obj.username

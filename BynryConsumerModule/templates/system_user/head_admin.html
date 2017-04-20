@@ -90,14 +90,14 @@
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_first_name">
-                                <label for="user_first_name">First Name</label>
+                                <label for="user_first_name">First Name <span style="color:red;">*</span></label>
                             </div>
 									<span class="user_first_name_error" style="color:red;"></span> 
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_last_name">
-                                <label for="user_last_name">Last Name</label>
+                                <label for="user_last_name">Last Name <span style="color:red;">*</span></label>
                             </div>
                             <span class="user_last_name_error" style="color:red;"></span> 
                         </div>
@@ -115,7 +115,7 @@
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">
                                 <textarea class="form-control" id="user_address" ></textarea>
-                                <label >Address</label>
+                                <label >Address <span style="color:red;">*</span></label>
                             </div>
                             <span class="user_address_error" style="color:red;"></span> 
                         </div>
@@ -130,7 +130,7 @@
 	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
 	                                  {% endfor %}
                              </select>
-	                          <label for="consumer_zone">City</label>
+	                          <label for="consumer_zone">City <span style="color:red;">*</span></label>
 	                      </div>	
 	                      <span class="user_city_error" style="color:red;"></span>                       
                     		</div>
@@ -143,7 +143,7 @@
                                   <option value="{{ role.role }}"> {{ role.role }}</option>
                                   {% endfor %}
                              		</select>
-											<label for="city">Role</label>
+											<label for="city">Role <span style="color:red;">*</span></label>
                             </div>
                             <span class="user_role_error" style="color:red;"></span> 	                      
                     		</div>
@@ -173,7 +173,7 @@
                     		<div class="col-md-6">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_contact_no">
-                                <label for="user_contact_no">Contact No.</label>
+                                <label for="user_contact_no">Contact No. <span style="color:red;">*</span></label>
                             </div>
                             <span class="user_contact_no_error" style="color:red;"></span> 
                         </div>
@@ -191,7 +191,7 @@
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="user_email">
-                                <label for="user_email">Email Id</label>
+                                <label for="user_email">Email Id <span style="color:red;">*</span></label>
                             </div>
                             <span class="user_email_error" style="color:red;"></span> 
                         </div>                                                                                   
@@ -239,14 +239,14 @@
                         <div class="col-md-4">                        
                             <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">                            	   
                                 <input type="text" class="form-control" id="fname">
-                                <label for="fname">First Name</label>                                                                                                                             
+                                <label for="fname">First Name <span style="color:red;">*</span></label>                                                                                                                             
                             </div>        
                             <span class="first_name_error" style="color:red;"></span>  
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="lname">
-                                <label for="route_code">Last Name</label>                                                                 
+                                <label for="route_code">Last Name <span style="color:red;">*</span></label>                                                                 
                             </div>
                             <span class="last_name_error" style="color:red;"></span> 
 
@@ -265,7 +265,7 @@
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-success " style="margin-bottom: 0px;">
                                 <textarea class="form-control" id="address" ></textarea>
-                                <label >Address</label>
+                                <label >Address <span style="color:red;">*</span></label>
                                 
                             </div>
                             <span class="address_error" style="color:red;"></span>
@@ -281,7 +281,7 @@
 	                                  <option value="{{ city.city }}"> {{ city.city }}</option>
 	                                  {% endfor %}
                              </select>
-	                          <label for="city">City</label>	                          
+	                          <label for="city">City <span style="color:red;">*</span></label>	                          
 	                      </div>	                      
 	                      <span class="city_error" style="color:red;" ></span>
                     		</div>
@@ -294,7 +294,7 @@
                                   <option value="{{ role.role }}"> {{ role.role }}</option>
                                   {% endfor %}
                              </select>
-                             <label for="city">Role</label>
+                             <label for="city">Role <span style="color:red;">*</span></label>
                             </div>
                             <span class="role_error" style="color:red;" ></span>		                      
                     		</div>
@@ -322,14 +322,14 @@
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="contact_no">
-                                <label for="contact_no">Contact No.</label>
+                                <label for="contact_no">Contact No. <span style="color:red;">*</span></label>
                             </div>
                             <span class="contact_no_error" style="color:red;"></span>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="password" class="form-control" id="password" >
-                                <label for="password">Password</label>
+                                <label for="password">Password <span style="color:red;">*</span></label>
                             </div>
                             <span class="password_error" style="color:red;"></span>
                         </div>  								   
@@ -339,14 +339,14 @@
                          <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="text" class="form-control" id="email">
-                                <label for="email">Email Id</label>
+                                <label for="email">Email Id <span style="color:red;">*</span></label>
                             </div>
                             <span class="email_error" style="color:red;"></span>
                         </div>                                                         
                          <div class="col-md-6">
                             <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
                                 <input type="password" class="form-control" id="re_password" >
-                                <label for="re_password">Retype Password</label>                                
+                                <label for="re_password">Retype Password <span style="color:red;">*</span></label>                                
                             </div>
                             <span class="re_password_error" style="color:red;"></span>
                         </div>                        
