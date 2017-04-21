@@ -17,5 +17,7 @@ urlpatterns = [
     url(r'^get-zone/', views.get_zone_front,name='get_zone'),
     url(r'^get-billcycle/', views.get_billcycle_front,name='get_billcycle_front'),
     url(r'^get-route/', views.get_route_front,name='get_route_front'),
+    url(r'^save-inactive-status/', views.save_inactive_status,name='save_inactive_status'),    
+    url(r'^save-active-status/', views.save_active_status,name='save_active_status'),    
 ]
 

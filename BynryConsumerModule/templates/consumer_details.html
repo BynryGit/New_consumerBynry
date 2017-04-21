@@ -203,6 +203,22 @@
                                                 <label >Utility :</label>
                                             </div>
                                         </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group form-md-line-input has-success">
+                                                <input type="text" class="form-control"
+                                                       value="{{data.connection_status}}" readonly>
+                                                <label >Status :</label>
+                                            </div>
+                                        </div>
+                                        {% if data.connection_status == 'Inactive'%}
+                                        <div class="col-md-11">
+                                            <div class="form-group form-md-line-input has-success">
+                                                 <textarea class="form-control" readonly=""
+                                                       >Deactivated on {{data.updated_on}} ( {{data.status_reason}} )</textarea>
+                                                <label >Why :</label>
+                                            </div>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <!-- END MENU -->

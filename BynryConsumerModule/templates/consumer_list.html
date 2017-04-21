@@ -320,9 +320,15 @@
                     <div class="modal-body">
                         <div class="scroller" style="height:490px" data-always-visible="1" data-rail-visible1="1">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-8">
                                     <h4><b> <span id="edit_name"></span> </b></h4>
-                                </div>
+                                </div>                               
+			                       <div class="col-md-4 custom-sys-user-margin-top1" >
+			                            <div class="form-group form-md-line-input has-success">
+			                            		<label for="bill_cycle">Status : </label>
+			                                <input onchange="change_status(1);" type="checkbox" id="update_user_status" class="make-switch" checked data-on-text="<i class='icon-user-following'></i>" data-off-text="<i class='icon-user-unfollow'></i>">                                 
+			                            </div>
+			                       </div> 
 
                                 <div class="col-md-6">
                                     <div class="form-group form-md-line-input has-success">
@@ -464,9 +470,70 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+        <div id="destatus_model" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                         <h4 class="modal-title">Would you like to Inactive account?</h4>
+                     </div>
+                     <div class="modal-body">
+                         <div class="row">
+                         <div class="col-md-6" style="margin-top: 4px;">
+		                        <div class="form-group form-md-line-input has-success">
+		                            <select id="inactive_status" class="form-control input-sm select2-multiple">
+												  <option value=""> Select Reason  </option>		                                
+		                                <option value="Bill Not Paid"> Bill Not Paid </option>		                               
+		                                <option value="Vigilance Case Exist"> Vigilance Case Exist</option>
+		                               
+		                            </select>
+		                           <label for="inactive_status">Select Reason <span class="required"> *</span></label>
+		                        </div>
+                        	<span id="inactive_status_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+                     	</div>
+                     	</div>
+                     </div>                     
+                     <div class="modal-footer">
+                         <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                         <button type="button" data-dismiss="modal" class="btn green" id="save-inactive">Save</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div id="actstatus_model" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                         <h4 class="modal-title">Would you like to Active account?</h4>
+                     </div>
+                     <div class="modal-body">
+                         <div class="row">
+                         <div class="col-md-6" style="margin-top: 4px;">
+		                        <div class="form-group form-md-line-input has-success">
+		                            <select id="active_status" class="form-control input-sm select2-multiple">
+		                                <option value=""> Select Reason  </option>		
+		                                <option value="All Bill Paid"> All Bill Paid </option>		                               
+		                                <option value="Vigilance Case does not Exist"> Vigilance Case does not Exist</option>		                               
+		                            </select>
+		                            <label for="edit_city">Select Reason <span class="required"> *</span></label>
+		                        	</div>
+                        	<span id="active_status_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+                     	</div>
+                     	</div>
+                     </div>                
+                     <input type="hidden" id="status_consumer_id" class="form-control">     
+                     <div class="modal-footer">
+                         <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                         <button type="button" data-dismiss="modal" class="btn green" id="save-active">Save</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+                
         <!--  Models End -->
-		<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+		  <div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
 		    <div class="modal-dialog" style="width:35%;">
 		        <div class="modal-content">
 		            <div class="modal-body">

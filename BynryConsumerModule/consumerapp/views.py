@@ -265,6 +265,7 @@ def edit_consumer(request):
                 pass
 
             consumer_data = {
+                'connection_status':consumer_obj.connection_status,
                 'consumer_id': consumer_obj.id,
                 'name': consumer_obj.name + ' (' + consumer_obj.consumer_no + ') ',
                 'utility': consumer_obj.Utility.utility,
@@ -390,6 +391,9 @@ def consumer_details(request):
                     'billcycle': str(consumer_obj.bill_cycle.bill_cycle_code),
                     'route': str(consumer_obj.route.route_code),
                     'utility': consumer_obj.Utility.utility,
+                    'connection_status':consumer_obj.connection_status,
+                    'status_reason':consumer_obj.status_reason,
+                    'updated_on':consumer_obj.updated_on.strftime('%d %b %Y'),
                     'meter_no': consumer_obj.meter_no,
                     'meter_category': consumer_obj.meter_category,
                     'sanction_load': consumer_obj.sanction_load,
@@ -616,4 +620,50 @@ def get_route_front(request):
     except Exception, e:
         print 'Exception|consumerapp|views.py|get_route_front', e
         data = {'route_list': 'No Route available'}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_inactive_status(request):
+    try:
+        print 'consumerapp|views.py|save_inactive_status'
+        inactive_status = request.POST.get('inactive_status')
+        consumer_obj = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
+        consumer_obj.connection_status = 'Inactive'
+        consumer_obj.status_reason = inactive_status
+        consumer_obj.updated_on = datetime.now() 
+        consumer_obj.save();
+
+        data = {
+            'success': 'true',
+            'message': 'Consumer Details Updated Successfully.'
+        }
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|save_inactive_status', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@csrf_exempt
+def save_active_status(request):
+    try:
+        print 'consumerapp|views.py|save_active_status'
+        active_status = request.POST.get('active_status')
+        consumer_obj = ConsumerDetails.objects.get(id=request.POST.get('consumer_id'))
+        consumer_obj.connection_status = 'Active'
+        consumer_obj.status_reason = active_status
+        consumer_obj.updated_on = datetime.now()
+        consumer_obj.save();
+
+        data = {
+            'success': 'true',
+            'message': 'Consumer Details Updated Successfully.'
+        }
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|save_active_status', e
+        data = {
+            'success': 'false',
+            'message': str(e)
+        }
     return HttpResponse(json.dumps(data), content_type='application/json')

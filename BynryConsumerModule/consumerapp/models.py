@@ -12,8 +12,14 @@ IS_DELETED = (
 )
 
 CONNECTION_STATUS = (
-    ('Connected', 'Connected'),
-    ('Disconnected', 'Disconnected'),
+    ('Active', 'Active'),
+    ('Inactive', 'Inactive'),
+)
+STATUS_REASON = (
+    ('Bill Not Paid', 'Bill Not Paid'),
+    ('Vigilance Case Exist', 'Vigilance Case Exist'),
+    ('All Bill Paid', 'All Bill Paid'),
+    ('Vigilance Case does not Exist', 'Vigilance Case does not Exist'),
 )
 METER_CATEGORY = (
     ('1-LT-SUPPLY', '1-LT-SUPPLY'),
@@ -67,6 +73,7 @@ class ConsumerDetails(models.Model):
     special_remark_location = models.CharField(max_length=5000, blank=True, null=True)
     meter_connection_date = models.DateTimeField(default=django.utils.timezone.now)
     connection_status = models.CharField(max_length=200, choices=CONNECTION_STATUS, default='Connected')
+    status_reason = models.CharField(max_length=200, choices=STATUS_REASON, default='Connected')
     alternate_mobile = models.CharField(max_length=15, null=True, blank=True)
     alternate_email = models.CharField(max_length=100, null=True, blank=True)
     nearest_pole_no = models.CharField(max_length=200, blank=True, null=True)

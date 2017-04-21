@@ -203,6 +203,7 @@
     }          
    // Edit Consumer From Edit button click
 	function edit_consumer(var1) {
+		status_flag = 0
       pin_flag  = 0
       branch_flag  = 0
       zone_flag  = 0
@@ -222,7 +223,7 @@
 		$(edit_meter_error).css("display", "none");
 		$(edit_sanction_load_error).css("display", "none");
     
-        var  consumer_id = var1;
+        var  consumer_id = var1;       
         $.ajax({
             type: 'GET',
             url: '/consumerapp/edit-consumer/',
@@ -231,8 +232,15 @@
       
             //console.log(response);
                 if (response.success == 'true') {     
+						if (response.data.connection_status=='Active') {						
+							$("#update_user_status").attr("checked",true).change(); 									
+						}	
+						else {							
+							$("#update_user_status").attr("checked",false).change();
+						}                
 						$('#edit_name').text(response.data.name)
-						$('#consumer_id').val(response.data.consumer_id)						
+						$('#consumer_id').val(response.data.consumer_id)
+						$('#status_consumer_id').val(response.data.consumer_id)												
 						$('#edit_utility').val(response.data.utility)
 						$('#edit_contact').val(response.data.contact_no)
 						$('#edit_email').val(response.data.email_id)
@@ -712,3 +720,108 @@ function get_route(){
         });
     }
 }    
+status_flag = 0
+function change_status() {
+	user_status = document.getElementById('update_user_status').checked
+	if (status_flag != 0) {
+	if (user_status) {
+		$("#edituser_model").modal('hide');
+		$("#actstatus_model").modal('show');
+	}
+	else {
+		$("#edituser_model").modal('hide');
+		$("#destatus_model").modal('show');
+	}
+  }
+  status_flag = 1
+}
+$("#save-inactive").click(function(event)  {
+
+	if($("#inactive_status").val()!='' && $("#inactive_status").val()!=null)
+   {
+    $(inactive_status_error).css("display", "none");
+   }else{
+    $(inactive_status_error).css("display", "block");
+    $(inactive_status_error).text("Please select Reason");
+   return false; 
+   }
+
+   	event.preventDefault();  
+													
+	   var formData= new FormData();
+
+		formData.append("consumer_id",$('#status_consumer_id').val());		
+		formData.append("inactive_status",$('#inactive_status').val());
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/consumerapp/save-inactive-status/',
+ 					data : formData,
+					cache: false,
+		         processData: false,
+		    		contentType: false,                       
+              success: function (response) {   
+	              if(response.success=='true'){	              		
+	              		$("#destatus_model").modal('hide');
+	           	  		$("#success_modal").modal('show');
+	              	}
+	      			if (response.success == "false") {
+	      				$("#destatus_model").modal('hide');
+							$("#error-modal").modal('show');     
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            $("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });          
+});
+$("#save-active").click(function(event)  {
+	 if($("#active_status").val()!='' && $("#active_status").val()!=null)
+    	{
+   		$(active_status_error).css("display", "none");
+  	 }else{
+    		$(active_status_error).css("display", "block");
+   		$(active_status_error).text("Please select Reason");
+   		return false; 
+   }
+   	event.preventDefault();  
+													
+	   var formData= new FormData();
+
+		formData.append("consumer_id",$('#status_consumer_id').val());	
+		formData.append("active_status",$('#active_status').val());		
+
+  			$.ajax({  				  
+				  type	: "POST",
+				   url : '/consumerapp/save-active-status/',
+ 					data : formData,
+					cache: false,
+		         processData: false,
+		    		contentType: false,                       
+              success: function (response) {   
+	              if(response.success=='true'){	              		
+	              		$("#actstatus_model").modal('hide');
+	           	  		$("#success_modal").modal('show');
+	              	}
+	      			if (response.success == "false") {
+	      				$("#actstatus_model").modal('hide');
+							$("#error-modal").modal('show');     
+	       			}							                        		                      		                       		
+               },
+               	beforeSend: function () {
+            $("#processing").css('display','block');
+            },
+            complete: function () {
+                $("#processing").css('display','none');
+            },
+               error : function(response){
+                  	alert("_Error");
+            	}              
+           });          
+});
+
