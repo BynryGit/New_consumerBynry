@@ -664,7 +664,7 @@ function clear_filter(){
 
 
     function validate_meter_details() {
-        if(validate_meter_data("meter_route","error_meter_route") & validate_meter_data("meter_no","error_meter_no") & validate_meter_data("meter_date","error_meter_date") & validate_meter_data("meter_digit","error_meter_digit") & validate_meter_data("meter_make","error_meter_make") & validate_meter_data("meter_type","error_meter_type") & validate_meter_data("meter_status","error_meter_status")){
+        if(validate_meter_data("meter_route","error_meter_route") & validate_meter_data("meter_no","error_meter_no") & validate_meter_data("meter_date","error_meter_date") & validate_meter_data("meter_digit","error_meter_digit") & validate_meter_data("meter_make","error_meter_make") & validate_meter_data("meter_type","error_meter_type") ){
             return true;
         }
     }

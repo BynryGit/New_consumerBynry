@@ -29,6 +29,7 @@
                 {"data": "contact","sClass": "text-center"}, 
                 {"data" : "email","sClass": "text-center"},      
                 {"data" : "role","sClass": "text-center"},      
+                {"data" : "branch","sClass": "text-center"},      
                 {"data" : "status","sClass": "text-center"},      
                 {"data" : "actions","sClass": "text-center"}                             
 		            ],				
@@ -225,6 +226,10 @@ function update_head_admin_details() {
 			var email = $('#user_email').val();
 			var password = $('#user_pass').val();
 			var re_password = $('#user_re_pass').val();
+			
+			if (role.match(/H.O./g)) {
+				branch = ''
+			}	
 			
 			user_status = document.getElementById('update_user_status').checked;
 
@@ -628,6 +633,7 @@ function check_branch_data(){
 	$("#branch_name").prop("disabled", false);  
 	if (role.match(/H.O./g)) {
 			$("#branch_name").prop("disabled", true);
+			$("#branch_name").val('');
 			$(".branch_name_error").css("display", "none");
 	    	return true;
 		}	
@@ -643,6 +649,7 @@ function check_edit_branch_data(){
 	$("#user_branch_name").prop("disabled", false);  
 	if (role.match(/H.O./g)) {
 			$("#user_branch_name").prop("disabled", true);
+			$("#user_branch_name").val('');
 			$(".user_branch_name_error").css("display", "none");
 	    	return true;
 		}	
