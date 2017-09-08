@@ -304,11 +304,17 @@
                                     <th> Source </th>
                                 </tr>
                                 <tr>
-                                     <td> FD1001</td>
+                                     <td>
+                                        <a data-toggle="modal"
+                                           data-target="#feedback_detail_modal">FD1001</a> &nbsp; &nbsp;
+                                     </td>
+                                     <td>
+                                        <a data-toggle="modal"
+                                           data-target="#consumer_detail_modal">10101</a> &nbsp; &nbsp;
+                                     </td>
+                                     <td> Priyanka</td>
 												 <td> ***</td>
-												 <td> 07 Sep 2017</td>
-												 <td> 101011121</td>
-												 <td> Priyanka</td>
+												 <td> 07 Sep 2017</td>												 
 												 <td> Xyz</td>                                 
                                 </tr>
                                 </thead>
@@ -325,96 +331,51 @@
 </div>
 <!-- END CONTAINER -->
 <!--  Models Start -->
-<div id="vigilance_details" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="feedback_detail_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Vigilance Case Details</h4></div>
+                <h4 class="modal-title">Feedback Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:480px;" data-always-visible="1" data-rail-visible1="1">
-                    <h4><b><span id="case_id"></span> (<label id="vigilance_type"></label>)</b> registered on <span id="registered_date"></span></h4>
+                <div class="scroller" style="height:200px;" data-always-visible="1" data-rail-visible1="1">
+                    <h4><b><span id="case_id">Shubham S</span> (<label id="vigilance_type">10101</label>)</b></h4>
               
                     <div class="row">                       
-                       <div class="col-md-6">
-                                <div class="w3-content w3-display-container">
-                                </div>
-                       </div>
-                       <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="theft_name">
-                                <label for="registered_source"> Name (One who is doing Vigilance/ Theft)</label>
-                            </div>
+                      <div class="col-md-4">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Feedback Id</label>
+                         </div>
+                      </div>
+                      <div class="col-md-4">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Submitted On</label>
+                         </div>
+                      </div>
+                      <div class="col-md-4">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Source</label>
+                         </div>
+                      </div>
+                      <div class="col-md-6">  
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="theft_address"></textarea>
-                                <label >Address</label>
-                            </div>
+                                <label >Rating</label> &nbsp; &nbsp;
+                                <span><i class="fa fa-star" aria-hidden="true"></i>
+                                      <i class="fa fa-star" aria-hidden="true"></i>
+                                      <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                            </div>                            
+                      </div>
+                      <div class="col-md-6">                            
                             <div class="form-group form-md-line-input has-info ">
                                 <textarea class="form-control" readonly id="vigilance_remark"></textarea>
-                                <label >Description</label>
+                                <label >Remark</label>
                             </div>
-                        </div>
+                      </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="registered_source">
-                                <label for="registered_source">Registered Source</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="case_status">
-                                <label for="case_status">Case Status</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="theft_found">
-                                <label for="theft_found">Theft Found</label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <h4><b>Penalty</b></h4>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="penalty_amount">
-                                <label for="penalty_amount">Amount to be Paid</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="payment_status">
-                                <label for="payment_status">Payment Status</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="payment_method">
-                                <label for="payment_method">Payment Method</label>
-                            </div>
-                        </div>
-                    </div>
-                    <h4><b>Court Case Details</b></h4>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group form-md-line-input has-info">
-                                <textarea class="form-control" readonly id="court_remark" rows="2"></textarea>
-                                <label >Court Remark</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" value="Open" id="court_case_status">
-                                <label for="court_case_status">Case Status</label>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <div class="modal-footer">
@@ -425,54 +386,47 @@
 </div>
 <!--  Models End -->
 <!--  Models Start -->
-<div id="consumer_details" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="consumer_detail_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Consumer Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4><b><span id="consumer_name"></span>&nbsp;(<span id="consumer_no"></span>)</b></h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_branch">
-                                <label for="consumer_branch">Branch</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="consumer_zone">
-                                <label for="consumer_zone">Zone</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="bill_cycle">
-                                <label for="bill_cycle">Bill Cycle Code</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-md-line-input has-info">
-                                <input type="text" class="form-control" readonly="" id="route_code">
-                                <label for="route_code">Route Code</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                <div class="scroller" style="height:257px;" data-always-visible="1" data-rail-visible1="1">
+                    <h4><b><span id="case_id">Shubham S</span> (<label id="vigilance_type">10101</label>)</b></h4>
+              
+                    <div class="row">                       
+                      <div class="col-md-6">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Branch </label>
+                         </div>
+                      </div>
+                      <div class="col-md-6">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Zone </label>
+                         </div>
+                      </div>
+                      <div class="col-md-6">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Bill Cycle Code </label>
+                         </div>
+                      </div>
+                      <div class="col-md-6">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Route Code </label>
+                         </div>
+                      </div>                     
+                      <div class="col-md-12">                            
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="consumer_address" ></textarea>
+                                <textarea class="form-control" readonly id="vigilance_remark"></textarea>
                                 <label >Address</label>
                             </div>
-                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
