@@ -8,8 +8,8 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('consumerapp', '0002_auto_20170908_0619'),
         ('BynryConsumerModuleapp', '0001_initial'),
-        ('consumerapp', '0001_initial'),
     ]
 
     operations = [
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('case_id', models.CharField(max_length=200, null=True)),
                 ('theft_name', models.CharField(max_length=200, null=True, blank=True)),
                 ('address', models.CharField(max_length=500, null=True, blank=True)),
-                ('vigilance_remark', models.CharField(max_length=200, null=True, blank=True)),
+                ('vigilance_remark', models.CharField(max_length=500, null=True, blank=True)),
                 ('vigilance_status', models.CharField(max_length=50, choices=[(b'WIP', b'WIP'), (b'Closed', b'Closed'), (b'Open', b'Open')])),
                 ('vigilance_source', models.CharField(max_length=50, choices=[(b'Mobile', b'Mobile'), (b'Web', b'Web'), (b'CTI', b'CTI')])),
                 ('registered_date', models.DateTimeField(null=True, blank=True)),
