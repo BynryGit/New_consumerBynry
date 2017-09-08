@@ -160,7 +160,7 @@
 	                            </select>
 	                        </div> -->
                                 <div class="col-md-3 custom-width">
-                                    <label class="control-label">Branch</label>
+                                    <label class="control-label">Division</label>
                                     {% if request.session.branch_id %}
                                         <select id="filter_branch" disabled class="form-control select2"
                                                 onchange="get_zone()">
@@ -178,7 +178,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="select2-single-input-sm" class="control-label">Zone </label>
+                                    <label for="select2-single-input-sm" class="control-label">Sub-Division </label>
                                     <select id="filter_zone" class="form-control input-sm select2-multiple select2"
                                             onchange="get_bill_cycle();">
                                         <option value="all">All</option>
@@ -189,7 +189,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="select2-single-input-sm" class="control-label">Bill Cycle </label>
+                                    <label for="select2-single-input-sm" class="control-label">Cycle </label>
                                     <select id="filter_bill" class="form-control input-sm select2-multiple select2"
                                             onchange="get_route();">
                                         <option value="all">All</option>
@@ -197,7 +197,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="select2-single-input-sm" class="control-label">Route </label>
+                                    <label for="select2-single-input-sm" class="control-label">Binder </label>
                                     <select id="filter_route" class="form-control input-sm select2-multiple select2">
                                         <option value="all">All</option>
                                         <!-- {% for r in routeDetail %}

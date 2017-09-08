@@ -85,19 +85,29 @@ def get_service_data(request):
             service_obj = service_obj.filter(request_date__range=[start_date, end_date])
         # filtered service data list
         for service in service_obj:
-            service_data = {
-                'service_no': '<a onclick="service_details(' + str(
-                    service.id) + ')">' + service.service_no + '</a>',
-                'service_type': service.service_type.request_type,
-                'raised_date': service.request_date.strftime('%B %d, %Y %I:%M %p'),
-                'consumer_no': '<a onclick="consumer_details(' + str(
-                    service.consumer_id.id) + ')">' + service.consumer_id.consumer_no + '</a>',
-                'consumer_name': service.consumer_id.name,
-                'service_source': service.source,
-                'service_status': service.status,
-            }
-            service_list.append(service_data)
-        data = {'data': service_list}
+        	print '------service-----',service
+        	service_data = {
+        		'service_no': '<a onclick="service_details(' + str(service.id) + ')">' + service.service_no + '</a>',
+        		'service_type' : service.service_type.request_type,
+        		'raised_date' : service.request_date.strftime('%B %d, %Y %I:%M %p'),
+        		'consumer_no' : '<a onclick="consumer_details(' + str(service.consumer_id.id) + ')">' + service.consumer_id.consumer_no + '</a>',
+        		'service_source' : service.source,
+        		'service_status' : service.status
+        	}
+        	service_list.append(service_data)
+        	# service_data = {
+        	# 	'service_no': '<a onclick="service_details(' + str(
+			      #   service.id) + ')">' + service.service_no + '</a>',
+        	# 	'service_type': service.service_type.request_type,
+        	# 	'raised_date': service.request_date.strftime('%B %d, %Y %I:%M %p'),
+        	# 	'consumer_no': '<a onclick="consumer_details(' + str(
+			      #   service.consumer_id.id) + ')">' + service.consumer_id.consumer_no + '</a>',
+        	# 	'consumer_name': service.consumer_id.name,
+        	# 	'service_source': service.source,
+        	# 	'service_status': service.status
+        	# 	}
+        	# service_list.append(service_data)
+		data = {'data': service_list}
     except Exception, e:
         print 'exception ', str(traceback.print_exc())
         print 'Exception|serviceapp|views.py|get_service_datatable', e
