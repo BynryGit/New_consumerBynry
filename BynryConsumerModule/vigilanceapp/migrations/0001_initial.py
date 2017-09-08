@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import django.utils.timezone
 
 
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('case_id', models.CharField(max_length=200, null=True)),
                 ('theft_name', models.CharField(max_length=200, null=True, blank=True)),
                 ('address', models.CharField(max_length=500, null=True, blank=True)),
-                ('vigilance_remark', models.CharField(max_length=200, null=True, blank=True)),
+                ('vigilance_remark', models.CharField(max_length=500, null=True, blank=True)),
                 ('vigilance_status', models.CharField(max_length=50, choices=[(b'WIP', b'WIP'), (b'Closed', b'Closed'), (b'Open', b'Open')])),
                 ('vigilance_source', models.CharField(max_length=50, choices=[(b'Mobile', b'Mobile'), (b'Web', b'Web'), (b'CTI', b'CTI')])),
                 ('registered_date', models.DateTimeField(null=True, blank=True)),

@@ -296,7 +296,7 @@
 <!--  Models Start -->
 <div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 721px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Complaint Details</h4></div>
@@ -305,37 +305,100 @@
                     <div class="col-md-12">
                         <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group form-md-line-input has-info">
                                     <input type="text" class="form-control" readonly="" id="complaint_id">
                                     <label for="complaint_id">Complaint Id</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group form-md-line-input has-info">
                                     <input type="text" class="form-control" readonly="" id="complaint_type">
                                     <label for="complaint_type">Complaint Type</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group form-md-line-input has-info">
                                     <input type="text" class="form-control" readonly="" id="complaint_status">
                                     <label for="complaint_status">Status</label>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="raised_date">
+                                    <label for="raised_date">Raised on Date & Time</label>
+                                </div>
+                            </div>                            
                         </div>
                         <br>
-                        <div class="row">
+                        <div class="row">                            
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info ">
+                                    <textarea class="form-control" id="complaint_remark" readonly rows="8"></textarea>
+                                    <label>Complaint</label>
+                                </div>
+                            </div>
                             <div class="col-md-6" style="">
                                 <div class="w3-content w3-display-container">
                                 </div>
                             </div>
+                        </div>
+                        <hr style="border-top: dotted 1px;" />
+                        <div class="row">
+                          <div class="col-md-6">
                             <div class="col-md-6">
-                                <div class="form-group form-md-line-input has-info ">
-                                    <textarea class="form-control" id="complaint_remark" readonly rows="11"></textarea>
-                                    <label>Complaint</label>
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="complaint_id">Job Details</label>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="complaint_type">Assigned By</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="complaint_status">Assigned To</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Assigned Date & Time</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Resolution Time</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Field 1</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Field 2</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Remark</label>
+                                </div>
+                            </div>     
+                          </div>
+                          <div class="col-md-6" style="">
+	                          <div class="w3-content w3-display-container">
+	                          </div>
+	                      </div>                      
                         </div>
                     </div>
                 </div>

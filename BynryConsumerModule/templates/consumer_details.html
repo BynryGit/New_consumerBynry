@@ -254,6 +254,9 @@
                                             <li>
                                                 <a href="#tab_1_5" data-toggle="tab">Vigilance</a>
                                             </li>
+                                            <li>
+                                                <a href="#tab_1_6" data-toggle="tab">Feedback</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1032,6 +1035,127 @@
                                                                 <th> Reg. Date</th>
                                                                 <th> Reg. Source</th>
                                                                 <th> Case Status</th>
+                                                            </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- END EXAMPLE TABLE PORTLET-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END PRIVACY SETTINGS TAB -->
+                                    <!-- PRIVACY SETTINGS TAB -->
+                                    <div class="tab-pane" id="tab_1_6">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-body">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label class="control-label">Rating</label>
+                                                        <select id="select_vigilance_type" class="form-control select2">
+                                                            <option value="5">*****</option>
+                                                            <option value="4">****</option>
+                                                            <option value="4">***</option>                                                            
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group"><label class="control-label ">Submitted on
+                                                            </label>
+                                                            <div class="">
+                                                                <div class="input-group input-large date-picker input-daterange"
+                                                                     data-date="10/11/2012"
+                                                                     data-date-format="dd/mm/yyyy">
+                                                                    <input readonly id="feedback_start_date"
+                                                                           type="text" class="form-control"
+                                                                           placeholder="Start Date" name="from">
+                                                                    <span class="input-group-addon"> to </span>
+                                                                    <input readonly id="feedback_end_date" type="text"
+                                                                           class="form-control" placeholder="End Date"
+                                                                           name="to">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5" style="text-align:right;">
+                                                        <button type="button"
+                                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                onclick="filter_feedback()" style="margin-top: 27px;">
+                                                            Filter
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                onclick="clear_feedback_filter()"
+                                                                style="margin-top: 27px;">
+                                                            Clear
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                                <div class="portlet light bordered">
+                                                    <div class="actions pull-right">
+                                                        <div class="btn-group btn-group-devided">
+                                                            <button type="button"
+                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                    onclick="reload_feedback()">
+                                                                <i class="fa fa-refresh"></i> Reload
+                                                            </button>
+                                                        </div>
+                                                        <div class="btn-group">
+                                                            <a class="btn red btn-outline btn-circle"
+                                                               href="javascript:;" data-toggle="dropdown">
+                                                                <i class="fa fa-share"></i>
+                                                                <span class="hidden-xs"> Tools </span>
+                                                                <i class="fa fa-angle-down"></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu pull-right"
+                                                                id="feedback_table_tools">
+                                                                <li>
+                                                                    <a href="javascript:;" data-action="0"
+                                                                       class="tool-action">
+                                                                        <i class="icon-printer"></i> Print</a>
+                                                                </li>
+
+                                                                <li>
+                                                                    <a href="javascript:;" data-action="1"
+                                                                       class="tool-action">
+                                                                        <i class="icon-doc"></i> PDF</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;" data-action="2"
+                                                                       class="tool-action">
+                                                                        <i class="icon-paper-clip"></i> Excel</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="javascript:;" data-action="3"
+                                                                       class="tool-action">
+                                                                        <i class="icon-cloud-upload"></i> CSV</a>
+                                                                </li>
+
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                                               id="feedback_table">
+                                                            <thead>
+                                                            <tr class="">
+                                                                <th> Feedback Id</th>
+                                                                <th> Rating </th>
+                                                                <th> Submitted On</th>
+                                                                <th> Source</th>
+                                                                <th> Remark</th>
+                                                            </tr>
+                                                            <tr>
+																					 <td> FD1001</td>
+																					 <td> ***</td>
+																					 <td> 07 Sep 2017</td>
+																					 <td> Mobile</td>
+																					 <td> Mobile SS</td>                                                            
                                                             </tr>
                                                             </thead>
                                                         </table>
