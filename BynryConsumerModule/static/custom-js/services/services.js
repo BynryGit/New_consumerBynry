@@ -54,7 +54,7 @@
                 {"data": "consumer_no"},
                 {"data": "consumer_name"},
                 {"data": "service_source"},
-                {"data": "service_status"},
+                {"data": "service_status1"},
                 {"data": "service_status"},
             ],
 
