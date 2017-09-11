@@ -142,6 +142,8 @@
     initTable1();
     
 
+
+
  function get_zone(){
     branch = $("#select_branch").val();
 //    $( "#clear_zone_list" ).load(" #clear_zone_list" );
