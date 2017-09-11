@@ -8,8 +8,8 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('consumerapp', '0002_auto_20170908_0619'),
         ('BynryConsumerModuleapp', '0001_initial'),
+        ('consumerapp', '0001_initial'),
     ]
 
     operations = [
