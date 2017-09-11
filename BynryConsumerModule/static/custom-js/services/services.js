@@ -55,6 +55,7 @@
                 {"data": "consumer_name"},
                 {"data": "service_source"},
                 {"data": "service_status"},
+                {"data": "service_status"},
             ],
 
             "order": [
@@ -105,6 +106,31 @@
         });
         $("#service_details").modal('show');
     }
+    
+    
+	function service_details_reconnection(service_id){
+        $.ajax({
+            type : "POST",
+            url : '/serviceapp/get-service-details/',
+            data : {'service_id':service_id},
+            success: function (response) {
+                if(response.success =='true'){
+                    serviceDetail = response.serviceDetail;                   
+                    $("#request_id").val(serviceDetail.serviceID);
+                    $("#request_type").val(serviceDetail.serviceType);
+                    $("#service_request").val(serviceDetail.serviceRequest);
+                    $("#request_status").val(serviceDetail.serviceStatus);
+                    $("#cons_name").text(serviceDetail.serviceConsumerName);
+                    $("#cons_no").text(serviceDetail.serviceConsumerNo);
+                }
+            },
+            error : function(response){
+                alert("_Error");
+            }
+        });
+        $("#service_details_reconnection").modal('show');
+    }    
+    
 	 
     function consumer_details(consumer_id){
         $.ajax({

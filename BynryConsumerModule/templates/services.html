@@ -287,12 +287,12 @@
 <!--  Models Start -->
 <div id="service_details" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 656px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Service Requested Details</h4></div>
             <div class="modal-body">
-                <div class="scroller custom-service-modal-height1" data-always-visible="1" data-rail-visible1="1">                   
+                <div class="scroller custom-service-modal-height1" data-always-visible="1" data-rail-visible1="1" style="height:450px;">                   
                     <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
                     <div class="row">
                         <div class="col-md-12">
@@ -322,12 +322,242 @@
                             </div>
                         </div>
                     </div>
-
+                    <hr style="border-top: dotted 1px;" />
+                    <div class="row">
+                       <div class="col-md-12">
+                       		<h4 class="modal-title"> Job Details</h4>
+                       </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-md-6">                         
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>Assigned To</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>Assigned Date</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>Field 1</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>Field 2</label>
+                             </div>
+                            </div>
+                         </div>  
+                         <div class="col-md-6">  
+                             <label> Image of Asset</label>
+                             <form action="#" role="form">
+                                 <div class="form-group">
+                                     <div class="fileinput fileinput-new"
+                                          data-provides="fileinput">
+                                         <div class="fileinput-new thumbnail"
+                                              style="width: 100%; min-height: 160px;">
+                                             <img id="asset_image" src="" style="height: 151px !important;"
+                                                  alt=""/></div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+                         <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-info ">
+                                <textarea class="form-control" readonly id="vigilance_remark"></textarea>
+                                <label >Remark</label>
+                            </div>
+                         </div> 
+                    </div>                                               
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
             </div>
+        </div>
+    </div>
+</div>
+<!--  Models End -->
+
+
+<!--  Models Start -->
+<div id="service_details_reconnection" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 656px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Service Requested Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller custom-service-modal-height1" data-always-visible="1" data-rail-visible1="1" style="height:450px;">                   
+                    <h4><b><span id="cons_name">Consumer No.</span>&nbsp;(<span id="cons_no"></span>)</b></h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-info ">
+                                <textarea class="form-control" readonly id="service_request" rows="4"></textarea>
+                                <label >Service Request</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="request_id">
+                                <label for="request_id">Request Id</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="request_type">
+                                <label for="request_type">Request Type</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="request_status">
+                                <label for="request_status">Request Status</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="full_address">
+                                <label for="full_address">Full Address</label>
+                            </div>
+                        </div>
+                    </div>
+                       <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="disconnection_reason">
+                                <label for="disconnection_reason">Disconnection Reason</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="duration">
+                                <label for="duration">Duration</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" id="reconnection_remark">
+                                <label for="reconnection_remark">Reconnection Remark</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="border-top: dotted 1px;" />
+                    <div class="row">
+                       <div class="col-md-12">
+                       		<h4 class="modal-title"> Copy of Last Bill Proofs :</h4>
+                       </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-md-12">                         
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>June 2017</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">  
+                             <label> Image of Asset</label>
+                             <form action="#" role="form">
+                                 <div class="form-group">
+                                     <div class="fileinput fileinput-new"
+                                          data-provides="fileinput">
+                                         <div class="fileinput-new thumbnail"
+                                              style="width: 100%; min-height: 160px;">
+                                             <img id="asset_image" src="" style="height: 151px !important;"
+                                                  alt=""/></div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>July 2017</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">  
+                             <label> Image of Asset</label>
+                             <form action="#" role="form">
+                                 <div class="form-group">
+                                     <div class="fileinput fileinput-new"
+                                          data-provides="fileinput">
+                                         <div class="fileinput-new thumbnail"
+                                              style="width: 100%; min-height: 160px;">
+                                             <img id="asset_image" src="" style="height: 151px !important;"
+                                                  alt=""/></div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+                         </div>  
+                         </div>    
+                          <hr style="border-top: dotted 1px;" />
+                           <div class="row">
+                            <div class="col-md-12">
+                       	    	<h4 class="modal-title"> Arrears & Clearance Deatil :</h4>
+                           </div>
+                         </div>
+								<div class="row">
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="arrears">
+                                        <label for="form_control_1">Arrears (in Rs): <span class="required"> *</span></label>                                        
+                                    </div>
+                                    <span id="edit_meter_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="credit" readonly="">
+                                        <label for="form_control_1">Credit(in Rs):</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_sanction_load">
+                                        <label for="form_control_1">Security Deposit</label>
+                                    </div>
+                                    <span id="edit_sanction_load_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_meter_no">
+                                        <label for="form_control_1">Payable Amount (in Rs):<span class="required"> *</span></label>                                        
+                                    </div>
+                                    <span id="edit_meter_error" style="margin-top: -30px;color:red; font-size: 12px;"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" class="form-control" id="edit_category" readonly="">
+                                        <label for="form_control_1">Payment Status</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        
+                   
+                                                               
+                </div>
+            </div>
+            <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                        <button type="button" class="btn green" id="save-consumer">Send for Reconnection</button>
+                    </div>
         </div>
     </div>
 </div>
