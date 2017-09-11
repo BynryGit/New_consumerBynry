@@ -84,6 +84,20 @@ def get_service_data(request):
             end_date = datetime.datetime.strptime(request.GET.get('end_date'), '%d/%m/%Y') + datetime.timedelta(days=1)
             service_obj = service_obj.filter(request_date__range=[start_date, end_date])
         # filtered service data list
+
+        #SHubham S Need to chage==>>>>>
+        service_data = {
+            'service_no': '1025',
+            'service_type' : '  Meter Change',
+            'raised_date' : 'September 09, 2017 08:56 AM',
+            'consumer_no' : '11111111111',
+            'consumer_name' : 'ASD',
+            'service_source' : 'Mobile',
+            'service_status' : '<a data-toggle="modal" data-target="#assign_job">Assigned</a>',
+
+        } 
+        service_list.append(service_data)
+        #=========>>>>>>
         for service in service_obj:
         	print '------service-----',service
         	service_data = {
@@ -93,9 +107,10 @@ def get_service_data(request):
         		'consumer_no' : '<a onclick="consumer_details(' + str(service.consumer_id.id) + ')">' + service.consumer_id.consumer_no + '</a>',
         		'consumer_name' : service.consumer_id.name,
                 'service_source' : service.source,
-        		'service_status' : service.status
+        		'service_status' : service.status            
         	}
-        	service_list.append(service_data)
+        	service_list.append(service_data)        
+
         	# service_data = {
         	# 	'service_no': '<a onclick="service_details(' + str(
 			      #   service.id) + ')">' + service.service_no + '</a>',
