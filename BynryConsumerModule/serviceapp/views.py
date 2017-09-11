@@ -88,10 +88,11 @@ def get_service_data(request):
         	print '------service-----',service
         	service_data = {
         		'service_no': '<a onclick="service_details(' + str(service.id) + ')">' + service.service_no + '</a>',
-        		'service_type' : service.service_type.request_type,
+        		'service_type' : '<a onclick="service_details_reconnection(' + str(service.id) + ')">' + service.service_type.request_type+ '</a>',
         		'raised_date' : service.request_date.strftime('%B %d, %Y %I:%M %p'),
         		'consumer_no' : '<a onclick="consumer_details(' + str(service.consumer_id.id) + ')">' + service.consumer_id.consumer_no + '</a>',
-        		'service_source' : service.source,
+        		'consumer_name' : service.consumer_id.name,
+                'service_source' : service.source,
         		'service_status' : service.status
         	}
         	service_list.append(service_data)
