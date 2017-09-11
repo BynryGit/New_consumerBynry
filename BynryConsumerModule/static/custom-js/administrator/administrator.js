@@ -62,29 +62,11 @@
                                                       
            
 				
-				buttons: [        	
-            
-            { extend: 'pdf', className: 'btn green btn-outline',
-                 filename: 'New Service Request  Bynry', "title": "User Role | Bynry",
-                 customize: function(doc) {
-                     doc.defaultStyle.fontSize = 12; 
-                     doc.defaultStyle.alignment= 'center';
-                     doc.styles.tableHeader.fontSize = 14; 
-                 },
-                 exportOptions: {
-                     columns: [ 0, 1, 2, 3 ]
-                 },
-             },
-             { extend: 'excel', className: 'btn yellow btn-outline',
-                 filename: 'New Service Request  Bynry', "title": "User Role | Bynry",
-                 customize: function(doc) {
-                     doc.defaultStyle.alignment= 'center';
-                 },
-                 exportOptions: {
-                     columns: [ 0, 1, 2, 3 ]
-                 },
-             },
-             
+				buttons: [
+            { extend: 'print', className: 'btn dark btn-outline' },
+            { extend: 'pdf', className: 'btn green btn-outline' },
+            { extend: 'excel', className: 'btn yellow btn-outline ' },
+            { extend: 'csv', className: 'btn purple btn-outline ' },
         ],
 				
 				
@@ -95,8 +77,11 @@
             // set the initial value
             "pageLength": 10,
 
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
       });
+      $('#admin_table_tools > li > a.tool-action').on('click', function() {
+        var action = $(this).attr('data-action');
+        oTable.DataTable().button(action).trigger();
+    });
     }
     initTable1();
 

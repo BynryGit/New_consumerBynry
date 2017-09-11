@@ -798,7 +798,7 @@
                                                                id="complaint_table">
                                                             <thead>
                                                             <tr>
-                                                                <th> Complaint No.</th>
+                                                                <th> Complaint Id</th>
                                                                 <th> Type</th>
                                                                 <th> Raised on</th>
                                                                 <th> Source</th>
@@ -914,7 +914,7 @@
                                                                id="service_table">
                                                             <thead>
                                                             <tr>
-                                                                <th> Requested Id</th>
+                                                                <th> Request Id</th>
                                                                 <th> Type</th>
                                                                 <th> Requested on</th>
                                                                 <th> Source</th>
@@ -1152,7 +1152,10 @@
                                                                 <th> Remark</th>
                                                             </tr>
                                                             <tr>
-																					 <td> FD1001</td>
+																					 <td>
+									                                        <a data-toggle="modal"
+									                                           data-target="#feedback_detail_modal">FD1001</a> &nbsp; &nbsp;
+									                                     </td>
 																					 <td> ***</td>
 																					 <td> 07 Sep 2017</td>
 																					 <td> Mobile</td>
@@ -1181,6 +1184,61 @@
 <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
+<!--  Models Start -->
+<div id="feedback_detail_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Feedback Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:200px;" data-always-visible="1" data-rail-visible1="1">
+                    <h4><b><span id="case_id">Shubham S</span> (<label id="vigilance_type">10101</label>)</b></h4>
+              
+                    <div class="row">                       
+                      <div class="col-md-4">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Feedback Id</label>
+                         </div>
+                      </div>
+                      <div class="col-md-4">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Submitted On</label>
+                         </div>
+                      </div>
+                      <div class="col-md-4">
+                         <div class="form-group form-md-line-input has-info">
+                             <input type="text" class="form-control" readonly="" id="theft_name">
+                             <label for="registered_source"> Source</label>
+                         </div>
+                      </div>
+                      <div class="col-md-6">  
+                            <div class="form-group form-md-line-input has-info ">
+                                <label >Rating</label> &nbsp; &nbsp;
+                                <span><i class="fa fa-star" aria-hidden="true"></i>
+                                      <i class="fa fa-star" aria-hidden="true"></i>
+                                      <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                            </div>                            
+                      </div>
+                      <div class="col-md-6">                            
+                            <div class="form-group form-md-line-input has-info ">
+                                <textarea class="form-control" readonly id="vigilance_remark"></textarea>
+                                <label >Remark</label>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  Models End -->
 <!--  Models Start -->
 <div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -1240,14 +1298,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Service Requested Details</h4></div>
+                <h4 class="modal-title">Service Request Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:240px;" data-always-visible="1" data-rail-visible1="1">
+                <div class="scroller" style="height:220px;" data-always-visible="1" data-rail-visible1="1">
                     <h4><b><span id="c_name"></span>&nbsp;(<span id="c_no"></span>)</b></h4>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" id="text_service_request" readonly rows="4"></textarea>
+                                <textarea class="form-control" id="text_service_request" readonly rows="2"></textarea>
                                 <label>Service Request</label>
                             </div>
                         </div>

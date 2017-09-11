@@ -253,6 +253,17 @@
                                     </h3>
                                 </div>
                             </div>
+                            <!--  <div class="caption font-dark custom-left-margin">
+                                <div class="row">
+                                    <h3 class="page-title custom-top-margin" style="margin-top: -4px;	margin-bottom:0px"> {{total}}
+                                        <small>Total</small>
+                                        | {{open}}
+                                        <small>Open</small>
+                                        | {{closed}}
+                                        <small>Closed</small>
+                                    </h3>
+                                </div>
+                            </div> -->
                             <div class="actions">
                                 <div class="btn-group btn-group-devided">
                                         <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm" onclick="reload_vigilance()">
@@ -394,7 +405,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="form-group form-md-line-input has-info">
-                                <textarea class="form-control" readonly id="court_remark" rows="2"></textarea>
+                                <textarea class="form-control" readonly id="court_remark" ></textarea>
                                 <label >Court Remark</label>
                             </div>
                         </div>
@@ -439,7 +450,7 @@
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
                                 <input type="text" class="form-control" readonly="" id="consumer_zone">
-                                <label for="consumer_zone">Zone</label>
+                                <label for="consumer_zone">Sub-division</label>
                             </div>
                         </div>
                     </div>
@@ -453,7 +464,7 @@
                         <div class="col-md-6">
                             <div class="form-group form-md-line-input has-info">
                                 <input type="text" class="form-control" readonly="" id="route_code">
-                                <label for="route_code">Route Code</label>
+                                <label for="route_code">Binder</label>
                             </div>
                         </div>
                     </div>
