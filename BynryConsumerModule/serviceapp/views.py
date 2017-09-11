@@ -93,7 +93,7 @@ def get_service_data(request):
             'consumer_no' : '11111111111',
             'consumer_name' : 'ASD',
             'service_source' : 'Mobile',
-            'service_status' : '<a data-toggle="modal" data-target="#assign_job">Assigned</a>',
+            'service_status' : '<a data-toggle="modal" data-target="#assign_job">Open</a>',
 
         } 
         service_list.append(service_data)
