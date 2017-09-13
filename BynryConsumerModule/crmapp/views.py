@@ -439,3 +439,114 @@ def save_vigilance_complaint(request):
             'message':str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
+    
+    
+def consumer_details(request):
+    
+    try:
+        print 'cti-crm|views.py|consumer_details'
+        data = {}
+        final_list = []
+        try:
+            last_month_list = []
+            month_list1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+            month_list2 = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+            pre_Date = datetime.now()
+            pre_Month = pre_Date.month
+            pre_Year = pre_Date.year
+            for i in range(6):
+                last_Year = pre_Year
+                last_Month = pre_Month - i
+                if last_Month <= 0:
+                    last_Month = 12 + last_Month
+                    last_Year = pre_Year - 1
+                month1 = month_list1[last_Month - 1] + '-' + str(last_Year)
+                month2 = month_list2[last_Month - 1] + '-' + str(last_Year)
+                last_month_list.append({'month1': month1, 'month2': month2})
+
+            consumer_obj = ConsumerDetails.objects.get(id=request.GET.get('consumer_id'))
+            address_line_1 = consumer_obj.address_line_1
+            address_line_2 = consumer_obj.address_line_2
+            address = address_line_1 + ', ' + address_line_2
+
+            vigilanceType = VigilanceType.objects.filter(is_deleted=False)
+            complaintType = ComplaintType.objects.filter(is_deleted=False)
+            serviceType = ServiceRequestType.objects.filter(is_deleted=False)
+            consumer_data = {
+                'consumer_id': request.GET.get('consumer_id'),
+                'name': consumer_obj.name,
+                'consumer_no': consumer_obj.consumer_no,
+                'aadhar_no': consumer_obj.aadhar_no,
+                'address': address,
+                'contact_no': consumer_obj.contact_no,
+                'email_id': consumer_obj.email_id,
+                'zone_name': str(consumer_obj.zone.zone_name),
+                'billcycle': str(consumer_obj.bill_cycle.bill_cycle_code),
+                'route': str(consumer_obj.route.route_code),
+                'utility': consumer_obj.Utility.utility,
+                'connection_status':consumer_obj.connection_status,
+                'status_reason':consumer_obj.status_reason,
+                'updated_on':consumer_obj.updated_on.strftime('%d %b %Y'),
+                'meter_no': consumer_obj.meter_no,
+                'meter_category': consumer_obj.meter_category,
+                'sanction_load': consumer_obj.sanction_load,
+                'pole_no': consumer_obj.pole_no,
+                'latitude': consumer_obj.latitude,
+                'longitude': consumer_obj.longitude,
+                'special_remark_location': consumer_obj.special_remark_location,
+            }
+
+            try:
+                meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj).last()
+                # payment_obj = PaymentDetail.objects.filter(consumer_id=request.GET.get('consumer_id')).first()
+
+                if meter_obj.bill_unit and meter_obj.adjusted_unit:
+                    total_reading = int(meter_obj.bill_unit) - int(meter_obj.adjusted_unit)
+                else:
+                    total_reading = meter_obj.bill_unit
+
+                total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
+                total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
+                net_bill_amount = total_charges + total_arrears
+
+                consumer_address = str(consumer_obj.address_line_1)
+                if consumer_obj.address_line_2:
+                    consumer_address = consumer_address + ', ' + str(consumer_obj.address_line_2)
+
+                payment_data = {
+                    'consumer_no': consumer_obj.name,
+                    'address': consumer_address,
+                    'bill_month': str(meter_obj.bill_month),
+                    'consumption': str(total_reading),
+                    'current_month_reading': str(meter_obj.current_month_reading),
+                    'previous_month_reading': str(meter_obj.previous_month_reading),
+                    'current_reading_date': meter_obj.current_reading_date.strftime('%d %b %Y'),
+                    'prompt_date': meter_obj.prompt_date.strftime('%d %b %Y'),
+                    'current_amount': str(total_charges),
+                    'tariff_rate': str(meter_obj.tariff),
+                    'net_amount': str(net_bill_amount),
+                    'bill_amount_after_due_date': meter_obj.bill_amount_after_due_date,
+                    'prompt_amount': str(meter_obj.prompt_amount),
+                    'due_date': meter_obj.due_date.strftime('%d %b %Y'),
+                }
+            except Exception, e:
+                print 'Exception|consumerapp|views.py|consumer_details', e
+                payment_data = {}
+
+            data = {
+                'success': 'true',
+                'data': consumer_data,
+                'last_month_list': last_month_list,
+                'vigilanceType': vigilanceType,
+                'complaintType': complaintType,
+                'serviceType': ServiceRequestType.objects.filter(is_deleted=False),
+                'payment_data': payment_data
+            }
+        except Exception as e:
+            print 'Exception|consumerapp|views.py|consumer_details', e
+            data = {'success': 'false', 'message': 'Error in  loading page. Please try after some time'}
+    except Exception, e:
+        print 'Exception|consumerapp|views.py|consumer_details', e
+    return render(request, 'crmapp/crm_consumer_details.html', data)
+    
+    

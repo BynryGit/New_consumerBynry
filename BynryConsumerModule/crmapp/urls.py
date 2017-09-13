@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^bills/', views.bills, name='bills'),
     url(r'^get-bill-history/', views.get_bill_history, name='get_bill_history'),
     url(r'^view-bill/', views.view_bill, name='view_bill'),
+    url(r'^consumer-details/', views.consumer_details,name='consumer_details'),
 ]

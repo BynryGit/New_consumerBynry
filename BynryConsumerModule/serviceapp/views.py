@@ -96,7 +96,6 @@ def get_service_data(request):
 
             #'service_status' : '<a data-toggle="modal" data-target="#assign_job">Assigned</a>',
             'service_status' : 'Open',
-            #'service_status' : '<a data-toggle="modal" data-target="#assign_job">Assigned</a>',
             'service_status1' : '<a data-toggle="modal" data-target="#assign_job">Open</a>',
 
         } 
