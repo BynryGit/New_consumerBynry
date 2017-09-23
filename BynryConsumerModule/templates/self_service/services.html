@@ -152,10 +152,10 @@
                                         <input type="hidden" id="cons_id" value="{{ consumer_id }}">
                                         <div class="col-md-3">
                                             <div class="form-group form-md-line-input has-success">
-                                                <!-- <select id="service_type" style="margin-top: 4px;"
+                                                	<!-- <select id="service_type" style="margin-top: 4px;"
                                                         class="form-control input-sm select2-multiple" onchange="change_service_category();"> -->
-																	<select id="service_type" style="margin-top: 4px;"
-                                                        class="form-control input-sm select2-multiple" >                                                    
+																	 <select id="service_type" style="margin-top: 4px;"
+                                                        class="form-control input-sm select2-multiple" >                                                     
                                                     <option value="" > Select Service Type</option>
                                                     {% for type in serviceType %}                                                    		
                                                         <option value="{{ type.id }}"> {{ type.request_type }} </option>
@@ -167,7 +167,8 @@
                                                   style="margin-top: -29px;color:red;"></span>
                                         </div>
                                         
-                                        <div class="col-md-9" id="mtr_change">
+                                        <!-- ------------------ Meter Change---------------- -->
+                                        <div class="col-md-9 display-none" id="mtr_change">
 	                                        <div class="col-md-9" id="remark" >
 	                                            <div class="form-group">
 	                                                <div class="form-group form-md-line-input has-success">
@@ -189,6 +190,100 @@
 	                                            </div>
 	                                        </div>
 	                                     </div>   
+	                                     
+	                                     <!-- ------------------ Voluntary Disconnection---------------- -->
+	                                     <div class="col-md-9 display-none" id="disconnect">
+	                                        <div class="col-md-9">
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-success">
+	                                                    <textarea id="disconnection_reason" style="height: 35px;" type="text"
+	                                                              class="form-control" maxlength="500"></textarea>
+	                                                    <label>Reason </label>
+	                                                </div>
+	                                            </div>
+	                                            <span class="disconnection_reason_error"
+	                                                  style="margin-top: -15px;color:red;"></span>
+	                                        </div>
+	                                        <div class="col-md-2" style="text-align:right;" >
+	                                            <div class="btn-group btn-group-devided">
+	                                                <button type="button" style="margin-top: 27px;"
+	                                                        class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                        onclick="service_request();">
+	                                                    Submit
+	                                                </button>
+	                                            </div>
+	                                        </div>
+	                                     </div> 
+	                                     
+	                                     <!-- ------------------ Reconnection---------------- -->
+													<div class="col-md-9 display-none" id="reconnect">
+	                                        <div class="col-md-9">
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-success">
+	                                                    <textarea id="disconnection_reason" style="height: 35px;" type="text"
+	                                                              class="form-control" maxlength="500"></textarea>
+	                                                    <label>Reason </label>
+	                                                </div>
+	                                            </div>
+	                                            <span class="disconnection_reason_error"
+	                                                  style="margin-top: -15px;color:red;"></span>
+	                                        </div>
+	                                        <div class="col-md-2" style="text-align:right;" >
+	                                            <div class="btn-group btn-group-devided">
+	                                                <button type="button" style="margin-top: 27px;"
+	                                                        class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                        onclick="service_request();">
+	                                                    Submit
+	                                                </button>
+	                                            </div>
+	                                        </div>
+	                                     </div> 	                                     
+	                                     
+	                                     <!-- ------------------ Update Data---------------- -->
+													<div class="col-md-9 display-none" id="update_data">
+	                                        <div class="col-md-3" id="k_no" >
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-success">
+	                                                    <textarea id="k_no" style="height: 35px;" type="text"
+	                                                              class="form-control" maxlength="500"></textarea>
+	                                                    <label>Enter K No. </label>
+	                                                </div>
+	                                            </div>
+	                                            <span class="k_no_error"
+	                                                  style="margin-top: -15px;color:red;"></span>
+	                                        </div>
+	                                        <div class="col-md-3" id="mob_no" >
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-success">
+	                                                    <textarea id="mob_no" style="height: 35px;" type="text"
+	                                                              class="form-control" maxlength="500"></textarea>
+	                                                    <label>Enter Mobile No. </label>
+	                                                </div>
+	                                            </div>
+	                                            <span class="mob_no_error"
+	                                                  style="margin-top: -15px;color:red;"></span>
+	                                        </div>
+	                                        <div class="col-md-3" id="email_id" >
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-success">
+	                                                    <textarea id="email_id" style="height: 35px;" type="text"
+	                                                              class="form-control" maxlength="500"></textarea>
+	                                                    <label>Enter Email ID </label>
+	                                                </div>
+	                                            </div>
+	                                            <span class="email_id_error"
+	                                                  style="margin-top: -15px;color:red;"></span>
+	                                        </div>
+	                                        <div class="col-md-2" style="text-align:right;" >
+	                                            <div class="btn-group btn-group-devided">
+	                                                <button type="button" style="margin-top: 27px;"
+	                                                        class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                        onclick="service_request();">
+	                                                    Submit
+	                                                </button>
+	                                            </div>
+	                                        </div>
+	                                     </div> 	 
 	                                     
 	                                     <!-- <div class="col-md-6" id="disconnect">
 	                                        <div class="col-md-6" id="disconnection_reason" >
@@ -305,7 +400,40 @@
                         </div>
                     </div>
                 </div>
+                
+					 <div class="page-content-inner">
+                    <div class="row">
+                        <div class="portlet light bordered">
+                            <div class="portlet-body">
+                                <label class="bold">Service Status :</label>
+                                <br>
 
+                                <div class="tab-pane fade active in" id="tab_1_1">
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-body">
+                                            <table class="table table-striped table-bordered table-hover"
+                                                   id="consumer_service_table">
+                                                <thead>
+                                                <tr>
+                                                    <th> Service Id</th>
+                                                    <th> Type</th>
+                                                    <th> Remark</th>
+                                                    <th> Raised Date</th>
+                                                    <th> Fieldman</th>
+                                                    <th> Status</th>
+                                                </tr>
+                                                </thead>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix margin-bottom-20"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="page-content-inner" id="confirm_service_msg" hidden="">
                     <div class="row">
                         <div class="portlet light bordered">
@@ -372,13 +500,21 @@
 </div>
 </div>
 
-<div id="complaint_register_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="service_register_modal" class="modal fade" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
-                    <label class="bold">Your Complaint ID - 2787566 is successfully registered with us. We will contact
-                        you soon.</label>
+                    <!-- <label class="bold">Your Service ID - 2787566 is successfully registered with us. We will contact
+                        you soon.</label> -->
+                        <p>Thanks for interest in our service. Kindly note the
+                           reference no. for future.</p>
+
+                        <p>Service ID : <b>SERVICE45685</b></p>
+
+                        <p>Please download the service form from your registered
+                            email id and submit it at nearest CSD center with
+                            supporting documents.</p>
                 </div>
                 <div class="modal-footer" style="text-align:center;">
                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">OK</button>
@@ -490,7 +626,8 @@ function verify_kno() {
                 success: function (response) {
                     if (response.success == 'true') {
                         $("#service_ID").text(response.service_no);
-                        document.getElementById("confirm_service_msg").removeAttribute("hidden");
+                        $("#service_register_modal").modal('show');
+                        //document.getElementById("confirm_service_msg").removeAttribute("hidden");
                     }
                 },
                 error: function (response) {
@@ -529,7 +666,78 @@ function verify_kno() {
             return false;
         }
     }
+    
+    var initTable1 = function () {
 
+        var table = $('#consumer_service_table');
+
+        var fixedHeaderOffset = 0;
+        if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
+            if ($('.page-header').hasClass('page-header-fixed-mobile')) {
+                fixedHeaderOffset = $('.page-header').outerHeight(true);
+            }
+        } else if ($('.page-header').hasClass('navbar-fixed-top')) {
+            fixedHeaderOffset = $('.page-header').outerHeight(true);
+        }
+
+        var oTable = table.dataTable({
+            "bDestroy": true,
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            //setup rowreorder extension: http://datatables.net/extensions/fixedheader/
+            fixedHeader: {
+                header: true,
+                headerOffset: fixedHeaderOffset
+            },
+
+            "order": [
+                [0, 'asc']
+            ],
+            "ajax": "/self-service/get-consumer-service-details/",
+            "columns": [
+                {"data": "serviceID"},
+                {"data": "serviceType"},
+                {"data": "closureRemark"},
+                {"data": "serviceDate"},                
+                {"data": "serviceoperator"},                
+                {"data": "serviceStatus"}
+            ],
+
+            buttons: [
+                {extend: 'print', className: 'btn dark btn-outline'},
+                {extend: 'pdf', className: 'btn green btn-outline'},
+                {extend: 'excel', className: 'btn yellow btn-outline '},
+                {extend: 'csv', className: 'btn purple btn-outline '},
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 10,
+
+            //"dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+        });
+        $('#online_payment_table_tools > li > a.tool-action').on('click', function () {
+            var action = $(this).attr('data-action');
+            oTable.DataTable().button(action).trigger();
+        });
+    }
+
+initTable1();
 </script>
 
 </body>

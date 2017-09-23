@@ -30,9 +30,10 @@ class ComplaintType(models.Model):
 
 class ComplaintDetail(models.Model):
     COMPLAINT_STATUS = (
-        ('WIP', 'WIP'),
-        ('Closed', 'Closed'),
-        ('Open', 'Open'),
+        ('Sent', 'Sent'),
+        ('In Progress', 'In Progress'),
+        ('Unresolved', 'Unresolved'),
+        ('Resolved', 'Resolved'),
     )
 
     COMPLAINT_SOURCE = (

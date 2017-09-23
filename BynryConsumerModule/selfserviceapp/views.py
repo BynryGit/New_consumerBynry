@@ -123,7 +123,7 @@ def my_bills(request):
             'net_amount': str(net_bill_amount),
             'payment_status': payment_status,
             'prompt_date': consumer_obj.prompt_date,
-            'due_date': consumer_obj.due_date
+            'due_date': consumer_obj.due_date            
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|my_bills', exe
@@ -465,6 +465,7 @@ def get_consumer_complaint_details(request):
                 'complaintType': complaints.complaint_type_id.complaint_type,
                 'closureRemark': complaints.remark,
                 'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
+                'complaintoperator': 'Steve Smith',
                 'complaintStatus': complaints.complaint_status
             }
             complaint_list.append(complaint_data)
@@ -568,6 +569,34 @@ def service_request(request):
         data = {'success': 'true', 'service_no': service_no}
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|service_request', exe
+        data = {'success': 'false', 'error': 'Exception ' + str(exe)}
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def get_consumer_service_details(request):
+    """to get service details"""
+    try:
+        service_list = []
+        print 'selfserviceapp|views.py|get_consumer_service_details'
+        # filter complaint by complaint id
+        consumer_id = ConsumerDetails.objects.get(id=request.session['consumer_id']) if request.session[
+            'consumer_id'] else None
+        print '---------consumer------', consumer_id
+        services_list = ServiceRequest.objects.filter(consumer_id=consumer_id)
+        # complaint detail result
+        for services in services_list:
+            service_data = {
+                'serviceID': services.service_no,
+                'serviceType': services.service_type.request_type,
+                'closureRemark': services.consumer_remark,
+                'serviceDate': services.created_date.strftime('%B %d, %Y %I:%M %p'),
+                'serviceoperator': 'Steve Smith',
+                'serviceStatus': services.status
+            }
+            service_list.append(service_data)
+        data = {'success': 'true', 'data': service_list}
+
+    except Exception as exe:
+        print 'Exception|selfserviceapp|views.py|get_consumer_service_details', exe
         data = {'success': 'false', 'error': 'Exception ' + str(exe)}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -693,6 +722,7 @@ def get_consumer_bill_data(request):
             'success': 'false',
             'message': str(e)
         }
+    data = {'success': 'true'}
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 

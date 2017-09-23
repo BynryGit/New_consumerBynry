@@ -133,145 +133,414 @@
                       </li>
                    </ul>
                 <!-- END PAGE BREADCRUMBS -->
-                <div class="page-content-inner">
+                <div class="page-content-inner ">
                     <div class="row">
-                        <div class="portlet light bordered">
+                        <div class="portlet light bordered col-md-6">
                             <div class="portlet-body">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <label class="bold">Current Month Bill :</label>
                                     </div>
+                                    <div class="col-md-offset-5 col-md-1">                                         
+                                          <input type="button" style="margin-left: -33px;" onclick="quick_pay()"
+                                          class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                          value="New">                                        
+                                    </div>
                                     <br>
                                     <br>
+                                    <div class="col-md-5">
+	                                    <div class="row " style="margin-bottom:20px; margin-left: 15px;">	                                        	                                         
+	                                             <img id="complaint_image" class="border"
+	                                                  src="/home/hduser/Pictures/valmont-street-lighting-standard-dodge-omahane.jpg"
+	                                                  style=" width:100%; height:185px;">	                                        	                                        	
+	                                     </div>
+                                     </div>
+                                    <div class="col-md-offset-1 col-md-6">
+                                    	<div class="row ">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group form-md-line-input has-info">
+                                                    <input type="text" class="form-control" readonly
+
+                                                           value="Sept 2017">
+                                                    <label>Month : </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group form-md-line-input has-info">
+                                                    <input type="text" class="form-control"
+                                                           readonly=""
+                                                           value="5684">
+                                                    <label>Readings </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="row ">
+	                                        <div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-info">
+	                                                    <input type="text" class="form-control"
+	                                                           readonly=""
+	                                                           value="2017-10-05">
+	                                                    <label>Due Date </label>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                        <div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-info">
+	                                                    <input type="text" style="font-size: 23px;" class="form-control"
+	                                                           readonly=""
+	                                                           value="Rs. 5000">
+	                                                    <label>Amount </label>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                        <div class="row ">
+                                        	<div class="col-md-12" style="text-align:right;margin-top: 15px;">
+	                                         {% if payment_status == 'Not Paid' %}
+	                                            <a href="/self-service/view-bill/" target="_blank">
+	                                                <input type="button"
+	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                value="View & Pay">
+	                                            </a>
+	                                         {% else %}
+	                                         	   <a href="/self-service/view-bill/" target="_blank">
+	                                                <input type="button"
+	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                value="View Bill">
+	                                            </a>
+	                                         		                                       
+				                                          <input type="button"  onclick="pay_now()"
+				                                          class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+				                                          value="Pay">                                        
+				                                    
+	                                         {% endif %}
+	                                        </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="portlet light bordered col-md-6">
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="bold">Prev Month Bill :</label>
+                                    </div>
+                                    
+                                    <br>
+                                    <br>
+                                    <div class="col-md-5">
+	                                    <div class="row " style="margin-bottom:20px; margin-left: 15px;">	                                        	                                         
+	                                             <img id="complaint_image" class="border"
+	                                                  src="/home/hduser/Pictures/valmont-street-lighting-standard-dodge-omahane.jpg"
+	                                                  style=" width:100%; height:185px;">	                                        	                                        	
+	                                     </div>
+                                     </div>
+                                    <div class="col-md-offset-1 col-md-6">
+                                    	<div class="row ">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group form-md-line-input has-info">
+                                                    <input type="text" class="form-control" readonly
+                                                           value="Aug 2017">
+                                                    <label>Month : </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group form-md-line-input has-info">
+                                                    <input type="text" class="form-control"
+                                                           readonly=""
+                                                           value="4355">
+                                                    <label>Readings </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="row ">
+	                                        <div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-info">
+	                                                    <input type="text" class="form-control"
+	                                                           readonly=""
+	                                                           value="2017-09-05">
+	                                                    <label>Due Date </label>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                        <div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <div class="form-group form-md-line-input has-info">
+	                                                    <input type="text" style="font-size: 23px;" class="form-control"
+	                                                           readonly=""
+	                                                           value="Rs. 3658">
+	                                                    <label>Amount </label>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                        <div class="row ">
+                                        	<div class="col-md-12" style="text-align:right;margin-top: 15px;">
+	                                         {% if payment_status == 'Not Paid' %}
+	                                            <a href="/self-service/view-bill/" target="_blank">
+	                                                <input type="button"
+	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                value="View & Pay">
+	                                            </a>
+	                                         {% else %}
+	                                         	   <a href="/self-service/view-bill/" target="_blank">
+	                                                <input type="button"
+	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                value="View Bill">
+	                                            </a>
+	                                         		                                       
+				                                          <!-- <input type="button"  onclick="pay_now()"
+				                                          class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+				                                          value="Pay">      -->                                   
+				                                    
+	                                         {% endif %}
+	                                        </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+					<div class="page-content-inner display-none" id="quick_pay_div">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN PROFILE CONTENT -->
+                            <div class="profile-content">
+                                <div class="row">
                                     <div class="col-md-12">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control" readonly
+                                        <div class="portlet light ">
+                                            <div class="portlet-body">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-globe theme-font hide"></i>
+                                                    <span class="caption-subject font-blue-madison bold uppercase">Quick Pay</span>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-success">
+                                                                <label for="consumer_number">Consumer No. <span
+                                                                        class="required"> *  </span>
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="consumer_number"
+                                                                       name="consumer_number">
+                                                                <span id="error_consumer_number" class="error"
+                                                                      style="color:red; display:none;">Please enter Consumer No.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-success">
+                                                                <label for="consumer_type">Consumer Type<span
+                                                                        class="required"> *</span></label>
+                                                                <select id="consumer_type"
+                                                                        class="form-control input-sm select2-multiple">
+                                                                    <option value=""> Select Consumer Type</option>
+                                                                    <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
+                                                                    <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
+                                                                    <option value="3-EHV">3-EHV</option>
+                                                                </select>
+                                                                <span id="error_consumer_type" class="error"
+                                                                      style="color:red; display:none;">Please select Consumer Type</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-success">
+                                                                <label for="bill_cycle">Bill Cycle<span
+                                                                        class="required"> *</span></label>
+                                                                <select id="bill_cycle"
+                                                                        class="form-control input-sm select2-multiple">
+                                                                    <option value=""> Select Bill Cycle</option>
+                                                                    <!-- {% for bill_cycle in bill_cycle_list %}
+                                                                        <option value="{{bill_cycle.bill_cycle_id}}"> {{ bill_cycle.bill_cycle_code }}
+                                                                        </option>
+                                                                    {% endfor %} -->
+                                                                    <option value="1"> BC 001 </option>
+                                                                    <option value="2"> BC 002 </option>
+                                                                </select>
+                                                                <span id="error_bill_cycle" class="error"
+                                                                       style="color:red; display:none;">Please select Bill Cycle</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3"
+                                                             style="text-align: right; margin-top: 48px;">
+                                                            <button type="button"
+                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                    onclick="search_bill()" style="width: 89px;">
+                                                                Submit
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                    onclick="clear_search()" style="width: 89px;">
+                                                                Clear
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span id="error_bill_data" class="error"
+                                                                style="color:red; display:none;">No record found</span>
+                                                        </div>
+                                                    </div>
 
-                                                           value="{{consumer_no}}">
-                                                    <label>Consumer No. </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{name}}">
-                                                    <label>Consumer Name </label>
+                                        <div class="portlet light display-none" id="bill_details_div">
+                                            <div class="portlet-body">
+                                                <div class="caption caption-md">
+                                                        <i class="icon-globe theme-font hide"></i>
+                                                        <span class="caption-subject font-blue-madison bold uppercase">Bill Details</span>
+                                                    </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_number">Consumer Number </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="con_number" readonly
+                                                                       name="con_number">
+                                                                <label id="con_number_error" class="error"
+                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_name">Consumer
+                                                                    Name </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="con_name" readonly
+                                                                       name="con_name">
+                                                                <label class="error"
+                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_bill_cycle">Bill Cycle</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="con_bill_cycle" readonly
+                                                                       name="con_bill_cycle">
+                                                                <label class="error"
+                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="con_bill_month">Bill Month </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="con_bill_month" readonly
+                                                                       name="con_bill_month">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{bill_cycle}}">
-                                                    <label>Bill Cycle Name </label>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="current_amount">Current Amount </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="current_amount" readonly
+                                                                       name="current_amount">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="prev_due">Previous Due
+                                                                    <small>(Arrears)</small>
+                                                                </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="prev_due" readonly
+                                                                       name="prev_due">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="net_amount">Net Amount </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="net_amount" readonly
+                                                                       name="net_amount">
+                                                                <label class="error"
+                                                                       style="color:red; display:none; font-size: 12px;"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="due_date">Due Date </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="due_date" readonly
+                                                                       name="due_date">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{unit_consumed}}">
-                                                    <label>Consumption </label>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="prompt_date">Prompt Date </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="prompt_date" readonly
+                                                                       name="prompt_date">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group form-md-line-input has-info">
+                                                                <label for="prompt_amount">Prompt Amount </label>
+                                                                <input type="text" class="form-control"
+                                                                       id="prompt_amount" readonly
+                                                                       name="prompt_amount">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-offset-4 col-md-2" style="text-align: right;">
+                                                        <a type="button" target="_blank"
+                                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                onclick="pay_now()" style="width: 89px; margin-top:49px;">
+                                                            Pay Now
+                                                        </a>
+                                                    </div>
+                                                    </div>
+                                                    
                                                 </div>
+                                                <!-- <div class="row">
+                                                    <div class="col-md-12" style="text-align: right;">
+                                                        <a type="button" target="_blank"
+                                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                                                onclick="pay_now()" style="width: 89px;">
+                                                            Pay Now
+                                                        </a>
+                                                    </div>
+                                                </div> -->
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">  
-                                    	<div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{bill_amount}}">
-                                                    <label>Bill Amount </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{total_arrears}}">
-                                                    <label>Total Arrears </label>
-                                                </div>
-                                            </div>
-                                        </div>                                    
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{net_amount}}">
-                                                    <label>Net Amount </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control" readonly
-
-                                                           value="{{prompt_date}}">
-                                                    <label>Prompt Payment Date </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{due_date}}">
-                                                    <label>Due Date </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-group form-md-line-input has-info">
-                                                    <input type="text" class="form-control"
-                                                           readonly=""
-                                                           value="{{payment_status}}">
-                                                    <label>Payment Status </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">                                                                                
-                                        <div class="col-md-12" style="text-align:right;margin-top: 25px;">
-                                         {% if payment_status == 'Not Paid' %}
-                                            <a href="/self-service/view-bill/" target="_blank">
-                                                <input type="button"
-                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                value="View & Pay">
-                                            </a>
-                                         {% else %}
-                                         		<a href="/self-service/view-bill/" target="_blank">
-                                                <input type="button"
-                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                value="View">
-                                            </a>
-                                         {% endif %}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="page-content-inner">
+                </div>                
+                
+               <!--  <div class="page-content-inner">
                     <div class="row">
-                        <div class="portlet light bordered">
+                        <div class="portlet light bordered col-md-6">
                             <div class="portlet-body">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -290,14 +559,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Bill and Payment Tables  -->
                 <div class="page-content-inner">
                     <div class="row">
                         <div class="portlet light bordered">
                             <div class="portlet-body">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="tab-pane fade active in" id="tab_1_1">
                                         <div class="portlet light bordered">
                                             <div class="portlet-title">
@@ -366,7 +635,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                
+                                <div class="clearfix margin-bottom-20"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-content-inner">
+                    <div class="row">
+                        <div class="portlet light bordered">
+                            <div class="portlet-body">
+                                
+                                <div class="col-md-12">
                                     <div class="tab-pane fade active in" id="tab_1_1">
                                         <div class="portlet light bordered">
                                             <div class="portlet-title">
@@ -446,6 +727,23 @@
 </div>
 <!-- END PAGE CONTENT BODY -->
 <!-- END CONTENT BODY -->
+
+
+<div id="pay_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Payment Details</h4></div>
+            <div class="modal-body">
+                <label>Payment has been done successfully.</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onClick="window.location.reload()" class="btn dark btn-outline">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
@@ -488,6 +786,9 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script type="text/javascript">
+
+
+
 	$("#my_bills").addClass("active");
 
     function get_graph_data1(){
@@ -737,6 +1038,96 @@
     }
     initTable2();    
     
+function pay_now(){
+        //window.print();
+        $("#pay_modal").modal("show");
+    }
+
+//--------------------------Quick Pay Code----------------------------
+
+//--------------------------- 1------------------------------
+ function search_bill(){
+        if(validate_bill_data()){
+            $.ajax({
+                type: 'GET',
+                url: '/self-service/get-consumer-bill-data/',
+                data: {
+                    'consumer_number': $("#consumer_number").val(),
+                    'consumer_type': $("#consumer_type").val(),
+                    'bill_cycle': $("#bill_cycle").val(),
+                },
+                success: function (response) {
+                console.log(response);
+                    if (response.success == 'true') {
+                        $('#con_number').val("3101112233");
+                        $('#con_name').val("Vivek Kurhe");
+                        $('#con_bill_cycle').val("BC 001");
+                        $('#con_bill_month').val("Sep 2017");
+                        $('#current_amount').val("1521");
+                        $('#prev_due').val("25/08/2017");
+                        $('#net_amount').val("1521");
+                        $('#due_date').val("02/10/2017");
+                        $('#prompt_date').val("27/09/2017");
+                        $('#prompt_amount').val("1515");
+                        $("#error_bill_data").css("display","none");
+                        $("#bill_details_div").removeClass("display-none");
+                    }
+                    if (response.success == 'no bill') {
+                        $("#bill_details_div").addClass("display-none");
+                        $("#error_bill_data").text("No pending bills");
+                        $("#error_bill_data").css("display","block");
+                    }
+                    if (response.success == 'false') {
+                        $("#bill_details_div").addClass("display-none");
+                        $("#error_bill_data").text("No record found");
+                        $("#error_bill_data").css("display","block");
+                    }
+                },
+                error: function (response) {
+                    $("#bill_details_div").addClass("display-none");
+                },
+            });
+
+        }
+        else{
+            $("#bill_details_div").addClass("display-none");
+        }
+    }
+
+//----------------------------2------------------------------
+function validate_bill_data() {
+        if(validate_data("consumer_number","error_consumer_number") & validate_data("consumer_type","error_consumer_type") & validate_data("bill_cycle","error_bill_cycle")){
+            return true;
+        }
+    }
+
+    function validate_data(id,error) {
+	 	if ($("#"+id).val()) {
+            $("#"+error).css("display","none");
+			return true;
+		}
+		else {
+			$("#"+error).css("display","block");
+            $("#"+error).css("color","red");
+			return false;
+		}
+	}
+	
+//------------------------3-------------------------------	
+function quick_pay(){                
+        $("#quick_pay_div").removeClass("display-none");
+    }
+
+//------------------------------4----------------
+function clear_search(){
+        $("#consumer_number").val("");
+        $("#consumer_type").val("").change();
+        $("#bill_cycle").val("").change();
+        $(".error").css("display","none");
+        $("#error_bill_data").css("display","none");
+        $("#bill_details_div").addClass("display-none");
+    }
+
 
 </script>
 </body>

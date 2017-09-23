@@ -38,9 +38,10 @@ class ServiceRequestSubType(models.Model):
 
 class ServiceRequest(models.Model):
     SERVICE_STATUS = (
-        ('WIP', 'WIP'),
-        ('Closed', 'Closed'),
-        ('Open', 'Open'),
+        ('Sent', 'Sent'),
+        ('In Progress', 'In Progress'),
+        ('Unresolved', 'Unresolved'),
+        ('Resolved', 'Resolved'),
     )
     SERVICE_SOURCE = (
         ('Mobile', 'Mobile'),
