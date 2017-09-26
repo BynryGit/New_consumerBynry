@@ -160,8 +160,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Complaint Details</h4></div>
             <div class="modal-body">
-                <div class="scroller" style="height:250px;" data-always-visible="1" data-rail-visible1="1">
-                    <div class="col-xs-12">
+                <div class="scroller" style="height:330px;" data-always-visible="1" data-rail-visible1="1">
+                    <!-- <div class="col-xs-12">
                         <h4><b><span id="cons_name"></span>&nbsp;(<span id="cons_no"></span>)</b></h4>
                         <div class="row">
 
@@ -193,6 +193,63 @@
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+                    <div class="col-md-12">
+                        <h4><b>Vikas Kumawat (CON123456)</b></h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="complaint_id" value="COMP64253">
+                                    <label for="complaint_id">Complaint Id</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="complaint_type" value="Meter Change">
+                                    <label for="complaint_type">Complaint Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="complaint_status" value="Open">
+                                    <label for="complaint_status">Status</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="raised_date">
+                                    <label for="raised_date">Raised on Date & Time</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info ">
+                                    <textarea class="form-control" id="complaint_remark" readonly rows="8">There is min cut of 4 hrs daily and we are using only 1 cooler for whole day and getting a avg unit consumption of 22 units per day.</textarea>
+                                    <label>Complaint</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="">
+                                <div class="w3-content w3-display-container">
+                                <div class="col-md-12">
+	                             <label> Image of Asset</label>
+	                             <form action="#" role="form">
+	                                 <div class="form-group">
+	                                     <div class="fileinput fileinput-new"
+	                                          data-provides="fileinput">
+	                                         <div class="fileinput-new thumbnail"
+	                                              style="width: 100%; min-height: 160px;">
+	                                             <img id="asset_image" src="{% static 'meter.jpg' %}" style="height: 151px !important;"
+	                                                  alt=""/></div>
+	                                     </div>
+	                                 </div>
+	                             </form>
+	                         </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

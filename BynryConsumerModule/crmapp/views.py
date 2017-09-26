@@ -38,8 +38,8 @@ import string
 def home(request):
     """To view complaints page"""
     print 'crmapp|views.py|home'
-    request.session['consumer_no'] = ''
-    request.session['consumer_data_id'] = ''
+    #request.session['consumer_no'] = ''
+    #request.session['consumer_data_id'] = ''
     data = {'city_list':get_city(request)}
     return render(request, 'crmapp/home.html', data)
 
@@ -76,6 +76,7 @@ def verify_new_consumer(request):
         print 'Exception|crmapp|views.py|verify_new_consumer', exe
         data = {'success': 'false'}
     return HttpResponse(json.dumps(data), content_type='application/json')
+    #return render(request, 'crmapp/crm_landing_screen.html', data)
 
 
 def complaints(request):
@@ -485,7 +486,7 @@ def consumer_details(request):
                 'route': str(consumer_obj.route.route_code),
                 'utility': consumer_obj.Utility.utility,
                 'connection_status':consumer_obj.connection_status,
-                'status_reason':consumer_obj.status_reason,
+                'status_reason':'',
                 'updated_on':consumer_obj.updated_on.strftime('%d %b %Y'),
                 'meter_no': consumer_obj.meter_no,
                 'meter_category': consumer_obj.meter_category,

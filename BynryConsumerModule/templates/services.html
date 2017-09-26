@@ -276,7 +276,7 @@
                                     <th> Action </th>
                                 </tr>
                                 </thead>  
-                                <tbody>
+                                <!-- <tbody>
 	                                	<tr>
 													<td> <a onclick="service_details()">SERVICE3422</a></td>
 													<td>  Meter Change</td>
@@ -289,7 +289,7 @@
 													                     
 	                                </tr>	  
 	                                                                                      
-                                </tbody>                                                               
+                                </tbody> -->                                                               
                             </table>
                         </div>
                     </div>
@@ -524,6 +524,12 @@
                                  <label>Field 2</label>
                              </div>
                             </div>
+                            <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-info ">
+                                <textarea class="form-control" readonly id="vigilance_remark"></textarea>
+                                <label >Remark</label>
+                            </div>
+                         </div> 
                          </div>  
                          <div class="col-md-6">  
                              <label> Image of Asset</label>
@@ -532,19 +538,14 @@
                                      <div class="fileinput fileinput-new"
                                           data-provides="fileinput">
                                          <div class="fileinput-new thumbnail"
-                                              style="width: 100%; min-height: 160px;">
-                                             <img id="asset_image" src="" style="height: 151px !important;"
+                                              style=" min-height: 160px;">
+                                             <img id="asset_image" src="{% static 'meter.jpg' %}" style="width: 100%;height: 160px !important;"
                                                   alt=""/></div>
                                      </div>
                                  </div>
                              </form>
                          </div>
-                         <div class="col-md-12">
-                            <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="vigilance_remark"></textarea>
-                                <label >Remark</label>
-                            </div>
-                         </div> 
+                         
                     </div>                                               
                 </div>
             </div>

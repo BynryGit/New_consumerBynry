@@ -57,7 +57,7 @@
     <div class="page-content-wrapper">
 			
         <div class="page-content">
-				<ul class="page-breadcrumb breadcrumb">
+				<!-- <ul class="page-breadcrumb breadcrumb">
                     <li>
                         <a href="/cti-crm/">Home</a>
                         <i class="fa fa-circle"></i>
@@ -65,7 +65,7 @@
                     <li>
                         <span>Profile</span>
                     </li>
-                </ul>
+                </ul> -->
           	<!-- <div class="row" style="margin-top: -15px;!important">
                 <div class="col-md-offset-11 col-md-1">
                    <a style="text-align:right;" href="/cti-crm/">Back</a>
@@ -115,14 +115,8 @@
                                                 <label >Contact No </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-11">
-                                            <div class="form-group form-md-line-input has-success">
-                                                <input type="text" class="form-control"
-                                                       value="{{data.email_id}}" readonly>
-                                                <label >Email </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-11">
+                                        
+                                        <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <input type="text" class="form-control"
                                                        value="{{data.zone_name}}"
@@ -130,7 +124,7 @@
                                                 <label >Sub-division </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-11">
+                                        <div class="col-md-5">
                                             <div class="form-group form-md-line-input has-success">
                                                 <input type="text" class="form-control"
                                                        value="{{data.billcycle}}"
@@ -138,7 +132,7 @@
                                                 <label >Bill Cycle </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-11">
+                                        <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <input type="text" class="form-control"
                                                        value="{{data.route}}"
@@ -146,20 +140,14 @@
                                                 <label >Binder </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-11">
+                                        <div class="col-md-5">
                                             <div class="form-group form-md-line-input has-success">
                                                 <input type="text" class="form-control"
                                                        value="{{data.utility}}" readonly>
                                                 <label >Utility </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-11">
-                                            <div class="form-group form-md-line-input has-success">
-                                                <input type="text" class="form-control"
-                                                       value="{{data.connection_status}}" readonly>
-                                                <label >Status </label>
-                                            </div>
-                                        </div>
+                                       
                                         {% if data.connection_status == 'Inactive'%}
                                         <div class="col-md-11">
                                             <div class="form-group form-md-line-input has-success">
@@ -201,9 +189,9 @@
                                             <li>
                                                 <a href="#tab_1_4" data-toggle="tab">Service Requests</a>
                                             </li>
-                                            <li>
+                                            <!-- <li>
                                                 <a href="#tab_1_5" data-toggle="tab">Vigilance</a>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <a href="#tab_1_6" data-toggle="tab">Feedback</a>
                                             </li>
@@ -242,7 +230,7 @@
                                                                          data-provides="fileinput">
                                                                         <div class="fileinput-new thumbnail"
                                                                              style="width: 200px; height: 150px;">
-                                                                            <img id="meter_image" src=""
+                                                                            <img id="meter_image" src="{% static 'meter.jpg' %}"
                                                                                  alt=""/></div>
                                                                         <div class="fileinput-preview fileinput-exists thumbnail"
                                                                              style="max-width: 200px; max-height: 150px;"></div>
@@ -311,41 +299,7 @@
                                         </div>
                                         <div class="portlet light bordered">
                                             <div class="portlet-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label><b> Meter Details :</b></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-info">
-                                                                <input type="text" class="form-control"
-                                                                       id="meter_no1" readonly
-                                                                       value="{{data.meter_no}}">
-                                                                <label >Meter No </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-info">
-                                                                <input type="text" class="form-control"
-                                                                       id="category" readonly
-                                                                       value="{{data.meter_category}}">
-                                                                <label >Category </label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                            <div class="form-group form-md-line-input has-info">
-                                                                <input type="text" class="form-control"
-                                                                       id="saction_load" readonly
-                                                                       value="{{data.sanction_load}}">
-                                                                <label >Sanction Load
-                                                                    (Watt)</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="row">
@@ -377,41 +331,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label> <b>Special Instruction for location :</b></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <div class="form-group form-md-line-input has-info">
-                                                                <input type="text" class="form-control"
-                                                                       id="special_instru" readonly
-                                                                       value="{{data.special_remark_location}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <br>
-                                                            <div id="edit_btn">
-					                                               <span style="float: right;">
-													           			  	  <input onclick="change_div(1)"
-                                                                                     type="button"
-                                                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                                     value="Edit">
-													           			  	  </span>
-                                                            </div>
-                                                            <div id="save_btn" style="display:none">
-					                                               <span style="float: right;">
-													           			  	  <input onclick="change_div(0)"
-                                                                                     type="button"
-                                                                                     class="btn btn-transparent dark btn-outline btn-circle btn-sm"
-                                                                                     value="Save">
-													           			  	  </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -755,6 +675,16 @@
                                                                 <th> Status</th>
                                                             </tr>
                                                             </thead>
+                                                            <tbody>
+										                                	<tr>
+																						<td> COMP01537</td>
+																						<td> Meter Burnt</td>
+																						<td> 25/08/2017	</td>
+																						<td> Web</td>
+																						<td> Closed</td>
+																						                          
+										                                </tr>	                                                    
+									                                </tbody>   
                                                         </table>
                                                     </div>
                                                 </div>
