@@ -162,15 +162,16 @@
                             <div class="portlet light ">
                                 <div class="row">
                                     {% if not request.session.login_user %}
-                                    <a href="/self-service/quick-pay/" class="box-text">
+                                    <a href="/self-service/add-NSC/" class="box-text">
                                         <div class="feature-item col-xs-3 text-center">
-                                            <i class="icon-wallet"></i>
-                                            <h3>Quick Pay</h3>
+                                            <i class="icon-user-follow"></i>
+                                            <h3>Apply for NSC</h3>
                                             <div class="desc">
                                                 <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
                                     </a>
+                                    
                                     <a href="/self-service/consumption-calculator/" class="box-text">
                                         <div class="feature-item col-xs-3 text-center">
                                             <i class="icon-bulb"></i>
@@ -189,10 +190,10 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="/self-service/add-NSC/" class="box-text">
+                                    <a href="/self-service/quick-pay/" class="box-text">
                                         <div class="feature-item col-xs-3 text-center">
-                                            <i class="icon-user-follow"></i>
-                                            <h3>Apply for New Service Connection</h3>
+                                            <i class="icon-wallet"></i>
+                                            <h3>Quick Pay</h3>
                                             <div class="desc">
                                                 <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
@@ -200,7 +201,7 @@
                                     </a>
                                     {% else %}
                                     <a href="/self-service/my-bills/" class="box-text">
-                                        <div class="feature-item col-xs-4 text-center">
+                                        <div class="feature-item col-xs-3 text-center">
                                             <i class="icon-bulb"></i>
                                             <h3>My Bills</h3>
                                             <div class="desc">
@@ -209,9 +210,27 @@
                                         </div>
                                     </a>
                                     <a href="/self-service/manage-accounts/" class="box-text">
-                                        <div class="feature-item col-xs-4 text-center">
+                                        <div class="feature-item col-xs-3 text-center">
                                             <i class="icon-user"></i>
                                             <h3>My Accounts</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/self-service/services/" class="box-text">
+                                        <div class="feature-item col-xs-3 text-center">
+                                            <i class="icon-energy"></i>
+                                            <h3>Service Request</h3>
+                                            <div class="desc">
+                                                <p>Pay bill instantly in simple steps, anywhere.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/self-service/complaints/" class="box-text">
+                                        <div class="feature-item col-xs-3 text-center">
+                                            <i class="fa fa-arrows-alt"></i>
+                                            <h3>Complaints</h3>
                                             <div class="desc">
                                                 <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
@@ -226,7 +245,7 @@
                                             <!--</div>-->
                                         <!--</div>-->
                                     <!--</a>-->
-                                    <a href="/self-service/my-tariff/" class="box-text">
+                                    <!-- <a href="/self-service/my-tariff/" class="box-text">
                                         <div class="feature-item col-xs-4 text-center">
                                             <i class="icon-calculator"></i>
                                             <h3>My Tariff</h3>
@@ -234,12 +253,12 @@
                                                 <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </a> -->
                                     {% endif %}
                                 </div>
                                 <div class="row">
                                     {% if request.session.login_user %}
-                                    <a href="/self-service/services/" class="box-text">
+                                    <!-- <a href="/self-service/services/" class="box-text">
                                         <div class="feature-item col-xs-4 text-center">
                                             <i class="icon-energy"></i>
                                             <h3>Request Services</h3>
@@ -256,8 +275,8 @@
                                                 <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a href="/self-service/vigilance/" class="box-text">
+                                    </a> -->
+                                    <!-- <a href="/self-service/vigilance/" class="box-text">
                                         <div class="feature-item col-xs-4 text-center">
                                             <i class="icon-fire"></i>
                                             <h3>Vigilance</h3>
@@ -265,7 +284,7 @@
                                                 <p>Pay bill instantly in simple steps, anywhere.</p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </a> -->
                                     {% endif %}
                                 </div>
                             </div>

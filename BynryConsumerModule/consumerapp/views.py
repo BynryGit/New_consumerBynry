@@ -35,6 +35,12 @@ from datetime import datetime
 SERVER_URL = "http://192.168.10.102:8080"
 
 
+def consumer_landing(request):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    else:        
+        return render(request, 'consumer_landing.html')
+
 def consumer_list(request):
     if not request.user.is_authenticated():
         return render(request, 'login.html')
@@ -60,7 +66,6 @@ def consumer_list(request):
             data = {}
             print 'Exception|consumerapp|views.py|consumer_list', e
         return render(request, 'consumer_list.html', data)
-
 
 def get_city(request):
     city_list = []

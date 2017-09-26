@@ -275,7 +275,21 @@
                                     <th> Status</th>
                                     <th> Action </th>
                                 </tr>
-                                </thead>                                                               
+                                </thead>  
+                                <tbody>
+	                                	<tr>
+													<td> <a onclick="service_details()">SERVICE3422</a></td>
+													<td>  Meter Change</td>
+													<td> September 09, 2017 08:56 AM	</td>
+													<td> <a onclick="consumer_details()">SWAPNILK0007</a></td>
+													<td> Swapnil Kadu</td>
+													<td> Mobile </td>
+													<td> Open </td>
+													<td> <a class="icon-paper-plane" data-toggle="modal" data-target="#assign_job"></a> </td>
+													                     
+	                                </tr>	  
+	                                                                                      
+                                </tbody>                                                               
                             </table>
                         </div>
                     </div>
@@ -290,13 +304,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Disconnection- Assign Job</h4>
+                <h4 class="modal-title">Assign Job</h4>
             </div>
             <div class="modal-body">
                 <div class="scroller" style="height:500px;" data-always-visible="1" data-rail-visible1="1">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <div class="row" style="padding-top: 9px;">
                                     <div class="col-md-3">
                                         <div class="form-group form-md-line-input has-success">
@@ -312,60 +326,74 @@
                                     </div>                                    
                                 </div>
                                 <hr style="border-top: dotted 1px;"/>
-                            </div>
+                            </div> -->
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         <label> Select Crew</label>
                                         <form action="#" role="form">
                                             <div class="form-group">
                                                 <div class="fileinput fileinput-new"
                                                      data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail"
-                                                         style="width: 100%; min-height: 280px !important;">
-                                                        <img id="asset_image" src="{%static 'Traccar-map-1000x650.jpg'%}"
+                                                         style="width: 80%; min-height: 120px !important;">
+                                                        <img id="asset_image" src="{% static 'sampleMap.JPG' %}"
                                                              alt=""/></div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <!-- <div class="col-md-12">
                                                 <span style="float: right;"> <a class="fa fa-refresh" title="Refresh"
                                            href=""> Refresh</a></span>                                                
-                                            </div>
-                                            <div class="col-md-12">
+                                            </div> -->
+                                            <br>
+                                            <div class="col-md-4">
+			                                        <div class="form-group form-md-line-input has-success">
+			                                            <input type="text" class="form-control" value="SERVICE5675" id="asset_id" value="">
+			                                            <label>Request ID</label>
+			                                        </div>
+			                                    </div>
+			                                    <div class="col-md-4">
+			                                        <div class="form-group form-md-line-input has-success">
+			                                            <input type="text" class="form-control" value="Meter Change" id="asset_nm" value="">
+			                                            <label>Service Type</label>
+			                                        </div>
+			                                    </div> 
+                                            <div class="col-md-4">
                                                 <div class="form-group form-md-line-input has-success">
-                                                    <input type="text" class="form-control" id="asset_id" value="">
+                                                    <input type="text" class="form-control" value="TC34234" id="asset_id" value="">
                                                     <label>Crew ID</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <br>
+                                            <div class="col-md-4">
                                                 <div class="form-group form-md-line-input has-success">
-                                                    <input type="text" class="form-control" id="asset_nm" value="">
+                                                    <input type="text" class="form-control" value="Ganpat Singh" id="asset_nm" value="">
                                                     <label>Name</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-4">
                                                 <div class="form-group form-md-line-input has-success">
-                                                    <input type="text" class="form-control" id="asset_make" value="">
+                                                    <input type="text" class="form-control" value="Change Meter Request" id="asset_make" value="">
                                                     <label>Assigned Task</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-4">
                                                 <div class="form-group form-md-line-input has-success">
-                                                    <input type="text" class="form-control" id="asset_cat" value="">
+                                                    <input type="text" class="form-control" value="8596854785" id="asset_cat" value="">
                                                     <label>Contact Number</label>
                                                 </div>
                                             </div>                                            
                                         </div>
                                     </div>
                                 </div>
-                                <hr style="border-top: dotted 1px;"/>
+                                
                             </div>
                         </div>
-                        <hr style="border-top: dotted 1px;"/>
+                        
                     </div>
                     <div class="col-md-12">
                         <div class="portlet light bordered">
@@ -439,7 +467,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-md-line-input has-info ">
-                                <textarea class="form-control" readonly id="service_request" rows="4"></textarea>
+                                <textarea class="form-control" readonly id="service_request" rows="1"></textarea>
                                 <label >Service Request</label>
                             </div>
                         </div>

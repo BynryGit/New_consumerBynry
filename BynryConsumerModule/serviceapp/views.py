@@ -87,16 +87,16 @@ def get_service_data(request):
 
         #SHubham S Need to chage==>>>>>
         service_data = {
-            'service_no': '1025',
+            'service_no': '<a onclick="service_details(29)">SERVICE3422</a>',
             'service_type' : '  Meter Change',
             'raised_date' : 'September 09, 2017 08:56 AM',
-            'consumer_no' : '11111111111',
-            'consumer_name' : 'ASD',
+            'consumer_no' : '<a onclick="consumer_details(2)">VKURHE12</a>',
+            'consumer_name' : 'Vivek Kurhe',
             'service_source' : 'Mobile',
 
             #'service_status' : '<a data-toggle="modal" data-target="#assign_job">Assigned</a>',
             'service_status' : 'Open',
-            'service_status1' : '<a data-toggle="modal" data-target="#assign_job">Open</a>',
+            'service_status1' : '<a class="icon-paper-plane" data-toggle="modal" data-target="#assign_job"></a>',
 
         } 
         service_list.append(service_data)
@@ -111,7 +111,8 @@ def get_service_data(request):
         		'consumer_no' : '<a onclick="consumer_details(' + str(service.consumer_id.id) + ')">' + service.consumer_id.consumer_no + '</a>',
         		'consumer_name' : service.consumer_id.name,
                 'service_source' : service.source,
-        		'service_status' : service.status            
+        		'service_status' : 'Closed',       
+        		'action':'<a class="icon-paper-plane" data-toggle="modal" data-target="#assign_job"></a>'     
         	}
         	service_list.append(service_data)        
 

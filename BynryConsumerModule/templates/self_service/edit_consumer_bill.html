@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Bill | Bynry</title>
+</head>
+<body>
+
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<!--Todo Start Validation 1 code from here-->
+<!-- BEGIN CONTAINER -->
+<div class="importContainer">
+    <!--Breadcrumb of Validation start -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a>Meter Reading</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/billing-system/">Billing System</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span class="">Edit Bill</span>
+            </li>
+        </ul>
+    </div>
+    <br>
+    <div class="col-md-12" style="background:white;padding:15px;">
+        <div class="row">
+            <div class="col-md-9">
+                <h4><b>Apply Adjustment:</b></h4>
+            </div>
+            <div class="col-md-3" style="text-align:center;">
+                <a href="/billing-system/" class="btn btn-transparent dark btn-outline btn-circle btn-sm">Cancel
+                </a>
+                <a href="/billing-system/" class="btn btn-transparent dark btn-outline btn-circle btn-sm">Save
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-info">
+                    <input type="text" class="form-control" value="310111021015" readonly="">
+                    <label>Consumer No.</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-success">
+                    <input class="form-control" type="text" id="current_meter_reading_v1"
+                           name="current_meter_reading_v1" value="2047">
+                    <label for="current_meter_reading_v1">Current KWH Reading</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-info">
+                    <input class="form-control" type="text" readonly
+                           name="current_meter_reading_v1" value="82">
+                    <label>Current Consumption</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-success">
+                    <input class="form-control" type="text"
+                           name="current_meter_reading_v1">
+                    <label>Adjust Unit</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-success input-group date date-picker "
+                     data-date-format="dd/mm/yyyy" data-date-viewmode="years" data-date-start-date="d"
+                     id="error_startdate">
+                    <label class="control-label" style="margin: 0;">Due Date
+                    </label>
+                    <input type="text" class="form-control" readonly="" name="startdate" id="startdate"
+                           value="10/08/2017">
+                    <span class="input-group-btn" style="padding-bottom: 0px;">
+                        <button class="btn default ms_custom_mar_top25" type="button" style="line-height: 0.44;">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-success">
+                    <input class="form-control" type="text" value="0.00"
+                           name="current_meter_reading_v1">
+                    <label>Current Arrears Amount</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-success">
+                    <input class="form-control" type="text"
+                           name="current_meter_reading_v1">
+                    <label>Adjust Arrears Amount</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group form-md-line-input has-success">
+                    <input class="form-control" type="text"
+                           name="current_meter_reading_v1">
+                    <label>Remark</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-top:20px; background:white;padding:15px;">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="col-md-12">
+                    <label><b>Consumer Detail</b></label>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" id="consumer_number" value="310111021015" readonly>
+                        <label for="consumer_number">Consumer No.</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" id="account_id" value="0185" readonly>
+                        <label for="account_id">Account Id</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" id="consumer_name" value="INDER CHAND KOCHAR" readonly>
+                        <label for="consumer_name">Name</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info ">
+                        <textarea type="text" class="form-control" readonly id="address" rows="1">BHUSARI COLONY, KOTHRUD, PUNE</textarea>
+                        <label>Address</label>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="col-md-12">
+                    <label><b>Consumptions</b></label>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" id="consumptionv1" class="form-control" value="82" readonly>
+                        <label>Consumption</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly value="62">
+                        <label>Billing Days</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" id="avgconsumption" class="form-control" value="95" readonly>
+                        <label>Avg. Consumption</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" value="152014" readonly>
+                        <label>Meter Number</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" value="LT" readonly>
+                        <label>Category</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" value="S" readonly>
+                        <label>Service Status</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info ">
+                        <input type="text" class="form-control" value="D1-Rampuriya" readonly>
+                        <label class="zonelbl">Sub Division</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" value="15" readonly>
+                        <label class="billcyclelbl">Cycle</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" value="1501" readonly>
+                        <label class="routelbl">Binder</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="col-md-12">
+                    <label><b>Meter Reading </b></label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" value="2074" readonly>
+                        <label>Current KWH Reading</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" id="prevreading" value="1965" class="form-control" readonly>
+                        <label>Previous KWH Reading</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" value="10/08/2017" readonly>
+                        <label>Current Reading Date</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info ">
+                        <input type="text" class="form-control" value="11/06/2017" readonly>
+                        <label>Previous Reading Date</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>Current PF Reading</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>Previous PF Reading</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>Current KW Reading</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info ">
+                        <input type="text" class="form-control" readonly>
+                        <label>Previous KW Reading</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>KWH Round Complete</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info ">
+                        <input type="text" class="form-control" readonly>
+                        <label>KVAH Round Complete</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>Current Meter Status</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>Previous Meter Status</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>Reader Remark</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-md-line-input has-info">
+                        <input type="text" class="form-control" readonly>
+                        <label>Meter Type</label>
+                    </div>
+                </div>
+                <!--<div class="col-md-6">-->
+                <!--<div class="form-group form-md-line-input has-info">-->
+                <!--<input type="text" class="form-control" value="" readonly>-->
+                <!--<label>Remark</label>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <label><b>Meter Image</b></label>
+                </div>
+                <div class="col-md-12">
+                    <div class="meter_image">
+                        <img class="zoom" src="http://139.59.68.246/sitemedia//meter_reading/mi_201709_15_374126_310111000711.JPEG" width="500px" height="500px">
+                    </div>
+                    <img class="zoom" src="http://139.59.68.246/sitemedia//meter_reading/mi_201709_15_374126_310111000711.JPEG" width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Todo increase the size margin bottom -->
+    <div class="clearfix margin-bottom-20"></div>
+</div>
+<!-- END CONTAINER -->
+
+{% endblock %}
+
+
+</body>
+</html>

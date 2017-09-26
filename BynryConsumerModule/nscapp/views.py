@@ -15,6 +15,23 @@ import random
 
 
 # Create your views here.
+def nsc_landing_screen(request):
+    try:
+        print 'nscapp|views.py|new_connection'
+        status_list = ['Registered', 'KYC', 'Technical', 'Payment']
+        data = {
+            'total': NewConsumerRequest.objects.all().count(),
+            'open': NewConsumerRequest.objects.filter(status__in=status_list).count(),
+            'closed': NewConsumerRequest.objects.filter(status='Closed').count(),
+            'route_list': RouteDetail.objects.filter(is_deleted=False)
+        }
+
+    except Exception, e:
+        data = {}
+        print 'Exception|nscapp|views.py|new_connection', e
+    return render(request, 'nsc_template/nsc_landing_screen.html', data)
+
+# Create your views here.
 def new_connection_list(request):
     try:
         print 'nscapp|views.py|new_connection'

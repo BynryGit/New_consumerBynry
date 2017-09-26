@@ -152,10 +152,10 @@
                                         <input type="hidden" id="cons_id" value="{{ consumer_id }}">
                                         <div class="col-md-3">
                                             <div class="form-group form-md-line-input has-success">
-                                                	<!-- <select id="service_type" style="margin-top: 4px;"
-                                                        class="form-control input-sm select2-multiple" onchange="change_service_category();"> -->
-																	 <select id="service_type" style="margin-top: 4px;"
-                                                        class="form-control input-sm select2-multiple" >                                                     
+                                                	 <select id="service_type" style="margin-top: 4px;"
+                                                        class="form-control input-sm select2-multiple" onchange="change_service_category();"> 
+																	 <!-- <select id="service_type" style="margin-top: 4px;"
+                                                        class="form-control input-sm select2-multiple" >      -->                                                
                                                     <option value="" > Select Service Type</option>
                                                     {% for type in serviceType %}                                                    		
                                                         <option value="{{ type.id }}"> {{ type.request_type }} </option>
@@ -523,6 +523,109 @@
         </div>
     </div>
 </div>
+
+<div id="service_details" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 656px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Service Request Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller custom-service-modal-height1" data-always-visible="1" data-rail-visible1="1" style="height:450px;">                   
+                    <h4><b><span id="cons_name">Swapnil Kadu</span>&nbsp;(SWAPNILK0007)</b></h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-info ">
+                                <textarea class="form-control" readonly id="service_request" rows="1">Meter Change</textarea>
+                                <label >Service Request</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" value="SERVICE15889" readonly="" id="request_id">
+                                <label for="request_id">Request Id</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" value="Reconnection" readonly="" id="request_type">
+                                <label for="request_type">Request Type</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-info">
+                                <input type="text" class="form-control" readonly="" value="Open" id="request_status">
+                                <label for="request_status">Request Status</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="border-top: dotted 1px;" />
+                    <div class="row">
+                       <div class="col-md-12">
+                       		<h4 class="modal-title"> Job Details</h4>
+                       </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-md-6">                         
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="TC2353">
+                                 <label>Assigned To</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="26/09/2017">
+                                 <label>Assigned Date</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>Field 1</label>
+                             </div>
+                            </div>
+                            <div class="col-md-6">
+                             <div class="form-group form-md-line-input has-info">
+                                 <input type="text" class="form-control" value="">
+                                 <label>Field 2</label>
+                             </div>
+                            </div>
+                            <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-info ">
+                                <textarea class="form-control" readonly id="vigilance_remark">Meter change done.</textarea>
+                                <label >Remark</label>
+                            </div>
+                         </div> 
+                            
+                         </div>  
+                         <div class="col-md-6">  
+                             <label> Image of Asset</label>
+                             <form action="#" role="form">
+                                 <div class="form-group">
+                                     <div class="fileinput fileinput-new"
+                                          data-provides="fileinput">
+                                         <div class="fileinput-new thumbnail"
+                                              style="width: 100%; min-height: 160px;">
+                                             <img id="asset_image" src="{% static 'meter.jpg' %}" style="height: 151px !important;"
+                                                  alt=""/></div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+                         
+                    </div>                                               
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
@@ -581,32 +684,36 @@
         //document.getElementById("counter_form_footer").removeAttribute("hidden");
     }
 
-/*
+
 function change_service_category() {
 	if ($('#service_type').val()==1) {
-		//$('#remark').removeClass('hidden');
-		$('#disconnect').addClass('hidden');
-		$('#vd_id').addClass('hidden');
-		$('#update_data').addClass('hidden');
+		$('#mtr_change').removeClass("display-none");
+		$('#reconnect').addClass("display-none");
+		$('#update_data').addClass("display-none");
+		$('#disconnect').addClass("display-none");
+		//$('#update_data').addClass('hidden');
 	}
 	else if ($('#service_type').val()==2) {
-		$('#remark').addClass('hidden','True');
-		$('#disconnect').removeClass('hidden');
-		$('#vd_id').removeClass('hidden');
-		$('#update_data').addClass('hidden');
-		//$('#delete').removeAttr('hidden');
+		$('#mtr_change').addClass("display-none");
+		$('#reconnect').addClass("display-none");
+		$('#update_data').addClass("display-none");
+		$('#disconnect').removeClass("display-none");
 	}
 	else if ($('#service_type').val()==3) {
-		
+		$('#mtr_change').addClass("display-none");
+		$('#reconnect').removeClass("display-none");
+		$('#update_data').addClass("display-none");
+		$('#disconnect').addClass("display-none");
 	}
 	else if ($('#service_type').val()==4) {
-		$('#remark').addClass('hidden');
-		$('#disconnect').addClass('hidden');
-		$('#vd_id').addClass('hidden');
-		$('#update_data').removeClass('hidden');
+		$('#mtr_change').addClass("display-none");
+		$('#reconnect').addClass("display-none");
+		$('#update_data').removeClass("display-none");
+		$('#disconnect').addClass("display-none");
 	}
 
 }
+/*
 function verify_kno() {
 		$('#k_no_btn').addClass('hidden');
 		$('#mob_no').removeAttr('hidden');
@@ -738,6 +845,11 @@ function verify_kno() {
     }
 
 initTable1();
+
+
+function service_details(){    
+    $("#service_details").modal('show');
+}
 </script>
 
 </body>

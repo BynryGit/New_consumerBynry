@@ -141,8 +141,13 @@
                                     <div class="col-md-6">
                                         <label class="bold">Current Month Bill :</label>
                                     </div>
-                                    <div class="col-md-offset-5 col-md-1">                                         
-                                          <input type="button" style="margin-left: -33px;" onclick="quick_pay()"
+                                    <div class="col-md-offset-2 col-md-4" style="text-align:right;">     
+                                    		<a href="/self-service/my-tariff/" target="_blank">
+	                                                <input type="button"
+	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+	                                                value="My Tariff">
+	                                            </a>                                    
+                                          <input type="button" onclick="quick_pay()" style="width: 75px;"
                                           class="btn btn-transparent dark btn-outline btn-circle btn-sm"
                                           value="New">                                        
                                     </div>
@@ -151,7 +156,7 @@
                                     <div class="col-md-5">
 	                                    <div class="row " style="margin-bottom:20px; margin-left: 15px;">	                                        	                                         
 	                                             <img id="complaint_image" class="border"
-	                                                  src="/home/hduser/Pictures/valmont-street-lighting-standard-dodge-omahane.jpg"
+	                                                  src="{% static 'meter.jpg' %}"
 	                                                  style=" width:100%; height:185px;">	                                        	                                        	
 	                                     </div>
                                      </div>
@@ -210,12 +215,12 @@
 	                                            </a>
 	                                         {% else %}
 	                                         	   <a href="/self-service/view-bill/" target="_blank">
-	                                                <input type="button"
+	                                                <input type="button" style="width: 75px;"
 	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
 	                                                value="View Bill">
 	                                            </a>
 	                                         		                                       
-				                                          <input type="button"  onclick="pay_now()"
+				                                          <input type="button" style="width: 75px;"  onclick="pay_now()"
 				                                          class="btn btn-transparent dark btn-outline btn-circle btn-sm"
 				                                          value="Pay">                                        
 				                                    
@@ -241,7 +246,7 @@
                                     <div class="col-md-5">
 	                                    <div class="row " style="margin-bottom:20px; margin-left: 15px;">	                                        	                                         
 	                                             <img id="complaint_image" class="border"
-	                                                  src="/home/hduser/Pictures/valmont-street-lighting-standard-dodge-omahane.jpg"
+	                                                  src="{% static 'meter.jpg' %}"
 	                                                  style=" width:100%; height:185px;">	                                        	                                        	
 	                                     </div>
                                      </div>
@@ -299,7 +304,7 @@
 	                                            </a>
 	                                         {% else %}
 	                                         	   <a href="/self-service/view-bill/" target="_blank">
-	                                                <input type="button"
+	                                                <input type="button" style="width: 75px;" 
 	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm"
 	                                                value="View Bill">
 	                                            </a>

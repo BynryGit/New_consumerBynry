@@ -279,6 +279,124 @@
         </div>
     </div>
 </div>
+
+<div id="complaint_details" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 721px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Complaint Details</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:400px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-md-12">
+                        <h4><b><span id="cons_name">Swapnil Kadu</span>&nbsp;(SWAPNILK0007)</b></h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" value="COMP32686" readonly="" id="complaint_id">
+                                    <label for="complaint_id">Complaint Id</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" value="Meter Burnt" readonly="" id="complaint_type">
+                                    <label for="complaint_type">Complaint Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" value="Sent" readonly="" id="complaint_status">
+                                    <label for="complaint_status">Status</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" value="" readonly="" id="raised_date">
+                                    <label for="raised_date">Raised on Date & Time</label>
+                                </div>
+                            </div>                            
+                        </div>
+                        <br>
+                        <div class="row">                            
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info ">
+                                    <textarea class="form-control" id="complaint_remark" readonly rows="8">Meter is not working</textarea>
+                                    <label>Complaint</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="">
+                                <div class="w3-content w3-display-container">
+                                		<img alt="" src="{% static 'meter.jpg' %}" style=" width:100%; height:185px;">
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="border-top: dotted 1px;" />
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="complaint_id">Job Details</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="complaint_type">Assigned By</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="complaint_status">Assigned To</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Assigned Date & Time</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Resolution Time</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Field 1</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Field 2</label>
+                                </div>
+                            </div>  
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-info">
+                                    <input type="text" class="form-control" readonly="" id="">
+                                    <label for="raised_date">Remark</label>
+                                </div>
+                            </div>     
+                          </div>
+                          <div class="col-md-6" style="">
+	                          <div class="w3-content w3-display-container">
+	                          		<img alt="" src="{% static 'meter.jpg' %}" style=" width:100%; height:185px;">
+	                          </div>
+	                      </div>                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
@@ -575,6 +693,12 @@
         }
     }
 
+
+//--------------------new-----------------------
+
+function complaint_details(){
+    $("#complaint_details").modal('show');
+}
 
 </script>
 

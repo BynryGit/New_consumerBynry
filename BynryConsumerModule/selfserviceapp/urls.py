@@ -49,5 +49,8 @@ urlpatterns = [
     url(r'^add-NSC/', views.add_NSC,name='add_NSC'),
     url(r'^my-profile/', views.my_profile,name='my_profile'),
     url(r'^save-profile/', views.save_profile,name='save_profile'),
+    
+    #------------------------New URL
+    url(r'^bill-adjustments/', views.bill_adjustments,name='bill_adjustments'),
 ]
  

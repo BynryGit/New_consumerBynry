@@ -461,7 +461,7 @@ def get_consumer_complaint_details(request):
         # complaint detail result
         for complaints in complaints_list:
             complaint_data = {
-                'complaintID': complaints.complaint_no,
+                'complaintID': '<a onclick="complaint_details()">' + complaints.complaint_no + '</a>',                
                 'complaintType': complaints.complaint_type_id.complaint_type,
                 'closureRemark': complaints.remark,
                 'complaintDate': complaints.created_on.strftime('%B %d, %Y %I:%M %p'),
@@ -585,7 +585,7 @@ def get_consumer_service_details(request):
         # complaint detail result
         for services in services_list:
             service_data = {
-                'serviceID': services.service_no,
+                'serviceID': '<a onclick="service_details()">' + services.service_no + '</a>',
                 'serviceType': services.service_type.request_type,
                 'closureRemark': services.consumer_remark,
                 'serviceDate': services.created_date.strftime('%B %d, %Y %I:%M %p'),
@@ -1199,3 +1199,10 @@ def save_profile(request):
             'message': str(e)
         }
     return HttpResponse(json.dumps(data), content_type='application/json')
+    
+    
+def bill_adjustments(request):
+    """To view bill adjustment page"""
+    
+    return render(request, 'self_service/bill_adjustments.html')
+    

@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8"/>
+    <title>New Service Request | Bynry</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
+
+
+    <style>
+        th{
+            text-align:center;
+        }
+        td{
+            text-align:center;
+        }
+        btn-sm{
+            width: 85px;
+        }
+        .help-block{
+            display:none;
+            color:red;
+        }
+
+
+    </style>
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}"
+          rel="stylesheet" type="text/css"/>
+
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner ">
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="{% static 'assets/layouts/layout/img/logo.png' %}" alt="logo" class="logo-default"/> </a>
+            <div class="menu-toggler sidebar-toggler"></div>
+        </div>
+
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                       data-close-others="true">
+                        <img alt="" class="img-circle"
+                             src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
+                        <span class="username username-hide-on-mobile"> {{request.session.login_user}} </span>
+                    </a>
+                </li>
+                <li title="Log Out" class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="/log-out/" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END HEADER -->
+
+<div class="clearfix"></div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            {% include 'side-panel.html' %}
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <span>Consumers</span>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>NSC</span>
+                    </li>
+                </ul>
+            </div>
+
+            <br>
+            <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light portlet-fit bordered">                       
+                    <div class="portlet-body">
+                        <div class="mt-element-step">
+                            <div class="row step-line">                                               
+                                <a onclick="change_div(1);">                                         
+                                <div class="col-md-2 mt-step-col first active first_tab" >
+                                    <div class="mt-step-number bg-white">
+                                        <i class="fa fa-user" ></i>
+                                    </div>
+                                    <div class="mt-step-title uppercase font-grey-cascade">Registered</div>
+                                    <!-- <div class="mt-step-content font-grey-cascade">Request Applied</div> -->
+                                </div>
+                                </a>
+                                <a onclick="change_div(2);">
+                                <div class="col-md-2 mt-step-col second_tab">
+                                    <div class="mt-step-number bg-white">
+                                        <i class="fa fa-newspaper-o"></i>
+                                    </div>
+                                    <div class="mt-step-title uppercase font-grey-cascade">KYC Verification</div>
+                                    <!-- <div class="mt-step-content font-grey-cascade">All approved request </div> -->
+                                </div>
+                                </a>
+                                <a onclick="change_div(3);">
+                                <div class="col-md-2 mt-step-col third_tab">
+                                    <div class="mt-step-number bg-white">
+                                        <i class="fa fa-home"></i>
+                                    </div>
+                                    <div class="mt-step-title uppercase font-grey-cascade">Site Verification</div>
+                                    <!-- <div class="mt-step-content font-grey-cascade">All  request </div> -->
+                                </div>
+                                </a>
+                                <a onclick="change_div(4);">
+                                <div class="col-md-2 mt-step-col fourth_tab">
+                                    <div class="mt-step-number bg-white">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <div class="mt-step-title uppercase font-grey-cascade">Payment</div>
+                                    <!-- <div class="mt-step-content font-grey-cascade"> Payment request </div> -->
+                                </div>
+                                </a>
+                                <a onclick="change_div(5);">
+                                <div class="col-md-2 mt-step-col fifth_tab">
+                                    <div class="mt-step-number bg-white">
+                                        <i class="fa fa-arrow-circle-down"></i>
+                                    </div>
+                                    <div class="mt-step-title uppercase font-grey-cascade">Meter Installation</div>
+                                    <!-- <div class="mt-step-content font-grey-cascade">Receive item integration  </div> -->
+                                </div>
+                                </a>
+                                <a onclick="change_div(6);">
+                                <div class="col-md-2 mt-step-col last sixth_tab">
+                                    <div class="mt-step-number bg-white">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="mt-step-title uppercase font-grey-cascade">Complete</div>
+                                    <!-- <div class="mt-step-content font-grey-cascade">Trash</div> -->
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="col-md-12" style="background: #fff; margin-bottom: 20px; padding: 15px;">
+                <div id="filter_div">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label">Consumer Category</label>
+                                <select id="select_consumer_category" class="form-control select2">
+                                    <option value="All">All</option>
+                                    <option value="1-LT-SUPPLY">1-LT-SUPPLY</option>
+                                    <option value="2-HT-SUPPLY">2-HT-SUPPLY</option>
+                                    <option value="3-EHV">3-EHV</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Consumer Sub Category</label>
+                                <select id="select_consumer_sub_category" class="form-control select2">
+                                    <option value="All">All</option>
+                                    <option value="30-PWW">30-PWW</option>
+                                    <option value="40-Residential">40-Residential</option>
+                                    <option value="50-Commercial">50-Commercial</option>
+                                    <option value="60-LT industrial">60-LT Industrial</option>
+                                    <option value="70-LT powerloom">70-LT Powerloom</option>
+                                    <option value="80-Street Light">80-Street Light</option>
+                                    <option value="90-Agriculture">90-Agriculture</option>
+                                    <option value="91-LT poultry">91-LT Poultry</option>
+                                    <option value="92-LT Advertisement and Hoarding">92-LT Advertisement and
+                                        Hoarding
+                                    </option>
+                                    <option value="93-LT Precooling">93-LT Precooling</option>
+                                    <option value="94-LT temporary Religious">94-LT Temporary Religious
+                                    </option>
+                                    <option value="95-LT temporary others">95-LT Temporary Others</option>
+                                    <option value="165-Temp-Construction">165-Temp-Construction</option>
+                                    <option value="166-Crematorium And Burial">166-Crematorium And Burial
+                                    </option>
+                                    <option value="167-Public Services">167-Public Services</option>
+                                    <option value="207-LT IV A AG ZONE 1">207-LT IV A AG ZONE 1</option>
+                                    <option value="209-LT IV A AG ZONE 2">209-LT IV A AG ZONE 2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Supply Type</label>
+                                <select id="select_supply_type" class="form-control select2">
+                                    <option value="All">All</option>
+                                    <option value="SINGLE-SINGLE-PHASE">SINGLE-SINGLE-PHASE</option>
+                                    <option value="THREE-THREE-PHASE">THREE-THREE-PHASE</option>
+                                    <option value="HT-HT-SUPPLY">HT-HT-SUPPLY</option>
+                                </select>
+                            </div>
+                            <!-- <div class="col-md-3">
+                                <label class="control-label">Status</label>
+                                <select id="select_nsc_status" class="form-control select2">
+                                    <option value="All">All</option>
+                                    <option value="Registered">Registered</option>
+                                    <option value="KYC">KYC</option>
+                                    <option value="Technical">Technical</option>
+                                    <option value="Payment">Payment</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                            </div> -->
+                            <div class=" col-md-3" style="text-align:right;">
+                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                        onclick="filter_nsc()" style="margin-top: 27px;">
+                                    Filter
+                                </button>
+                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                        onclick="clear_filter()" style="margin-top: 27px;">
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group"><label class="control-label ">Application Received Date</label>
+                                    <div class="">
+                                        <div class="input-group input-large date-picker input-daterange"
+                                             data-date="10/11/2012" data-date-format="dd/mm/yyyy">
+                                            <input readonly id="start_date" type="text" class="form-control"
+                                                   placeholder="Start Date" name="from">
+                                            <span class="input-group-addon"> to </span>
+                                            <input readonly id="end_date" type="text" class="form-control"
+                                                   placeholder="End Date" name="to">
+                                        </div>
+                                    </div>
+                                    <span class="help-block"> Please enter Application Received Date Range </span>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-6 col-md-2" style="text-align:right;">
+                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                        onclick="filter_nsc()" style="margin-top: 27px;">
+                                    Filter
+                                </button>
+                                <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                        onclick="clear_filter()" style="margin-top: 27px;">
+                                    Clear
+                                </button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row" id="request_div">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">NSC</span>
+                            </div>                            
+                            <div class="actions">
+                                <div class="btn-group btn-group-devided">
+	                                    <a href="/nscapp/add-new-consumer">
+	                                        <button type="button"
+	                                                class="btn btn-transparent dark btn-outline btn-circle btn-sm">	                                            
+	                                            Add New Consumer
+	                                        </button>
+	                                    </a>
+                                    																					                                    
+                                </div>                                
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;"
+                                       data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="complaint_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="1" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                   id="procurement_table">
+                                <thead>
+	                                <tr>
+	                                    <th> Registration Id</th>
+                                    <th> Applicant Name</th>
+                                    <th> Category</th>
+                                    <th> Subcategory</th>
+                                    <th> Supply Type</th>
+                                    <th> Date</th>
+
+                                    <th> Actions</th>                                 
+	                                </tr>
+                                </thead>                                                                
+                                <tbody>
+	                                	<tr>
+													<td> NSC01537</td>
+													<td> Steve Smith</td>
+													<td> 1-LT-SUPPLY	</td>
+													<td> 40-Residential</td>
+													<td> SINGLE-SINGLE-PHASE</td>
+													<td> 10/03/2017 </td>
+																										
+													<td> 
+													     <a  class="fa fa-user" title="Edit" data-toggle="modal" data-target="#registration_model"></a>&nbsp; &nbsp;
+													     <a  class="fa fa-mail-forward" title="Send to KYC Verification" data-toggle="modal"></a>
+													</td>                              
+	                                </tr>	                                                    
+                                </tbody>   
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="approved_div" style="display:none">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">NSC</span>
+                            </div>                            
+                            <div class="actions">  
+                                <div class="btn-group btn-group-devided">
+                                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                            onclick="reload_complaints()">
+                                        <i class="fa fa-refresh"></i> Reload
+                                    </button>
+                                </div>                              
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;"
+                                       data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="complaint_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="1" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                   id="procurement_table">
+                                <thead>
+	                                <tr>
+	                                    <th> Registration Id</th>
+                                    <th> Applicant Name</th>
+                                    <th> Category</th>
+                                    <th> Subcategory</th>
+                                    <th> Supply Type</th>
+                                    <th> Date</th>
+
+                                    <th> Actions</th>                                 
+	                                </tr>
+                                </thead>                                                                
+                                <tbody>
+	                                	<tr>
+													<td> NSC01537</td>
+													<td> Steve Smith</td>
+													<td> 1-LT-SUPPLY	</td>
+													<td> 40-Residential</td>
+													<td> SINGLE-SINGLE-PHASE</td>
+													<td> 10/03/2017 </td>
+																										
+													<td> 
+													     <a  class="fa fa-newspaper-o" title="KYC" data-toggle="modal" data-target="#KYC_model"></a>&nbsp; &nbsp;
+													     <a  class="fa fa-mail-forward" title="Send to Site Verification" data-toggle="modal"></a>
+													</td>                              
+	                                </tr>	                                                    
+                                </tbody>    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="PO_div" style="display:none">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">NSC</span>
+                            </div>                            
+                            <div class="actions">   
+                                <div class="btn-group btn-group-devided">
+                                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                            onclick="reload_complaints()">
+                                        <i class="fa fa-refresh"></i> Reload
+                                    </button>
+                                </div>                            
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;"
+                                       data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="complaint_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="1" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                   id="procurement_table">
+                                <thead>
+	                                <tr>
+	                                    <th> Registration Id</th>
+                                    <th> Applicant Name</th>
+                                    <th> Category</th>
+                                    <th> Subcategory</th>
+                                    <th> Supply Type</th>
+                                    <th> Request Date</th>
+                                    <th> Assigned To</th>
+                                    <th> Assigned Date</th>
+
+                                    <th> Status</th>                                 
+                                    <th> Actions</th>                                 
+	                                </tr>
+                                </thead>                                                                
+                                <tbody>
+	                                	<tr>
+													<td> NSC01537</td>
+													<td> Steve Smith</td>
+													<td> 1-LT-SUPPLY	</td>
+													<td> 40-Residential</td>
+													<td> SINGLE-SINGLE-PHASE</td>
+													<td> 10/03/2017 </td>
+													<td> Steve Smith </td>
+													<td> 11/03/2017 </td>
+													<td> In Progress </td>
+																										
+													<td> 													     
+													     <a  class="icon-paper-plane"  title="Assign" data-toggle="modal" data-target="#inspection_assign"></a>&nbsp; &nbsp;
+													     
+													</td>                              
+	                                </tr>	  
+	                                <tr>
+													<td> NSC01537</td>
+													<td> Steve Smith</td>
+													<td> 1-LT-SUPPLY	</td>
+													<td> 40-Residential</td>
+													<td> SINGLE-SINGLE-PHASE</td>
+													<td> 10/03/2017 </td>
+													<td> Steve Smith </td>
+													<td> 11/03/2017 </td>
+													<td> Completed </td>
+																										
+													<td> 
+													     <a  class="fa fa-home" title="Technical" data-toggle="modal" data-target="#technical_model"></a>&nbsp; &nbsp;
+															<a  class="fa fa-mail-forward" title="Send to Payment Verification" data-toggle="modal"></a>
+													</td>                              
+	                                </tr>	                                                      
+                                </tbody>    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="procure_div" style="display:none">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">NSC</span>
+                            </div>                            
+                            <div class="actions">   
+                                <div class="btn-group btn-group-devided">
+                                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                            onclick="reload_complaints()">
+                                        <i class="fa fa-refresh"></i> Reload
+                                    </button>
+                                </div>                             
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;"
+                                       data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="complaint_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="1" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                   id="procurement_table">
+                                <thead>
+	                                <tr>
+	                                    <th> Registration Id</th>
+                                    <th> Applicant Name</th>
+                                    <th> Category</th>
+                                    <th> Subcategory</th>
+                                    <th> Supply Type</th>
+                                    <th> Date</th>
+
+                                    <th> Actions</th>                                 
+	                                </tr>
+                                </thead>                                                                
+                                <tbody>
+	                                	<tr>
+													<td> NSC01537</td>
+													<td> Steve Smith</td>
+													<td> 1-LT-SUPPLY	</td>
+													<td> 40-Residential</td>
+													<td> SINGLE-SINGLE-PHASE</td>
+													<td> 10/03/2017 </td>
+																										
+													<td> 
+													     <a  class="fa fa-credit-card" title="Payment" data-toggle="modal" data-target="#payment_model"></a>&nbsp; &nbsp;
+													     <a  class="fa fa-mail-forward" title="Send to Meter Installation" data-toggle="modal"></a>
+													</td>                              
+	                                </tr>	                                                    
+                                </tbody>     
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="complete_div" style="display:none">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">NSC</span>
+                            </div>                            
+                            <div class="actions">  
+                                <div class="btn-group btn-group-devided">
+                                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                            onclick="reload_complaints()">
+                                        <i class="fa fa-refresh"></i> Reload
+                                    </button>
+                                </div>                          
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;"
+                                       data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="complaint_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="1" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                   id="procurement_table">
+                                <thead>
+	                                <tr>
+	                                    <th> Registration Id</th>
+                                    <th> Applicant Name</th>
+                                    <th> Category</th>
+                                    <th> Subcategory</th>
+                                    <th> Supply Type</th>
+                                    <th> Date</th>
+
+                                    <th> Actions</th>                         
+	                                </tr>
+                                </thead>                                                                
+                                <tbody>
+	                                	<tr>
+													<td> NSC01537</td>
+													<td> Steve Smith</td>
+													<td> 1-LT-SUPPLY	</td>
+													<td> 40-Residential</td>
+													<td> SINGLE-SINGLE-PHASE</td>
+													<td> 10/03/2017 </td>
+																										
+													 <td> 
+													     <a  class="fa fa-arrow-circle-down" title="Meter Details" data-toggle="modal" data-target="#Meter_Detail_model"></a>&nbsp; &nbsp;
+													     <a  class="fa fa-mail-forward" title="Send to Verification" data-toggle="modal"></a>
+													</td>                             
+	                                </tr>	                                                    
+                                </tbody>     
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="reject_div" style="display:none">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption font-dark">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject bold uppercase">NSC</span>
+                            </div>                            
+                            <div class="actions">     
+                                <div class="btn-group btn-group-devided">
+                                    <button type="button" class="btn btn-transparent dark btn-outline btn-circle btn-sm"
+                                            onclick="reload_complaints()">
+                                        <i class="fa fa-refresh"></i> Reload
+                                    </button>
+                                </div>                          
+                                <div class="btn-group">
+                                    <a class="btn red btn-outline btn-circle" href="javascript:;"
+                                       data-toggle="dropdown">
+                                        <i class="fa fa-share"></i>
+                                        <span class="hidden-xs"> Tools </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right" id="complaint_table_tools">
+                                        <li>
+                                            <a href="javascript:;" data-action="0" class="tool-action">
+                                                <i class="icon-printer"></i> Print</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:;" data-action="1" class="tool-action">
+                                                <i class="icon-doc"></i> PDF</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="2" class="tool-action">
+                                                <i class="icon-paper-clip"></i> Excel</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;" data-action="3" class="tool-action">
+                                                <i class="icon-cloud-upload"></i> CSV</a>
+                                        </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                   id="procurement_table">
+                                <thead>
+	                                <tr>
+	                                    <th> Registration Id</th>
+                                    <th> Applicant Name</th>
+                                    <th> Category</th>
+                                    <th> Subcategory</th>
+                                    <th> Supply Type</th>
+                                    <th> Request Date</th>
+                                    <th> Installation Date</th>
+
+                                                    
+	                                </tr>
+                                </thead>                                                                
+                                <tbody>
+	                                	<tr>
+													<td> NSC01537</td>
+													<td> Steve Smith</td>
+													<td> 1-LT-SUPPLY	</td>
+													<td> 40-Residential</td>
+													<td> SINGLE-SINGLE-PHASE</td>
+													<td> 10/03/2017 </td>
+													<td> 10/03/2017 </td>
+																										
+													                             
+	                                </tr>	                                                    
+                                </tbody>     
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  Models Start -->
+<div id="add_request" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width:80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Add Procurement Request</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:222px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-md-12">                        
+                        <div class="row">
+								    <div class="col-md-3">
+                                <label class="control-label">Asset Type</label>
+                                <select id="category" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Closed">Transformer G0</option>
+                                    <option value="Open">Transformer G1</option>
+                                </select>
+                            </div>                            
+                            <div class="col-md-3">
+                                <label class="control-label">Asset Category</label>
+                                <select id="category" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Closed">Transformer G0</option>
+                                    <option value="Open">Transformer G1</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Asset Subcategory</label>
+                                <select id="subcategory" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Closed">Distribution Trans.</option>
+                                    <option value="Open">Domestic Transformer</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Asset</label>
+                                <select id="select_complaint_status" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Closed">Transformer</option>
+                                    <option value="Open">HT Cable</option>
+                                </select>
+                            </div>   
+                        </div>
+                        <div class="row">                                                     
+                            <div class="col-md-3">
+                                <label class="control-label">Subdivision</label>
+                                <select id="select_complaint_source" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Mobile">Subdivision-1</option>
+                                    <option value="Web">Subdivision-2</option>
+                                    <option value="CTI">Subdivision-3</option>
+                                </select>
+                            </div>                            
+                            <div class="col-md-3">
+                                <label class="control-label">Area</label>
+                                <select id="select_complaint_source" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Mobile">Kothrud</option>
+                                    <option value="Web">Pimpri C</option>
+                                    <option value="CTI">Hadapsar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Location</label>
+                                <select id="select_complaint_source" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Mobile">Right Bhusari</option>
+                                    <option value="Web">Left Bhusari</option>
+                                    <option value="CTI">Bavdhan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+	                                <label class="control-label">Request to</label>
+	                                <select id="select_complaint_status" class="form-control select2">
+	                                    <option value="Closed">Administrator</option>
+	                                    <option value="Closed">Supervisor</option>
+	                                </select>
+	                        </div> 
+	                     </div>
+	                     <div class="row" style="padding-top: 9px;">
+                            <div class="col-md-3">                                
+                                <div class="form-group form-md-line-input has-success">                               
+                                    <input type="text" class="form-control" id="complaint_type">  
+												<label for="complaint_type">Quantity</label>                                 
+                                </div>
+                            </div>  
+                            <div class="col-md-9">
+	                                <div class="form-group form-md-line-input has-success ">
+	                                    <textarea class="form-control" id="complaint_remark" ></textarea>
+	                                    <label>Remark</label>
+	                                </div>
+	                        </div>                                                   
+                        </div>	                                        
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent dark btn-outline btn-circle "> Cancel
+                </button>
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent green btn-outline btn-circle "> Add Request
+                </button>
+            </div> 
+        </div>
+    </div>
+</div> 
+<div id="request_edit" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width:80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit Procurement Request</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:222px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-md-12">                        
+                        <div class="row">
+								    <div class="col-md-3">
+                                <label class="control-label">Asset Type</label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Asset Category</label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Asset Subcategory</label><br>
+                                <label class="control-label" style="font-size: 12px;">Domestic Transformer</label>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Asset</label><br>
+                                <label class="control-label" style="font-size: 12px;">HT Cable</label>
+                                
+                            </div>
+                         </div>
+                         <br>
+                         <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label">Subdivision</label>
+                                <select id="select_complaint_source" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Mobile">Subdivision-1</option>
+                                    <option value="Web">Subdivision-2</option>
+                                    <option value="CTI">Subdivision-3</option>
+                                </select>
+                            </div>                            
+                            <div class="col-md-3">
+                                <label class="control-label">Area</label>
+                                <select id="select_complaint_source" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Mobile">Kothrud</option>
+                                    <option value="Web">Pimpri C</option>
+                                    <option value="CTI">Hadapsar</option>
+                                </select>
+                            </div>                        
+                            <div class="col-md-3">
+                                <label class="control-label">Location</label>
+                                <select id="select_complaint_source" class="form-control select2">
+                                    <option value="all">All</option>
+                                    <option value="Mobile">Right Bhusari</option>
+                                    <option value="Web">Left Bhusari</option>
+                                    <option value="CTI">Bavdhan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+	                                <label class="control-label">Request to</label>
+	                                <select id="select_complaint_status" class="form-control select2">
+	                                    <option value="Closed">Administrator</option>
+	                                    <option value="Closed">Supervisor</option>
+	                                </select>
+	                        </div>
+	                    </div> 
+	                    <div class="row" style="padding-top: 9px;">	
+                            <div class="col-md-3">                                
+                                <div class="form-group form-md-line-input has-success">                               
+                                    <input type="text" class="form-control" id="complaint_type">  
+												<label for="complaint_type">Quantity</label>                                 
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+	                                <div class="form-group form-md-line-input has-success ">
+	                                    <textarea class="form-control" id="complaint_remark" ></textarea>
+	                                    <label>Remark</label>
+	                                </div>
+	                        </div>                                                     
+                        </div>                                        
+                    </div>
+                </div>
+            </div>      
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent dark btn-outline btn-circle "> Cancel
+                </button>
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent green btn-outline btn-circle "> Save Request
+                </button>
+            </div>            
+        </div>
+    </div>
+</div>
+<div id="approve_request" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width:70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Approve Procurement Request</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:205px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-md-12">                        
+                        <div class="row">
+								    <div class="col-md-3">
+                                <label class="control-label">Asset Type</label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Asset Category</label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Asset Subcategory</label><br>
+                                <label class="control-label" style="font-size: 12px;">Domestic Transformer</label>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Asset</label><br>
+                                <label class="control-label" style="font-size: 12px;">HT Cable</label>
+                                
+                            </div>
+                         </div>
+                         <br>
+                         <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label">Subdivision</label><br>
+                                <label class="control-label" style="font-size: 12px;">Subdivision-1</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Area</label><br>
+                                <label class="control-label" style="font-size: 12px;">Kothrud</label>
+                                
+                            </div>    
+                            <div class="col-md-3">
+                                <label class="control-label">Location</label><br>
+                                <label class="control-label" style="font-size: 12px;">Right Bhusari</label>
+                                
+                            </div>    
+                            <div class="col-md-3">
+                                <label class="control-label">Request to</label><br>
+                                <label class="control-label" style="font-size: 12px;">Administrator</label>
+                                
+                            </div>                                                        
+	                    </div> 
+	                    <br>
+	                    <div class="row">	
+	                         <div class="col-md-3">
+                                <label class="control-label">Requested Date</label><br>
+                                <label class="control-label" style="font-size: 12px;">16/08/2017</label>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Assigned to </label><br>
+                                <label class="control-label" style="font-size: 12px;">Rahul S</label>
+                                
+                            </div>
+	                         <div class="col-md-3">
+                                <label class="control-label">Quantity</label><br>
+                                <label class="control-label" style="font-size: 12px;">10</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Request Remark</label><br>
+                                <label class="control-label" style="font-size: 12px;">Tested Ok</label>
+                                
+                            </div>                                                                                 
+                        </div>                       	                                        
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent dark btn-outline btn-circle "> Cancel
+                </button>
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent green btn-outline btn-circle "> Approve
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
+<div id="inspection_assign" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width: 60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Assign for Inspection</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:400px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-md-12">
+                        <div class="row">                            
+									 <div class="col-md-6">
+                                <label class="control-label">Asset  </label><br>
+                                <label class="control-label" style="font-size: 12px;">Meter</label>
+                                
+                            </div> 
+                            <div class="col-md-6">
+                                <label class="control-label">Asset Received Date  </label><br>
+                                <label class="control-label" style="font-size: 12px;">30/08/2017</label>
+                                
+                            </div>   	                                                     
+                        </div>                        
+                        <hr style="border-top: dotted 1px;"/>
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="icon-settings font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Asset Inspector </span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                       id="inspection_table">
+                                    <thead>
+                                    <tr>
+                                        <th> Id</th>
+                                        <th> Name</th>
+                                        <th> Contact</th>
+                                        <th> Email</th>
+                                        <th> Task Assigned</th>
+                                        <th> Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td> 1234</td>
+                                        <td> Jon Snow</td>
+                                        <td> 9045457854</td>
+                                        <td> js@gmail.com</td>
+                                        <td> 1</td>
+                                        <td>
+                                            <input type="radio" name="mr_id">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> 1234</td>
+                                        <td> Jon Snow</td>
+                                        <td> 9045457854</td>
+                                        <td> js@gmail.com</td>
+                                        <td> 2</td>
+                                        <td>
+                                            <input type="radio" name="mr_id">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent dark btn-outline btn-circle "> Cancel
+                </button>
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent green btn-outline btn-circle "> Assign
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="send_commisioning" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 750px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Send for Commissioning </h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:440px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-md-12">                        
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label">Request Id  </label><br>
+                                <label class="control-label" style="font-size: 12px;">1234</label>
+                                
+                            </div> 
+                             <div class="col-md-3">
+                                <label class="control-label">Requested Date  </label><br>
+                                <label class="control-label" style="font-size: 12px;">16/08/2017</label>
+                                
+                            </div> 
+                             <div class="col-md-3">
+                                <label class="control-label">Asset Received  </label><br>
+                                <label class="control-label" style="font-size: 12px;">20/08/2017</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Asset  </label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer</label>
+                                
+                            </div> 
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label">Make </label><br>
+                                <label class="control-label" style="font-size: 12px;">Stark Industries</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Quantity  </label><br>
+                                <label class="control-label" style="font-size: 12px;">2</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Area </label><br>
+                                <label class="control-label" style="font-size: 12px;">Kothrud</label>
+                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Location  </label><br>
+                                <label class="control-label" style="font-size: 12px;">Bhusari colony	</label>
+                                
+                            </div> 
+                         </div>
+                         <hr style="border-top: dotted 1px;" />
+                         <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label">Request Status  </label><br>
+                                <label class="control-label" style="font-size: 12px;">Done	</label>
+                                
+                            </div> 
+                            <div class="col-md-4">
+                                <label class="control-label">Inspection Status  </label><br>
+                                <label class="control-label" style="font-size: 12px;">Done	</label>
+                                
+                            </div> 
+                            <div class="col-md-4">
+                                <label class="control-label">Inspection Type  </label><br>
+                                <label class="control-label" style="font-size: 12px;">Preventive</label>
+                                
+                            </div>                                                                                                                                                                                                 
+                        </div>
+                        <br>                    
+                        <div class="row">
+				                <div class="col-md-4">
+				                    <div class="form-group">
+                                    <label>Pre-Install Checks</label>
+                                    <div class="checkbox-list">
+                                        <label>
+                                            <input type="checkbox"> Checkbox 1 </label>
+                                        <label>
+                                            <input type="checkbox"> Checkbox 2 </label>
+                                        <label>
+                                            <input type="checkbox"> Checkbox 3 </label>
+                                        <label>
+                                            <input type="checkbox"> Checkbox 4 </label>
+                                    </div>
+                                </div>
+				                </div>				               
+				                <div class="col-md-4">
+			                       <label class="control-label">Assigned Date  </label><br>
+                                <label class="control-label" style="font-size: 12px;">16/08/2017	</label>
+                                <br>
+                                <label class="control-label">Inspection Date & Time  </label><br>
+                                <label class="control-label" style="font-size: 12px;">16/08/2017 12:30 PM</label>
+				                </div>
+				                <div class="col-md-4">
+				                     <label> Image of Asset</label>
+                                 <form action="#" role="form">
+                                     <div class="form-group">
+                                         <div class="fileinput fileinput-new"
+                                              data-provides="fileinput">
+                                             <div class="fileinput-new thumbnail"
+                                                  style="width: 150px; height: 115px;">
+                                                 <img id="meter_image" src="{% static 'assets/layouts/layout/img/transfo.jpg' %}"
+                                                      alt=""/></div>                                                                                           
+                                         </div>
+                                     </div>
+                                 </form>
+                             </div>
+				            </div>  
+				            <div class="row">	                         
+                            <div class="col-md-12" style="padding-top: 9px;">
+	                                <div class="form-group form-md-line-input has-success ">
+	                                    <textarea class="form-control" id="complaint_remark" ></textarea>
+	                                    <label>Asset Inspection Remark</label>
+	                                </div>
+	                        </div>
+				            </div>                                   
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent dark btn-outline btn-circle "> Cancel
+                </button>
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent green btn-outline btn-circle "> Send for Commissioning
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="generate_po_request" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width : 72%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Generate P.O.</h4></div>
+            <div class="modal-body">
+                <div class="scroller" style="height:380px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="col-md-12">                        
+                        <div class="row">                            
+                            <div class="col-md-3">
+                                <label class="control-label">Category</label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer</label>
+                                
+                            </div>                         
+                            <div class="col-md-3">
+                                <label class="control-label">Subcategory</label><br>
+                                <label class="control-label" style="font-size: 12px;">Distribution Trans.</label>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Asset</label><br>
+                                <label class="control-label" style="font-size: 12px;">Meter</label>                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Area</label><br>
+                                <label class="control-label" style="font-size: 12px;">Kothrud</label>                                
+                            </div>
+                       </div>
+                       <br>
+                       <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label">Location</label><br>
+                                <label class="control-label" style="font-size: 12px;">Bhusari colony	</label>                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Quantity</label><br>
+                                <label class="control-label" style="font-size: 12px;">2</label>                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Request Id</label><br>
+                                <label class="control-label" style="font-size: 12px;">1234</label>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Requested By</label><br>
+                                <label class="control-label" style="font-size: 12px;">SDO</label>
+                                
+                            </div>
+                       </div>
+                       <br>
+                       <div class="row">                            
+                            <div class="col-md-3">
+                                <label class="control-label">Request Date</label><br>
+                                <label class="control-label" style="font-size: 12px;">16/08/2017</label>
+                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Request Remark</label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer is with ISI </label>                                
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">Approved By</label><br>
+                                <label class="control-label" style="font-size: 12px;">Mahesh K </label>                                
+                            </div> 
+                            <div class="col-md-3">
+                                <label class="control-label">Approve Remark</label><br>
+                                <label class="control-label" style="font-size: 12px;">Transformer is with ISI </label>                                
+                            </div>                                                                                                                                                          
+                       </div>  
+                       <br>    
+                       <div class="row">
+                            <div class="col-md-3">
+                                <label class="control-label">Approved On</label><br>
+                                <label class="control-label" style="font-size: 12px;">18/08/2017 </label>                                
+                            </div>
+                        </div>
+                        <br>                
+                        <div class="row">                           	                        
+	                        <div class="col-md-4">
+	                                <label class="control-label">Requested To</label>
+	                                <select id="select_complaint_status" class="form-control select2">
+	                                    <option value="pass">John Snow</option>
+	                                    <option value="fail">Rahul S</option>
+	                                </select>
+	                        </div>
+	                        <div class="col-md-8">
+	                                <div class="form-group form-md-line-input has-success ">
+	                                    <textarea class="form-control" id="complaint_remark" ></textarea>
+	                                    <label>Accept/Reject Remark</label>
+	                                </div>
+	                        </div>
+                        </div> 
+                    </div>                  
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent red btn-outline btn-circle "> Reject
+                </button>
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="btn btn-transparent green btn-outline btn-circle "> Generate P.O.
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+            
+        <!-- END CONTENT BODY -->
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- Start Model -->
+<div id="registration_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"> Consumer Information Verification:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:100%" data-always-visible="1" data-rail-visible1="1">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b> Consumer Information</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="Vivek Kurhe" id="edit_email" readonly="">
+                                <label for="form_control_1">Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="9896587458" id="edit_aadhar" readonly="">
+                                <label for="form_control_1">Contact</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="vivek@bynry.com" id="edit_aadhar" readonly="">
+                                <label for="form_control_1">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success ">
+                                <textarea class="form-control" id="edit_address1" readonly="">201, Primrose,Right Bhusari Colony, Kothrud</textarea>
+                                <label>Address</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="Pune" id="" readonly="">
+                                <label for="form_control_1">City</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="411038" id="" readonly="">
+                                <label for="form_control_1">Pin Code</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="1-LT-SUPPLY" id="pay_category" readonly="">
+                                    <label for="form_control_1">Category</label>
+                                </div>
+                            </div>
+                           
+                    </div>
+                    
+                                                            
+                    <div class="row">
+                    		 <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="40-Residential" id="pay_subcategory" readonly="">
+                                    <label for="form_control_1">Subcategory</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="SINGLE-SINGLE-PHASE" id="pay_supply_type" readonly="">
+                                    <label for="form_control_1">Supply Type</label>
+                                </div>
+                            </div>
+                        <div class="col-md-4" style="margin-top: 4px;">                            
+                            <div class="form-group form-md-line-input has-success">
+                                <select id="verify_KYC" class="form-control input-sm select2-multiple"
+                                        onchange="open_remark_KYC();">
+                                    <option value=""> Select Status</option>
+                                    <option selected="" value="Verified"> Verified</option>
+                                    <option value="Rejected"> Rejected </option>
+                                </select>
+                                <label for="consumer_zone">Status <span class="required"> *</span></label>
+                                <span id="kyc_status_error" class="error"
+                                   style="color:red; display:none; font-size: 12px;"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display:none" id="remark_div">                            
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_remark">
+                                <label for="form_control_1">Remark<span class="required"> *</span></label>
+                                <span id="remark_error" class="error"
+                                   style="color:red; display:none; font-size: 12px;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" class="form-control" id="KYC_consumerid">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" class="btn green" id="save-KYC">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="KYC_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"> Know Your Customer (KYC) Verification:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:100%" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="3245 3434 2323" id="KYC_aadhar_no">
+                                <label for="form_control_1">Aadhar No.</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align: -webkit-right;">
+                            <button type="button" class="btn green">Verify</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr style="border-top: dotted 1px;"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b> e-KYC Information</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="Vivek Kurhe" id="edit_email" readonly="">
+                                <label for="form_control_1">Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="9896587458" id="edit_aadhar" readonly="">
+                                <label for="form_control_1">Contact</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="vivek@bynry.com" id="edit_aadhar" readonly="">
+                                <label for="form_control_1">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success ">
+                                <textarea class="form-control" id="edit_address1" readonly="">201, Primrose,Right Bhusari Colony, Kothrud</textarea>
+                                <label>Address</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="Pune" id="" readonly="">
+                                <label for="form_control_1">City</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="411038" id="" readonly="">
+                                <label for="form_control_1">Pin Code</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr style="border-top: dotted 1px;"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b> Given by Applicant</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="Vivek Kurhe" id="KYC_applicant_name" readonly="">
+                                <label for="form_control_1">Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="9896587458" id="KYC_mobile_no" readonly="">
+                                <label for="form_control_1">Contact</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="vivek@bynry.com" id="KYC_email_id" readonly="">
+                                <label for="form_control_1">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-md-line-input has-success ">
+                                <textarea class="form-control" id="KYC_address" readonly="">201, Primrose,Right Bhusari Colony, Kothrud</textarea>
+                                <label>Address</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="Pune" id="KYC_city" readonly="">
+                                <label for="form_control_1">City</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="411038" id="KYC_pincode" readonly="">
+                                <label for="form_control_1">Pin Code</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr style="border-top: dotted 1px;"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="margin-top: 4px;">                            
+                            <div class="form-group form-md-line-input has-success">
+                                <select id="verify_KYC" class="form-control input-sm select2-multiple"
+                                        onchange="open_remark_KYC();">
+                                    <option value=""> Select Status</option>
+                                    <option selected="" value="Verified"> Verified</option>
+                                    <option value="Rejected"> Rejected </option>
+                                </select>
+                                <label for="consumer_zone">Status <span class="required"> *</span></label>
+                                <span id="kyc_status_error" class="error"
+                                   style="color:red; display:none; font-size: 12px;"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display:none" id="remark_div">                            
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" id="KYC_remark">
+                                <label for="form_control_1">Remark<span class="required"> *</span></label>
+                                <span id="remark_error" class="error"
+                                   style="color:red; display:none; font-size: 12px;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" class="form-control" id="KYC_consumerid">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" class="btn green" id="save-KYC">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="technical_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="technical_form" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title"> Technical Checking Details:</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:100%" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Application Details</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="PN34532" id="tech_reg_no" readonly="">
+                                    <label for="form_control_1">Reg. No.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="Vivek Kurhe" id="tech_cons_names" readonly="">
+                                    <label for="form_control_1">Cons. Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="9859685744" id="tech_cont_no" readonly="">
+                                    <label for="form_control_1">Contact No.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group form-md-line-input has-success ">
+                                    <textarea class="form-control" id="tech_address" readonly="">201, Primrose,Right Bhusari Colony, Kothrud</textarea>
+                                    <label>Address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="1-LT-SUPPLY" id="tech_category" readonly="">
+                                    <label for="form_control_1">Category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="40-Residential" id="tech_subcat" readonly="">
+                                    <label for="form_control_1">Subcategory</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="SINGLE-SINGLE-PHASE" id="tech_supply_type" readonly="">
+                                    <label for="form_control_1">Supply Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_premise_type" readonly="">
+                                    <label for="form_control_1">Premise Type</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr style="border-top: dotted 1px;"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Checklist </b></h4> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label id="checklist_error"
+                                       style="color:red; display:none; font-size: 12px;"></label>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox1"
+                                               id="checkbox1_1" class="md-check CheckListclass">
+                                        <label for="checkbox1_1">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox1 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox2"
+                                               id="checkbox1_2" class="md-check CheckListclass">
+                                        <label for="checkbox1_2">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox2 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox3"
+                                               id="checkbox1_3" class="md-check CheckListclass">
+                                        <label for="checkbox1_3">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox3 </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="md-checkbox">
+                                        <input type="checkbox" name="Checklist" value="checkbox4"
+                                               id="checkbox1_4" class="md-check CheckListclass">
+                                        <label for="checkbox1_4">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> checkbox4 </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr style="border-top: dotted 1px;"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Technician Details</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Technician Name <span class="required"> *</span></label>
+                                    <input type="text" class="form-control" value="Ganpat Singh" id="technician_name" name="technician_name">
+                                    <span id="techname_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Contact No.<span class="required"> *</span></label>
+                                    <input type="text" class="form-control" value="8896587458" id="tech_contact_no" name="tech_contact_no">
+                                    <span id="mobile_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" style="margin-top: 4px;">                                
+                                <div class="form-group form-md-line-input has-success">
+                                    <select id="verify_technical" name="verify_technical"
+                                            class="form-control input-sm select2-multiple"
+                                            onchange="open_remark_technical();">
+													 <option value=""> Select Status</option>                                        
+                                        <option selected="" value="Passed"> Passed</option>
+                                        <option value="Failed"> Failed</option>
+                                    </select>
+                                    <label for="consumer_zone">Status by Technician <span class="required"> *</span></label>
+                                    <span id="techstatus_error" class="error"
+                                       style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="display:none" id="remark_div_tech">                               
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" id="tech_remark" name="tech_remark">
+                                    <label for="form_control_1">Remark<span class="required"> *</span></label>
+                                     <span id="techremark_error" class="error"
+                                       style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" class="form-control" id="tech_consumerid" name="tech_consumerid">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                    <button type="button" class="btn green" id="save-technical">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="payment_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="payment_form" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title"> Payment Details:</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="scroller" style="height:520px" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Application Details</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="NSC01537" id="pay_reg_no" readonly="">
+                                    <label for="form_control_1">Reg. No.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="Vivek Kurhe" id="pay_cons_name" readonly="">
+                                    <label for="form_control_1">Cons. Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="9856985478" id="pay_cont_no" readonly="">
+                                    <label for="form_control_1">Contact No.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="1-LT-SUPPLY" id="pay_category" readonly="">
+                                    <label for="form_control_1">Category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="40-Residential" id="pay_subcategory" readonly="">
+                                    <label for="form_control_1">Subcategory</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <input type="text" class="form-control" value="SINGLE-SINGLE-PHASE" id="pay_supply_type" readonly="">
+                                    <label for="form_control_1">Supply Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group form-md-line-input has-success ">
+                                    <textarea class="form-control" id="pay_address" readonly="">201, Primrose,Right Bhusari Colony, Kothrud - 411038</textarea>
+                                    <label>Address</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <hr style="border-top: dotted 1px;"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4><b> Payment Details</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Amount Paid<span class="required"> *</span></label>
+                                    <input type="text" class="form-control" name="pay_amount_paid" id="pay_amount_paid">
+                                    <span id="amount_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="margin-top: 4px;">                                
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="consumer_zone">Payment Mode<span class="required"> *</span></label>
+                                    <select id="payment_mode" name="payment_mode"
+                                            class="form-control input-sm select2-multiple" onchange="change_pay_mode()">
+													 <option value="">Select Payment Mode </option>                                        
+                                        <option value="Cash">By Cash</option>
+                                        <option value="Cheque">By Cheque</option>
+                                        <option value="DD">By DD</option>
+                                    </select>
+                                    <span id="paymode_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="row"  style="display:none" id="cheque_div">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Cheque No. <span class="required"> *</span></label>
+                                    <input type="text" class="form-control" name="pay_cheque_no" id="pay_cheque_no">
+                                    <span id="checkno_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Bank Name <span class="required"> *</span></label>
+                                    <input type="text" class="form-control" name="pay_cheque_name" id="pay_cheque_name">
+                                    <span id="checknm_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="display:none" id="DD_div">
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Demand Draft No. <span class="required"> *</span></label>
+                                    <input type="text" class="form-control" name="pay_DD_no" id="pay_DD_no">
+                                    <span id="checkDDno_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-md-line-input has-success">
+                                    <label for="form_control_1">Bank Name<span class="required"> *</span></label>
+                                    <input type="text" class="form-control" name="pay_DD" id="pay_DD">
+                                    <span id="checkDDnm_error"
+                                           style="color:red; display:none; font-size: 12px;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" class="form-control" id="pay_consumerid" name="pay_consumerid">
+                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                    <button type="button" class="btn green" id="save-payment">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade draggable-modal" id="success_modal" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Changes saved successfully</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <a href="/nscapp/">
+                            <button type="button" class="btn green">OK</button>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade draggable-modal" id="error-modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="index.html" class="form-horizontal form-row-seperated">
+                    <div class="form-body">
+                        <h4 class="text-center">Error</h4>
+                    </div>
+                    <div style="text-align:center !important;" class="modal-footer">
+                        <button type="button" class="btn green" data-dismiss="modal">OK</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Meter_Detail_model" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width:104%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"> Meter Connection Details:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:450px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="NSC01537" id="registration_no" readonly>
+                                <label>Registration No.</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success">
+                                <input type="text" class="form-control" value="Vivek Kurhe" id="applicant_name" readonly="">
+                                <label >Consumer Name</label>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+                    <div class="row">
+                        <hr style="border-top: dotted 1px;"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b> Meter Details</b></h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <input type="hidden" class="form-control" id="meter_consumer_id" name="consumer_id">
+
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <select name="meter_route" id="meter_route" class="form-control input-sm select2-multiple">
+                                    <option value="">Select a Route</option>
+                                    {% for route in route_list %}
+                                        <option value="{{route.id}}"> {{route.route_code}}</option>
+                                    {% endfor %}
+                                </select>
+                                <label>Route <span class="required" aria-required="true"> * </span></label>
+                            </div>
+                            <span id="error_meter_route" class="display-none has-error" style="font-size: 12px;"> Please select Route </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input name="meter_no" type="text" value="89945854" class="form-control" id="meter_no" >
+                                <label >Meter No. <span class="required" aria-required="true"> * </span></label>
+                            </div>
+                            <span id="error_meter_no" class="display-none has-error" style="font-size: 12px;"> Please enter Meter No. </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input name="meter_date" id="meter_date" value="26/09/2017" class="form-control form-control-inline  date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years"
+                                       type="text" class="form-control" readonly>
+                                <label class="control-label">Meter Connection Date <span class="required" aria-required="true"> * </span></label>
+                            </div>
+                            <span id="error_meter_date" class="display-none has-error" style="font-size: 12px;"> Please select Meter Connection Date </span>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input name="meter_digit" type="text" value="5" class="form-control" id="meter_digit" >
+                                <label >Meter Digit <span class="required" aria-required="true"> * </span></label>
+                            </div>
+                            <span id="error_meter_digit" class="display-none has-error" style="font-size: 12px;"> Please enter Meter Digit </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input name="meter_make" type="text" value="L&T" class="form-control" id="meter_make" maxlength="10">
+                                <label >Meter Make <span class="required" aria-required="true"> * </span></label>
+                            </div>
+                            <span id="error_meter_make" class="display-none has-error" style="font-size: 12px;"> Please enter Meter Make </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-md-line-input has-success" style="margin-bottom: 0px;">
+                                <input name="meter_type" type="text" value="Digital" class="form-control" id="meter_type" maxlength="10">
+                                <label >Meter Type <span class="required" aria-required="true"> * </span></label>
+                            </div>
+                            <span id="error_meter_type" class="display-none has-error" style="font-size: 12px;"> Please enter Meter Type </span>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="icon-settings font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Assign Crew </span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-bordered table-hover table-header-fixed"
+                                       id="inspection_table">
+                                    <thead>
+                                    <tr>
+                                        <th> Id</th>
+                                        <th> Name</th>
+                                        <th> Contact</th>
+                                        <th> Email</th>
+                                        <th> Task Assigned</th>
+                                        <th> Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td> 1234</td>
+                                        <td> Jon Snow</td>
+                                        <td> 9045457854</td>
+                                        <td> js@gmail.com</td>
+                                        <td> 1</td>
+                                        <td>
+                                            <input type="radio" name="mr_id">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> 1234</td>
+                                        <td> Jon Snow</td>
+                                        <td> 9045457854</td>
+                                        <td> js@gmail.com</td>
+                                        <td> 2</td>
+                                        <td>
+                                            <input type="radio" name="mr_id">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" class="btn green" id="save-consumer" onclick="save_meter_details()">Assign To Crew</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Model -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner"> 2017 © Bynry Technologies Pvt. Ltd.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN CORE PLUGINS -->
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout/scripts/layout.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout/scripts/demo.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/clockface/js/clockface.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'custom-js/nsc/nsc_landing.js' %}" type="text/javascript"></script>
+
+<script>
+
+    $("#procurement_anchor").prepend('<span class="selected"></span>');
+    $("#procurement_menu").addClass("active open");
+    $("#procurement_span").addClass("open"); 
+    function clear_filter() {
+        $("#filter_div").load(" #filter_div");
+        setTimeout(function () {
+            $('.select2').select2();
+            initTable1();
+            src = "{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}";
+            $('script[src="' + src + '"]').remove();
+            $('<script>').attr('src', src).appendTo('head');
+        }, 1000);
+    }
+	 $('#procurement_table').dataTable({});
+    $('#inspection_table').dataTable({});
+
+
+function change_div(var1){
+
+	if (var1 == 1) {
+		$(".first_tab").addClass("active");
+		$(".second_tab").removeClass("active");
+		$(".third_tab").removeClass("active");
+		$(".fourth_tab").removeClass("active");
+		$(".fifth_tab").removeClass("active");
+		$(".sixth_tab").removeClass("active");
+		$("#request_div").css("display","block")
+		$("#approved_div").css("display","None")
+		$("#PO_div").css("display","None")
+		$("#procure_div").css("display","None")
+		$("#complete_div").css("display","None")
+		$("#reject_div").css("display","None")
+	}
+	else if (var1 == 2) {
+		$(".first_tab").removeClass("active");
+		$(".second_tab").addClass("active");
+		$(".third_tab").removeClass("active");
+		$(".fourth_tab").removeClass("active");
+		$(".fifth_tab").removeClass("active");
+		$(".sixth_tab").removeClass("active");
+		$("#request_div").css("display","None")
+		$("#approved_div").css("display","block")
+		$("#PO_div").css("display","None")
+		$("#procure_div").css("display","None")
+		$("#complete_div").css("display","None")
+		$("#reject_div").css("display","None")		
+	}
+	else if (var1 == 3) {
+		$(".first_tab").removeClass("active");
+		$(".second_tab").removeClass("active");
+		$(".third_tab").addClass("active");
+		$(".fourth_tab").removeClass("active");
+		$(".fifth_tab").removeClass("active");
+		$(".sixth_tab").removeClass("active");
+		$("#request_div").css("display","None")
+		$("#approved_div").css("display","None")
+		$("#PO_div").css("display","block")
+		$("#procure_div").css("display","None")
+		$("#complete_div").css("display","None")
+		$("#reject_div").css("display","None")		
+	}
+	else if (var1 == 4) {
+		$(".first_tab").removeClass("active");
+		$(".second_tab").removeClass("active");
+		$(".third_tab").removeClass("active");
+		$(".fourth_tab").addClass("active");
+		$(".fifth_tab").removeClass("active");
+		$(".sixth_tab").removeClass("active");
+		$("#request_div").css("display","None")
+		$("#approved_div").css("display","None")
+		$("#PO_div").css("display","None")
+		$("#procure_div").css("display","block")
+		$("#complete_div").css("display","None")
+		$("#reject_div").css("display","None")		
+	}
+	else if (var1 == 5) {
+		$(".first_tab").removeClass("active");
+		$(".second_tab").removeClass("active");
+		$(".third_tab").removeClass("active");
+		$(".fourth_tab").removeClass("active");
+		$(".fifth_tab").addClass("active");
+		$(".sixth_tab").removeClass("active");
+		$("#request_div").css("display","None")
+		$("#approved_div").css("display","None")
+		$("#PO_div").css("display","None")
+		$("#procure_div").css("display","None")
+		$("#complete_div").css("display","block")
+		$("#reject_div").css("display","None")		
+	}
+	else if (var1 == 6) {
+		$(".first_tab").removeClass("active");
+		$(".second_tab").removeClass("active");
+		$(".third_tab").removeClass("active");
+		$(".fourth_tab").removeClass("active");
+		$(".fifth_tab").removeClass("active");
+		$(".sixth_tab").addClass("active");
+		$("#request_div").css("display","None")
+		$("#approved_div").css("display","None")
+		$("#PO_div").css("display","None")
+		$("#procure_div").css("display","None")
+		$("#complete_div").css("display","None")
+		$("#reject_div").css("display","block")		
+	}				
+}    
+</script>
+
+</body>
+</html>
