@@ -201,25 +201,6 @@
 
 
                                 <div class="row" id="div1">
-                                		<div class="col-md-12" style="">
-				                                <div class="w3-content w3-display-container">
-				                                <div class="col-md-12">
-					                             
-					                             <form action="#" role="form">
-					                                 <div class="form-group">
-					                                     <div class="fileinput fileinput-new"
-					                                          data-provides="fileinput">
-					                                         <div class="fileinput-new thumbnail"
-					                                              style="width: 100%; min-height: 160px;">
-					                                             <img id="asset_image" src="{% static 'cti.png' %}" style="height: 251px !important;"
-					                                                  alt=""/></div>
-					                                     </div>
-					                                 </div>
-					                             </form>
-					                         </div>
-				                                </div>
-				                            </div>
-				                            <br>
                                     <div class="col-xs-12">
                                         <div class="col-xs-offset-2 col-xs-3">
                                             <div class="form-group form-xs-line-input has-success">
@@ -227,10 +208,9 @@
                                                         class="required"> *</span></label>
                                                 <select id="verify_city" class="form-control input-sm select2-multiple">
                                                     <option value=" "> Select City</option>
-                                                    <!-- {% for city in city_list %}
+                                                    {% for city in city_list %}
                                                     <option value="{{ city.city_id }}"> {{ city.city }}</option>
-                                                    {% endfor %} -->
-                                                    <option selected="" value="1"> Pune</option>
+                                                    {% endfor %}
                                                 </select>
                                                 <span class="error"
                                                       style="color:red; display:none; font-size: 12px;"></span>
@@ -240,7 +220,7 @@
                                             <div class="form-group form-xs-line-input has-success">
                                                 <label for="applicant_aadhar_no">Consumer No <span
                                                         class="required"> *  </span> </label>
-                                                <input type="text" class="form-control" value="SWAPNILK0007" id="verify_consumer_no"
+                                                <input type="text" class="form-control" id="verify_consumer_no"
                                                        name="verify_consumer_no">
                                                 <span id="verify_consumer_no_error" class="error"
                                                       style="color:red; display:none; font-size: 12px;"></span>
@@ -253,12 +233,8 @@
                                                 Verify
                                             </button>
                                         </div>
-                                       
-                                        
-                                        
 
                                     </div>
-                                   
                                 </div>
 
 
@@ -836,7 +812,7 @@
                                           data-provides="fileinput">
                                          <div class="fileinput-new thumbnail"
                                               style="width: 100%; min-height: 160px;">
-                                             <img id="asset_image" src="{% static 'meter.jpg' %}" style="height: 151px !important;"
+                                             <img id="asset_image" src="" style="height: 151px !important;"
                                                   alt=""/></div>
                                      </div>
                                  </div>
@@ -908,7 +884,7 @@
                                           data-provides="fileinput">
                                          <div class="fileinput-new thumbnail"
                                               style="width: 100%; min-height: 250px;">
-                                             <img id="asset_image" src="{% static 'meter.jpg' %}" style="height: 151px !important;"
+                                             <img id="asset_image" src="" style="height: 151px !important;"
                                                   alt=""/></div>
                                      </div>
                                  </div>
@@ -979,20 +955,6 @@
                             </div>
                             <div class="col-md-6" style="">
                                 <div class="w3-content w3-display-container">
-                                <div class="col-md-12">
-	                             <label> Image of Asset</label>
-	                             <form action="#" role="form">
-	                                 <div class="form-group">
-	                                     <div class="fileinput fileinput-new"
-	                                          data-provides="fileinput">
-	                                         <div class="fileinput-new thumbnail"
-	                                              style="width: 100%; min-height: 160px;">
-	                                             <img id="asset_image" src="{% static 'meter.jpg' %}" style="height: 151px !important;"
-	                                                  alt=""/></div>
-	                                     </div>
-	                                 </div>
-	                             </form>
-	                         </div>
                                 </div>
                             </div>
                         </div>

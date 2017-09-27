@@ -945,119 +945,189 @@ def view_bill(request):
         print 'selfserviceapp|views.py|view_bill'
         last_receipt_date = '--'
         last_receipt_amount = '0.00'
-        month_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
-
-        if request.GET.get('meter_reading_id'):
-            meter_obj = MeterReadingDetail.objects.get(id=request.GET.get('meter_reading_id'))
-            consumer_obj = ConsumerDetails.objects.get(consumer_no=meter_obj.consumer_id.consumer_no)
-        else:
-            if request.GET.get('consumer_no'):
-                consumer_no = request.GET.get('consumer_no')
-            else:
-                consumer_no = request.session['consumer_no']
-            consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
-
-            meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj).last()
-
-        meter_object = MeterReadingDetail.objects.filter(consumer_id=consumer_obj)
-        # print meter_object#.index(meter_obj)
-        # print meter_obj#.index(meter_obj)
-        prev_obj = ''
-        for meter in meter_object:
-            if meter == meter_obj:
-                break
-            else:
-                prev_obj = meter
-
-        if prev_obj:
-            try:
-                payment_obj = PaymentDetail.objects.get(meter_reading_id=prev_obj)
-                last_receipt_date = payment_obj.created_on.strftime('%d %b %Y')
-                last_receipt_amount = payment_obj.bill_amount_paid
-            except:
-                pass
-
-        if meter_obj.bill_unit and meter_obj.adjusted_unit:
-            total_reading = int(meter_obj.bill_unit) - int(meter_obj.adjusted_unit)
-        else:
-            total_reading = meter_obj.bill_unit
-
-        total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
-        total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
-        net_bill_amount = total_charges + total_arrears
-
-        if meter_obj.meter_reading_image:
-            image_address = "http://" + get_current_site(request).domain + meter_obj.meter_reading_image.url
-        else:
-            image_address = ''
-
-        consumer_address = str(consumer_obj.address_line_1)
-        if consumer_obj.address_line_2:
-            consumer_address = consumer_address + ', ' + str(consumer_obj.address_line_2)
-        if consumer_obj.city:
-            consumer_address = consumer_address + ', ' + str(consumer_obj.city.city)
-        if consumer_obj.pin_code:
-            consumer_address = consumer_address + ' - ' + str(consumer_obj.pin_code)
+        month_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']                
 
         data = {
-            'con_number': consumer_obj.consumer_no,
-            'con_name': consumer_obj.name,
-            'con_address': consumer_address,
-            'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
-            'route': consumer_obj.route.route_code,
-            'category': consumer_obj.meter_category,
-            'sanct_load': consumer_obj.sanction_load,
-            'conn_load': consumer_obj.connection_load if consumer_obj.connection_load else '0 KW',
-            'pole_no': consumer_obj.pole_no,
-            'dtc': consumer_obj.dtc,
-            'supply_date': consumer_obj.meter_connection_date.strftime('%d %b %Y'),
-            'meter_no': consumer_obj.meter_no,
-            'meter_image': image_address,
-            'current_reading': meter_obj.current_month_reading,
-            'previous_reading': meter_obj.previous_month_reading,
-            'total_reading': total_reading,
-            'bill_date': meter_obj.created_on.strftime('%d %b %Y'),
-            'con_bill_month': month_list[int(meter_obj.bill_month) - 1] + ' ' + str(meter_obj.bill_months_year),
-            'current_amount': str(meter_obj.bill_amount),
-            'prev_due': str(meter_obj.due_amount),
-            'net_amount': str(meter_obj.net_amount),
-            'due_date': meter_obj.due_date.strftime('%d %b %Y'),
-            'prompt_date': meter_obj.prompt_date.strftime('%d %b %Y'),
-            'prompt_amount': str(meter_obj.prompt_amount),
-            'processing_cycle': meter_obj.processing_cycle,
-            'meter_reader': meter_obj.meter_reader,
-            'tariff': meter_obj.tariff,
-            'bill_unit': meter_obj.bill_unit,
-            'adjusted_unit': meter_obj.adjusted_unit,
-            'bill_amount_after_due_date': meter_obj.bill_amount_after_due_date,
-            'fixed_charges': meter_obj.fixed_charges,
-            'energy_charges': meter_obj.energy_charges,
-            'electricity_duty': meter_obj.electricity_duty,
-            'wheeling_charges': meter_obj.wheeling_charges,
-            'fuel_adjustment_charges': meter_obj.fuel_adjustment_charges,
-            'additional_supply_charges': meter_obj.additional_supply_charges,
-            'tax_on_sale': meter_obj.tax_on_sale,
-            'previous_bill_credit': meter_obj.previous_bill_credit,
-            'current_interest': meter_obj.current_interest,
-            'capacitor_penalty': meter_obj.capacitor_penalty,
-            'other_charges': meter_obj.other_charges,
-            'net_arrears': meter_obj.net_arrears,
-            'adjustments_arrears': meter_obj.adjustments_arrears,
-            'interest_arrears': meter_obj.interest_arrears,
-            'bill_period': meter_obj.previous_month_reading_date.strftime(
-                '%d %b %Y') + ' - ' + meter_obj.current_reading_date.strftime('%d %b %Y'),
-            'total_charges': total_charges,
-            'total_arrears': total_arrears,
-            'net_bill_amount': net_bill_amount,
-            'rounded_bill_amount': str(round(net_bill_amount, 0)) + '0',
-            'bill_status': meter_obj.bill_status,
-            'last_receipt_date': last_receipt_date,
-            'last_receipt_amount': last_receipt_amount,
+            'con_number': '31101110256',
+            'con_name': 'Vivek Kurhe',
+            'con_address': '201, Primrose,Right Bhusari Colony, Kothrud',
+            'con_bill_cycle': '21',
+            'route': '2111',
+            'category': '1-LT-SUPPLY',
+            'sanct_load': '330 KW',
+            'conn_load': '0 KW',
+            'pole_no': 101,
+            'dtc': 1,
+            'supply_date': '20/05/2017',
+            'meter_no': '5489658',
+            'meter_image': '',
+            'current_reading': '1589',
+            'previous_reading': '1389',
+            'total_reading': '200',
+            'bill_date': '28/09/2017',
+            'con_bill_month': 201709,
+            'current_amount': '500',
+            'prev_due': '25/08/2017',
+            'net_amount': '490',
+            'due_date': '10/10/2017',
+            'prompt_date': '01/10/2017',
+            'prompt_amount': '480',
+            'processing_cycle': '21',
+            'meter_reader': 'Ganpat Singh',
+            'tariff': '2.25',
+            'bill_unit': '200',
+            'adjusted_unit': '190',
+            'bill_amount_after_due_date': '510',
+            'fixed_charges': '50',
+            'energy_charges': '100',
+            'electricity_duty': '25',
+            'wheeling_charges': '50',
+            'fuel_adjustment_charges': '75',
+            'additional_supply_charges': '15',
+            'tax_on_sale': '40',
+            'previous_bill_credit': '15',
+            'current_interest': '25',
+            'capacitor_penalty': '35',
+            'other_charges': '100',
+            'net_arrears': '25',
+            'adjustments_arrears': '25',
+            'interest_arrears': '50',
+            'bill_period': '30',
+            'total_charges': '55',
+            'total_arrears': '55',
+            'net_bill_amount': '500',
+            'rounded_bill_amount': '500',
+            'bill_status': '',
+            'last_receipt_date': '25/08/2017',
+            'last_receipt_amount': '480',
         }
     except Exception as exe:
         print 'Exception|selfserviceapp|views.py|view_bill', exe
         data = {}
     return render(request, 'self_service/view_bill.html', data)
+
+
+
+# 
+# def view_bill(request):
+#     """To view FAQS page"""
+#     try:
+#         print 'selfserviceapp|views.py|view_bill'
+#         last_receipt_date = '--'
+#         last_receipt_amount = '0.00'
+#         month_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+# 
+#         if request.GET.get('meter_reading_id'):
+#             meter_obj = MeterReadingDetail.objects.get(id=request.GET.get('meter_reading_id'))
+#             consumer_obj = ConsumerDetails.objects.get(consumer_no=meter_obj.consumer_id.consumer_no)
+#         else:
+#             if request.GET.get('consumer_no'):
+#                 consumer_no = request.GET.get('consumer_no')
+#             else:
+#                 consumer_no = request.session['consumer_no']
+#             consumer_obj = ConsumerDetails.objects.get(consumer_no=consumer_no)
+# 
+#             meter_obj = MeterReadingDetail.objects.filter(consumer_id=consumer_obj).last()
+# 
+#         meter_object = MeterReadingDetail.objects.filter(consumer_id=consumer_obj)
+#         # print meter_object#.index(meter_obj)
+#         # print meter_obj#.index(meter_obj)
+#         prev_obj = ''
+#         for meter in meter_object:
+#             if meter == meter_obj:
+#                 break
+#             else:
+#                 prev_obj = meter
+# 
+#         if prev_obj:
+#             try:
+#                 payment_obj = PaymentDetail.objects.get(meter_reading_id=prev_obj)
+#                 last_receipt_date = payment_obj.created_on.strftime('%d %b %Y')
+#                 last_receipt_amount = payment_obj.bill_amount_paid
+#             except:
+#                 pass
+# 
+#         if meter_obj.bill_unit and meter_obj.adjusted_unit:
+#             total_reading = int(meter_obj.bill_unit) - int(meter_obj.adjusted_unit)
+#         else:
+#             total_reading = meter_obj.bill_unit
+# 
+#         total_charges = meter_obj.fixed_charges + meter_obj.energy_charges + meter_obj.electricity_duty + meter_obj.wheeling_charges + meter_obj.fuel_adjustment_charges + meter_obj.additional_supply_charges + meter_obj.tax_on_sale - meter_obj.previous_bill_credit + meter_obj.current_interest + meter_obj.capacitor_penalty + meter_obj.other_charges
+#         total_arrears = meter_obj.net_arrears + meter_obj.adjustments_arrears + meter_obj.interest_arrears
+#         net_bill_amount = total_charges + total_arrears
+# 
+#         if meter_obj.meter_reading_image:
+#             image_address = "http://" + get_current_site(request).domain + meter_obj.meter_reading_image.url
+#         else:
+#             image_address = ''
+# 
+#         consumer_address = str(consumer_obj.address_line_1)
+#         if consumer_obj.address_line_2:
+#             consumer_address = consumer_address + ', ' + str(consumer_obj.address_line_2)
+#         if consumer_obj.city:
+#             consumer_address = consumer_address + ', ' + str(consumer_obj.city.city)
+#         if consumer_obj.pin_code:
+#             consumer_address = consumer_address + ' - ' + str(consumer_obj.pin_code)
+# 
+#         data = {
+#             'con_number': consumer_obj.consumer_no,
+#             'con_name': consumer_obj.name,
+#             'con_address': consumer_address,
+#             'con_bill_cycle': consumer_obj.bill_cycle.bill_cycle_code,
+#             'route': consumer_obj.route.route_code,
+#             'category': consumer_obj.meter_category,
+#             'sanct_load': consumer_obj.sanction_load,
+#             'conn_load': consumer_obj.connection_load if consumer_obj.connection_load else '0 KW',
+#             'pole_no': consumer_obj.pole_no,
+#             'dtc': consumer_obj.dtc,
+#             'supply_date': consumer_obj.meter_connection_date.strftime('%d %b %Y'),
+#             'meter_no': consumer_obj.meter_no,
+#             'meter_image': image_address,
+#             'current_reading': meter_obj.current_month_reading,
+#             'previous_reading': meter_obj.previous_month_reading,
+#             'total_reading': total_reading,
+#             'bill_date': meter_obj.created_on.strftime('%d %b %Y'),
+#             'con_bill_month': month_list[int(meter_obj.bill_month) - 1] + ' ' + str(meter_obj.bill_months_year),
+#             'current_amount': str(meter_obj.bill_amount),
+#             'prev_due': str(meter_obj.due_amount),
+#             'net_amount': str(meter_obj.net_amount),
+#             'due_date': meter_obj.due_date.strftime('%d %b %Y'),
+#             'prompt_date': meter_obj.prompt_date.strftime('%d %b %Y'),
+#             'prompt_amount': str(meter_obj.prompt_amount),
+#             'processing_cycle': meter_obj.processing_cycle,
+#             'meter_reader': meter_obj.meter_reader,
+#             'tariff': meter_obj.tariff,
+#             'bill_unit': meter_obj.bill_unit,
+#             'adjusted_unit': meter_obj.adjusted_unit,
+#             'bill_amount_after_due_date': meter_obj.bill_amount_after_due_date,
+#             'fixed_charges': meter_obj.fixed_charges,
+#             'energy_charges': meter_obj.energy_charges,
+#             'electricity_duty': meter_obj.electricity_duty,
+#             'wheeling_charges': meter_obj.wheeling_charges,
+#             'fuel_adjustment_charges': meter_obj.fuel_adjustment_charges,
+#             'additional_supply_charges': meter_obj.additional_supply_charges,
+#             'tax_on_sale': meter_obj.tax_on_sale,
+#             'previous_bill_credit': meter_obj.previous_bill_credit,
+#             'current_interest': meter_obj.current_interest,
+#             'capacitor_penalty': meter_obj.capacitor_penalty,
+#             'other_charges': meter_obj.other_charges,
+#             'net_arrears': meter_obj.net_arrears,
+#             'adjustments_arrears': meter_obj.adjustments_arrears,
+#             'interest_arrears': meter_obj.interest_arrears,
+#             'bill_period': meter_obj.previous_month_reading_date.strftime(
+#                 '%d %b %Y') + ' - ' + meter_obj.current_reading_date.strftime('%d %b %Y'),
+#             'total_charges': total_charges,
+#             'total_arrears': total_arrears,
+#             'net_bill_amount': net_bill_amount,
+#             'rounded_bill_amount': str(round(net_bill_amount, 0)) + '0',
+#             'bill_status': meter_obj.bill_status,
+#             'last_receipt_date': last_receipt_date,
+#             'last_receipt_amount': last_receipt_amount,
+#         }
+#     except Exception as exe:
+#         print 'Exception|selfserviceapp|views.py|view_bill', exe
+#         data = {}
+#     return render(request, 'self_service/view_bill.html', data)
 
 
 @csrf_exempt

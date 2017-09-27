@@ -55,7 +55,7 @@
                 {"data": "consumer_name"},
                 {"data": "service_source"},
                 {"data": "service_status"},
-                {"data": "<a class="icon-paper-plane" data-toggle="modal" data-target="#assign_job"></a>"},
+                {"data": "service_status1"},
             ],
 
             "order": [
